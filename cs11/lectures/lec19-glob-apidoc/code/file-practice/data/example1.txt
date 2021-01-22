@@ -1,5 +1,0 @@
-This is line 1 in example1.txt
-This is line 2 in example1.txt
-This is line 3 in example1.txt
-This is line 4 in example1.txt
-This is line 5 in example1.txt
