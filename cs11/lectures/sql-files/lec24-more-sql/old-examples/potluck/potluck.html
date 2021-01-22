@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>Potluck organizer</title>
+       <link href="style.css" rel="stylesheet" />
+       <script  src="potluck.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Potluck Organizer</h1>
+        </header>
+        <main>
+            <section>
+              <p>Name: <input id="name" type="text" size="50"></input></p>
+              <p>
+                Dish: <input id="dish" type="text"></input>
+                Serves: <input id="serves" type="number" min=0></input></p>
+              <p>Serving temperature: <input type="radio" name="temperature" value="hot">hot</input>
+                <input type="radio" name="temperature" value="cold">cold</input>
+                <input type="radio" name="temperature" value="room" checked>room temp</input>
+              </p>
+              <p>Comments: <input id="comment" type="text" size="50"></input></p>
+              <p>
+              <button id="add-item">Add Item</button>
+            </section>
+            <h2>Response</h2>
+            <div id="response"></div>
+        </main>
+    </body>
+</html>

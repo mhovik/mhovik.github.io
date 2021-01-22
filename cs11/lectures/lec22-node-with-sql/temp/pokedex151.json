@@ -1,0 +1,5189 @@
+{
+    "Abra": {
+        "description": "Sleeps 18 hours a day. If it senses danger, it will teleport itself to safety even as it sleeps.",
+        "id": "63",
+        "moves": [
+            {
+                "name": "Energy Ball",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "grass"
+            },
+            {
+                "name": "Thief",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Psychic",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "psychic"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160,
+            "attack": 40,
+            "defense": 31,
+            "sp. atk": 193,
+            "sp. def": 103
+        },
+        "stage": 1,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Aerodactyl": {
+        "description": "This vicious Pokemon is said to have flown in ancient skies while shrieking high-pitched cries.",
+        "id": "142",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Ice Fang",
+                "accuracy": ".95",
+                "dp": 65,
+                "type": "ice"
+            },
+            {
+                "name": "Wing Attack",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "flying"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 270,
+            "attack": 193,
+            "defense": 121,
+            "sp. atk": 139,
+            "sp. def": 238
+        },
+        "stage": 1,
+        "type": "flying",
+        "weakness": "water"
+    },
+    "Alakazam": {
+        "description": "Its brain can outperform a supercomputer. Its intelligence quotient is said to be 5,000.",
+        "id": "65",
+        "moves": [
+            {
+                "name": "Psychic",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "psychic"
+            },
+            {
+                "name": "Shadow Ball",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "ghost"
+            },
+            {
+                "name": "Kinesis",
+                "accuracy": "0.8",
+                "type": "psychic",
+                "buff": "accuracy",
+                "amt": -1
+            },
+            {
+                "name": "Focus Blast",
+                "accuracy": "0.7",
+                "dp": 120,
+                "type": "fighting"
+            }
+        ],
+        "stats": {
+            "hp": 220,
+            "attack": 94,
+            "defense": 85,
+            "sp. atk": 247,
+            "sp. def": 175
+        },
+        "stage": 3,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Arbok": {
+        "description": "It is rumored that the ferocious warning markings on its belly differ from area to area.",
+        "id": "24",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Screech",
+                "accuracy": "0.85",
+                "buff": "accuracy",
+                "amt": -2,
+                "type": "normal"
+            },
+            {
+                "name": "Acid",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "poison"
+            },
+            {
+                "name": "Thunder Fang",
+                "accuracy": "0.95",
+                "dp": 65,
+                "type": "electric"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 175,
+            "defense": 128,
+            "sp. atk": 121,
+            "sp. def": 146
+        },
+        "stage": 2,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Arcanine": {
+        "description": "This legendary Chinese Pokemon is considered magnificent. Many people are enchanted by its grand mane.",
+        "id": "59",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Fire Fang",
+                "accuracy": "0.95",
+                "dp": 65,
+                "type": "fire"
+            },
+            {
+                "name": "Extreme Speed",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "normal"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 290,
+            "attack": 202,
+            "defense": 148,
+            "sp. atk": 184,
+            "sp. def": 148
+        },
+        "stage": 2,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Articuno": {
+        "description": "A legendary bird Pokemon that is said to appear to doomed people who are lost in icy mountains.",
+        "id": "144",
+        "moves": [
+            {
+                "name": "Ancient Power",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "rock"
+            },
+            {
+                "name": "Ice Beam",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "ice"
+            },
+            {
+                "name": "Hurricane",
+                "accuracy": "0.7",
+                "dp": 110,
+                "type": "flying"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 290,
+            "attack": 157,
+            "defense": 184,
+            "sp. atk": 175,
+            "sp. def": 229
+        },
+        "stage": 1,
+        "type": "ice",
+        "weakness": "rock"
+    },
+    "Beedrill": {
+        "description": "Flies at high speed and attacks using its large venomous stingers on its forelegs and tail.",
+        "id": "15",
+        "moves": [
+            {
+                "name": "Twineedle",
+                "accuracy": 1,
+                "dp": 25,
+                "type": "bug"
+            },
+            {
+                "name": "Pursuit",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "dark"
+            },
+            {
+                "name": "Venoshock",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "poison"
+            },
+            {
+                "name": "Swords Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 2,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 240,
+            "attack": 166,
+            "defense": 76,
+            "sp. atk": 85,
+            "sp. def": 148
+        },
+        "stage": 3,
+        "type": "flying",
+        "weakness": "fire"
+    },
+    "Bellsprout": {
+        "description": "A carnivorous Pokemon that traps and eats bugs. It uses its root feet to soak up needed moisture.",
+        "id": "69",
+        "moves": [
+            {
+                "name": "Vine Whip",
+                "accuracy": 1,
+                "dp": 45,
+                "type": "grass"
+            },
+            {
+                "name": "Acid",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "poison"
+            },
+            {
+                "name": "Growth",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "grass"
+            },
+            {
+                "name": "Wrap",
+                "accuracy": "0.9",
+                "dp": 15,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 210,
+            "attack": 139,
+            "defense": 67,
+            "sp. atk": 130,
+            "sp. def": 58
+        },
+        "stage": 1,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Blastoise": {
+        "description": "The rocket cannons on its shell fire jets of water capable of punching holes through thick steel.",
+        "id": "9",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Hydro Pump",
+                "accuracy": "0.8",
+                "dp": 110,
+                "type": "water"
+            },
+            {
+                "name": "Withdraw",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "water"
+            },
+            {
+                "name": "Flash Cannon",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "steel"
+            }
+        ],
+        "stats": {
+            "hp": 268,
+            "attack": 153,
+            "defense": 184,
+            "sp. atk": 157,
+            "sp. def": 193
+        },
+        "stage": 3,
+        "type": "water",
+        "weakness": "grass"
+    },
+    "Bulbasaur": {
+        "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokemon.",
+        "id": 1,
+        "moves": [
+            {
+                "name": "Vine Whip",
+                "accuracy": 1,
+                "dp": 45,
+                "type": "grass"
+            },
+            {
+                "name": "Amnesia",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Magical Leaf",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "grass"
+            }
+        ],
+        "stats": {
+            "hp": 200,
+            "attack": 92,
+            "defense": 92,
+            "sp. atk": 121,
+            "sp. def": 121
+        },
+        "stage": 1,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Butterfree": {
+        "description": "In battle, it flaps its wings at high speed to release highly toxic dust into the air.",
+        "id": "12",
+        "moves": [
+            {
+                "name": "Psybeam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "psychic"
+            },
+            {
+                "name": "Gust",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "flying"
+            },
+            {
+                "name": "Silver Wind",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "bug"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 85,
+            "defense": 94,
+            "sp. atk": 166,
+            "sp. def": 148
+        },
+        "stage": 3,
+        "type": "flying",
+        "weakness": "fire"
+    },
+    "Caterpie": {
+        "description": "Its short feet are tipped with suction pads that enable it to tirelessly climb slopes and walls.",
+        "id": "10",
+        "moves": [
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Bug Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "bug"
+            }
+        ],
+        "stats": {
+            "hp": 200,
+            "attack": 58,
+            "defense": 67,
+            "sp. atk": 40,
+            "sp. def": 40
+        },
+        "stage": 1,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Chansey": {
+        "description": "Being few in number and difficult to capture, it is said to bring happiness to the Trainer who catches it.",
+        "id": "113",
+        "moves": [
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Defense Curl",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Pound",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Egg Bomb",
+                "accuracy": "0.75",
+                "dp": 100,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 610,
+            "attack": 13,
+            "defense": 13,
+            "sp. atk": 67,
+            "sp. def": 193
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Charizard": {
+        "description": "Spits fire that is hot enough to melt boulders. Known to cause forest fires unintentionally.",
+        "id": "6",
+        "moves": [
+            {
+                "name": "Flare Blitz",
+                "accuracy": 1,
+                "dp": 120,
+                "type": "fire"
+            },
+            {
+                "name": "Smokescreen",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Slash",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            },
+            {
+                "name": "Air Slash",
+                "accuracy": "0.95",
+                "dp": 75,
+                "type": "flying"
+            }
+        ],
+        "stats": {
+            "hp": 266,
+            "attack": 155,
+            "defense": 144,
+            "sp. atk": 200,
+            "sp. def": 157
+        },
+        "stage": 3,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Charmander": {
+        "description": "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
+        "id": "4",
+        "moves": [
+            {
+                "name": "Ember",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "fire"
+            },
+            {
+                "name": "Dragon Rage",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "dragon"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 188,
+            "attack": 98,
+            "defense": 81,
+            "sp. atk": 112,
+            "sp. def": 94
+        },
+        "stage": 1,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Charmeleon": {
+        "description": "When it swings its burning tail, it elevates the temperature to unbearably high levels.",
+        "id": "5",
+        "moves": [
+            {
+                "name": "Dragon Rage",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "dragon"
+            },
+            {
+                "name": "Flame Burst",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "fire"
+            },
+            {
+                "name": "Smokescreen",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Slash",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 226,
+            "attack": 119,
+            "defense": 108,
+            "sp. atk": 148,
+            "sp. def": 121
+        },
+        "stage": 2,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Clefable": {
+        "description": "With its acute hearing, it can pick up sounds from far away. It usually hides in quiet places.",
+        "id": "36",
+        "moves": [
+            {
+                "name": "Minimize",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -2,
+                "type": "normal"
+            },
+            {
+                "name": "Pound",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Disarming Voice",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "fairy"
+            },
+            {
+                "name": "Covet",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 300,
+            "attack": 130,
+            "defense": 135,
+            "sp. atk": 175,
+            "sp. def": 166
+        },
+        "stage": 2,
+        "type": "fairy",
+        "weakness": "poison"
+    },
+    "Clefairy": {
+        "description": "The moonlight that it stores in the wings on its back apparently gives it the ability to float in midair.",
+        "id": "35",
+        "moves": [
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Pound",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Wakeup Slap",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "fighting"
+            },
+            {
+                "name": "Disarming Voice",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "fairy"
+            }
+        ],
+        "stats": {
+            "hp": 250,
+            "attack": 85,
+            "defense": 90,
+            "sp. atk": 112,
+            "sp. def": 121
+        },
+        "stage": 1,
+        "type": "fairy",
+        "weakness": "poison"
+    },
+    "Cloyster": {
+        "description": "Even a missile can't break the spikes it uses to stab opponents. They're even harder than its shell.",
+        "id": "91",
+        "moves": [
+            {
+                "name": "Hydro Pump",
+                "accuracy": "0.8",
+                "dp": 110,
+                "type": "water"
+            },
+            {
+                "name": "Aurora Beam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "ice"
+            },
+            {
+                "name": "Withdraw",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "water"
+            },
+            {
+                "name": "Poison Jab",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "poison"
+            }
+        ],
+        "stats": {
+            "hp": 210,
+            "attack": 175,
+            "defense": 328,
+            "sp. atk": 157,
+            "sp. def": 85
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Cubone": {
+      "description": "Tal's favorite Pokemon! Cubone's both cute and completely hardcore.",
+        "id": "104",
+        "moves": [
+            {
+                "name": "Bone Club",
+                "accuracy": "0.85",
+                "dp": 65,
+                "type": "ground"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Headbutt",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            },
+            {
+                "name": "Stomping Tantrum",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 210,
+            "attack": 94,
+            "defense": 175,
+            "sp. atk": 76,
+            "sp. def": 94
+        },
+        "stage": 1,
+        "type": "ground",
+        "weakness": "water"
+    },
+    "Dewgong": {
+        "description": "Its entire body is a snowy-white. Unharmed by even intense cold, it swims powerfully in icy waters.",
+        "id": "87",
+        "moves": [
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Headbutt",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            },
+            {
+                "name": "Aqua Tail",
+                "accuracy": "0.9",
+                "dp": 90,
+                "type": "water"
+            },
+            {
+                "name": "Ice Beam",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "ice"
+            }
+        ],
+        "stats": {
+            "hp": 290,
+            "attack": 130,
+            "defense": 148,
+            "sp. atk": 130,
+            "sp. def": 175
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Diglett": {
+        "description": "It burrows through the ground at a shallow depth. It leaves raised earth in its wake, making it easy to spot.",
+        "id": "50",
+        "moves": [
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Mud Bomb",
+                "accuracy": "0.85",
+                "dp": 65,
+                "type": "ground"
+            },
+            {
+                "name": "Astonish",
+                "accuracy": "0.3",
+                "dp": 30,
+                "type": "ghost"
+            }
+        ],
+        "stats": {
+            "hp": 130,
+            "attack": 103,
+            "defense": 49,
+            "sp. atk": 67,
+            "sp. def": 85
+        },
+        "stage": 1,
+        "type": "ground",
+        "weakness": "water"
+    },
+    "Ditto": {
+        "description": "Duncan's favorite Pokemon (he has an awesome painting of Ditto on his wall). It can transform into anything. When it sleeps, it changes into a stone to avoid being attacked.",
+        "id": "132",
+        "moves": [
+            {
+                "name": "Transform",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 206,
+            "attack": 90,
+            "defense": 90,
+            "sp. atk": 90,
+            "sp. def": 90
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Dodrio": {
+        "description": "Uses its three brains to execute complex plans. While two heads sleep, one head stays awake.",
+        "id": "85",
+        "moves": [
+            {
+                "name": "Swords Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 2,
+                "type": "normal"
+            },
+            {
+                "name": "Drill Peck",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "flying"
+            },
+            {
+                "name": "Tri Attack",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "normal"
+            },
+            {
+                "name": "Pursuit",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "dark"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 202,
+            "defense": 130,
+            "sp. atk": 112,
+            "sp. def": 112
+        },
+        "stage": 2,
+        "type": "flying",
+        "weakness": "electric"
+    },
+    "Doduo": {
+        "description": "It races through grassy plains with powerful strides, leaving footprints up to four inches deep.",
+        "id": "84",
+        "moves": [
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Peck",
+                "accuracy": 1,
+                "dp": 35,
+                "type": "flying"
+            },
+            {
+                "name": "Pursuit",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "dark"
+            }
+        ],
+        "stats": {
+            "hp": 180,
+            "attack": 157,
+            "defense": 85,
+            "sp. atk": 67,
+            "sp. def": 67
+        },
+        "stage": 1,
+        "type": "flying",
+        "weakness": "electric"
+    },
+    "Dragonair": {
+        "description": "They say that if it emits an aura from its whole body, the weather will begin to change instantly.",
+        "id": "148",
+        "moves": [
+            {
+                "name": "Dragon Rage",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "dragon"
+            },
+            {
+                "name": "Dragon Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "dragon"
+            },
+            {
+                "name": "Slam",
+                "accuracy": "0.75",
+                "dp": 80,
+                "type": "normal"
+            },
+            {
+                "name": "Aqua Tail",
+                "accuracy": "0.9",
+                "dp": 90,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 232,
+            "attack": 155,
+            "defense": 121,
+            "sp. atk": 130,
+            "sp. def": 130
+        },
+        "stage": 2,
+        "type": "dragon",
+        "weakness": "fairy"
+    },
+    "Dragonite": {
+        "description": "It is said to make its home somewhere in the sea. It guides crews of shipwrecks to shore.",
+        "id": "149",
+        "moves": [
+            {
+                "name": "Dragon Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "dragon"
+            },
+            {
+                "name": "Thunder Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "electric"
+            },
+            {
+                "name": "Outrage",
+                "accuracy": 1,
+                "dp": 120,
+                "type": "dragon"
+            },
+            {
+                "name": "Hurricane",
+                "accuracy": "0.7",
+                "dp": 110,
+                "type": "flying"
+            }
+        ],
+        "stats": {
+            "hp": 292,
+            "attack": 245,
+            "defense": 175,
+            "sp. atk": 184,
+            "sp. def": 184
+        },
+        "stage": 3,
+        "type": "dragon",
+        "weakness": "fairy"
+    },
+    "Dratini": {
+        "description": "Long considered a mythical Pokemon until recently when a small colony was found living underwater.",
+        "id": "147",
+        "moves": [
+            {
+                "name": "Water Gun",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "water"
+            },
+            {
+                "name": "Dragon Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "dragon"
+            },
+            {
+                "name": "Dragon Rage",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "dragon"
+            },
+            {
+                "name": "Slam",
+                "accuracy": "0.75",
+                "dp": 80,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 192,
+            "attack": 119,
+            "defense": 85,
+            "sp. atk": 94,
+            "sp. def": 94
+        },
+        "stage": 1,
+        "type": "dragon",
+        "weakness": "fairy"
+    },
+    "Drowzee": {
+        "description": "Puts enemies to sleep then eats their dreams. Occasionally gets sick from eating bad dreams.",
+        "id": "96",
+        "moves": [
+            {
+                "name": "Headbutt",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            },
+            {
+                "name": "Meditate",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Ice Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "ice"
+            },
+            {
+                "name": "Psybeam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 90,
+            "defense": 85,
+            "sp. atk": 81,
+            "sp. def": 166
+        },
+        "stage": 1,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Dugtrio": {
+        "description": "A team of triplets that can burrow over 60 MPH. Due to this, some people think it's an earthquake.",
+        "id": "51",
+        "moves": [
+            {
+                "name": "Earthquake",
+                "accuracy": 1,
+                "dp": 100,
+                "type": "ground"
+            },
+            {
+                "name": "Night Slash",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "dark"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Tri Attack",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 180,
+            "attack": 184,
+            "defense": 94,
+            "sp. atk": 94,
+            "sp. def": 130
+        },
+        "stage": 2,
+        "type": "ground",
+        "weakness": "water"
+    },
+    "Eevee": {
+        "description": "Sven's favorite Pokemon! Due to its unstable genetic makeup, this special Pokemon conceals many different possible evolutions.",
+        "id": "133",
+        "moves": [
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Swift",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Shadow Ball",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "ghost"
+            }
+        ],
+        "stats": {
+            "hp": 220,
+            "attack": 103,
+            "defense": 94,
+            "sp. atk": 85,
+            "sp. def": 121
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Ekans": {
+        "description": "It always hides in grass. When first born, it has no poison, so its bite is painful, but harmless.",
+        "id": "23",
+        "moves": [
+            {
+                "name": "Acid",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "poison"
+            },
+            {
+                "name": "Mud Bomb",
+                "accuracy": "0.85",
+                "dp": 65,
+                "type": "ground"
+            },
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 180,
+            "attack": 112,
+            "defense": 83,
+            "sp. atk": 76,
+            "sp. def": 101
+        },
+        "stage": 1,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Electabuzz": {
+        "description": "Electricity runs across the surface of its body. In darkness, its entire body glows a whitish-blue.",
+        "id": "125",
+        "moves": [
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Thunder Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "electric"
+            },
+            {
+                "name": "Swift",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Karate Chop",
+                "accuracy": 1,
+                "dp": 50,
+                "type": "fighting"
+            }
+        ],
+        "stats": {
+            "hp": 240,
+            "attack": 153,
+            "defense": 107,
+            "sp. atk": 175,
+            "sp. def": 157
+        },
+        "stage": 1,
+        "type": "electric",
+        "weakness": "ground"
+    },
+    "Electrode": {
+        "description": "It is dangerous. If it has too much electricity and has nothing to do, it amuses itself by exploding.",
+        "id": "101",
+        "moves": [
+            {
+                "name": "Screech",
+                "accuracy": "0.85",
+                "buff": "defense",
+                "amt": -2,
+                "type": "normal"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "electric"
+            },
+            {
+                "name": "Thunder",
+                "accuracy": "0.7",
+                "dp": 120,
+                "type": "electric"
+            },
+            {
+                "name": "Thief",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 94,
+            "defense": 130,
+            "sp. atk": 148,
+            "sp. def": 148
+        },
+        "stage": 2,
+        "type": "electric",
+        "weakness": "ground"
+    },
+    "Exeggcute": {
+        "description": "Often mistaken for eggs. When disturbed, they quickly gather and attack in swarms.",
+        "id": 102,
+        "moves": [
+            {
+                "name": "Uproar",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "normal"
+            },
+            {
+                "name": "Bullet Seed",
+                "accuracy": 1,
+                "dp": 25,
+                "type": "grass"
+            },
+            {
+                "name": "Hidden Power",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 76,
+            "defense": 148,
+            "sp. atk": 112,
+            "sp. def": 85
+        },
+        "stage": 1,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Exeggutor": {
+        "description": "Its cries are very noisy. This is because each of the 3 heads thinks about whatever it likes.",
+        "id": "103",
+        "moves": [
+            {
+                "name": "Barrage",
+                "accuracy": "0.85",
+                "dp": 15,
+                "type": "normal"
+            },
+            {
+                "name": "Stomp",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "normal"
+            },
+            {
+                "name": "Seed Bomb",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "grass"
+            },
+            {
+                "name": "Confide",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 300,
+            "attack": 175,
+            "defense": 157,
+            "sp. atk": 229,
+            "sp. def": 139
+        },
+        "stage": 2,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Farfetch'd": {
+        "description": "The sprig of green onions it holds is its weapon. It is used much like a metal sword.",
+        "id": "83",
+        "moves": [
+            {
+                "name": "Swords Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 2,
+                "type": "normal"
+            },
+            {
+                "name": "Slash",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            },
+            {
+                "name": "Air Cutter",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "flying"
+            },
+            {
+                "name": "Fury Cutter",
+                "accuracy": "0.95",
+                "dp": 40,
+                "type": "bug"
+            }
+        ],
+        "stats": {
+            "hp": 214,
+            "attack": 166,
+            "defense": 103,
+            "sp. atk": 108,
+            "sp. def": 116
+        },
+        "stage": 1,
+        "type": "flying",
+        "weakness": "electric"
+    },
+    "Fearow": {
+        "description": "With its huge and magnificent wings, it can keep aloft without ever having to land for rest.",
+        "id": "22",
+        "moves": [
+            {
+                "name": "Drill Peck",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "flying"
+            },
+            {
+                "name": "Drill Run",
+                "accuracy": "0.95",
+                "dp": 80,
+                "type": "ground"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Assurance",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            }
+        ],
+        "stats": {
+            "hp": 240,
+            "attack": 166,
+            "defense": 121,
+            "sp. atk": 114,
+            "sp. def": 114
+        },
+        "stage": 2,
+        "type": "flying",
+        "weakness": "electric"
+    },
+    "Flareon": {
+        "description": "It fluffs out its fur collar to cool down its body temperature, which can reach 1,650 degrees Fahrenheit.",
+        "id": "136",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Ember",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "fire"
+            },
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Sand Attack",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 240,
+            "attack": 238,
+            "defense": 112,
+            "sp. atk": 175,
+            "sp. def": 202
+        },
+        "stage": 2,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Gastly": {
+        "description": "With its gas-like body, it can sneak into any place it desires. However, it can be blown away by wind.",
+        "id": "92",
+        "moves": [
+            {
+                "name": "Payback",
+                "accuracy": 1,
+                "dp": 50,
+                "type": "dark"
+            },
+            {
+                "name": "Lick",
+                "accuracy": 1,
+                "dp": 30,
+                "type": "ghost"
+            },
+            {
+                "name": "Thief",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 170,
+            "attack": 67,
+            "defense": 58,
+            "sp. atk": 184,
+            "sp. def": 67
+        },
+        "stage": 1,
+        "type": "ghost",
+        "weakness": "dark"
+    },
+    "Gengar": {
+        "description": "Chadi's favorite Pokemon! It is said to emerge from darkness to steal the lives of those who become lost in mountains.",
+        "id": "94",
+        "moves": [
+            {
+                "name": "Dark Pulse",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "dark"
+            },
+            {
+                "name": "Shadow Ball",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "ghost"
+            },
+            {
+                "name": "Venoshock",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 121,
+            "defense": 112,
+            "sp. atk": 238,
+            "sp. def": 139
+        },
+        "stage": 3,
+        "type": "ghost",
+        "weakness": "dark"
+    },
+    "Geodude": {
+        "description": "Found in fields and mountains. Mistaking them for boulders, people often step or trip on them.",
+        "id": "74",
+        "moves": [
+            {
+                "name": "Rock Throw",
+                "accuracy": "0.9",
+                "dp": 50,
+                "type": "rock"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Bulldoze",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "ground"
+            },
+            {
+                "name": "Defense Curl",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 190,
+            "attack": 148,
+            "defense": 184,
+            "sp. atk": 58,
+            "sp. def": 58
+        },
+        "stage": 1,
+        "type": "rock",
+        "weakness": "water"
+    },
+    "Gloom": {
+        "description": "Smells incredibly foul! However, around 1 out of 1,000 people enjoy sniffing its nose-bending stink.",
+        "id": "44",
+        "moves": [
+            {
+                "name": "Acid",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "poison"
+            },
+            {
+                "name": "Razor Leaf",
+                "accuracy": "0.95",
+                "dp": 55,
+                "type": "grass"
+            },
+            {
+                "name": "Hidden Power",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Growth",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "grass"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 121,
+            "defense": 130,
+            "sp. atk": 157,
+            "sp. def": 139
+        },
+        "stage": 2,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Golbat": {
+        "description": "It attacks in a stealthy manner, without warning. Its sharp fangs are used to bite and suck blood.",
+        "id": "42",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Wing Attack",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "flying"
+            },
+            {
+                "name": "Swift",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Screech",
+                "accuracy": "0.85",
+                "buff": "defense",
+                "amt": -2,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 260,
+            "attack": 148,
+            "defense": 130,
+            "sp. atk": 121,
+            "sp. def": 139
+        },
+        "stage": 2,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Goldeen": {
+        "description": "A strong swimmer, it is capable of swimming nonstop up fast streams at a steady speed of five knots.",
+        "id": "118",
+        "moves": [
+            {
+                "name": "Peck",
+                "accuracy": 1,
+                "dp": 35,
+                "type": "flying"
+            },
+            {
+                "name": "Horn Attack",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "normal"
+            },
+            {
+                "name": "Water Pulse",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "water"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 200,
+            "attack": 125,
+            "defense": 112,
+            "sp. atk": 67,
+            "sp. def": 94
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Golduck": {
+        "description": "Often seen swimming elegantly by lake shores. It is often mistaken for the Japanese monster, Kappa.",
+        "id": "55",
+        "moves": [
+            {
+                "name": "Amnesia",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Zen Headbutt",
+                "accuracy": "0.9",
+                "dp": 90,
+                "type": "psychic"
+            },
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Water Pulse",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 270,
+            "attack": 152,
+            "defense": 144,
+            "sp. atk": 175,
+            "sp. def": 148
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Golem": {
+        "description": "It is enclosed in a hard shell that is as rugged as slabs of rock. It sheds skin once a year to grow larger.",
+        "id": "76",
+        "moves": [
+            {
+                "name": "Earthquake",
+                "accuracy": 1,
+                "dp": 100,
+                "type": "ground"
+            },
+            {
+                "name": "Rock Throw",
+                "accuracy": "0.9",
+                "dp": 50,
+                "type": "rock"
+            },
+            {
+                "name": "Steamroller",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "bug"
+            },
+            {
+                "name": "Defense Curl",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 270,
+            "attack": 220,
+            "defense": 238,
+            "sp. atk": 103,
+            "sp. def": 121
+        },
+        "stage": 3,
+        "type": "rock",
+        "weakness": "water"
+    },
+    "Graveler": {
+        "description": "Rolls down slopes to move. It rolls over any obstacle without slowing or changing its direction.",
+        "id": "75",
+        "moves": [
+            {
+                "name": "Smack Down",
+                "accuracy": 1,
+                "dp": 50,
+                "type": "rock"
+            },
+            {
+                "name": "Bulldoze",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "ground"
+            },
+            {
+                "name": "Hidden Power",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Defense Curl",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 220,
+            "attack": 175,
+            "defense": 211,
+            "sp. atk": 85,
+            "sp. def": 85
+        },
+        "stage": 2,
+        "type": "rock",
+        "weakness": "water"
+    },
+    "Grimer": {
+        "description": "Appears in filthy areas. Thrives by sucking up polluted sludge that is pumped out of factories.",
+        "id": "88",
+        "moves": [
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Sludge",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            },
+            {
+                "name": "Pound",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Mud Bomb",
+                "accuracy": "0.85",
+                "dp": 65,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 270,
+            "attack": 148,
+            "defense": 94,
+            "sp. atk": 76,
+            "sp. def": 94
+        },
+        "stage": 1,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Growlithe": {
+        "description": "Conner's favorite Pokemon ('It's adorable'). It has a brave and trustworthy nature and fearlessly stands up to bigger and stronger foes.",
+        "id": "58",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Fire Fang",
+                "accuracy": "0.95",
+                "dp": 65,
+                "type": "fire"
+            },
+            {
+                "name": "Iron Tail",
+                "accuracy": "0.75",
+                "dp": 100,
+                "type": "steel"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 220,
+            "attack": 130,
+            "defense": 85,
+            "sp. atk": 130,
+            "sp. def": 94
+        },
+        "stage": 1,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Gyarados": {
+        "description": "It appears whenever there is world conflict, burning down any place it travels through.",
+        "id": "130",
+        "moves": [
+            {
+                "name": "Crunch",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "dark"
+            },
+            {
+                "name": "Hydro Pump",
+                "accuracy": "0.8",
+                "dp": 110,
+                "type": "water"
+            },
+            {
+                "name": "Dragon Tail",
+                "accuracy": "0.9",
+                "dp": 60,
+                "type": "dragon"
+            },
+            {
+                "name": "Dragon Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "dragon"
+            }
+        ],
+        "stats": {
+            "hp": 300,
+            "attack": 229,
+            "defense": 146,
+            "sp. atk": 112,
+            "sp. def": 184
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Haunter": {
+        "description": "It hides in the dark, planning to take the life of the next living thing that wanders close by.",
+        "id": "93",
+        "moves": [
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Shadow Punch",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "ghost"
+            },
+            {
+                "name": "Thief",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Venoshock",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            }
+        ],
+        "stats": {
+            "hp": 200,
+            "attack": 94,
+            "defense": 85,
+            "sp. atk": 211,
+            "sp. def": 103
+        },
+        "stage": 2,
+        "type": "ghost",
+        "weakness": "dark"
+    },
+    "Hitmonchan": {
+        "description": "Its punches slice the air. They are launched at such high speed, even a slight graze could cause a burn.",
+        "id": "107",
+        "moves": [
+            {
+                "name": "Fire Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "fire"
+            },
+            {
+                "name": "Mach Punch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "fighting"
+            },
+            {
+                "name": "Ice Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "ice"
+            },
+            {
+                "name": "Work Up",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 210,
+            "attack": 193,
+            "defense": 146,
+            "sp. atk": 67,
+            "sp. def": 202
+        },
+        "stage": 1,
+        "type": "fighting",
+        "weakness": "flying"
+    },
+    "Hitmonlee": {
+        "description": "If it starts kicking repeatedly, both legs will stretch even longer to strike a fleeing foe.",
+        "id": "106",
+        "moves": [
+            {
+                "name": "Double Kick",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "fighting"
+            },
+            {
+                "name": "Blaze Kick",
+                "accuracy": "0.9",
+                "dp": 85,
+                "type": "fire"
+            },
+            {
+                "name": "Meditate",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Mega Kick",
+                "accuracy": "0.75",
+                "dp": 120,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 210,
+            "attack": 220,
+            "defense": 99,
+            "sp. atk": 67,
+            "sp. def": 202
+        },
+        "stage": 1,
+        "type": "fighting",
+        "weakness": "flying"
+    },
+    "Horsea": {
+        "description": "It maintains balance using its tail, which is wound up like a coil. It may spray ink from its mouth.",
+        "id": "116",
+        "moves": [
+            {
+                "name": "Bubble",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "water"
+            },
+            {
+                "name": "Twister",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "dragon"
+            },
+            {
+                "name": "Aurora Beam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "ice"
+            },
+            {
+                "name": "Smokescreen",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 170,
+            "attack": 76,
+            "defense": 130,
+            "sp. atk": 130,
+            "sp. def": 49
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Hypno": {
+        "description": "It carries a pendulum-like device. There once was an incident in which it took away a child it hypnotized.",
+        "id": "97",
+        "moves": [
+            {
+                "name": "Headbutt",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            },
+            {
+                "name": "Meditate",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Fire Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "fire"
+            },
+            {
+                "name": "Psychic",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 280,
+            "attack": 135,
+            "defense": 130,
+            "sp. atk": 135,
+            "sp. def": 211
+        },
+        "stage": 2,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Ivysaur": {
+        "description": "When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.",
+        "id": 2,
+        "moves": [
+            {
+                "name": "Razor Leaf",
+                "accuracy": ".95",
+                "dp": 55,
+                "type": "grass"
+            },
+            {
+                "name": "Magical Leaf",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "grass"
+            },
+            {
+                "name": "Venoshock",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 116,
+            "defense": 117,
+            "sp. atk": 148,
+            "sp. def": 148
+        },
+        "stage": 2,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Jigglypuff": {
+        "description": "Garrett's favorite Pokemon! When its huge eyes light up, it sings a mysteriously soothing melody that lulls its enemies to sleep.",
+        "id": "39",
+        "moves": [
+            {
+                "name": "Pound",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Defense Curl",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Rollout",
+                "accuracy": 1,
+                "dp": 30,
+                "type": "rock"
+            },
+            {
+                "name": "Wakeup Slap",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "fighting"
+            }
+        ],
+        "stats": {
+            "hp": 340,
+            "attack": 85,
+            "defense": 40,
+            "sp. atk": 85,
+            "sp. def": 49
+        },
+        "stage": 1,
+        "type": "fairy",
+        "weakness": "poison"
+    },
+    "Jolteon": {
+        "description": "It concentrates the weak electric charges emitted by its cells and launches wicked lightning bolts.",
+        "id": "135",
+        "moves": [
+            {
+                "name": "Double Kick",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "fighting"
+            },
+            {
+                "name": "Thunder Shock",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "electric"
+            },
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Sand Attack",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 240,
+            "attack": 121,
+            "defense": 112,
+            "sp. atk": 202,
+            "sp. def": 175
+        },
+        "stage": 2,
+        "type": "electric",
+        "weakness": "ground"
+    },
+    "Jynx": {
+        "description": "It has several different cry patterns, each of which seems to have its own meaning.",
+        "id": "124",
+        "moves": [
+            {
+                "name": "Blizzard",
+                "accuracy": "0.7",
+                "dp": 110,
+                "type": "ice"
+            },
+            {
+                "name": "Powder Snow",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "ice"
+            },
+            {
+                "name": "Pound",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Fake Tears",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -2,
+                "type": "dark"
+            }
+        ],
+        "stats": {
+            "hp": 240,
+            "attack": 94,
+            "defense": 67,
+            "sp. atk": 175,
+            "sp. def": 211
+        },
+        "stage": 1,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Kabuto": {
+        "description": "It is thought to have inhabited beaches 300 million years ago. It is protected by a stiff shell.",
+        "id": "140",
+        "moves": [
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Mud Shot",
+                "accuracy": "0.95",
+                "dp": 55,
+                "type": "ground"
+            },
+            {
+                "name": "Aqua Jet",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 170,
+            "attack": 148,
+            "defense": 166,
+            "sp. atk": 103,
+            "sp. def": 85
+        },
+        "stage": 1,
+        "type": "rock",
+        "weakness": "grass"
+    },
+    "Kabutops": {
+        "description": "Its sleek shape is perfect for swimming. It slashes prey with its claws and drains the body fluids.",
+        "id": "141",
+        "moves": [
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Night Slash",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "dark"
+            },
+            {
+                "name": "Ancient Power",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "rock"
+            },
+            {
+                "name": "Slash",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 230,
+            "attack": 211,
+            "defense": 193,
+            "sp. atk": 121,
+            "sp. def": 130
+        },
+        "stage": 2,
+        "type": "rock",
+        "weakness": "grass"
+    },
+    "Kadabra": {
+        "description": "It emits special alpha waves from its body that induce headaches just by being close by.",
+        "id": "64",
+        "moves": [
+            {
+                "name": "Kinesis",
+                "accuracy": "0.8",
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "psychic"
+            },
+            {
+                "name": "Fire Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "fire"
+            },
+            {
+                "name": "Ice Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "ice"
+            },
+            {
+                "name": "Psychic",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 190,
+            "attack": 67,
+            "defense": 58,
+            "sp. atk": 220,
+            "sp. def": 130
+        },
+        "stage": 2,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Kakuna": {
+        "description": "While awaiting evolution, it hides from predators under leaves and in nooks of branches.",
+        "id": "14",
+        "moves": [
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 200,
+            "attack": 49,
+            "defense": 94,
+            "sp. atk": 49,
+            "sp. def": 49
+        },
+        "stage": 2,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Kangaskhan": {
+        "description": "To protect its young, it will never give up during battle, no matter how badly wounded it is.",
+        "id": "115",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Dizzy Punch",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Mega Punch",
+                "accuracy": "0.85",
+                "dp": 80,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 320,
+            "attack": 175,
+            "defense": 148,
+            "sp. atk": 76,
+            "sp. def": 148
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Kingler": {
+        "description": "It can hardly lift its massive, overgrown pincer. The pincer's size makes it difficult to aim properly.",
+        "id": "99",
+        "moves": [
+            {
+                "name": "Crabhammer",
+                "accuracy": "0.9",
+                "dp": 100,
+                "type": "water"
+            },
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Vice Grip",
+                "accuracy": 1,
+                "dp": 55,
+                "type": "normal"
+            },
+            {
+                "name": "Mud Shot",
+                "accuracy": "0.95",
+                "dp": 65,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 220,
+            "attack": 238,
+            "defense": 211,
+            "sp. atk": 94,
+            "sp. def": 94
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Koffing": {
+        "description": "If one gets close enough to it when it expels poisonous gas, the gas swirling inside it can be seen.",
+        "id": "109",
+        "moves": [
+            {
+                "name": "Tackle",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Sludge",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            },
+            {
+                "name": "Smokescreen",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Assurance",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            }
+        ],
+        "stats": {
+            "hp": 190,
+            "attack": 121,
+            "defense": 175,
+            "sp. atk": 112,
+            "sp. def": 85
+        },
+        "stage": 1,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Krabby": {
+        "description": "Its pincers are superb weapons. They sometimes break off during battle, but they grow back fast.",
+        "id": "98",
+        "moves": [
+            {
+                "name": "Bubble",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "water"
+            },
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Vice Grip",
+                "accuracy": 1,
+                "dp": 55,
+                "type": "normal"
+            },
+            {
+                "name": "Metal Claw",
+                "accuracy": "0.95",
+                "dp": 50,
+                "type": "steel"
+            }
+        ],
+        "stats": {
+            "hp": 170,
+            "attack": 193,
+            "defense": 166,
+            "sp. atk": 49,
+            "sp. def": 49
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Lapras": {
+        "description": "Nicole's favorite Pokemon! Its high intelligence enables it to understand human speech. It likes to ferry people on its back.",
+        "id": "131",
+        "moves": [
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Hydro Pump",
+                "accuracy": "0.8",
+                "dp": 110,
+                "type": "water"
+            },
+            {
+                "name": "Thunder",
+                "accuracy": "0.7",
+                "dp": 110,
+                "type": "electric"
+            },
+            {
+                "name": "Ice Beam",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "ice"
+            }
+        ],
+        "stats": {
+            "hp": 370,
+            "attack": 157,
+            "defense": 148,
+            "sp. atk": 157,
+            "sp. def": 175
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Lickitung": {
+        "description": "Its tongue spans almost 7 feet and moves more freely than its forelegs. Its licks can cause paralysis.",
+        "id": "108",
+        "moves": [
+            {
+                "name": "Stomp",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "normal"
+            },
+            {
+                "name": "Slam",
+                "accuracy": "0.75",
+                "dp": 80,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Machamp": {
+        "description": "Using its heavy muscles, it throws powerful punches that can send the victim clear over the horizon.",
+        "id": "68",
+        "moves": [
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Low Sweep",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "fighting"
+            },
+            {
+                "name": "Strength",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "normal"
+            },
+            {
+                "name": "Ice Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "ice"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 3,
+        "type": "fighting",
+        "weakness": "flying"
+    },
+    "Machoke": {
+        "description": "Its muscular body is so powerful, it must wear a power save belt to be able to regulate its motions.",
+        "id": "67",
+        "moves": [
+            {
+                "name": "Karate chop",
+                "accuracy": 1,
+                "dp": 50,
+                "type": "fighting"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "fighting",
+        "weakness": "flying"
+    },
+    "Machop": {
+        "description": "Always brimming with power, it passes time by lifting boulders. Doing so makes it even stronger.",
+        "id": "66",
+        "moves": [
+            {
+                "name": "Karate chop",
+                "accuracy": 1,
+                "dp": 50,
+                "type": "fighting"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "fighting",
+        "weakness": "flying"
+    },
+    "Magikarp": {
+        "description": "A pathetic excuse for a Pokemon that is only capable of flopping and splashing. This behavior prompted scientists to undertake research into it.",
+        "id": "129",
+        "moves": [
+            {
+                "name": "Splash",
+                "accuracy": 1,
+                "dp": 1,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 80
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Magmar": {
+        "description": "The fiery surface of its body gives off a wavering, rippling glare that is similar to the sun.",
+        "id": "126",
+        "moves": [
+            {
+                "name": "Fire Punch",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "fire"
+            },
+            {
+                "name": "Ember",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "fire"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Magnemite": {
+        "description": "The electricity emitted by the units on each side of its body cause it to become a strong magnet.",
+        "id": "81",
+        "moves": [
+            {
+                "name": "Thunder Shock",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "electric"
+            },
+            {
+                "name": "Screech",
+                "accuracy": "0.85",
+                "buff": "defense",
+                "amt": -2,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "steel",
+        "weakness": "fire"
+    },
+    "Magneton": {
+        "description": "Generates strange radio signals. It raises the temperature by 3.6F degrees within 3,300 feet.",
+        "id": "82",
+        "moves": [
+            {
+                "name": "Tri Attack",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "normal"
+            },
+            {
+                "name": "Screech",
+                "accuracy": "0.85",
+                "buff": "defense",
+                "amt": -2,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "steel",
+        "weakness": "fire"
+    },
+    "Mankey": {
+        "description": "Extremely quick to anger. It could be docile one moment then thrashing away the next instant.",
+        "id": "56",
+        "moves": [
+            {
+                "name": "Karate chop",
+                "accuracy": 1,
+                "dp": 50,
+                "type": "fighting"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "fighting",
+        "weakness": "flying"
+    },
+    "Marowak": {
+        "description": "The bone it holds is its key weapon. It throws the bone skillfully like a boomerang to KO targets.",
+        "id": "105",
+        "moves": [
+            {
+                "name": "Bone Club",
+                "accuracy": "0.85",
+                "dp": 65,
+                "type": "ground"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Headbutt",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "ground",
+        "weakness": "water"
+    },
+    "Meowth": {
+        "description": "Adores circular objects. Wanders the streets on a nightly basis to look for dropped loose change.",
+        "id": "52",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Metapod": {
+        "description": "A steel-hard shell protects its tender body. It quietly endures hardships while awaiting evolution.",
+        "id": "11",
+        "moves": [
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Mew": {
+        "description": "Its DNA is said to contain the genetic codes of all Pokemon.",
+        "id": "151",
+        "moves": [
+            {
+                "name": "Amnesia",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Psychic",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Mewtwo": {
+        "description": "It was created by a scientist after years of horrific gene splicing and DNA engineering experiments.",
+        "id": "150",
+        "moves": [
+            {
+                "name": "Amnesia",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Swift",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Psychic",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Moltres": {
+        "description": "This legendary Pokemon scatters embers with every flap of its wings. It is a thrilling sight to behold.",
+        "id": "146",
+        "moves": [
+            {
+                "name": "Flamethrower",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "fire"
+            },
+            {
+                "name": "Sky Attack",
+                "accuracy": "0.9",
+                "dp": 140,
+                "type": "flying"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "fire",
+        "weakness": "rock"
+    },
+    "Mr. Mime": {
+        "description": "Always practices its pantomime act. It makes enemies believe something exists that really doesn't.",
+        "id": "122",
+        "moves": [
+            {
+                "name": "Barrier",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 2,
+                "type": "psychic"
+            },
+            {
+                "name": "Psybeam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "psychic",
+        "weakness": "ghost"
+    },
+    "Muk": {
+        "description": "As it moves, a very strong poison leaks from it, making the ground there barren for three years.",
+        "id": "89",
+        "moves": [
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Sludge",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            },
+            {
+                "name": "Mud Bomb",
+                "accuracy": "0.85",
+                "dp": 65,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Nidoking": {
+        "description": "One swing of its mighty tail can snap a telephone pole as if it were a matchstick.",
+        "id": "34",
+        "moves": [
+            {
+                "name": "Venoshock",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            },
+            {
+                "name": "Mega Horn",
+                "accuracy": "0.85",
+                "dp": 125,
+                "type": "bug"
+            },
+            {
+                "name": "Earth Power",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "ground"
+            },
+            {
+                "name": "Amnesia",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 3,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Nidoqueen": {
+        "description": "Its hard scales provide strong protection. It uses its hefty bulk to execute powerful moves.",
+        "id": "31",
+        "moves": [
+            {
+                "name": "Venoshock",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            },
+            {
+                "name": "Superpower",
+                "accuracy": 1,
+                "dp": 120,
+                "type": "fighting"
+            },
+            {
+                "name": "Earth Power",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "ground"
+            },
+            {
+                "name": "Charm",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -2,
+                "type": "fairy"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 3,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Nidoran(F)": {
+        "description": "Although small, its venomous barbs render this Pokemon dangerous. The female has smaller horns.",
+        "id": "29",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Double Kick",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "fighting"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Peck",
+                "accuracy": 1,
+                "dp": 35,
+                "type": "flying"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Nidoran(M)": {
+        "description": "It stiffens its ears to sense danger. The larger its horns, the more powerful its secreted venom.",
+        "id": "32",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Double Kick",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "fighting"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Peck",
+                "accuracy": 1,
+                "dp": 35,
+                "type": "flying"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Nidorina": {
+        "description": "When resting deep in its burrow, its thorns always retract. This is proof that it is relaxed.",
+        "id": "30",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Cut",
+                "accuracy": "0.95",
+                "dp": 50,
+                "type": "normal"
+            },
+            {
+                "name": "Double Kick",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "fighting"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Nidorino": {
+        "description": "It raises its big ears to check its surroundings. If it senses anything, it attacks immediately.",
+        "id": "33",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Horn Attack",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "normal"
+            },
+            {
+                "name": "Double Kick",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "fighting"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Ninetales": {
+        "description": "Very smart and very vengeful. Grabbing one of its many tails could result in a 1000-year curse.",
+        "id": "38",
+        "moves": [
+            {
+                "name": "Flamethrower",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "fire"
+            },
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Oddish": {
+        "description": "It may be mistaken for a clump of weeds. If you try to yank it out of the ground, it shrieks horribly.",
+        "id": "43",
+        "moves": [
+            {
+                "name": "Acid",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "poison"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Omanyte": {
+        "description": "Revived from an ancient fossil, this Pokemon uses air stored in its shell to sink and rise in water.",
+        "id": "138",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Omastar": {
+        "description": "Apparently, it cracked Shellder's shell with its sharp fangs and sucked out the insides.",
+        "id": "139",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Hydro Pump",
+                "accuracy": "0.8",
+                "dp": 110,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Onix": {
+        "description": "It rapidly bores through the ground at 50 mph by squirming and twisting its massive, rugged body.",
+        "id": "95",
+        "moves": [
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Slam",
+                "accuracy": "0.75",
+                "dp": 80,
+                "type": "normal"
+            },
+            {
+                "name": "Rock Slide",
+                "accuracy": "0.9",
+                "dp": 75,
+                "type": "rock"
+            },
+            {
+                "name": "Dig",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "ground",
+                "warmup": 1
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "rock",
+        "weakness": "water"
+    },
+    "Paras": {
+        "description": "Mushrooms named tochukaso grow on its back. They grow along with the host Paras.",
+        "id": "46",
+        "moves": [
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Peck",
+                "accuracy": 1,
+                "dp": 35,
+                "type": "flying"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "bug",
+        "weakness": "fire"
+    },
+    "Parasect": {
+        "description": "A host-parasite pair in which the parasite mushroom has taken over the host bug. Prefers damp places.",
+        "id": "47",
+        "moves": [
+            {
+                "name": "Slash",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "bug",
+        "weakness": "fire"
+    },
+    "Persian": {
+        "description": "Many adore it for its sophisticated air. However, it will lash out and scratch for little reason.",
+        "id": "53",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Swift",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Screech",
+                "accuracy": "0.85",
+                "buff": "defense",
+                "amt": -2,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Pidgeot": {
+        "description": "It spreads its gorgeous wings widely to intimidate enemies. It races through the skies at Mach-2 speed.",
+        "id": "18",
+        "moves": [
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Sand Attack",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 3,
+        "type": "flying",
+        "weakness": "electric"
+    },
+    "Pidgeotto": {
+        "description": "It has outstanding vision. However high it flies, it is able to distinguish the movements of its prey.",
+        "id": "17",
+        "moves": [
+            {
+                "name": "Wing Attack",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "flying"
+            },
+            {
+                "name": "Sand Attack",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "flying",
+        "weakness": "electric"
+    },
+    "Pidgey": {
+        "description": "Jeffrey's favorite Pokemon! Because it dislikes fighting, it protects itself by kicking up sand.",
+        "id": "16",
+        "moves": [
+            {
+                "name": "Peck",
+                "accuracy": 1,
+                "dp": 35,
+                "type": "flying"
+            },
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Sand Attack",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "flying",
+        "weakness": "electric"
+    },
+    "Pikachu": {
+        "description": "Melissa's favorite Pokemon! When several Pikachu gather, their electricity could build and cause lightning storms.",
+        "id": "25",
+        "moves": [
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Thunderbolt",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "electric"
+            },
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "electric",
+        "weakness": "ground"
+    },
+    "Pinsir": {
+        "description": "When the temperature drops at night, it sleeps on treetops or among roots where it is well hidden.",
+        "id": "127",
+        "moves": [
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Vice Grip",
+                "accuracy": 1,
+                "dp": 55,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "bug",
+        "weakness": "fire"
+    },
+    "Poliwag": {
+        "description": "Its newly grown legs prevent it from running. It appears to prefer swimming than trying to stand.",
+        "id": "60",
+        "moves": [
+            {
+                "name": "Water Gun",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Poliwhirl": {
+        "description": "Its two legs are well developed. Even though it can live on the ground, it prefers living in water.",
+        "id": "61",
+        "moves": [
+            {
+                "name": "Bubble Beam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "water"
+            },
+            {
+                "name": "Mud Bomb",
+                "accuracy": "0.85",
+                "dp": 65,
+                "type": "ground"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Poliwrath": {
+        "description": "Although an energetic, skilled swimmer that uses all of its muscles, it lives on dry land.",
+        "id": "62",
+        "moves": [
+            {
+                "name": "Bubble Beam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 3,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Ponyta": {
+        "description": "It has a brave and trustworthy nature. It fearlessly stands up to bigger and stronger foes. Not to be confused with the 20% cooler PonyTA.",
+        "id": "77",
+        "moves": [
+            {
+                "name": "Ember",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "fire"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Stomp",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Porygon": {
+        "description": "A manmade Pokemon that came about as a result of research. It is programmed with only basic motions.",
+        "id": "137",
+        "moves": [
+            {
+                "name": "Tri Attack",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "normal"
+            },
+            {
+                "name": "Sharpen",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Psybeam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Primeape": {
+        "description": "Always furious and tenacious to boot. It will not abandon chasing its quarry until it is caught.",
+        "id": "57",
+        "moves": [
+            {
+                "name": "Karate chop",
+                "accuracy": 1,
+                "dp": 50,
+                "type": "fighting"
+            },
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Assurance",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 240,
+            "attack": 193,
+            "defense": 112,
+            "sp. atk": 112,
+            "sp. def": 130
+        },
+        "stage": 2,
+        "type": "fighting",
+        "weakness": "flying"
+    },
+    "Psyduck": {
+        "description": "Always tormented by headaches. It uses psychic powers, but it is not known if it intends to do so.",
+        "id": "54",
+        "moves": [
+            {
+                "name": "Amnesia",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Water Gun",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Zen Headbutt",
+                "accuracy": "0.9",
+                "dp": 80,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 210,
+            "attack": 98,
+            "defense": 90,
+            "sp. atk": 121,
+            "sp. def": 94
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Raichu": {
+        "description": "Its long tail serves as a ground to protect itself from its own high voltage power.",
+        "id": "26",
+        "moves": [
+            {
+                "name": "Thunderbolt",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "electric"
+            },
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Thunder",
+                "accuracy": "0.7",
+                "dp": 120,
+                "type": "electric"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "electric",
+        "weakness": "ground"
+    },
+    "Rapidash": {
+        "description": "Very competitive, this Pokemon will chase anything that moves fast in the hopes of racing it.",
+        "id": "78",
+        "moves": [
+            {
+                "name": "Fire Blast",
+                "accuracy": "0.85",
+                "dp": 110,
+                "type": "fire"
+            },
+            {
+                "name": "Stomp",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "normal"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Raticate": {
+        "description": "Its whiskers help it to maintain balance. Its fangs never stop growing, so it gnaws to pare them down.",
+        "id": "20",
+        "moves": [
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Assurance",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Rattata": {
+        "description": "Bites anything when it attacks. Small and very quick, it is a common sight in many places.",
+        "id": "19",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Rhydon": {
+        "description": "Protected by an armor-like hide, it is capable of living in molten lava of 3,600 degrees Fahrenheit.",
+        "id": "112",
+        "moves": [
+            {
+                "name": "Earthquake",
+                "accuracy": 1,
+                "dp": 100,
+                "type": "ground"
+            },
+            {
+                "name": "Horn Attack",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "rock",
+        "weakness": "water"
+    },
+    "Rhyhorn": {
+        "description": "It doesn't care if there is anything in its way. It just charges and destroys all obstacles.",
+        "id": "111",
+        "moves": [
+            {
+                "name": "Horn Attack",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "normal"
+            },
+            {
+                "name": "Peck",
+                "accuracy": 1,
+                "dp": 35,
+                "type": "flying"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "rock",
+        "weakness": "water"
+    },
+    "Sandshrew": {
+        "description": "Its body is dry. When it gets cold at night, its hide is said to become coated with a fine dew.",
+        "id": "27",
+        "moves": [
+            {
+                "name": "Swift",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Scratch",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Dig",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "ground",
+                "warmup": 1
+            },
+            {
+                "name": "Sand Attack",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "ground"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "ground",
+        "weakness": "water"
+    },
+    "Sandslash": {
+        "description": "Curls up into a spiny ball when threatened. It can roll while curled up to attack or escape.",
+        "id": "28",
+        "moves": [
+            {
+                "name": "Earthquake",
+                "accuracy": 1,
+                "dp": 100,
+                "type": "ground"
+            },
+            {
+                "name": "Swords Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 2,
+                "type": "normal"
+            },
+            {
+                "name": "Slash",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "ground",
+        "weakness": "water"
+    },
+    "Scyther": {
+        "description": "Its blindingly fast speed adds to the sharpness of its twin forearm scythes which can slice through thick logs in one wicked stroke.",
+        "id": "123",
+        "moves": [
+            {
+                "name": "Swords Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 2,
+                "type": "normal"
+            },
+            {
+                "name": "Wing Attack",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "flying"
+            },
+            {
+                "name": "Slash",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "bug",
+        "weakness": "fire"
+    },
+    "Seadra": {
+        "description": "Capable of swimming backwards by rapidly flapping its wing-like pectoral fins and stout tail.",
+        "id": "117",
+        "moves": [
+            {
+                "name": "Bubble Beam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "water"
+            },
+            {
+                "name": "Smokescreen",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Seaking": {
+        "description": "The horn on its head is sharp like a drill. It bores a hole in a boulder to make its nest.",
+        "id": "119",
+        "moves": [
+            {
+                "name": "Horn Attack",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            },
+            {
+                "name": "Waterfall",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Seel": {
+        "description": "The light blue fur that covers it keeps it protected against the cold. It loves iceberg-filled oceans.",
+        "id": "86",
+        "moves": [
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Headbutt",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Shellder": {
+        "description": "It swims backward by opening and closing its two shells. Its large tongue is always kept hanging out.",
+        "id": "90",
+        "moves": [
+            {
+                "name": "Leer",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Water Gun",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Slowbro": {
+        "description": "An attached Shellder won't let go because of the tasty flavor that oozes out of its tail.",
+        "id": "80",
+        "moves": [
+            {
+                "name": "Amnesia",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Headbutt",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            },
+            {
+                "name": "Psychic",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Slowpoke": {
+        "description": "Incredibly slow and dopey. It takes 5 seconds for it to feel pain when under attack.",
+        "id": "79",
+        "moves": [
+            {
+                "name": "Amnesia",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "psychic"
+            },
+            {
+                "name": "Headbutt",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "psychic",
+        "weakness": "dark"
+    },
+    "Snorlax": {
+        "description": "Very lazy. Just eats and sleeps. As its rotund bulk builds, it becomes steadily more slothful.",
+        "id": "143",
+        "moves": [
+            {
+                "name": "Amnesia",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Spearow": {
+        "description": "Inept at flying high. However, it can fly around very fast to protect its territory.",
+        "id": "21",
+        "moves": [
+            {
+                "name": "Peck",
+                "accuracy": 1,
+                "dp": 35,
+                "type": "flying"
+            },
+            {
+                "name": "Growl",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "flying",
+        "weakness": "electric"
+    },
+    "Squirtle": {
+        "description": "Whitaker's favorite Pokemon! After birth, its back swells and hardens into a shell. Powerfully sprays foam from its mouth.",
+        "id": "7",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Water Gun",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "water"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Withdraw",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 198,
+            "attack": 90,
+            "defense": 121,
+            "sp. atk": 94,
+            "sp. def": 119
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "grass"
+    },
+    "Starmie": {
+        "description": "The center section is named the core. People think it is communicating when it glows in 7 colors.",
+        "id": "121",
+        "moves": [
+            {
+                "name": "Bubble Beam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "water"
+            },
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Swift",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Staryu": {
+        "description": "An enigmatic Pokemon that can effortlessly regenerate any appendage it loses in battle.",
+        "id": "120",
+        "moves": [
+            {
+                "name": "Water Gun",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "water"
+            },
+            {
+                "name": "Harden",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Tangela": {
+        "description": "The whole body is swathed with wide vines that are similar to seaweed. Its vines shake as it walks.",
+        "id": "114",
+        "moves": [
+            {
+                "name": "Vine Whip",
+                "accuracy": 1,
+                "dp": 45,
+                "type": "grass"
+            },
+            {
+                "name": "Slam",
+                "accuracy": "0.75",
+                "dp": 80,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Tauros": {
+        "description": "They fight each other by locking horns. The herd's protector takes pride in its battle-scarred horns.",
+        "id": "128",
+        "moves": [
+            {
+                "name": "Horn Attack",
+                "accuracy": 1,
+                "dp": 70,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "normal",
+        "weakness": "fighting"
+    },
+    "Tentacool": {
+        "description": "Drifts in shallow seas. Anglers who hook them by accident are often punished by its stinging acid.",
+        "id": "72",
+        "moves": [
+            {
+                "name": "Acid",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "poison"
+            },
+            {
+                "name": "Barrier",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 2,
+                "type": "psychic"
+            },
+            {
+                "name": "Water Gun",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "water"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Tentacruel": {
+        "description": "The tentacles are normally kept short. On hunts, they are extended to ensnare and immobilize prey.",
+        "id": "73",
+        "moves": [
+            {
+                "name": "Barrier",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 2,
+                "type": "psychic"
+            },
+            {
+                "name": "Hydro Pump",
+                "accuracy": "0.8",
+                "dp": 110,
+                "type": "water"
+            },
+            {
+                "name": "Screech",
+                "accuracy": "0.85",
+                "buff": "defense",
+                "amt": -2,
+                "type": "normal"
+            },
+            {
+                "name": "Acid Spray",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "poison"
+            }
+        ],
+        "stats": {
+            "hp": 270,
+            "attack": 130,
+            "defense": 121,
+            "sp. atk": 148,
+            "sp. def": 220
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "electric"
+    },
+    "Vaporeon": {
+        "description": "As it uses the fins on the tip of its tail to swim, it blends with the water perfectly.",
+        "id": "134",
+        "moves": [
+            {
+                "name": "Hydro Pump",
+                "accuracy": "0.8",
+                "dp": 110,
+                "type": "water"
+            },
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Sand Attack",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "ground"
+            },
+            {
+                "name": "Ice Beam",
+                "accuracy": 1,
+                "dp": 100,
+                "type": "ice"
+            }
+        ],
+        "stats": {
+            "hp": 370,
+            "attack": 121,
+            "defense": 112,
+            "sp. atk": 202,
+            "sp. def": 317
+        },
+        "stage": 3,
+        "type": "water",
+        "weakness": "grass"
+    },
+    "Venomoth": {
+        "description": "The dust-like scales covering its wings are color-coded to indicate the kinds of poison it has.",
+        "id": "49",
+        "moves": [
+            {
+                "name": "Psychic",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "bug",
+        "weakness": "fire"
+    },
+    "Venonat": {
+        "description": "Lives in the shadows of tall trees where it eats insects. It is attracted by light at night.",
+        "id": "48",
+        "moves": [
+            {
+                "name": "Psybeam",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "psychic"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "bug",
+        "weakness": "fire"
+    },
+    "Venusaur": {
+        "description": "The plant blooms when it is absorbing solar energy. It stays on the move to seek sunlight.",
+        "id": 3,
+        "moves": [
+            {
+                "name": "Razor Leaf",
+                "accuracy": ".95",
+                "dp": 55,
+                "type": "grass"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 3,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Victreebel": {
+        "description": "Said to live in huge colonies deep in jungles, although no one has ever returned from there.",
+        "id": "71",
+        "moves": [
+            {
+                "name": "Razor Leaf",
+                "accuracy": ".95",
+                "dp": 55,
+                "type": "grass"
+            },
+            {
+                "name": "Leaf Tornado",
+                "accuracy": ".9",
+                "dp": 65,
+                "type": "flying"
+            },
+            {
+                "name": "Acid Spray",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "poison"
+            },
+            {
+                "name": "Tickle",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 80,
+            "attack": 105,
+            "defense": 65,
+            "sp. atk": 100,
+            "sp. def": 70
+        },
+        "stage": 3,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Vileplume": {
+        "description": "It has the world's largest petals. With every step, the petals shake out heavy clouds of toxic pollen.",
+        "id": "45",
+        "moves": [
+            {
+                "name": "Petal Blizzard",
+                "accuracy": 1,
+                "dp": 90,
+                "type": "grass"
+            },
+            {
+                "name": "Venoshock",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            },
+            {
+                "name": "Swords Dance",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 2,
+                "type": "normal"
+            },
+            {
+                "name": "Hidden Power",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 3,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Voltorb": {
+        "description": "It was discovered when Poke balls were introduced. It is said that there is some connection.",
+        "id": "100",
+        "moves": [
+            {
+                "name": "Tackle",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Screech",
+                "accuracy": "0.85",
+                "buff": "defense",
+                "amt": -2,
+                "type": "normal"
+            },
+            {
+                "name": "Charge Beam",
+                "accuracy": "0.9",
+                "dp": 50,
+                "type": "electric"
+            },
+            {
+                "name": "Rollout",
+                "accuracy": "0.9",
+                "dp": 30,
+                "type": "rock"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "electric",
+        "weakness": "ground"
+    },
+    "Vulpix": {
+        "description": "At the time of birth, it has just one tail. The tail splits from its tip as it grows older.",
+        "id": "37",
+        "moves": [
+            {
+                "name": "Ember",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "fire"
+            },
+            {
+                "name": "Quick Attack",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            },
+            {
+                "name": "Feint Attack",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "fire",
+        "weakness": "water"
+    },
+    "Wartortle": {
+        "description": "It cleverly controls its furry ears and tail to maintain its balance while swimming.",
+        "id": "8",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Water Pulse",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "water"
+            },
+            {
+                "name": "Iron Defense",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "steel"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": "0.95",
+                "dp": 60,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "water",
+        "weakness": "grass"
+    },
+    "Weedle": {
+        "description": "Its poison stinger is very powerful. Its bright-colored body is intended to warn off its enemies.",
+        "id": "13",
+        "moves": [
+            {
+                "name": "Poison String",
+                "accuracy": 1,
+                "dp": 15,
+                "type": "poison"
+            },
+            {
+                "name": "Bug Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "bug"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Weepinbell": {
+        "description": "When hungry, it swallows anything that moves. Its hapless prey is melted inside by strong acids.",
+        "id": "70",
+        "moves": [
+            {
+                "name": "Vine Whip",
+                "accuracy": 1,
+                "dp": 45,
+                "type": "grass"
+            },
+            {
+                "name": "Acid",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "poison"
+            },
+            {
+                "name": "Slam",
+                "accuracy": "0.75",
+                "dp": 80,
+                "type": "normal"
+            },
+            {
+                "name": "Growth",
+                "accuracy": 1,
+                "buff": "attack",
+                "amt": 1,
+                "type": "grass"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "grass",
+        "weakness": "fire"
+    },
+    "Weezing": {
+        "description": "Very rarely, a sudden mutation can result in two small Koffing twins becoming conjoined as a Weezing.",
+        "id": "110",
+        "moves": [
+            {
+                "name": "Sludge",
+                "accuracy": 1,
+                "dp": 65,
+                "type": "poison"
+            },
+            {
+                "name": "Smokescreen",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            },
+            {
+                "name": "Assurance",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Tackle",
+                "accuracy": 1,
+                "dp": 40,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "poison",
+        "weakness": "psychic"
+    },
+    "Wigglytuff": {
+        "description": "Its body is full of elasticity. By inhaling deeply, it can continue to inflate itself without limit.",
+        "id": "40",
+        "moves": [
+            {
+                "name": "Defense Curl",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "normal"
+            },
+            {
+                "name": "Covet",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "normal"
+            },
+            {
+                "name": "Feint Attack",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Brick Break",
+                "accuracy": 1,
+                "dp": 75,
+                "type": "fighting"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 2,
+        "type": "fairy",
+        "weakness": "poison"
+    },
+    "Zapdos": {
+        "description": "A legendary Pok\u00e9mon that is said to live in thunderclouds. It freely controls lightning bolts.",
+        "id": "145",
+        "moves": [
+            {
+                "name": "Drill Peck",
+                "accuracy": 1,
+                "dp": 80,
+                "type": "flying"
+            },
+            {
+                "name": "Thunder",
+                "accuracy": "0.7",
+                "dp": 110,
+                "type": "electric"
+            },
+            {
+                "name": "Charge",
+                "accuracy": 1,
+                "buff": "defense",
+                "amt": 1,
+                "type": "electric"
+            },
+            {
+                "name": "Ancient Power",
+                "accuracy": "0.7",
+                "dp": 120,
+                "type": "rock"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "electric",
+        "weakness": "rock"
+    },
+    "Zubat": {
+        "description": "Forms colonies in perpetually dark places. Uses ultrasonic waves to identify and approach targets.",
+        "id": "41",
+        "moves": [
+            {
+                "name": "Bite",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "dark"
+            },
+            {
+                "name": "Wing Attack",
+                "accuracy": 1,
+                "dp": 60,
+                "type": "flying"
+            },
+            {
+                "name": "Poison Fang",
+                "accuracy": 1,
+                "dp": 50,
+                "type": "poison"
+            },
+            {
+                "name": "Double Team",
+                "accuracy": 1,
+                "buff": "accuracy",
+                "amt": -1,
+                "type": "normal"
+            }
+        ],
+        "stats": {
+            "hp": 160
+        },
+        "stage": 1,
+        "type": "poison",
+        "weakness": "psychic"
+    }
+}

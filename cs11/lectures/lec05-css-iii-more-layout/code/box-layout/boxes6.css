@@ -1,0 +1,16 @@
+/* 
+ * CSE 154 Lecture 5 (Layout)
+ * --------------------------
+ * CSS for Exercise 6 (builds off of Exerises 1-3 and 5: DOES NOT USE Exercise 4 CSS changes because
+ * float/overflow is handled by flex!) 
+ */
+#container {
+  border-radius: 5px; /* shorthand for all sides */
+  display: flex; /* Added in Exercise 6 */
+  margin: auto auto; 
+  justify-content: space-evenly; /* Added in Exercise 6 */
+  padding-bottom: 10px;
+  padding-top: 10px;
+  text-align: center;
+  width: 75%;
+}

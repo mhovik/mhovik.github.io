@@ -1,0 +1,143 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+'.source.js':
+  'getId':
+    'prefix':'fid'
+    'body': '''
+  /**
+   * Returns the element that has the ID attribute with the specified value.
+   * @param {string} idName - element ID
+   * @returns {object} DOM object associated with id.
+   */
+  function id(idName) {
+    return document.getElementById(idName);
+  }
+  '''
+  'qsa':
+    'prefix':'fqsa'
+    'body':'''
+  /**
+   * Returns the array of elements that match the given CSS selector.
+   * @param {string} selector - CSS query selector
+   * @returns {object[]} array of DOM objects matching the query.
+   */
+  function qsa(selector) {
+    return document.querySelectorAll(selector);
+  }
+    '''
+  'checkstatus':
+    'prefix':'checkstatus'
+    'body':'''
+ /**
+   * Helper function to return the response's result text if successful, otherwise
+   * returns the rejected Promise result with an error status and corresponding text
+   * @param {object} response - response to check for success/error
+   * @returns {object} - Response if status code is ok (200-level)
+   */
+  function checkStatus(response) {
+    if (!response.ok) {
+      throw Error("Error in request: " + response.statusText)
+    }
+    return response;
+  }
+  '''
+  'helpers':
+    'prefix':'helpers'
+    'body': '''
+  /** ------------------------------ Helper Functions  ------------------------------ */
+  /**
+   * Returns the element that has the ID attribute with the specified value.
+   * @param {string} idName - element ID
+   * @returns {object} DOM object associated with id.
+   */
+  function id(idName) {
+    return document.getElementById(idName);
+  }
+
+  /**
+   * Returns the first element that matches the given CSS selector.
+   * @param {string} selector - CSS query selector.
+   * @returns {object} The first DOM object matching the query.
+   */
+  function qs(selector) {
+    return document.querySelector(selector);
+  }
+
+  /**
+   * Returns the array of elements that match the given CSS selector.
+   * @param {string} selector - CSS query selector
+   * @returns {object[]} array of DOM objects matching the query.
+   */
+  function qsa(selector) {
+    return document.querySelectorAll(selector);
+  }
+
+  /**
+   * Returns a new element with the given tag name.
+   * @param {string} tagName - HTML tag name for new DOM element.
+   * @returns {object} New DOM object for given HTML tag.
+   */
+  function gen(tagName) {
+    return document.createElement(tagName);
+  }
+  '''
+
+  'wid':
+    'prefix':'wid'
+    'body': '''
+    window.addEventListener("load", init);
+
+    /**
+     * init comment here
+     */
+    function init() {
+      $1
+    }'''
+
+  'module':
+    'prefix':'module'
+    'body': '''"use strict";
+(function() {
+  window.addEventListener("load", init);
+
+  /**
+   * init comment here
+   */
+   function init() {
+     $1
+   }
+
+})();'''
+  'addEventListener':
+    'prefix':'ael'
+    'body':'''$1.addEventListener("", callbackFn);'''
+    
+  'express':
+    'prefix':'exp-starter'
+    'body':'''"use strict";
+    const express = require("express");
+    const app = express();
+
+    $1
+
+    const PORT = process.env.PORT || 8000;
+    app.listen(PORT);'''

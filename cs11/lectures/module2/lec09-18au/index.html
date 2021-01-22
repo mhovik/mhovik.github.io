@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Lecture 9: Timers and DOM Management</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+      '../../site/reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+        <section>
+					<h2>Lecture 9</h2>
+          <h3>Timers and DOM Element Creation</h3>
+        </section>
+
+        <section>
+					<h3>Agenda</h3>
+          <ul>
+            <li>HW2 out (link to video demo on homeworks page!)</li>
+            <li>
+              CP2 due Wednesday
+              <ul><li>Any questions?</li></ul>
+            </li>
+            <li>More on Timers in JS</li>
+            <li>Adding to the DOM in JS</li>
+          </ul>
+        </section>
+
+				<section>
+					<h2>Reminder: Two Handy Shortcut Functions</h2>
+					<p>
+          Two methods we will use a LOT are <code>document.getElementById</code> and
+          <code>document.querySelectorAll</code>. It's handy to
+						declare a shortcut to help us out. You may use the following in your JS
+            programs (these are exceptions to the rule of having description function
+            names):
+					</p>
+					<pre><code class="hljs font-18pt" data-trim>function $(id) {
+  return document.getElementById(id);
+}
+
+function qsa(query) {
+  return document.querySelectorAll(query);
+}</code></pre>
+					<p class="code-caption">JS</p>
+          <p>We will start using these in lecture examples!</p>
+        </section>
+
+        <section>
+          <h3>Animations in Programs</h3>
+
+          <p>
+            In programs, we often want to repeat some behavior - what can we do to repeat
+            some behavior N times? <span class="fragment">(loops!)</span>
+          </p>
+          <p class="fragment">
+            In simple Java/Python programs, there isn't usually motivation to <em>delay</em> code
+            execution
+          </p>
+          <p class="fragment">
+            On webpages with JavaScript, there <em>is</em> often motivation to delay or repeat behavior every X seconds
+          </p>
+          <ul class="fragment">
+            <li>What are some examples you can think of?</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Counting Down: A Classic Loop Problem</h2>
+<pre><code class="hljs">function startCountDown() {
+  let count = 10;
+  for (let i = 10; i &gt; 0; i--) {
+    console.log(i + "...");
+  }
+  console.log("0!");
+}
+</code></pre>
+        <p class="code-caption">JS</p>
+        <p>This prints a countdown to the console as soon as it's called. But what if we want to delay each line printed by 1 second?</p>
+        </section>
+
+        <section>
+					<h2>Timers</h2>
+          <p>Used to delay or set intervals for executing functions</p>
+        </section>
+
+        <section>
+					<h2>Setting a Timer</h2>
+          <table class="code-table">
+            <tr>
+              <th>method</th>
+              <th>description</th>
+            </tr>
+            <tr>
+              <td>setTimeout(responseFn, delayMS)</td>
+              <td>Arranges to call given function after given delayMS, returns timer id</td>
+            </tr>
+            <tr>
+              <td>setInterval(responseFn, delayMS)</td>
+              <td>Arranges to call function repeatedly every delayMS ms, returns timer id</td>
+            </tr>
+            <tr>
+              <td>
+                clearTimeout(timerID)
+                <br />
+                clearInterval(timerID)
+              </td>
+              <td>Stops the given timer</td>
+            </tr>
+          </table>
+          <div class="font-18pt">
+          <p>
+            Both <code>setTimeout</code> and <code>setInterval</code> return an ID
+            representing the timer
+          </p>
+          <ul>
+            <li>This is not the same as a DOM id! It's a unique
+            identifier the <code>window</code> has access to in order to manage the
+            page timers.
+            </li>
+            <li>If you have access to the id, you can tell the window to stop
+            that particular timer by passing it to <code>clearTimeout</code>/<code>Interval</code> later
+            (e.g. when clicking a "stop timer" button)</li>
+          </ul>
+          </div>
+        </section>
+
+        <section>
+          <section>
+          <h2><code>setTimeout</code> Example</h2>
+          <pre><code class="hljs" data-trim>&lt;button id="demo-btn">Click me!&lt;/button>
+&lt;span id="output-text">&lt;/span>
+</code></pre>
+          <p class="code-caption">HTML</p>
+
+          <pre><code class="hljs" data-trim>function initialize() {
+  $("demo-btn").addEventListener("click", delayedMessage);
+}
+
+function delayedMessage() {
+  $("output-text").innerText = "Wait for it...";
+  setTimeout(sayHello, 5000);
+}
+
+function sayHello() { // called when the timer goes off
+  $("output-text").innerText = "Hello!";
+}</code></pre>
+          <p class="code-caption">JS</p>
+
+          <div class="output">
+            <button id="demo-btn">Click me!</button>
+            <span id="output-text"></span>
+            <p class="output-caption">output (<a href="examples/setTimeoutExample.html"
+                                                 target="_blank">full example page</a>)</p>
+          <div>
+        </section>
+      </section>
+
+       <section>
+         <section>
+          <h2><code>setInterval</code> Example</h2>
+          <pre><code class="hljs" data-trim>&lt;button id="demo-btn">Click me!&lt;/button>
+&lt;span id="output-text">&lt;/span>
+</code></pre>
+          <p class="code-caption">HTML</p>
+          <pre><code class="hljs" data-trim>let timer = null; // stores ID of interval timer
+function repeatedMessage() {
+  timer = setInterval(sayHello, 1000);
+}
+
+function sayHello() {
+  $("output-text").innerText += "Hello!"
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <div class="output">
+            <button id="clickme2">Click me!</button>
+            <span id="outputText2"></span>
+            <p class="output-caption">output (<a href="examples/setIntervalExample.html"
+                                                 target="_blank">full example page</a>)</p>
+          </div>
+          <p>More details on <code>timer</code> variable on slide below</p>
+        </section>
+        <section>
+          <h3>Motivating the <code>timer</code> variable</h3>
+          <ul class="font-20pt">
+            <li>
+              We sometimes need to keep track of our timer(s) when managing them between
+              functions so we can use <code>clearInterval/clearTimeout</code> or know if
+              we have a timer already running on our page.
+            </li>
+            <li>
+              When we can't keep track of them as local variables, it is good
+              practice to store them as module-global variables (within the scope of the
+              module pattern, but accessible to all functions in your program).
+            </li>
+            <li>
+              These examples will assume we are writing inside a module pattern for
+              brevity, but you can refer to the full examples (linked on slides).
+            </li>
+          </ul>
+        </section>
+        </section>
+
+        <section>
+          <h2><code>clearInterval</code> Example</h2>
+          <pre><code>&lt;button id="toggle-btn"&gt;Start/Stop&lt;button&gt;
+</code></pre>
+          <p class="code-caption">HTML</p>
+          <pre class="font-14pt"><code class="hljs " data-trim>let timer = null; // stores ID of interval timer
+function initialize() {
+  $("toggle-btn").addEventListener("click", toggleMessageInterval);
+}
+
+// 1. What does this function do?
+function toggleMessageInterval() {
+  if (timer === null) {
+    timer = setInterval(sayHello, 1000);
+  } else {
+    clearInterval(timer);
+    timer = null; // 2. Why is this line important?
+  }
+}
+
+function sayHello() {
+  $("output-text").innerText += "Hello!"
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <div class="output">
+            <button id="demo-btn2">Start/Stop</button>
+            <span id="output-text2"></span>
+            <p class="output-caption">output (<a href="examples/startStopInterval.html"
+                                                 target="_blank">full example page</a>)</p>
+          <div>
+        </section>
+        <section>
+          <h2>Back to our Countdown Example</h2>
+          <div class="side-by-side" style="align-items: center">
+            <div style="flex-basis: 60%">
+<pre><code class="hljs">function startCountDown() {
+  let count = 10;
+  for (let i = count; i &gt; 0; i--) {
+    console.log(i + "...");
+  }
+  console.log("0!");
+}
+</code></pre>
+        <p class="code-caption">JS</p>
+          </div>
+          <img width="30%" style="align-self: start" src="hidden/countdown-console.png" alt="countdown in console" />
+        </div>
+        <p>
+          Recall that this function prints each line immediately (in order). If we want to
+          output each line <em>every 1 second (1000ms)</em>, what kind of timer should we
+          use?
+        </p>
+        </section>
+        <section>
+          <h2>Timed Countdown: An Initial Attempt</h2>
+<pre><code class="hljs">let timer = null;
+function startCountDown() {
+  let i = 10;
+  timer = setInterval(function() {
+    console.log(i + "...");
+    i--;
+  }, 1000);
+  console.log("0!");
+}
+</code></pre>
+        <p class="code-caption">JS</p>
+        <p>What's wrong here? (remember we want a 10 second countdown printed to the
+        console)</p>
+        </section>
+        <section>
+          <h3>A Better Attempt</h3>
+<pre><code class="hljs">let timer = null;
+function startCountDown() {
+  let i = 10;
+  timer = setInterval(function() {
+    if (i === 0) {
+      console.log("0!");
+    } else {
+      console.log(i + "...");
+      i--;
+    }
+  }, 1000);
+}
+</code></pre>
+        <p class="code-caption">JS</p>
+        <p>
+          This is closer! But there's still something wrong...
+        </p>
+        <p class="fragment">Our timer won't stop when we reach 0!</p>
+        </section>
+
+        <section>
+          <h3>A Solution</h3>
+<pre><code class="hljs">let timer = null;
+function startCountDown() {
+  let i = 10;
+  timer = setInterval(function() {
+    if (i === 0) {
+      clearInterval(timer);
+      timer = null;
+      console.log("0!");
+    } else {
+      console.log(i + "...");
+      i--;
+    }
+  }, 1000);
+}
+</code></pre>
+        <p class="code-caption">JS</p>
+        <p>
+        This is a working solution! When <code>startCountDown</code> is called, we assign
+        a new interval to our timer and start a 1-second countdown at 10.
+        </p>
+        <p>
+        When we reach 0,
+        we need to clear the interval from the window's tasks and set our timer to null to
+        indicate when our timer is finished (if we want to start a new timer later).
+        </p>
+        </section>
+        <section>
+					<h3>Passing Optional Parameters to Timers</h3>
+          <pre><code class="hljs" data-trim>function delayedMultiply() {
+  // 6 and 7 are passed to multiply when timer goes off
+  setTimeout(multiply, 2000, 6, 7);
+}
+
+function multiply(a, b) {
+  alert(a * b);
+}</code></pre>
+          <p class="code-caption">JS</p>
+
+          <div class="output">
+            <button id="demo-btn3">Click me!</button>
+          </div>
+          <p>Any parameters after the delay are eventually passed to the timer function</p>
+          <ul>
+            <li>Doesn't work in IE; must create an intermediate function to pass the parameters</li>
+          </ul>
+          <p>Why not just write this?</p>
+          <pre><code class="hljs" data-trim>setTimeout(multiply(6 * 7), 2000);</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+        <section>
+					<h2>Common Timer Errors</h2>
+          <p>Many students mistakenly write <code>()</code> when passing the function</p>
+          <pre><code class="hljs" data-trim data-noescape><del class="bad">setTimeout(booyah(), 2000);</del>
+setTimeout(booyah, 2000);
+
+<del class="bad">setTimeout(multiply(num1 * num2), 2000);</del>
+setTimeout(multiply, 2000, num1, num2);</code></pre>
+          <p class="code-caption">JS</p>
+
+          <p>What does it actually do if you have the <code>()</code>?</p>
+          <ul class="answer-list">
+            <li class="answer">It calls the function immediately, rather than waiting the 2000ms!</li>
+          </ul>
+          <p>Note: This is also a common bug with <code>addEventListener</code>!</p>
+        </section>
+        <section>
+          <h2>Summary</h2>
+          <p>
+          When you want to call a function after a specified delay in time, use
+          <code>setTimeout</code>.
+          </p>
+          <p>
+            When you want to call a function <em>repeatedly</em> every X seconds, use
+            <code>setInterval</code> (though <a
+             href="https://javascript.info/settimeout-setinterval#recursive-settimeout"
+             target="_blank">you can also</a> use <code>setTimeout</code> recursively!)</p>
+          </p>
+          <p>
+            For both types of timers, you'll need a variable with the timer id (returned
+            by both functions) to pass to <code>clearTimeout</code>/<code>clearInterval</code> when
+            you want to stop the delay/interval.
+          </p>
+        </section>
+
+
+        <section>
+          <h2>Changing the DOM with JS</h2>
+        </section>
+
+        <section>
+          <h2>Recall: How to get DOM elements in JS</h2>
+          <ol>
+            <li>Ask for them by id: <code>document.getElementyById(...)</code></li>
+            <li class="space-below">Query for them with CSS style selectors:
+              <ul>
+                <li><code>document.querySelector(...)</code></li>
+                <li><code>document.querySelectorAll(...)</code></li>
+              </ul>
+            <li>Make new ones! <code>document.createElement(...)</code> (introduced now!)</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Selecting Groups of DOM Objects</h2>
+          <p>Methods in document and other DOM objects:</p>
+          <table class="code-table">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><a href="https://www.w3schools.com/jsref/met_document_queryselector.asp"
+                  target="_blank">querySelector</a>(selector)</td>
+              <td>
+                returns the first element that would be matched by the given CSS selector string
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://www.w3schools.com/jsref/met_document_queryselectorall.asp"
+                  target="_blank">querySelectorAll</a>(selector)</td>
+              <td>
+                returns an array of all elements that would be matched by the given CSS
+                selector string
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://www.w3schools.com/jsref/met_doc_getelementsbyname.asp"
+                  target="_blank">getElementsByName</a>(name)</td>
+              <td>
+                returns array of descendants with the specified name (mostly useful for accessing
+                form controls)
+              </td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
+          <h2>Getting all elements of a certain type</h2>
+          <p>Use <code>querySelectorAll</code> to highlight all paragraphs in the document:</p>
+
+          <pre><code class="hljs" data-trim data-noescape>&lt;body&gt;<span class="special">
+  &lt;p&gt;This is the first paragraph&lt;/p&gt;
+  &lt;p&gt;This is the second paragraph&lt;/p&gt;
+  &lt;p&gt;You get the idea...&lt;/p&gt;</span>
+&lt;/body&gt;</code></pre>
+          <p class="code-caption">HTML</p>
+
+          <pre><code class="hljs no-highlight" data-trim>// get all DOM objects that are &lt;p&gt;
+let allParas = document.querySelectorAll(&quot;p&quot;);
+for (let i = 0; i &lt; allParas.length; i++) {
+  allParas[i].classList.add("highlighted");
+}</code></pre>
+          <p class="code-caption">JS</p>
+
+
+          <div class="output" id="highlight-paragraphs">
+            <p>This is the first paragraph</p>
+            <p>This is the second paragraph</p>
+            <p>You get the idea...</p>
+          </div>
+          <p class="output-caption">output</p>
+          <script>
+let highlightDemoPs = document.querySelectorAll("#highlight-paragraphs p");
+for (let i = 0; i < highlightDemoPs.length; i++) {
+  highlightDemoPs[i].style.backgroundColor = "yellow";
+}
+          </script>
+        </section>
+
+        <section>
+          <h3>Complex selectors: Taking what we know from CSS Selectors!</h3>
+          <p>Let's say we want to highlight all paragraphs inside of the section with ID 'address':</p>
+          <pre><code class="hljs font-14pt" data-trim data-noescape><body>&lt;p&gt;This won't be highlighted!&lt;/p&gt;
+<span class="special">&lt;div id="address"&gt;
+  &lt;p&gt;1234 Street&lt;/p&gt;
+  &lt;p&gt;Seattle, WA&lt;/p&gt;
+&lt;/div&gt;</span>
+</body></code></pre>
+          <p class="code-caption">HTML</p>
+          <p>We can use <code>querySelectorAll</code> to return an array of all the
+          elements we want. What is the CSS query we would use to select all the
+          paragraphs we want? <span class="fragment">(#address p)</span></p>
+          <p class="fragment">CSS Selector Mystery practice if needed: <a
+             href="https://www.codestepbystep.com/problem/view/html/css/selectorMystery1">here</a>
+          and <a
+             href="https://www.codestepbystep.com/problem/view/html/css/selectorMystery2">here</a>
+          and <a href="https://flukeout.github.io">here</a></p>
+        </section>
+        <section>
+          <h3>Complex Selectors with <code>querySelectorAll</code></h3>
+          <pre><code class="hljs font-14pt" data-trim data-noescape><body>&lt;p&gt;This won't be highlighted!&lt;/p&gt;
+<span class="special">&lt;div id="address"&gt;
+  &lt;p&gt;1234 Street&lt;/p&gt;
+  &lt;p&gt;Seattle, WA&lt;/p&gt;
+&lt;/div&gt;</span>
+</body></code></pre>
+          <p class="code-caption">HTML</p>
+          <pre><code class="hljs no-highlight" data-trim>let addrParas = document.querySelectorAll("#address p");
+for (let i = 0; i &lt; addrParas.length; i++) {
+  addrParas[i].style.backgroundColor = "yellow";
+}
+</code></pre>
+          <p class="code-caption">JS</p>
+
+          <div class="output">
+            <p>This won't be highlighted!</p>
+            <div id="address">
+              <p>1234 Street</p>
+              <p>Seattle, WA</p>
+            </div>
+            <p class="output-caption">output</p>
+          </div>
+          <script>
+let addrParas = document.querySelectorAll("#address p");
+for (let i = 0; i < addrParas.length; i++) {
+  addrParas[i].style.backgroundColor = "yellow";
+}
+          </script>
+        </section>
+
+        <section>
+          <h2>Common <code>querySelectorAll</code> issues</h2>
+          <p>
+            Many students forget to write <code>.</code> or <code>#</code> in front of a class or
+            id
+          </p>
+          <pre><code class="hljs" data-trim data-noescape>// get all buttons with a class of "control"
+<del class="bad">let gameButtons = document.querySelectorAll("control");</del>
+let gameButtons = document.querySelectorAll(".control");
+</code></pre>
+          <p class="code-caption space">JS</p>
+          <p class="space-above-25">
+            <code>querySelectorAll</code> returns an array, not just a single element; <br>
+            you must loop over the results
+          </p>
+
+          <pre><code class="hljs" data-trim data-noescape>// set all buttons with a class of "control" to have red text
+<del class="bad">document.querySelectorAll(".gamebutton").classList.add("hidden");</del>
+let gameButtons = document.querySelectorAll(".gamebutton");
+for (let i = 0; i &lt; gameButtons.length; i++) {
+  gameButtons[i].classList.add("hidden");
+}
+</code></pre>
+          <p class="code-caption">JS</p>
+          <p>
+            Q: Can I still select a group of elements using <code>querySelectorAll</code> even if
+            my CSS file doesn't have any style rule for that same group?
+            <span class="fragment">(A: Yes!)</span>
+          </p>
+        </section>
+
+        <section>
+          <h2>Getting the first element of a certain type</h2>
+          <p>Use <code>querySelector</code> to highlight the first paragraph in the document:</p>
+
+          <pre><code class="hljs" data-trim data-noescape>&lt;body&gt;<span class="special">
+  &lt;p&gt;This is the first paragraph&lt;/p&gt;
+  &lt;p&gt;This is the second paragraph&lt;/p&gt;
+  &lt;p&gt;You get the idea...&lt;/p&gt;</span>
+&lt;/body&gt;</code></pre>
+          <p class="code-caption">HTML</p>
+
+          <pre><code class="hljs" data-trim data-noescape>// get all DOM objects that are &lt;p&gt;
+let para = document.querySelector(&quot;p&quot;);
+para.classList.add("highlighted");
+</code></pre>
+          <p class="code-caption">JS</p>
+
+
+          <div class="output" id="higlight-first-paragraph">
+            <p style="background-color: yellow">This is the first paragraph</p>
+            <p>This is the second paragraph</p>
+            <p>You get the idea...</p>
+            <p class="output-caption">output</p>
+          </div>
+        </section>
+
+
+			</div>
+		</div>
+  <script src="../../site/reveal/lib/js/head.min.js"></script>
+  <script src="../../site/reveal/js/reveal.js"></script>
+  <script src="lec09.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [{
+          src: '../../site/reveal/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/marked.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/markdown.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/highlight/highlight.pack.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+        { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+        { src: '../../site/reveal/plugin/search/search.js', async: true },
+        { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+      ]
+    });
+  </script>
+</body>
+</html>

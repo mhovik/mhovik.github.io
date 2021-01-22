@@ -1,0 +1,18 @@
+/*
+ * CSE 154 Lecture 5 (Layout)
+ * --------------------------
+ * CSS for Exercise 5 (builds off of Exerises 1-4)
+ */
+#container {
+  border-radius: 5px; /* shorthand for all sides */
+  margin: auto auto; /* Added in Exercise 5 (one possible solution) */
+  overflow: auto;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  text-align: center;
+  width: 75%; /* Added in Exercise 5 */
+}
+
+#container div {
+  float: left;
+}

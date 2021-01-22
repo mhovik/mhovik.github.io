@@ -1,0 +1,6 @@
+/*
+ * Layout CSS for examples with #container and 6 div children
+ */
+ #container {
+   display: flex;
+ }

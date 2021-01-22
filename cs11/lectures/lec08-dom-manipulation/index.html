@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>DOM Manipulation</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+      '../../site/reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>CSE 154</h1>
+					<h3>Lecture 8: DOM Manipulation with Skittles V1</h3>
+        </section>
+        <section>
+          <h2>Administrivia</h2>
+          <p>HW2 Part A is due tomorrow (no late days)</p>
+          <p>HW2 Part B is out, due next Thursday</p>
+          <p>You can find a demo <a href="https://courses.cs.washington.edu/courses/cse154/19su/homework/hw2/hw2-partb.mp4">video here</a>.</p>
+          <p>We have also provided a testing program for you to test your solution <a href="https://courses.cs.washington.edu/courses/cse154/19su/homework/hw2/tester.zip">tester.zip</a></p>
+
+          <p>Handy JS cheatsheet <a href="lec08-cheatsheet.pdf" target="_blank">here</a> (more coming soon)</p>
+        </section>
+        <section>
+          <h2>Pulling New Part B Files in HW2: Git Package</h2>
+          <p>
+            Make sure to continue your Part A work, but Accept HW2 Part B on the Homeworks page (see README-PART-B.md for more details). 
+            You will need to "pull" the new files from your current repo
+            for Part B. If you are using the Git Atom package, this process like:
+            <img src="atom-pull.png" class="centered-figure" width="400px" alt="example of pulling from Atom Git package" />
+          </p>
+      </section>
+      <section>
+        <h2>Pulling Part B Files for HW2: Terminal</h2>
+          <p>If you have Git with the <a href="https://courses.cs.washington.edu/courses/cse154/19su/resources/assets/atomgit/macosx/#steps">platform-ide-terminal package for Atom</a> (or on a
+          different terminal), you can pull
+          in your <code>hw2-set-&lt;username&gt;</code> repo you cloned from Part A:
+          </p>
+          <img src="atom-pull-terminal.png" class="centered-figure" alt="example of pulling from Atom platform ide terminal package" />
+
+        </section>
+        <section>
+					<h2>Module 2 Learning Objectives</h2>
+					<p>JS Basics (Strings, Numbers, Arrays, Functions, etc.)</p>
+          <p>Basic HTML UI Elements (buttons, text input, select dropdowns, etc.)</p>
+          <p>The DOM</p>
+          <ul>
+            <li>Node Access (getElementById, querySelector, querySelectorAll)</li>
+					  <li>Tree Manipulation (appendChild, removeChild, textContent, etc.)</li>
+					  <li>Style Manipulation (style vs. classList)</li>
+          </ul>
+          <p>Events</p>
+          <ul>
+            <li>Common page/user events: load, click, change, mouseover, etc</li>
+            <li>DOM/event connections: <code>addEventListener</code> and
+              <code>removeEventListener</code></li>
+            </li>
+            <li>Delayed and repeated events: <code>setTimeout</code> and
+              <code>setInterval</code> (Friday)</li>
+          </ul>
+				</section>
+        <section>
+          <h2>Recall: Accessing DOM objects</h2>
+          <ol>
+            <li>Ask for them by id: <code>document.getElementyById(...)</code></li>
+            <li class="space-below">Query for them with CSS style selectors:
+              <ul>
+                <li><code>document.querySelector(...)</code></li>
+                <li><code>document.querySelectorAll(...)</code></li>
+              </ul>
+          </ol>
+          <p>We will use the <code>id</code>, <code>qs</code>, and <code>qsa</code> shorthand functions often</p>
+        </section>
+
+        <section>
+          <h2>More about <code>document.querySelectorAll</code></h2>
+          <p>Back to Lecture 4...</p>
+        </section>
+        <section>
+          <h2>The Document Object Model</h2>
+          <img src="../img/boxes-dom.jpg" alt="DOM Tree representation" class="centered-figure"/>
+          <p>How the browser represents a page</p>
+          <p>Very useful when thinking about selectors!</p>
+          <p>
+            <strong>We'll return to this when we introduce JavaScript, where we can dynamically access/modify
+            of element "nodes" in the DOM tree.</strong>
+          </p>
+        </section>
+        <section>
+          <h2>DOM and Selectors: <a href="code/boxes.html" target="_blank">Q2</a></h2>
+          <img src="../img/boxes-dom-b.jpg" alt="DOM Tree representation" class="centered-figure half-width"/>
+          <p>How to select the colored elements in CSS?</p>
+          <div class="fragment">
+          <p>Using a class selector: <code>.column</code></p>
+        <p>Using a combinator selector: <code>#container > div</code></p>
+      </div>
+      <p class="fragment">What about in JS?</p>
+      <p class="fragment"><code>document.querySelectorAll(".column")</code> (or with <code>qsa(".column")</code></p>
+      <p class="fragment"><code>qsa("#container &gt; div")</code></p>
+    </section>
+        <section>
+          <h2>Examples in our <a href="code/skittles-lec08-starter/skittles-jar.html" target="_blank">Current Skittles Page</a></h2>
+          <pre><code class="hljs">let gameColor = document.getElementById("color");
+let skittles = document.querySelectorAll(".skittle");
+let greenSkittles = document.querySelectorAll(".green.skittle");
+let greenSkittleCount = greenSkittles.length;
+
+let firstSkittle = document.querySelector(".skittle");
+</code></pre>
+<p class="code-caption">JS</p>
+<p>Try these commands in the Chrome Console on the linked HTML page!</p>
+        </section>
+
+        <section>
+          <h2>Common <code>querySelectorAll</code> issues</h2>
+          <p>
+            Many students forget to write <code>.</code> or <code>#</code> in front of a class or
+            id
+          </p>
+          <pre><code class="hljs" data-trim data-noescape>// get all elements with class of ".skittle"
+<del class="bad">let skittles = document.querySelectorAll("skittle");</del>
+let skittles = document.querySelectorAll(".skittle");
+</code></pre>
+          <p class="code-caption space">JS</p>
+          <p class="space-above-25">
+            <code>querySelectorAll</code> returns an array, not just a single element; <br>
+            you must loop over the results
+          </p>
+
+          <pre><code class="hljs" data-trim data-noescape>// hide all skittles
+<del class="bad">qsa(".skittle").classList.add("hidden");</del>
+let skittles = document.querySelectorAll(".skittle");
+for (let i = 0; i &lt; skittles.length; i++) {
+  skittle.addEventListener("click", eatSkittle);
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>
+            Q: Can I still select a group of elements using <code>querySelectorAll</code> even if
+            my CSS file doesn't have any style rule for that same group?
+            <span class="fragment">(A: Yes!)</span>
+          </p>
+        </section>
+
+        <section>
+					<h2>Handy Shortcut Functions</h2>
+					<p>
+          We will use <code>document.getElementById</code> and
+          <code>document.querySelectorAll</code> a LOT. It's handy to
+						declare a shortcut to help us out. You may use the following in your JS
+            functions (these are exceptions to the rule of having description function
+            names).
+					</p>
+					<pre class="h300px"><code class="hljs" data-trim>/**
+ * Returns the element that has the ID attribute with the specified value.
+ * @param {string} idName - element ID
+ * @returns {object} DOM object associated with id.
+ */
+function id(idName) {
+  return document.getElementById(idName);
+}
+
+/**
+ * Returns the array of elements that match the given CSS selector.
+ * @param {string} selector - CSS query selector
+ * @returns {object[]} array of DOM objects matching the query.
+ */
+function qsa(selector) {
+  return document.querySelectorAll(selector);
+}
+
+/**
+ * Returns the first element that matches the given CSS selector.
+ * @param {string} selector - CSS query selector.
+ * @returns {object} The first DOM object matching the query.
+ */
+function qs(selector) { // less common, but you may find it helpful
+  return document.querySelector(selector);
+}</code></pre>
+					<p class="code-caption">JS</p>
+          <p>We will start using these in examples (as well as <code>gen</code> for <code>document.createElement</code> which we'll see soon)!</p>
+        </section>
+        <section>
+          <h2>A Provided JS Template</h2>
+          <p>
+            We have provided a template you can refer to for the standard JS program structure
+            <a href="../../resources/assets/templates/js/module-template.js" target="_blank">here</a>.
+            However, you are expected to replace the example functions and comment examples with your own (you may use
+            the same JSDoc comments for <code>id</code>, <code>qs</code>, and <code>qsa</code> as is though).
+        </section>
+
+      <section>
+        <h2>Modifying the <code>classList</code></h2>
+        <p>You can manipulate the DOM element's
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList" target="_blank">classList</a>
+          with the following methods:
+        </p>
+        <table class="code-table half-width-columns">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>add(classname)</td>
+            <td>
+              Adds the specified class(es) to the list of classes on this element. Any that are
+              already in the classList are ignored.
+            </td>
+          </tr>
+          <tr>
+            <td>remove(classname)</td>
+            <td>
+              Removes the specified class(es) to the list of classes from this element. Any that are
+              already not in the classList are ignored without an error
+            </td>
+          </tr>
+          <tr>
+            <td>toggle(classname)</td>
+            <td>
+              Removes a class that is in the list, adds a class that is not in the list.
+            </td>
+          </tr>
+          <tr>
+            <td>contains(classname)</td>
+            <td>
+              Returns true if the class is in the DOM element's classList, false if not.
+            </td>
+          </tr>
+          <tr>
+            <td>replace(oldclass, newclass)</td>
+            <td>
+              Replaces the old class with the new class.
+            </td>
+          </tr>
+        </table>
+      </section>
+      <section>
+        <h2>Hiding/Showing Elements</h2>
+        <p>How can we hide display an HTML element?</p>
+        <div class="fragment">
+          <pre><code>.hidden {
+  display: none;
+}</code></pre>
+         <p class="code-caption">CSS</p>
+         <p>In JS, it's possible to modify the style properties of an element directly.
+         <pre><code>id("box-img").style.display = "none";</code></pre>
+         <p class="code-caption">JS</p>
+         <p>What's wrong with that?</p>
+         <p class="fragment">How can we add/remove CSS classes with JS?</p>
+       </section>
+
+        <section>
+          <h2>Skittles V1</h2>
+          <p>Today, we'll review how to access DOM elements and introduce how to add new ones with V1 of the Skittles page</p>
+          <img src="lec08-skittles-solution.gif" class="half-width centered-figure" alt="running version of lec08 skittles" />
+          <p>Starter JS from Pre-Check: <a href="code/skittles-lec08-starter/skittles-starter.js" target="_blank">skittles-starter.js</a> (<a href="code/skittles-lec08-starter.zip">skittles-lec08-starter.zip</a>)</p>
+          <p>You can find the running solution we left off with <a href="code/skittles-lec08-solution/skittles-jar.html">here</a>, which is also the solution to the Pre-Check questions.</p>
+        </section>
+
+       <section>
+         <h2>Part 1/2: Setting up the Page</h2>
+         <pre><code>"usee strict";
+(function() {
+
+  window.addEventListener("load", init);
+
+  function init() {
+    id("answer-btn").addEventListener("click", showAnswer);
+    // 2.1. When #start-btn is clicked, fillJar should be called.
+    id("start-btn", fillJar);
+  }
+  ...
+})</code></pre>
+<p class="code-caption">JS</p>
+    </section>
+    <section>
+      <h2>Part 3: Showing the Answer</h2>
+      <p>When the <code>#answer-btn</code> is clicked, we want to populate the <code>#count</code> span with the number
+        of green skittles currently in the jar.</p>
+        <div>
+        <pre><code class="no-syntax-highlight">&lt;article id="game-play"&gt;
+  &lt;button id="answer-btn"&gt;Give me the answer!&lt;/button&gt;
+  &lt;p class="hidden"&gt;
+    There are &lt;span id="count"&gt;&lt;/span&gt; skittles in the jar!
+  &lt;/p&gt;
+&lt;/article&gt;</code></pre>
+         <p class="code-caption">skittles-jar.html</p>
+       </div>
+       <div>
+          <pre><code class="hljs">...
+// Part 3: Called when #answer-btn is clicked (see init())
+function showAnswer() {
+  let greenSkittles = qsa(".green.skittle");
+  id("count").textContent = greenSkittles.length; // e.g., 17
+  // show the paragraph (remember that .hidden is implemented in CSS)
+  qs("#game-play p").classList.remove("hidden");
+}</code></pre>
+      <p class="code-caption">skittles.js</code>
+    </section>
+    <section>
+      <h2>Part 4: Getting closer to "Starting" a Game</h2>
+      <p>When the Start Button is clicked, how would we hide/show views?</p>
+      <p>How would we fill the jar with a "test skittle"?</p>
+    </section>
+    <section>
+      <h2>DOM Manipulation</h2>
+      <p>How do we create new DOM elements?</p>
+      <p>How do add them to existing DOM elements?</p>
+    </section>
+
+        <section>
+          <h2>Creating New Node Objects</h2>
+          <table class="code-table">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>document.<a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement">createElement</a>("tag")</td>
+              <td>creates and returns a new empty DOM node representing an element of that type</td>
+            </tr>
+          </table>
+          <pre><code class="hljs" data-trim>// create a new &lt;h2&gt; node
+let newHeading = document.createElement("h2");
+newHeading.textContent = "This is a new heading!";</code></pre>
+          <p class="code-caption">JS</p>
+
+          <pre><code class="hljs" data-trim>// create a new &lt;div&gt; node
+let skittle = document.createElement("div");
+skittle.classList.add("skittle");
+skittle.classList.add("green");
+// or, skittle.classList.add("skittle", "green");</code></pre>
+          <p class="code-caption">JS</p>
+
+          <p>Note: Merely creating an element does not add it to the page</p>
+          <p>You must add the new element as a child of an existing element on the page...</p>
+        </section>
+        <section>
+          <h2>An Aside</h2>
+          <p>One more alias function!</p>
+          <p>When creating new DOM elements using JS, you may use <code>document.createElement</code> often.</p>
+          <p>We have added one more alias function, <code>gen</code> to include with <code>id</code>, <code>qs</code>, and <code>qsa</code>.</p>
+          <pre><code>function gen(tagName) {
+  return document.createElement(tagname);
+}</code></pre>
+<p class="code-caption">JS</p>
+</section>
+
+        <section>
+          <h2>Adding/Removing Nodes to the DOM</h2>
+          <p class="font-14pt">
+            When you have a parent DOM node, you can add or remove a child DOM node using
+            the following functions:
+          </p>
+          <table class="code-table half-width-columns">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild" target="_blank">
+                parentNode.appendChild</a>(node)</td>
+              <td>places the given node at end of this node's child list</td>
+            </tr>
+            <tr>
+              <td><a href="https://www.w3schools.com/jsref/met_node_insertbefore.asp"
+                  target="_blank">parentNode.insertBefore</a>(new, old)</td>
+              <td>places the given node in this node's child list just before old child</td>
+            </tr>
+            <tr>
+              <td><a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild"
+                  target="_blank">parentNode.removeChild</a>(node)</td>
+              <td>removes the given node from this node's child list</td>
+            </tr>
+            <tr>
+              <td><a href="https://www.w3schools.com/jsref/met_node_remove.asp"
+                     target="_blank">node.remove()</a></td>
+              <td>removes the node from the page</td>
+            </tr>
+            <tr>
+              <td><a href="https://www.w3schools.com/jsref/met_node_replacechild.asp"
+                  target="_blank">parentNode.replaceChild</a>(new, old)</td>
+              <td>replaces given child with new nodes</td>
+            </tr>
+          </table>
+
+          <pre><code class="hljs" data-trim>let li = document.createElement("li");
+li.textContent = "A list item!";
+id("my-list").appendChild(li);</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>Part 4: Adding Skittles to the Jar</h2>
+          <pre><code class="hljs">// ... called when #start-btn is clicked
+function fillJar() {
+  let skittle = document.createElement("div");
+  skittle.classList.add("skittle");
+  skittle.classList.add("green");
+  id("jar").appendChild(skittle); // add the new skittle to the jar!
+}</code></pre>
+<p class="code-caption">skittles.js</p>
+        </section>
+
+        <section>
+          <h2>Part 4 V2: Using our <code>randomColor</code> function</h2>
+          <p>What if instead of a green skittle, we want a randomly-colored skittle?</p>
+          <pre><code class="hljs">// ... called when #start-btn is clicked
+function fillJar() {
+  // for now, we just add a "test" skittle
+  let skittle = document.createElement("div");
+  skittle.classList.add("skittle");
+  //skittle.classList.add("green");
+  skittle.classList.add(getRandomColor());
+  id("jar").appendChild(skittle);
+}
+
+// Implemented in Part 5
+function getRandomColor() {
+  const COLORS = ["red", "green", "blue"];
+  let randomIndex = Math.floor(Math.random() * COLORS.length);
+  return COLORS[randomIndex];
+}</code></pre>
+<p class="code-caption">skittles.js</p>
+        </section>
+
+        <section>
+          <h2>What if we wanted to clear the jar?</h2>
+        </section>
+
+        <section>
+          <h2>Three methods for removing elements</h2>
+          <p>Get all of the DOM elements and remove them from the DOM</p>
+          <pre><code class="hljs" data-trim>function clearJar() {
+  let skittles = qsa(".skittle");
+  for (let i = 0; i &lt; skittles.length; i++) {
+    // 1. Using node.remove();
+    skittles[i].remove();
+    // 2. Using parentNode.removeChild(node);
+    // skittles[i].parentNode.removeChild(skittles[i]);
+  }
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <div class="fragment">
+            <p>Or ... Method 3: Set the Jar's <code>innerHTML</code> to be empty!</p>
+            <pre><code class="hljs" data-trim>function clearJar() {
+  id("jar").innerHTML = "";
+}</code></pre>
+            <p class="code-caption">JS</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Note: in general <code>innerHTML</code> hacking is <span class="bad">bad</span></h2>
+          <p>Why not just code this way?</p>
+          <pre><code class="hljs" data-trim data-noescape>document.getElementById("add")<span class="bad">.innerHTML = </span> &quot;&lt;p&gt;A result!&lt;/p&gt;&quot;;</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Bad code quality (maintainability) on many levels </p>
+          <ul>
+            <li>Not modular: HTML code embedded within JS</li>
+            <li>What if you have a complicated new node (with many subchildren) to add? </li>
+            <li>Error-prone: must carefully distinguish " and '</li>
+            <li>Can only add at beginning or end, not in middle of child list</li>
+          </ul>
+          <pre><code class="hljs" data-trim data-noescape>// Substitutes all children
+id("add").innerHTML =  &quot;&lt;p&gt;A result!&lt;/p&gt;&quot;;
+// adds a node to the front of the list of children.
+id("add").innerHTML  = &quot;&lt;p&gt;A result!&lt;/p&gt;&quot; + id("result").innerHTML;
+// adds a node to the end of the list of children
+id("add").innerHTML += &quot;&lt;p&gt;A result!&lt;/p&gt;&quot;;</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>Extra DOM Manipulation Practice</h2>
+        </section>
+
+        <section>
+          <h2>Creating a Nested DOM element: Back to the Coffee Shop!</h2>
+          <p>Last week, we used a "Coffee Shop" page to discuss the DOM and different CSS layout strategies.</p>
+          <p>What if we wanted to use JS to generate each product article? (for now, we'll hard-code a coffee card just for practice with the DOM)</p>
+          <pre><code class="hljs font-14pt">&lt;!-- ... start of coffee-shop.html --&gt;
+  &lt;main&gt;
+    &lt;div id=”item-container”&gt;
+      &lt;!-- “Classic Coffee” card --&gt;
+      &lt;article class=”product”&gt;...&lt;/article&gt;
+      &lt;article class=”product”&gt;...&lt;/article&gt;
+      &lt;article class=”product”&gt;...&lt;/article&gt;
+      &lt;article class=”product”&gt;...&lt;/article&gt;
+      &lt;article class=”product”&gt;...&lt;/article&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+&lt;!-- ... rest of coffee-shop.html --&gt;</code></pre>
+          <p class="code-caption">HTML</p>
+        </section>
+        <section>
+          <h2>Example</h2>
+          <p>Let's add some products with JS in a new <a href="code/coffee-shop/coffee-shop.html">coffee-shop.html</a></p>
+          <p>
+            The following function is an attempt to create a generated <code>article</code> for a coffee cup item on the cafe page and append it to the #item-container. Try to trace through the code to draw the DOM structure. What are we missing?
+          </p>
+          <div class="side-by-side">
+<div>
+  <pre><code class="hljs">&lt;div id=”item-container”&gt;
+  &lt;article class=”product”&gt;
+    &lt;h3&gt;Classic Coffee&lt;/h3&gt;
+    &lt;img src="img/coffee-4.png"
+        alt="Classic Coffee" /&gt;
+    &lt;hr /&gt;
+    &lt;p&gt;The classic.&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</code></pre>
+<p class="code-caption">HTML</p>
+</div>
+            <div>
+          <pre><code class="hljs font-12pt">function addCoffeeItem() {
+  let product = document.createElement(“article”);
+  product.classList.add(“product”);
+
+  let h3 = document.createElement(“h3”);
+  h3.textContent = “Classic Coffee”;
+
+  let img = document.createElement(“img”);
+  img.src = “img/coffee-4.png”;
+  img.alt = “Classic Coffee”;
+
+  let hr = document.createElement(“hr”);
+
+  let p = document.createElement(“p”):
+  p.textContent = “The classic.”;
+}</code></pre>
+<p class="code-caption">JS</p>
+</div>
+</div>
+        </section>
+
+
+
+		</div>
+
+  <script src="../../site/reveal/lib/js/head.min.js"></script>
+
+  <script src="../../site/reveal/js/reveal.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [{
+          src: '../../site/reveal/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/marked.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/markdown.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/highlight/highlight.pack.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+        { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+        { src: '../../site/reveal/plugin/search/search.js', async: true },
+        { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+      ]
+    });
+  </script>
+</body>
+</html>

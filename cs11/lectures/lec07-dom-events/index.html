@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Lecture 7 - JS with DOM/Events</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+      '../../site/reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>CSE 154</h1>
+					<h3>Lecture 7: More DOM/Events in JS</h3>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <p>Review JS Basics: "Types", Booleans, and Functions</p>
+          <p>Notion of Objects in JS: DOM and Events</p>
+          <ul>
+            <li>Accessing DOM elements</li>
+            <li>Handling page events with with <code>addEventListener</code></li>
+            <li>Changing styles with <code>classList</code></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>More JS Basics</h2>
+          <p><a href="../lec06-intro-js/js-basics.html#/variables">JavaScript Reference Slides</a></p>
+        </section>
+
+        <section>
+          <h2>Review Mystery Box</h2>
+          <p><a href="code/mystery-box-with-module/mystery-box.html">mystery-box.html</a></p>
+          <p><a href="code/mystery-box-with-module/mystery-box.js">mystery-box.js</a></p>
+          <p>On Friday, we wrote a code/small JavaScript program to:</p>
+          <ol>
+            <li>Implement a function <code>openBox</code> to change the <code>src</code> and <code>alt</code> attributes of an image</li>
+            <li>Attach an "event listener" to attach a callback function <code>openBox</code> to the click event</li>
+            <li>Put our button event listener in an <code>init</code> function to be called when the window's "load" event is fired and the document is available</p>
+          </ol>
+        </section>
+        <section>
+          <h2>The &quot;module pattern&quot;</h2>
+
+          <pre><code class="hljs" data-escape data-trim>"use strict";
+(function() {
+  statements;
+})();</code></pre>
+
+          <p>Wraps all of your file's code in an anonymous function that is declared and immediately
+          called</p>
+          <p>0 global symbols will be introduced!</p>
+          <p>The variables and functions defined by your code cannot be accessed/modified externally</p>
+          <p>We'll use this pattern moving forward for all of our programs.</p>
+        </section>
+
+        <section>
+          <h2>JavaScript File Skeleton</h2>
+
+          <div class="code-example">
+            <pre><code class="hljs" data-trim>/**
+ * Name, section, date, etc.
+ * Description of program
+ */
+"use strict";
+(function() {
+
+  // phew! your code goes here
+
+})();</code></pre>
+            <p class="code-caption">JS</p>
+          </div>
+        </section>
+        <section>
+          <h2>Thinking about Page Behavior</h2>
+          <div class="side-by-side">
+            <div>
+              <p>
+                When you're first learning JavaScript, it is not uncommon to find it difficult to keep track of the
+                many different things involved in page interactions (types of events, DOM elements, user input, etc.).
+              </p>
+              <p>
+                But it's <em>really</em> not that complicated if you break it down <em>before</em> starting the code.
+              </p>
+            </div>
+            <img src="skittlesv1.gif" alt="Animation of the Skittles page breakdown"/>
+          </div>
+        </section>
+
+        <section>
+          <h2>What's involved in a page event?</h2>
+          <pre><code>source.addEventListener("event", response);
+function response() {
+  // response behavior with possible output/document elements changed
+}</code></pre>
+          <ol>
+            <li>The <strong>source</strong> listening to the event, such as a 
+              button, dropdown, paragraph, etc.). You can
+              also have the window as a source to listen (always for the <code>load</code>
+              event, sometimes for various key events like <code>keypress</code>).
+            </li>
+            <li>The <strong>event</strong> listened to by a source object (e.g. click, load, mouseover,
+              keypress).</li>
+            <li>The <strong>response</strong> for the event (e.g. elements changed)</li>
+          </ol>
+        </section>
+        <section>
+          <h2>So how do I get started with adding interactivity to my page?</h2>
+          <p>
+            CP2 External Requirements
+          </p>
+          <ul>
+            <li>Add event listener to a source element, and respond
+              <ul>
+                <li>What is your source?</li>
+                <li>What is your event(s)?</li>
+                <li>What is the response behavior? Do any elements change as a result?</li>
+              </ul>
+              <li>Add/remove elements in the DOM as a response to an event.</li>
+            </li>
+          </ul>
+          <p>Draw tables and wireframes!</p>
+        </section>
+
+        <section>
+          <h2>The Notion of "Objects" in JavaScript</h2>
+          <p>
+            Anything you interact with on the page is an object. An object in JavaScript has:
+          </p>
+          <ol>
+            <li>a set of properties (e.g. textContent for DOM
+              objects)</li>
+            <li>built-in functions (e.g. <code>addEventListener</code>). Some
+            objects have different properties/functions than others.
+            </li>
+          </ol>
+          <p>It is helpful to think of the following "types" of objects in JavaScript:</p>
+          <ol>
+            <li>Window and Global DOM objects</li>
+            <li>Objects inside the <code>document</code> (which is a Global DOM object)</li>
+            <li>Event objects (yes, events are objects!)</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>The window and the DOM</h2>
+          <div class="side-by-side">
+            <div>
+              <img src="../img/dom-bom.png" class="centered-figure" alt="window diagram" />
+              <p class="citation"><a href="https://javascript.info/browser-environment">Image source</a></p>
+            </div>
+            <div>
+              <p>The <code>window</code> is a global object your JavaScript programs have access to, representing the browser window.</p>
+              <p>Has access to the "DOM" document tree - the "load" event is fired when the DOM tree is done loading on the page.</p>
+              <p>The <code>document</code> object gives access to all page content (body, body's children, etc.)
+           </div>
+         </div>
+        </section>
+
+        <section>
+          <h2>Listening to the window "load" event</h2>
+           <p>You can only access document elements after the "load" event has fired.</p>
+           <pre><code>"use strict";
+(function() {
+  window.addEventListener("load", init);
+  // no access to the document here
+
+  function init() {
+    // we now have access to the DOM tree!
+    // set up your initial document event handlers here.
+  }
+})();</code></pre>
+<p class="code-caption">JS</p>
+</section>
+
+        <section>
+          <h3>So once our DOM is ready, how do we get our page elements?</h3>
+          <ol>
+            <li>Ask for them by id: <code>document.getElementyById(...)</code></li>
+            <li class="space-below">Query for them with CSS style selectors:
+              <ul>
+                <li><code>document.querySelector(...)</code></li>
+                <li><code>document.querySelectorAll(...)</code></li>
+              </ul>
+            <li>Make new ones! <code>document.createElement(...)</code> (Wednesday)</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>CSS Selector Review</h2>
+          <img src="hidden/skittles-v0-view.png" />
+          <p>What is the CSS selector to select all skittle elements with the "skittle" class?</p>
+        </section>
+
+        <section>
+          <h2>Selecting Groups of DOM Objects</h2>
+          <p>Methods in document and other DOM objects:</p>
+          <table class="code-table">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector" target="_blank">querySelector</a>(selector)</td>
+              <td>
+                returns the first element that would be matched by the given CSS selector string
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll" target="_blank">querySelectorAll</a>(selector)</td>
+              <td>
+                returns a collection of all elements that would be matched by the given CSS
+                selector string
+              </td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Examples</h2>
+          <pre><code class="hljs">let gameColorElement = document.getElementById("color");
+let skittles = document.querySelectorAll(".skittle");
+let greenSkittles = document.querySelectorAll(".green.skittle");
+let greenSkittleCount = greenSkittles.length;
+
+let firstSkittle = document.querySelector(".skittle");
+// same as skittles[0];</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>Common <code>querySelectorAll</code> issues</h2>
+          <p>
+            Many students forget to write <code>.</code> or <code>#</code> in front of a class or
+            id
+          </p>
+          <pre><code class="hljs" data-trim data-noescape>// get all elements with class of ".skittle"
+<del class="bad">let skittles = document.querySelectorAll("skittle");</del>
+let skittles = document.querySelectorAll(".skittle");
+</code></pre>
+          <p class="code-caption space">JS</p>
+          <p class="space-above-25">
+            <code>querySelectorAll</code> returns an array, not just a single element; <br>
+            you must loop over the results
+          </p>
+
+          <pre><code class="hljs" data-trim data-noescape>// hide all skittles
+<del class="bad">qsa(".skittle").classList.add("hidden");</del>
+let skittles = document.querySelectorAll(".skittle");
+for (let i = 0; i &lt; skittles.length; i++) {
+  skittle.addEventListener("click", eatSkittle);
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>
+            Q: Can I still select a group of elements using <code>querySelectorAll</code> even if
+            my CSS file doesn't have any style rule for that same group?
+            <span class="fragment">(A: Yes!)</span>
+          </p>
+        </section>
+
+        <section>
+					<h2>Handy Shortcut Functions</h2>
+					<p>
+          We will use <code>document.getElementById</code> and
+          <code>document.querySelectorAll</code> a LOT. It's handy to
+						declare a shortcut to help us out. You may use the following in your JS
+            functions (these are exceptions to the rule of having description function
+            names).
+					</p>
+					<pre class="h300px"><code class="hljs" data-trim>/**
+ * Returns the element that has the ID attribute with the specified value.
+ * @param {string} idName - element ID
+ * @returns {object} DOM object associated with id.
+ */
+function id(idName) {
+  return document.getElementById(idName);
+}
+
+/**
+ * Returns the array of elements that match the given CSS selector.
+ * @param {string} selector - CSS query selector
+ * @returns {object[]} array of DOM objects matching the query.
+ */
+function qsa(selector) {
+  return document.querySelectorAll(selector);
+}
+
+/**
+ * Returns the first element that matches the given CSS selector.
+ * @param {string} selector - CSS query selector.
+ * @returns {object} The first DOM object matching the query.
+ */
+function qs(selector) { // less common, but you may find it helpful
+  return document.querySelector(selector);
+}</code></pre>
+					<p class="code-caption">JS</p>
+          <p>We will start using these in examples!</p>
+        </section>
+        <section>
+          <h2>A Provided JS Template</h2>
+          <p>
+            We have provided a template you can refer to for the standard JS program structure
+            <a href="../../resources/assets/templates/js/module-template.js" target="_blank">here</a>.
+            However, you are expected to replace the example functions and comment examples with your own (you may use
+            the same JSDoc comments for <code>id</code>, <code>qs</code>, and <code>qsa</code> as is though).
+        </section>
+        <section>
+          <h2>Event Handling</h2>
+          <p>We can use JavaScript to attach functions to elements when an event (e.g. "click") occurs.</p>
+          <div class="side-by-side">
+            <div>
+              <p>To do so, we need to:</p>
+              <ol>
+                <li>Identify the source element to listen for an event</li>
+                <li>Indicate the <code>event</code> to trigger a response</li>
+                <li>Specify the response function(s) to call when the event is triggered.</li>
+              </ol>
+            </div>
+            <img src="../img/mystery-box-event-flow.jpg" />
+          </div>
+          <p>Once we have this information, we can use <code>addEventListener</code> to hook everything up!</p>
+        </section>
+
+        <section>
+          <h2>Event Listeners</h2>
+          <p>We have two functions to manage events and response functions for elements</p>
+          <p>Use <code>addEventListener</code> to attach an event listener</p>
+          <p>Use <code>removeEventListener</code> to detach an event listener (must provide a named function reference that has been added for the listened event)</p>
+        </section>
+
+        <section>
+          <h2><samp>addEventListener</samp> with one event</h2>
+          <img src="../img/addEventListener.png" />
+        </section>
+
+        <section>
+          <h2><samp>addEventListener</samp> with multiple events</h2>
+          <img src="../img/addEventListenerMultiple.png" />
+        </section>
+
+        <section>
+          <h2><samp>addEventListener</samp> with the Mystery Box page</h2>
+          <img class="half-width centered-figure" src="../img/event-handling-full.jpg" />
+        </section>
+
+        <section>
+          <h2><samp>removeEventListener</samp></h2>
+          <img src="../img/removeEventListener.jpg" />
+        </section>
+
+        <section>
+          <h2>Removing Event Listeners: Example</h2>
+          <pre><code class="hljs">function init() {
+  let box = document.getElementById("box");
+  box.addEventListener("mouseover", mouseOverResponse);
+  box.addEventListener("dblclick", turnOffBox);
+}
+
+function mouseOverResponse() {
+  console.log("You moved the mouse over a box!");
+}
+
+function turnOffBox() {
+  let box = document.getElementById("box");
+  box.removeEventListener("mouseover", mouseOverResponse);
+  console.log("You turned off the box!");
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Running solution: <a href="code/box-events.html">box-events.html</a></p>
+        </section>
+        <section>
+          <h3>Practice On Your Own</h3>
+          <p>What if we wanted to click the image instead of the button to "open the box"?<p>
+          <p>What if we wanted to add two more buttons to hide/show the box?</p>
+        </section>
+
+        <section>
+          <h2>Events are also Objects!</h2>
+          <p>
+            Recall that the event handler function can be attached to objects (window, DOM
+            elements, etc.)
+          </p>
+          <pre><code class="hijs">sourceEl.addEventListener("click", responseFunction);
+
+function responseFunction(e) {
+  // we can access the click Event object here!
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>
+            When the event occurs, <strong>an Event object is created</strong> and passed to the
+            event listener. You can "catch" this event object as an optional parameter to get
+            more information about the event.
+          </p>
+          <p>Example: <a href="code/event-objects.html" target="_blank">event-objects.html</a></p>
+        </section>
+        <section>
+          <h2>Common Types of JavaScript Events</h2>
+          <table class="code-table font-14pt">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>load</td>
+              <td>Webpage has finished loading the document</td>
+            </tr>
+            <tr>
+              <td>scroll</td>
+              <td>User has scrolled up or down the page</td>
+            <tr>
+            <tr>
+              <td>click</td>
+              <td>A pointing device (e.g. mouse) has been pressed and released on an element</td>
+            </tr>
+            <tr>
+              <td>dblclick</td>
+              <td>A pointing device button is clicked twice on the same element</td>
+            </tr>
+            <tr>
+              <td>keydown</td>
+              <td>Any key is pressed down</td>
+            </tr>
+            <tr>
+              <td>keyup</td>
+              <td>Any key is released</td>
+            </tr>
+            <tr>
+              <td>mouseenter</td>
+              <td>A pointing device is moved onto an element that has the attached listenere</td>
+            </tr>
+            <tr>
+              <td>mouseover</td>
+              <td>A pointing device is moved onto the element that has the listener attached
+              to itself or one of its children</td>
+            </tr>
+            <tr>
+              <td>mousemove</td>
+              <td>A pointing device is moved over an element</td>
+            </tr>
+            <tr>
+              <td>mousedown</td>
+              <td>A pointing device button is pressed on an element</td>
+            </tr>
+            <tr>
+              <td>mouseup</td>
+              <td>A pointing device button is released over an element</td>
+            </tr>
+          </table>
+          <p>We'll cover more later (you can find a full list <a
+            href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank">here</a>),
+          but today we'll demo <code>click</code>!</p>
+        </section>
+        <section>
+          <h3>Event Object Properties</h3>
+          <p>Event objects contain properties about an event that occurred</p>
+          <p>What types of properties do you think an Event object has?</p>
+          <img src="hidden/event-properties.png" class="fragment half-width centered-figure" alt="Event Properties" />
+        </section>
+        <section>
+          <h2>The Optional Event Listener Parameter</h2>
+          <p>JavaScript gives us a really useful way to get more information about an
+          event that fired the <a
+                     href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#The_event_listener_callback">callback
+                     function</a> by accepting an optional parameter to the
+          attached function representing the event object.
+          </p>
+          <p>Conventionally this event object is given the name "e" or "evt"</p>
+          <pre><code class="hijs font-12pt">demoBtn.addEventListener("click", logClickData);
+
+function logClickData(e) {
+  console.log("Button clicked!");
+  console.log(e.type); // "click"
+  console.log(e.currentTarget); // "#add-btn"
+  console.log(e.timestamp); // timestamp the event was created (in milliseconds)
+}</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+          <section>
+            <h2>Hiding/Showing Elements</h2>
+            <p>How can we hide display an HTML element?</p>
+            <div class="fragment">
+            <pre><code>.hidden {
+  display: none;
+}</code></pre>
+            <p class="code-caption">CSS</p>
+            <p>In JS, it's possible to modify the style properties of an element directly.
+            <pre><code>id("box-img").style.display = "none";</code></pre>
+            <p class="code-caption">JS</p>
+            <p>What's wrong with that?</p>
+            <p class="fragment">How can we add/remove CSS classes with JS?</p>
+          </section>
+
+      <section>
+        <h2>Modifying the <code>classList</code></h2>
+        <p>You can manipulate the DOM element's
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList" target="_blank">classList</a>
+          with the following methods:
+        </p>
+        <table class="code-table half-width-columns">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>add(classname)</td>
+            <td>
+              Adds the specified class(es) to the list of classes on this element. Any that are
+              already in the classList are ignored.
+            </td>
+          </tr>
+          <tr>
+            <td>remove(classname)</td>
+            <td>
+              Removes the specified class(es) to the list of classes from this element. Any that are
+              already not in the classList are ignored without an error
+            </td>
+          </tr>
+          <tr>
+            <td>toggle(classname)</td>
+            <td>
+              Removes a class that is in the list, adds a class that is not in the list.
+            </td>
+          </tr>
+          <tr>
+            <td>contains(classname)</td>
+            <td>
+              Returns true if the class is in the DOM element's classList, false if not.
+            </td>
+          </tr>
+          <tr>
+            <td>replace(oldclass, newclass)</td>
+            <td>
+              Replaces the old class with the new class.
+            </td>
+          </tr>
+        </table>
+      </section>
+        <section>
+          <h2>Breaking Down a UI Spec</h2>
+          <p class="font-18pt">
+              Over this Module, we will take what we learn about JavaScript, events, and the DOM,
+              to work on implementing a game for a user to guess the correct number of
+              Skittles in a jar having a certain color.
+            </p>
+            <div class="side-by-side">
+              <div width="80%">
+                <img src="skittlesv1.gif" class="centered-figure" alt="Skittles demo" />
+              </div>
+            <div class="font-18pt">
+            <p>For now, we'll just focus on some basics to practice with the DOM, querySelectorAll, and events.</p>
+            <p>You can find the simplified starter code <a href="code/skittles-v0.zip">here</a>, which we used to practice <code>querySelectorAll</code> and <code>classList</code>. We'll build off of this
+            more on Wednesday.</p>
+        </section>
+
+		</div>
+
+  <script src="../../site/reveal/lib/js/head.min.js"></script>
+  <script src="../../site/reveal/js/reveal.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [{
+          src: '../../site/reveal/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/marked.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/markdown.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/highlight/highlight.pack.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+        { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+        { src: '../../site/reveal/plugin/search/search.js', async: true },
+        { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+      ]
+    });
+  </script>
+</body>
+</html>

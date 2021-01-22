@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 21 - Intro to SQL</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+'../../site/reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>CSE 154</h1>
+          <h2>Lecture 22: Introduction to SQL</h2>
+        </section>
+      <section>
+        <h2>CSE 154 Modules: Where We're At</h2>
+        <ol>
+          <li>
+            Webpage structure and appearance with HTML5 and CSS. <i class="fa fa-check
+              good fragment" aria-hidden="true"></i>
+          </li>
+          <li>
+            Client-side interactivity with JS DOM and events. <i class="fa fa-check
+              good fragment" aria-hidden="true"></i>
+          </li>
+          <li>
+            Using web services (API's) as a client with JS. <i class="fa fa-check
+              good fragment" aria-hidden="true"></i>
+          </li>
+          <li>
+            Writing JSON-based web services with PHP. <i class="fa fa-check
+              good fragment" aria-hidden="true"></i>
+          </li>
+          <li class="bolded">
+            Storing and retreiving information in a database with MySQL and server-side
+            programs.
+          </li>
+        </ol>
+      </section>
+
+        <section>
+          <h2>A Warmup</h2>
+          <p>(there's no such thing as too much Pok&eacute;mon...)</p>
+        </section>
+
+        <section>
+          <h2>A Solution</h2>
+          <style>
+            pre span * { color: inherit !important }
+          </style>
+          <pre><code style="height:380px" data-trim data-noescape>function filterJSON(pokemonJSON) {
+  let pokemon = pokemonJSON["pokemon"];
+  let filtered = [];
+
+  // filter out only the Pokemon we want
+  for (let i = 0; i &lt; pokemon.length; i++) {
+    let data = pokemon[i];
+    if (data.weakness === "rock" &amp;&amp;
+        data.name.indexOf("r") !== -1 &amp;&amp;
+        data.id &lt; 145) {
+      filtered.push(
+        { "name" : data.name, "type" : data.type,
+          "id" : data.id, "weakness" : data.weakness });
+    }
+  }
+
+  // Sort (descending by name alphabetically)!
+  for (let i = filtered.length - 1; i &gt;= 0; i--) {
+    for (let j = 1; j &lt;= i; j++) {
+      let firstPokemon = filtered[j - 1];
+      let secondPokemon = filtered[j];
+      if (firstPokemon.type &gt; secondPokemon.type ||
+          firstPokemon.type === secondPokemon.type &amp;&amp;
+          firstPokemon.name &lt; secondPokemon.name) {
+        let temp = firstPokemon;
+        filtered[j - 1] = secondPokemon;
+        filtered[j] = temp;
+      }
+    }
+  }
+  let result = { "pokemon" : filtered };
+  return result;
+}</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>Discussion</h2>
+          <p>
+            What are some limitations of filtering out the data in JSON?
+          </p>
+          <ul>
+            <li class="fragment">
+              Efficiency: Expensive looping for large datasets, various if/else checks, and extra
+              loops for sorting.
+            </li>
+            <li class="fragment">
+              Long, complex code just to get a subset of the desired data - this
+              code also will need to be manually edited to a good degree when
+              you want a different subset/sorting of data. This also adds more
+              room for programming errors.
+            </li>
+            <li class="fragment">
+              This code was written on the client-side (JS) - could take a relatively long time to
+              finish when the page is also working on other tasks (e.g. user events, other AJAX
+              requests).
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Today, you'll learn how to write a clean solution to this problem in SQL</h3>
+          <style>
+            .darkturquoise { background-color: darkturquoise !important;}
+            .green { background-color: green !important; }
+            .mediumorchid { background-color: mediumorchid !important; }
+            .orange { background-color: orange !important; }
+            pre span.white-color { background: rgba(128,128,128,.25) !important; }
+            #hilight { font-size: 12pt; padding: 3px; margin-left: 2px; margin-right: 2px;}
+          </style>
+
+          <pre><code class="no-syntax-highlight small-font" style="height: 250px;" data-trim data-noescape>function filterJSON(<span class="white-color green">pokemonJSON</span>) {
+  let pokemon = pokemonJSON["pokemon"];
+  let filtered = [];
+  for (let i = 0; i &lt; pokemon.length; i++) {
+    let data = pokemon[i];
+    if (<span class="white-color mediumorchid">data.weakness === "rock" &amp;&amp;</span>
+        <span class="white-color mediumorchid">data.name.indexOf("r") !== -1) &amp;&amp;</span> <span
+        class="white-color mediumorchid">data.id &lt; 145</span>) {
+      filtered.push(
+        <span class="white-color darkturquoise">{ "name" : data.name, "type" : data.type,</span>
+          <span class="white-color darkturquoise">"id" : data.id, "weakness" : data.weakness }</span>);
+    }
+  }
+
+  let length = filtered.length;
+  for (let i = length - 1; i &gt;= 0; i--) {
+    for (let j = 1; j &lt;= i; j++) {
+      let firstPokemon = filtered[j - 1];
+      let secondPokemon = filtered[j];
+      if (<span class="white-color orange">firstPokemon.type &gt; secondPokemon.type ||</span>
+          <span class="white-color orange">firstPokemon.type === secondPokemon.type &amp;&amp;</span>
+          <span class="white-color orange">firstPokemon.name &lt; secondPokemon.name</span>) {
+        let temp = firstPokemon;
+        filtered[j - 1] = secondPokemon;
+        filtered[j] = temp;
+      }
+    }
+  }
+  let result = { "pokemon" : filtered };
+  return result;
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <div class="fragment">
+          <p>The following code does everything (without JSON/JS) asked in the warmup problem! <br />(<button id="hilight">Toggle highlighting</button>)</p>
+          <pre><code class="hljs no-syntax-highlight" data-trim data-noescape><span class="white-color darkturquoise">SELECT name, id, type, weakness</span>
+<span class="white-color green">FROM Pokemon</span>
+<span class="white-color mediumorchid">WHERE id &lt; 145 AND name LIKE %a% AND weakness = 'rock'</span>
+<span class="white-color orange">ORDER BY type, name DESC;</span></code></pre>
+          <p class="code-caption">SQL</p>
+          </div>
+          <script>
+            document.getElementById("hilight").onclick = function() {
+                turnoncolor("darkturquoise");
+                turnoncolor("orange");
+                turnoncolor("mediumorchid");
+                turnoncolor("green");
+            };
+            function turnoncolor(color) {
+              let colors = $$("." + color);
+              for (let i = 0; i < colors.length; i++) {
+                colors[i].classList.toggle("white-color");
+                //colors[i].style.backgroundColor = color;
+              }
+            }
+
+
+            function $(id) { return document.getElementById(id); }
+            function $$(qsa) {return document.querySelectorAll(qsa); }
+          </script>
+        </section>
+
+        </section>
+
+        <section>
+          <h2>SQL</h2>
+          <p>
+            <img style="display: inline; margin-top: 0; width: 45%;" src="hidden/xkcd-sql-top.png" alt="sql" />
+            <img style="margin-top: 0; display: inline; width: 45%; margin-left: 5%;" src="hidden/xkcd-sql-bottom.png" alt="sql" />
+          </p>
+        </section>
+
+        <section>
+          <h2>SQL: A Relational Database Language</h2>
+          <p><strong><a href="">Relational Database</a></strong>: A method of structuring data as tables
+            associated by shared attributes</p>
+          <p>A table row corresponds to a unit of data called a <strong>record</strong>; a column
+          corresponds to an attribute of that record</p>
+          <p>In Excel speak: <br />
+            <img width=100% src="hidden/generic-excel-example.png" alt="excel comparison" />
+          </p>
+          <p>In the above image, the cells highlighted blue are the first "column" and the
+          cells highlighted green are of the first "row", or "record"</p>
+          <p>SQL tables can be visualized just like an Excel sheet, just with different terminology,
+          and more programmatic capabilities.</p>
+        </section>
+
+        <section>
+          <h2>Guess What? We've Reached the Last Language of 154!</h2>
+          <p>(Insert happy/sad face here depending on your feels)</p>
+          <p>You can also now appreciate some of <a
+                                                                   href="https://www.codementor.io/learn-programming/what-if-pokemon-programming-languages"
+                                                                   target="_blank">this...</a></p>
+        </section>
+        <section>
+          <h2>What is a Database?</h2>
+          <p>A collection of related information, similar to JSON (but more tabular)</p>
+          <p>What are some examples of data you could store in a database?</p>
+          <ul>
+            <li>Pokedex</li>
+            <li>Book Reviews</li>
+            <li>Store Inventory</li>
+            <li>User Information</li>
+            <li>Movies/Games</li>
+            <li>Cafe Menu</li>
+            <li>...</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Why Learn SQL/Databases in this Class?</h2>
+          <p>Databases give us a great improvement in the way we can build, process, and retrieve
+          large datasets. Most software companies will have a large group dedicated to database
+          management.
+          </p>
+          <p>Advantages of a database:</p>
+          <ul>
+            <li><strong>Powerful</strong>: Can search it, filter data, combine data from multiple
+              sources.</li>
+            <li><strong>Fast</strong>: Can search/filter a database very quickly compared to a
+              file/JSON.</li>
+            <li><strong>Big</strong>: Scale well up to very large data sizes.</li>
+            <li><strong>Safe</strong>: Built-in mechanisms for failure recovery (e.g.
+              <strong>transactions</strong>).</li>
+            <li><strong>Multi-user</strong>: Concurrency feature let many users view/edit data at the
+            same time.</li>
+            <li><strong>Abstract</strong>: Provides layer of abstraction between stored data and
+              app(s) - many database programs understand the same SQL commands.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Database Software</h2>
+          <p><a href="https://en.wikipedia.org/wiki/Oracle_Database">Oracle</a></p>
+          <p><a href="https://www.microsoft.com/en-us/sql-server/sql-server-2017">Microsoft SQL
+            Server</a> (powerful) and <a href="https://products.office.com/en-us/access">Microsoft Access</a>
+          (simple)</p>
+          <p><a href="https://en.wikipedia.org/wiki/PostgreSQL">PostgreSQL</a> (powerful/complex free open-source database system)</p>
+          <p><a href="http://www.sqlitetutorial.net/">SQLite</a> (transportable, lightweight free open-source database system)</p>
+          <p><a href="https://www.tutorialspoint.com/mysql/index.htm">MySQL</a> (simple free open-source database system)</p>
+          <ul>
+            <li>Many servers run "<a
+                href="https://whatis.techtarget.com/definition/LAMP-Linux-Apache-MySQL-PHP">LAMP/MAMP/WAMP</a>" (Linux/Windows/Mac, Apache, MySQL, and PHP)</li>
+            <li>Wikipedia is run on PHP and MySQL</li>
+            <li>
+                We will use MySQL in this course with <a href="http://www.php-editors.com/articles/sql_phpmyadmin.php">phpMyAdmin</a>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Today's Example Database</h2>
+          <p><strong><a href="data/setup-games.sql">Games</a></strong></p>
+          <table class="small-font-table" style="margin-bottom: 10px;">
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>platform</th>
+              <th>release_year</th>
+              <th>genre</th>
+              <th>publisher</th>
+              <th>developer</th>
+              <th>rating</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Pokemon Red/Blue</td>
+              <td>GB</td>
+              <td>1996</td>
+              <td>Role-Playing</td>
+              <td>Nintendo</td>
+              <td>Nintendo</td>
+              <td>E</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Spyro Reignited Trilogy</td>
+              <td>PS4</td>
+              <td>2018</td>
+              <td>Platform</td>
+              <td>Activision</td>
+              <td>Toys for Bob</td>
+              <td>E</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Universal Paperclips</td>
+              <td>PC</td>
+              <td>2017</td>
+              <td>World Domination</td>
+              <td>Frank Lantz</td>
+              <td>Frank Lantz</td>
+              <td>E</td>
+            </tr>
+            <tr>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+            </tr>
+          </table>
+	        <p>You can test queries with this Games table <a
+            href="http://courses.cs.washington.edu/courses/cse154/query/">here</a>
+          </p>
+          <p>Note: We'll be practicing basic queries from this dataset today, but you'll learn how to
+          setup your own MySQL database with MAMP/<a
+          href="http://www.php-editors.com/articles/sql_phpmyadmin.php">phpMyAdmin</a> in section!
+          </p>
+        </section>
+
+        <section>
+          <h2>SQL Basics</h2>
+          <pre><code data-trim>SELECT name FROM Games WHERE id=23;</code></pre>
+          <pre><code data-trim>INSERT into Games VALUES
+  (9999,
+  'CSE 154 Pokemon',
+  'PC',
+  '2017',
+  'Card',
+  'Melissa Hovik/Whitaker Brand',
+  'UW CSE',
+  'E');</code></pre>
+          <p class="code-caption">SQL (Games DB)</code>
+          <p><strong>Structured Query Language (SQL)</strong>: A language for searching/updating a
+          database.</p>
+          <p>A standard syntax that is used by all database software (with minor variations). Generally case-insensitive.</p>
+          <p>A <strong>declarative</strong> language: describes what data you are seeking, not
+          exactly how to find it.</p>
+        </section>
+        <section>
+          <h2>SQL Statements We'll Cover Today</h2>
+          <ul>
+            <li><a href="#select">SELECT</a></li>
+            <li><a href="#distinct">DISTINCT</a></li>
+            <li><a href="#where">WHERE</a></li>
+            <li><a href="#like">LIKE</a></li>
+            <li><a href="#order-by">ORDER BY</a></li>
+            <li><a href="#limit">LIMIT</a></li>
+          </ul>
+          <p>
+            These are the basic "building-blocks" of forming "questions" (queries) in SQL</p>
+        </section>
+        <section id="select">
+          <h2>The SQL <code>SELECT</code> Statement</h2>
+          <p>Syntax:</p>
+          <pre><code>SELECT column(s) FROM table;</code></pre>
+          <p>Example:</p>
+          <pre><code>SELECT name, release_year FROM Games;</code></pre>
+            <p>Example output:</p>
+          <div style="overflow: auto; margin-top: -10px">
+            <table class="small-font-table half-width">
+              <tr><th>name</th><th>release_year</th></tr>
+              <tr><td>Pokemon Red/Blue</td><td>1996</td></tr>
+              <tr><td>Spyro Reignited Trilogy</td><td>2018</td></tr>
+              <tr><td>Universal Paperclips</td><td>2017</td></tr>
+              <tr><td>Super Mario Bros.</td><td>1985</td></tr>
+              <tr><td>...</td><td>...</td></tr>
+            </table>
+          </div>
+          <p class="font-20pt">
+            The <a target="_blank" href="https://www.w3schools.com/sql/sql_select.asp"><code>SELECT</code></a>
+            statement is used to select data from a database and returns the data in a result table containing the row data
+            for column name(s) written after <code>SELECT</code> filter. Table and column names are case-sensitive.</p>
+          </p>
+        </section>
+        <section id="distinct">
+          <h2>The <code>DISTINCT</code> Modifier</h2>
+          <p>Syntax:</p>
+          <pre><code>SELECT DISTINCT column(s) FROM table;</code></pre>
+    <p class="code-caption">SQL</p>
+          <p>The <a href=""><code>DISTINCT</code></a> eliminates duplicates from the result set.</p>
+          <div class="side-by-side" style="justify-content: space-between;">
+            <div style="width: 450px">
+              <p>Example (without <code>DISTINCT</code>):</p>
+              <pre><code>SELECT release_year
+FROM Games;</code></pre>
+              <table style="margin-top: 15px;" class="small-font-table">
+                <tr><th>release_year</th></tr>
+                <tr><td>1996</td></tr>
+                <tr><td>2018</td></tr>
+                <tr><td>2017</td></tr>
+                <tr><td>1985</td></tr>
+                <tr><td>1996</td></tr>
+                <tr><td>2008</td></tr>
+                <tr><td>...</td></tr>
+              </table>
+            </div>
+            <div style="width: 450px">
+              <p>Example (with<code>DISTINCT</code>):</p>
+              <pre><code>SELECT DISTINCT release_year
+FROM Games;</code></pre>
+              <table style="margin-top: 15px;" class="small-font-table">
+                <tr><th>release_year</th></tr>
+                <tr><td>1996</td></tr>
+                <tr><td>2018</td></tr>
+                <tr><td>2017</td></tr>
+                <tr><td>1985</td></tr>
+                <tr><td>2008</td></tr>
+                <tr><td>...</td></tr>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section id="where">
+          <h2>The SQL <code>WHERE</code> Statement</h2>
+          <p>Syntax:</p>
+          <pre><code>SELECT column(s) FROM table WHERE condition(s);</code></pre>
+          <p>Example:</p>
+          <pre><code>SELECT name, release_year FROM Games WHERE genre = 'puzzle';</code></pre>
+          <p>Example result:</p>
+          <table style="margin-top: 5px; margin-bottom: 5px;" class="small-font-table">
+            <tr><th>name</th><th>release_year</th></tr>
+            <tr><td>Tetris</td><td>1989</td></tr>
+            <tr><td>Brain Age 2: More Training in Minutes a Day</td><td>2005</td></tr>
+            <tr><td>Pac-Man</td><td>1982</td></tr>
+            <tr><td>...</td><td>...</td></tr>
+          </table>
+          <p>
+            The <a target="_blank" href="https://www.w3schools.com/sql/sql_where.asp"><code>WHERE</code></a> clause filters out rows based on their columns' data values. In large databases, it's critical to use a <code>WHERE</code> clause to reduce the result set in size.
+          </p>
+          <p>
+            Suggestion: When trying to write a query, think of the <code>FROM</code> part first, then the <code>WHERE</code> part, and lastly the <code>SELECT</code> part.
+          </p>
+        </section>
+        <section>
+          <h2>More about the <code>WHERE</code> Clause</h2>
+          <p>Syntax:</p>
+          <pre><code>WHERE column operator value(s)</code></pre>
+          <div style="justify-content: space-between" class="side-by-side">
+            <div>
+              <p>Example:</p>
+              <pre><code>SELECT name, release_year
+FROM Games
+WHERE release_year &lt; 1990;</pre></code>
+              <p>Example result:</p>
+              <table style="margin-top: 5px; margin-bottom: 5px;" class="small-font-table">
+                <tr><th>name</th><th>release_year</th></tr>
+                <tr><td>Super Mario Bros.</td><td>1985</td></tr>
+                <tr><td>Tetris</td><td>1989</td></tr>
+                <tr><td>Duck Hunt</td><td>1984</td></tr>
+                <tr><td>...</td><td>...</td></tr>
+              </table>
+            </div>
+            <div style="margin-left: 50px; margin-top: 15px">
+              <p>The <code>WHERE</code> portion of a <code>SELECT</code> statement can use the
+              following properties:</p>
+              <ul>
+                <li>=, &gt;, &gt;=, &lt; &lt;=</li>
+                <li>&lt;&gt; or != (not equal)</li>
+                <li><a href="https://www.w3schools.com/sql/sql_between.asp" target="_blank"><code<BETWEEN</code> min <code>AND</code> max<a/></li> <li><a href="https://www.w3schools.com/sql/sql_like.asp"><code>LIKE</code> pattern</a></li>
+                <li><a href="https://www.w3schools.com/sql/sql_in.asp" target="_blank"><code>IN</code> (value, value, ..., value)</a></li>
+              </ul>
+            </div>
+        </section>
+  <section>
+    <h2>Check your Understanding</h2>
+    <p>Write a SQL query that returns the `name` and `platform` of all games with a 'release_year' before 2000.</p>
+  </section>
+        <section>
+          <h2>Multiple <code>WHERE</code> Clauses: AND, OR</h2>
+          <p>Example:</p>
+          <pre><code>SELECT name, release_year FROM Games
+WHERE release_year &lt; 1990 AND genre='puzzle';</pre></code>
+          <p>Example result:</p>
+          <table style="margin-top: 5px; margin-bottom: 5px;" class="small-font-table">
+            <tr><th>name</th><th>release_year</th></tr>
+            <tr><td>Tetris</td><td>1989</td></tr>
+            <tr><td>Pac-Man</td><td>1982</td></tr>
+            <tr><td>Dr. Mario</td><td>1989</td></tr>
+            <tr><td>...</td><td>...</td></tr>
+          </table>
+          <p>Multiple <code>WHERE</code> conditions can be combined using <code>AND</code> or <code>OR</code>.</p>
+        </section>
+  <section>
+    <h2>Check your Understanding</h2>
+    <p>Write a SQL query that returns the `name` and `genre` of all games with the name 'Mario' or 'Spyro'.</p>
+  </section>
+        <section id="like">
+          <h2>Approximate Matches with <code>LIKE</code></h2>
+          <p>Syntax:</p>
+          <pre><code>WHERE column LIKE pattern</code></pre>
+          <div class="side-by-side" style="justify-content: space-between;">
+            <div>
+              <p>Example:</p>
+              <pre><code>SELECT name, release_year FROM Games
+WHERE name LIKE 'Spyro%'</pre></code>
+              <p>Example results:</p>
+              <table style="margin-top: 5px; margin-bottom: 5px;" class="small-font-table">
+                <tr><th>name</th><th>release_year</th></tr>
+                <tr><td>Spyro Reignited Trilogy</td><td>2018</td></tr>
+                <tr><td>Spyro the Dragon</td><td>1998</td></tr>
+                <tr><td>Spyro: Year of the Dragon</td><td>2000</td></tr>
+                <tr><td>Spyro 2: Ripto's Rage</td><td>1999</td></tr>
+                <tr><td>...</td><td>...</td></tr>
+              </table>
+            </div>
+            <div>
+              <ul class="space-above">
+                <li><code>LIKE 'text%'</code> searches for text that starts with a given prefix</li>
+                <li><code>LIKE '%text'</code> searches for text that ends with a given suffix</li>
+                <li><code>LIKE '%text%'</code> searches for text that contains a given substring</li>
+              </ul>
+            </div>
+          </div>
+      <p>Note: In MySQL, the text in the LIKE string is case-insensitive.</p>
+        </section>
+        <section id="order-by">
+          <h2>Sorting By a Column: <code>ORDER BY</code></h2>
+          <p>Syntax:</p>
+          <pre><code>SELECT column(s) FROM table
+ORDER BY column(s) ASC|DESC;</code></pre>
+          <div class="side-by-side" style="">
+            <div style="margin-left: -20px">
+              <p>Example (ascending order by default):</p>
+              <pre><code>SELECT name FROM Games
+ORDER BY name</pre></code>
+              <table style="margin-top: 5px; margin-bottom: 5px;" class="small-font-table">
+                <tr><th>name</th></tr>
+                <tr><td>'98 Koshien</td></td>
+                <tr><td>007 Racing</td></td>
+                <tr><td>007: Quantum of Solace</td></td>
+                <tr><td>007: The World is not Enough</td></td>
+                <tr><td>...</td></td>
+              </table>
+            </div>
+            <div style="margin-left: -20px">
+              <p>Example (descending order):</p>
+              <pre><code>SELECT name FROM Games
+ORDER BY name DESC</pre></code>
+              <table style="margin-top: 5px; margin-bottom: 5px;" class="small-font-table">
+                <tr><th>name</th></tr>
+                <tr><td>Zyuden Sentai Kyoryuger: Game de Gaburincho</td></td>
+                <tr><td>Zwei</td></td>
+                <tr><td>Zumba Fitness: World Party</td></td>
+                <tr><td>Zumba Fitness Rush</td></td>
+                <tr><td>...</td></td>
+              </table>
+            </div>
+          </div>
+
+          <p>The <a target="_blank" href="https://www.w3schools.com/sql/sql_orderby.asp"><code>ORDER BY</code></a> keyword is used to sort the result set in ascending or descending order (ascending if not specified)</p>
+        </section>
+        <section id="limit">
+          <h2>Limiting Rows with <code>LIMIT</code></h2>
+          <p>Syntax:</p>
+          <pre><code>LIMIT number</pre></code>
+          <p>Example:</p>
+          <pre><code>SELECT name FROM Games
+WHERE genre='puzzle'
+ORDER BY name
+LIMIT 3;</pre></code>
+          <p>Example result:</p>
+          <table style="margin-top: 5px; margin-bottom: 5px;" class="small-font-table">
+            <tr><th>name</th></tr>
+            <tr><td>100 All-Time Favorites</td></tr>
+            <tr><td>101-in-1 Explosive Megamix</td></tr>
+            <tr><td>3D Lemmings</td></tr>
+          </table>
+          <p><a href="https://www.w3schools.com/sql/sql_top.asp"><code>LIMIT</code></a> can be used to get the top-N of a given category. It can also be useful as a sanity check to make sure you query doesn't return 100000 rows.</p>
+        </section>
+  <section>
+  <h2>Check your understanding:</h2>
+  <p class="fragment">1. Write a SQL query that returns the `name` and `genre` of all games that have the word `dragon` in them, ordered by `release_year`.</p>
+        </section>
+
+        <section>
+          <h2>Additional Practice with SQL Queries</h2>
+          <p><a target="_blank" href="https://sqlzoo.net/wiki/SELECT_basics">SQLZoo</a> has multiple exercises (with built-in databases you don't need to worry about setting up) for practicing <code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code>, <code>LIMIT</code>, <code>LIKE</code>, etc. We recommend you go through these for additional practice!</p>
+          <p><a href="http://sol.gfxile.net/g3/#">GalaXQL</a>: Build/destroy/find galaxies with
+          SQL</p>
+        </section>
+      </div>
+    </div>
+   <script src="../../site/reveal/lib/js/head.min.js"></script>
+    <script src="../../site/reveal/js/reveal.js"></script>
+
+      <script>
+
+        Reveal.initialize({
+          controls: true,
+          progress: true,
+          history: true,
+          center: true,
+
+          transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+          // More info https://github.com/hakimel/reveal.js#dependencies
+          dependencies: [
+            { src: '../../site/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '../../site/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+            { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+            { src: '../../site/reveal/plugin/search/search.js', async: true },
+            { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+          ]
+        });
+
+      </script>
+
+    </body>
+  </html>

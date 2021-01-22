@@ -1,0 +1,18 @@
+#timer {
+  font-size: 16pt;
+}
+
+button {
+  margin-right: 10px;
+}
+
+.side-by-side {
+  display: flex;
+}
+
+.side-by-side pre {
+  height: 340px;
+  border: 2px solid black;
+  line-height: 14pt;
+  padding: 5px;
+}

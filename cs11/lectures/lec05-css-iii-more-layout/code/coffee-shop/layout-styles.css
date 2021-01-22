@@ -1,0 +1,49 @@
+/* Summary of TODOS */
+/* Part 0: Style the article "cards" and images */
+article {
+
+
+
+
+}
+
+article img {
+
+}
+
+/* Part 1: Make the body a full-height column */
+body {
+
+
+
+
+}
+
+main {
+  /* this makes the main (2nd child) take the rest of the remaining space */
+  flex-grow: 1;
+}
+
+/* Part 2: Display cards in #item-container as row that wraps and distributes
+   items evenly */
+#item-container {
+
+
+
+}
+
+
+
+
+/* Top bar styles (a bit trickier, so do last) */
+#top-bar {
+  /* Part 3: Make primary header a flex row that distributes
+  items evenly (three rules) */
+
+
+
+
+
+  /* Part 4: Make primary header sticky at top (two rules) */
+
+}

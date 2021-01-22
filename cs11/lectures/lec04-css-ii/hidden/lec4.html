@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 4 - More CSS</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+'../../site/reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>CSE 154</h1>
+          <h3>Lecture 4: Backgrounds, Box Model, and the DOM</h3>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <ul>
+            <li>Administrivia</li>
+            <li>CSS
+              <ul>
+                <li>Background Images</li>
+                <li>Box Model</li>
+                <li>More Selectors (combinators, psuedo, etc.)</li>
+                <li>The DOM</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Module 1: HTML and CSS</h2>
+          <p>By the end of this module, you should:</p>
+          <ul class="font-20pt">
+            <li>Be able to write a webpage with HTML using functionally and semantically
+              appropriate tags</li>
+            <li>Understand the relationship between the browser, webpage, website, HTML,
+              and CSS</li>
+            <li>Identify the importance of accessibility on the web and some best
+              practices you can use to make accessible websites</li>
+            <li>Become familiar with basic web development tools (text editor, browser,
+              Git and GitLab)</li>
+            <li>Understand how to use different CSS layout techniques with box model and flex</li>
+            <li>Know how and where to look for HTML tags and CSS properties</li>
+            <li>Be familiar with the CSE 154 Code Quality Guidelines</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Quick Tips on How to Study in Module 1</h2>
+          <ol class="font-20pt">
+            <li>
+              Attend every class (including lecture, section, and lab). Work through section
+              and lab problems if you don't finish them in class (we intentionally provide
+              more exercises than expected to complete in 50 minutes).
+            </li>
+            <li>
+              Build onto your CP work to learn new HTML tags and CSS properties (and remember to implement
+              your TAs feedback!) - you can use the same project in future CPs if you would like.
+            </li>
+            <li>
+              Ask questions! There's a lot to learn in HTML/CSS - we do not expect you to
+              learn it all in this course. Our goal is to provide guidance and motivation for
+              content, and the resources to help you filter out what's important. If
+              there is a common question from students, we can add resources to help.
+            </li>
+            <li>
+              Learn how to use your browser's inspector tool. This is super handy to explore
+              different CSS properties and values!
+            </li>
+            <li>
+              This is a great time to revisit the TA tips from their about pages!
+            </li>
+          </ol>
+        </section>
+
+        <section>
+            <h2>Reminders</h2>
+            <p>
+            <p>Last day to submit CP1 is today -  HW1 is due Thursday</p>
+            <ul>
+              <li>Remember to use <em>both</em> HTML and CSS validators before submitting!</li>
+            </ul>
+            <p>OH after lecture!</p>
+        </section>
+
+        <section>
+          <h2>Lecture Objectives</h2>
+          <p>
+            By the end of this lecture, you should be able to:
+          </p>
+          <ul>
+            <li>Use CSS to set background images to elements in a few different ways</li>
+            <li>Know the box model and the difference between margin, padding, and border</li>
+            <li>Position text and other elements on the page using the box model</li>
+            <li>Know the relationship between HTML and the "Document Object Model" (DOM)</li>
+            <li>Learn a bit more about different selectors</li>
+          </ul>
+        </section>
+
+          <h2>Review: CSS Basics</h2>
+          <pre><code class="hljs" data-trim>selector {
+  property: value;
+  property: value;
+  ...
+  property: value;
+}</code></pre>
+        <p class="code-caption">CSS (template)</p>
+
+        <pre><code class="hijs" data-trim>p {
+  color: red;
+  font-family: sans-serif;
+} </code></pre>
+        <p class="code-caption">CSS (example)</p>
+        <p>A CSS file consists of one or more "rule sets"</p>
+        <p>
+          A rule selector specifies HTML element(s) and applies style properties
+        </p>
+        <p>Can use different types of selectors (refer to video for an overview of simple and combinators)</p>
+      </section>
+
+      <section>
+      </section>
+          <section id="background-styles">
+            <h2>CSS Properties for Backgrounds</h2>
+            <table>
+              <tr>
+                <th><strong>Property</strong></th>
+                <th><strong>Description</strong></th>
+              </tr>
+              <tr>
+                <td>
+                  <code>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-color" target="_blank">background-color</a>
+                  </code>
+                </td>
+                <td>color to fill background (previously mentioned)</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-image" target="_blank">background-image</a>
+                  </code>
+                </td>
+                <td>image to place in background</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-position"
+                       target="_blank">background-position</a>
+                  </code>
+                </td>
+                <td>placement of background image within element</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat"
+                       target="_blank">background-repeat</a>
+                  </code>
+                </td>
+                <td>how background image should be repeated</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-attachment"
+                       target="_blank">background-attachment</a>
+                  </code>
+                </td>
+                <td>whether background image scrolls with page</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-size"
+                       target="_blank">background-size</a>
+                  </code>
+                </td>
+                <td>how large the background appears behind the element</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background"
+                       target="_blank">background</a>
+                  </code>
+                </td>
+                <td>shorthand to set all backgroud properties</td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: right;">
+                  <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders">More background
+                    properties and examples</a>
+                </td>
+              </tr>
+            </table>
+          </section>
+
+          <section id="background-image">
+            <h2>
+              <code>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-image"
+                   target="_blank">background-image</a>
+              </code>
+            </h2>
+            <pre><code class="hijs" data-trim>body {
+  background-image: url("coffee-ascii.png");
+}</code></pre>
+            <p class="code-caption">CSS</p>
+            <div class="output" style="background-size: 200px 200px; background-image:
+              url('../img/coffee-ascii.png')">
+              <p>This is the first paragraph</p>
+              <p>This is the second paragraph...<br />It occupies 2 lines</p>
+              <p class="output-caption">output</p>
+            </div>
+            <p>Background image/color fills the element's content area</p>
+            <p>Inspect and experiment with example code <a
+              href="resources/background-example.html">here</a>!</p>
+          </section>
+
+          <section id="background-repeat">
+            <h2>
+              <code>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat"
+                 target="_blank">background-repeat</a>
+              </code>
+            </h2>
+           <pre><code class="hijs" data-trim>body {
+  background-image: url("coffee-ascii.png");
+  background-repeat: no-repeat;
+}</code></pre>
+           <p class="code-caption">CSS</p>
+           <div class="output" style="background-size: 200px 200px; background-repeat: repeat-y;
+             background-image: url('../img/coffee-ascii.png')">
+             <p>This is the first paragraph</p>
+             <p>This is the second paragraph...<br />It occupies 2 lines</p>
+             <p class="output-caption">output</p>
+           </div>
+           <p>Can be <code>repeat</code> (default), <code>repeat-x</code>,
+           <code>repeat-y</code>, or <code>no-repeat</code></p>
+          </section>
+
+          <section id="background-position">
+            <h2>
+              <code>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-position"
+                 target="_blank">background-position</a>
+              </code>
+            </h2>
+            <pre class="no-margin"><code class="hijs" data-trim>body {
+  background-image: url("coffee-ascii.png");
+  background-repeat: no-repeat;
+  background-position: 370px 20px;
+}</code></pre>
+          <p class="code-caption">CSS</p>
+          <div class="output">
+            <div style="background-image: url('../img/coffee-ascii.png'); background-repeat:
+              no-repeat; background-position: 500px 20px;">
+              <p>This is the first paragraph</p>
+              <p>This is the second paragraph...<br /> It occupies 2 lines</p>
+            </div>
+            <p class="output-caption">output</p>
+          </div>
+          <p>
+            Value consists of two tokens, each of which can be <code>top</code>,
+            <code>left</code>, <code>right</code>, <code>bottom</code>,
+            <code>center</code>, a percentage, or a length value in px, pt, etc.
+          </p>
+          <p>Value can be negative to shift left/up by a given amount</p>
+          </section>
+
+        <section>
+          <div class="side-by-side">
+            <div style="width:25%;  position:absolute; left: 10%; margin-top:200px;">
+              <img class="simpleimg" src="../img/cssisawesome.jpg" alt="CSS is Awesome mug">
+              <p><a href="https://www.amazon.com/CSS-Awesome-Mug-Programmer-Developer/dp/B06Y13QC8N">from Amazon.com</a></p>
+            </div>
+            <div style="position:absolute; left: 40%;" >
+              <h1 style="margin-top: 400px">CSS and Layout</h1>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h1>The Box Model</h1>
+          <p>
+            <img src="../img/box-model-inspector.png" alt="Box Model Example" />
+          </p>
+        </section>
+
+
+        <section>
+          <h2>Starting with the Basics: <a
+                                                      href="https://www.developer.mozilla.org/en-US/docs/Web/CSS/width"
+          target="_blank">width</a>
+            and <a href="https://www.developer.mozilla.org/en-US/docs/Web/CSS/height" target="_blank">height</a></h2>
+          <p>
+            Height:
+          </p>
+          <p style="margin-left: 30px">
+            Block and inline elements normally have the height of their content
+          </p>
+          <p> Width: </p>
+          <p style="margin-left: 30px">
+            Inline elements have the width of their content
+          </p>
+          <p style="margin-left: 30px">
+            Block elements have a width that stretches across the whole page
+          </p>
+        </section>
+
+        <section>
+          <h2><code>width</code> and <code>height</code> Example</h2>
+          <pre><code class="hljs" data-trim>&lt;div class=&quot;block&quot;&gt;&lt;/div&gt;
+</code></pre>
+          <p class="code-caption">HTML</p>
+
+          <pre><code class="hljs" data-trim>.block {
+  height: 200px;
+  width: 200px;
+}</code></pre>
+          <p class="code-caption">CSS</p>
+          <div class="output">
+            <div style="width: 200px; height: 200px; background-color: greenyellow">
+            </div>
+            <p class="output-caption">output</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>A Box: (Inspect me!)</h2>
+
+          <style>
+            #box-container {
+              width: 600px;
+              height: 500px;
+              background-color: white;
+            }
+
+            #box-model {
+              width: 300px;
+              height: 200px;
+              padding: 60px 20px 30px 75px;
+              border: 10px solid #42affa;
+              margin: 20px 30px 40px 50px;
+              font-size: 14pt;
+              background-color: lightsteelblue;
+            }
+
+            .neighbor {
+              background-color: lightgreen;
+            }
+          </style>
+          <div class="side-by-side">
+          <div id="box-container">
+            <div class="neighbor">Top neighbor</div>
+
+            <div id="box-model">what's in the booooox?</div>
+
+            <div class="neighbor">Bottom neighbor</div>
+          </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Wait, what?</h2>
+          <div class="side-by-side">
+            <div class="panel-left two-panel">
+              <dl>
+                <dt>margin</dt><dd>(outside) space between different elements</dd>
+                <dt>border</dt><dd>(optionally visible) line that separates elements</dd>
+                <dt>padding</dt><dd>(inside) space between element content and border</dd>
+              </dl>
+            </div>
+            <div class="panel-right two-panel">
+              <img width=320px src="../img/box-model.png" alt="the box model" />
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>CSS Properties for Margins</h2>
+          <p>
+            Specified in <code>px</code>, <code>pt</code>, <code>em</code>, <code>rem</code>,
+            <code>%</code> (or <code>ex</code>, or even in <code>in</code>, <code>cm</code>,
+            <code>mm</code>, <code>pc</code>...but don't :)
+          </p>
+          <table class="standard">
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+            </tr>
+
+            <tr>
+              <td>
+                  <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/margin">margin</a></code>
+              </td>
+              <td>margin on all 4 sides</td>
+            </tr>
+
+            <tr>
+              <td>
+                  <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/margin-bottom">margin-bottom</a></code>
+              </td>
+              <td>margin on bottom side only</td>
+            </tr>
+
+            <tr>
+              <td>
+                  <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/margin-left">margin-left</a></code>
+              </td>
+              <td>margin on left side only</td>
+            </tr>
+
+            <tr>
+              <td>
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/margin-right">margin-right</a></code>
+              </td>
+              <td>margin on right side only</td>
+            </tr>
+
+            <tr>
+              <td>
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/margin-top">margin-top</a></code>
+              </td>
+              <td>margin on top side only</td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
+          <h2>CSS Properties for Borders</h2>
+
+          <pre><code class="hljs" data-trim>h4 { border: 5px solid red; }
+</code></pre>
+          <p class="code-caption">CSS</p>
+
+          <style>
+            #border-example-1 h4 { border: 5px solid red; margin-bottom: 0px; /* to fit on slide */ }
+          </style>
+
+          <div class="output" id="border-example-1">
+            <h4>This is a heading.</h4>
+            <p class="output-caption">output</p>
+          </div>
+
+          <table style="margin-bottom: 20px">
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+            </tr>
+
+            <tr>
+              <td>
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border">border</a></code>
+              </td>
+              <td>
+                thickness/style/color of border on all 4 sides
+              </td>
+            </tr>
+          </table>
+
+          <p>
+            <span class="term">Thickness</span> (specified in <code>px</code>, <code>pt</code>, <code>em</code>, or
+            <code style="border: thin solid #DDDDDD;">thin</code>, <code style="border: medium solid #DDDDDD;">medium</code>,
+            <code style="border: thick solid #DDDDDD;">thick</code>)
+          </p>
+          <p style="line-height: 2em">
+              <span class="term">Style</span>
+              (<code style="border: 5px none #DDDDDD;">none</code>,
+              <code style="border: 5px hidden #DDDDDD;">hidden</code>,
+              <code style="border: 5px dotted #DDDDDD;">dotted</code>,
+              <code style="border: 5px dashed #DDDDDD;">dashed</code>,
+              <code style="border: 5px double #DDDDDD;">double</code>,
+              <code style="border: 5px groove #DDDDDD;">groove</code>,
+              <code style="border: 5px inset #DDDDDD;">inset</code>,
+              <code style="border: 5px outset #DDDDDD;">outset</code>,
+              <code style="border: 5px ridge #DDDDDD;">ridge</code>,
+              <code style="border: 5px solid #DDDDDD;">solid</code>)
+            </p>
+            <p><span class="term">Color</span> (specified as seen previously for text and background
+            colors)</p>
+            <p>Tip: Use the Chrome Inspector to check out different styles!</p>
+        </section>
+
+        <section>
+          <h2>More Border Properties</h2>
+
+          <table class="standard">
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+            </tr>
+
+            <tr>
+              <td >
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-color">border-color</a></code>,
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-width">border-width</a></code>,
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-style">border-style</a></code>
+              </td>
+              <td>specific properties of border on all 4 sides</td>
+            </tr>
+
+            <tr>
+              <td >
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-bottom">border-bottom</a></code>,
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-left">border-left</a></code>,
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-right">border-right</a></code>,
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-top">border-top</a></code>
+              </td>
+              <td>all properties of border on a particular side</td>
+            </tr>
+
+            <tr>
+              <td>
+                <code><a
+                    href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-color">border-bottom-color</a></code>,
+                <code><a
+                    href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-style">border-bottom-style</a></code>, <br />
+                <code><a
+                    href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-width">border-bottom-width</a></code>,
+
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-left-color">border-left-color</a></code>, <br />
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-left-style">border-left-style</a></code>,
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-left-width">border-left-width</a></code>, <br />
+
+                <code><a
+                    href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-right-color">border-right-color</a></code>,
+                <code><a
+                    href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-right-style">border-right-style</a></code>, <br />
+                <code><a
+                    href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-right-width">border-right-width</a></code>,
+
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-top-color">border-top-color</a></code>, <br />
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-top-style">border-top-style</a></code>,
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-top-width">border-top-width</a></code>
+              </td>
+              <td>properties of border on a particular side</td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
+          <h2>
+            Rounded corners with <a class="popup"
+              href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/border-radius">
+            <code>border-radius</code></a>
+          </h2>
+
+          <pre><code class="hljs" data-trim data-noescape>p {
+  border: 3px solid lightsalmon;
+  <em>border-radius: 12px;</em>
+  padding: 0.5em;
+}</code></pre>
+          <p class="code-caption">CSS</p>
+
+          <style>
+            #rounded-border-1 p {
+              border: 3px solid lightsalmon;
+              border-radius: 12px;
+              padding: 0.5em;
+            }
+          </style>
+          <div id="rounded-border-1" class="output">
+            <p>This is a paragraph.</p>
+            <p>This is another paragraph.<br />It spans multiple lines.</p>
+          </div>
+          <p class="output-caption">output</p>
+
+          <p>Each side's border radius can be set individually, separated by spaces</p>
+        </section>
+
+
+        <section>
+          <h2>CSS Properties for Padding</h3>
+          <p>
+            Again, prefer <code>px</code>, <code>pt</code>, <code>em</code>, <code>rem</code>,
+            or <code>%</code> for units
+          </p>
+
+          <table class="standard">
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+            </tr>
+
+            <tr>
+              <td>
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/padding">padding</a></code>
+              </td>
+              <td>padding on all 4 sides</td>
+            </tr>
+
+            <tr>
+              <td>
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/padding-bottom">padding-bottom</a></code>
+              </td>
+              <td>padding on bottom side only</td>
+            </tr>
+
+            <tr>
+              <td>
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/padding-left">padding-left</a></code>
+              </td>
+              <td>padding on left side only</td>
+            </tr>
+
+            <tr>
+              <td>
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/padding-right">padding-right</a></code>
+              </td>
+              <td>padding on right side only</td>
+            </tr>
+
+            <tr>
+              <td>
+                <code><a href="http://www.developer.mozilla.org/en-US/docs/Web/CSS/padding-top">padding-top</a></code>
+              </td>
+              <td>padding on top side only</td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
+          <h1>Alignment</h1>
+          <p>How do we align text? How about block elements (e.g. page sections)?</p>
+        </section>
+
+        <section>
+          <h2>Horizontal and Vertical Alignment</h2>
+          <dl>
+            <dt>
+              <a href="https://www.developer.mozilla.org/en-US/docs/Web/CSS/text-align">
+                <code>text-align</code>:
+              </a> (center | left | right | justify)
+            </dt>
+            <dd>Align inline elements horizontally inside a parent container</dd>
+            <dt>
+              <a href="https://www.developer.mozilla.org/en-US/docs/Web/CSS/vertical-align">
+                <code>vertical-align</code>:
+              </a> (baseline | text-top | text-bottom | sub | super)
+            </dt>
+            <dd>Align inline elements vertically relative to the text</dd>
+          </dl>
+        </section>
+
+          <section>
+            <h2>Text and Image Alignment Examples</h2>
+            <div class="side-by-side two-panel">
+              <div>
+            <pre><code class="hljs" data-trim style="max-height: 540px">&lt;div&gt;
+  &lt;p&gt;
+    Some text!
+    &lt;img id="cup1" src=&quot;cup.png&quot;&gt;
+    &lt;img id="cup2" src=&quot;cup.png&quot;&gt;
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            <p class="code-caption">HTML</p>
+              </div>
+              <div>
+            <style>
+              #alignment-example div {
+                text-align: right;
+              }
+              #alignment-example #cup1 {
+                vertical-align: middle;
+
+                /** override slide styles: */
+                margin: 0;
+              }
+              #alignment-example #cup2 {
+                vertical-align: text-top;
+                /** override slide styles: */
+                margin: 0;
+              }
+            </style>
+
+            <pre><code class="hljs">#container {
+  text-align: right;
+}
+
+#cup1 { vertical-align: middle; }
+
+#cup2 { vertical-align: text-top; }
+</code></pre>
+            <p class="code-caption">CSS</p>
+              </div>
+
+            </div>
+
+            <div id="alignment-example" class="output">
+              <div>
+                <p>
+                  This is some text!
+                  <img id="cup1" src="../img/coffee-ascii.png">
+                  <img id="cup2" src="../img/coffee-ascii.png">
+                </p>
+              </div>
+            </div>
+            <p class="output-caption">output</p>
+          </section>
+          <section>
+            <h2>But what about Alignment for Block Elements?</h2>
+          </section>
+
+          <section>
+            <h2>Centering Page Elements: An Attempt</h2>
+            <div class="side-by-side two-panel">
+              <div style="width: 40%">
+            <pre><code class="hljs" data-trim>&lt;body&gt;
+  &lt;div class=&quot;block&quot;&gt;
+&lt;/body&gt;
+
+
+
+
+
+
+
+</code></pre>
+            <p class="code-caption">HTML</p>
+              </div>
+              <div style="width: 59%">
+            <pre><code class="hljs" data-trim style="max-height: 540px">body {
+  /* Doesn't work on block elements! */
+  text-align: center;
+}
+
+.block {
+  background-color: #42affa;
+  height: 100px;
+  width: 100px;
+}</code></pre>
+            <p class="code-caption">CSS</p>
+              </div>
+              </div>
+            <style>
+              #centering-example .block {
+                width: 100px;
+                height: 100px;
+                background-color: #42affa;
+              }
+
+              #centering-example2 .block {
+                width: 100px;
+                height: 100px;
+                background-color: #42affa;
+                margin-left: auto;
+                margin-right: auto;
+              }
+            </style>
+
+            <div id="centering-example" class="output">
+              <div class="block"></div>
+            </div>
+            <p class="output-caption">output</p>
+
+            <p>
+            Inspect <a href="resources/box-example.html" target="_blank">this page</a> and use <code>margin-right: auto;</code> and <code>margin-left: auto;</code> on the blue block to center.
+            </p>
+          </section>
+
+          <section>
+            <h2>Centering Page Elements: A Solution</h2>
+            <div class="side-by-side two-panel">
+              <div style="width: 40%">
+            <pre><code class="hljs" data-trim>&lt;body&gt;
+  &lt;div class=&quot;block&quot;&gt;
+&lt;/body&gt;
+
+
+
+
+</code></pre>
+            <p class="code-caption">HTML</p>
+              </div>
+              <div style="width: 59%">
+            <pre><code class="hljs" data-trim style="max-height: 540px">.block {
+  background-color: #42affa;
+  height: 100px;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}</code></pre>
+            <p class="code-caption">CSS</p>
+              </div>
+              </div>
+
+            <div id="centering-example2" class="output">
+              <div class="block"></div>
+            </div>
+            <p class="output-caption">output</p>
+
+            <p>This margin approach "fills in" the left and right margins of the block based on the width
+            (<strong>which must be defined!</strong>)
+          </section>
+
+        <section>
+          <h2>Confusing Stuff</h2>
+
+          <p>
+            <code>text-align</code>-- apply to a parent container to align the <em>inline</em> content within
+          </p>
+
+          <p>
+            <code>vertical-align</code>-- apply to inline items (usually those with a height, like an image)
+            to vertically align them relative to other inline elements nearby
+          </p>
+
+          <p>
+            <code>margin-left: auto;</code>, <code>margin-right: auto</code>-- use auto margins and a
+            width to center a block element in its parent
+          </p>
+          <p>
+          Later this week we'll learn flex layout - this can often be used instead of setting
+          the margin (and also makes vertical alignment <em>much</em> easier)
+          </p>
+        </section>
+
+        <section>
+          <h2>CSS
+            <code>
+              <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Pseudo-classes_and_pseudo-elements" target="_blank">pseudo-classes</a>
+            </code>
+          </h2>
+          <pre>
+          <code class="hljs" data-trim>a:link    { color: #FF0000; } /* unvisited link */
+a:visited { color: #00FF00; } /* visited link */
+a:hover   { color: #FF00FF; } /* mouse over link */</code></pre>
+          <p class="code-caption">CSS</p>
+          <p><a href="resources/link-example.html" target='_blank'>Example</a> (HTML)</p>
+          <table class="small-font-table" style="margin-top: 10px">
+            <tr><th><strong>Class</strong></th><th><strong>Description</strong></th></tr>
+            <tr>
+              <td>:active</td>
+              <td>an activated or selected element</td>
+            </tr>
+            <tr>
+              <td>:focus</td>
+              <td>an element that has the keyboard focus</td>
+            </tr>
+            <tr>
+              <td>:hover</td>
+              <td>an element that has the mouse over it</td>
+            </tr>
+            <tr>
+              <td>:link</td>
+              <td>a link that has not been visited</td>
+            </tr>
+            <tr>
+              <td>:visited</td>
+              <td>a link that has already been visited</td>
+            </tr>
+            <tr>
+              <td>:first-child</td>
+              <td>an element that is the first one to appear inside another</td>
+            </tr>
+            <tr>
+              <td>:nth-child(N)</td>
+              <td>applies to every Nth child of a given parent</td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
+          <h2>Parents? Children? Is HTML some kind of family tree?</p>
+        </section>
+
+        <section>
+          <h2>DOM Exercise</h2>
+          <p>
+            Exercise <a href="resources/dom-exercise.pdf">handout</a> and
+            <a href="resources/dom-exercise-solution.pdf">solution</a>
+          </p>
+        </section>
+
+        <section>
+          <h2>The DOM</h2>
+          <p>
+            A tree-shaped structure built out of all of the HTML elements in a
+            page
+          </p>
+        </section>
+
+        <section>
+            <h2>Visualizing the DOM Tree</h2>
+            <div class="side-by-side">
+                <div style="width: 50%">
+                    <pre><code class="hljs" data-trim>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt; ... &lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt; ... &lt;/h1&gt;
+    &lt;div&gt;
+      &lt;p&gt; ... &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                    <p class="code-caption">HTML</p>
+                </div>
+                <img src="../img/dom.png" style="width: 30%; height: 100%;" alt="DOM">
+            </div>
+            <p>A very useful representation to use when choosing CSS selectors and understanding
+            style inheritance. We will be revisiting the DOM when we introduce JavaScript!</p>
+        </section>
+
+      </div>
+    </div>
+
+  <script src="../../site/reveal/lib/js/head.min.js"></script>
+  <script src="../../site/reveal/js/reveal.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [{
+          src: '../../site/reveal/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/marked.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/markdown.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/highlight/highlight.pack.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+        { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+        { src: '../../site/reveal/plugin/search/search.js', async: true },
+        { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+      ]
+    });
+  </script>
+</body>
+</html>

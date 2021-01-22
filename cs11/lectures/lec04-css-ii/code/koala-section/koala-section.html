@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+  Author: Melissa Hovik
+  CSE 154 Summer 2019
+  A simplified Koala page to show some basic box model properties
+-->
+<html>
+  <head>
+    <meta charset="utf--8" />
+    <link href="koala-section-styles.css" rel="stylesheet" />
+    <title>Koala Fan Page</title>
+  </head>
+  <body>
+    <header>
+      <h1>A Koala-tee Webpage</h1>
+    </header>
+
+    <section>
+      <!-- Koala Facts section -->
+      <header>
+        <h2><span class="koala-face">*('0')*</span> Koala Facts <span class="koala-face">*('0')*</span></h2>
+      </header>
+      <p>
+        Koalas are great. They have fluffy ears and are like teddy bears, only they come
+        with a heart <span id="heart">&lt;3</span>.
+      </p>
+      <p>
+        Koalas live in Australia. They are actually more closely related to the kangaroo than
+        bears (they have pouches!). They eat a lot of Eucalyptus plants. They were discovered
+        by Europeans over 200 years ago, and there are records of them being called names like
+        "koolewong", "colo", "koolah", and "boorabee."
+      </p>
+      <p>
+        Interestingly, koalas have one of the smallest brains in porportion to their body
+        weight. They usually live a solitary life in trees, sleeping up to 18 hours a day.
+      </p>
+
+      <!-- Koala gallery -->
+      <article>
+        <h2>CSE154 Koala Art Gallery!</h2>
+
+        <!--
+        This div was added to practice with flex layout: introduced Wednesday!
+        Try to add the "display: flex" property to koala-container.
+        Then, what happens when you add a justify-content property? Use the Chrome Inspector
+        to experiment!
+        -->
+        <div id="koala-container">
+          <!-- Source: Sven Hansen, current CSE154 TA -->
+          <img src="https://cdn.drawception.com/drawings/xw9jvPWy9Y.png" alt="Koala drawing by Sven Hansen"/>
+
+          <!-- Source: Melissa Hovik, CSE154 Instructor  -->
+          <img src="koala-with-leaf.png" alt="Koala drawing with a leaf by Melissa Hovik" />
+
+          <!-- Source: Andrey Butenko, former CSE154 student -->
+          <img src="koala-waving.png" alt="Koala character from a CSE154 student's Creative Project in 19sp" />
+        </div>
+      </article>
+    </section>
+  </body>
+</html>

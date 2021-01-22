@@ -1,0 +1,44 @@
+{
+  "categories" : {
+    "drinks" : [
+      {
+        "name" : "Classic coffee",
+        "description" : "The classic.",
+        "image" : "coffee.png",
+        "in-stock" : true
+      },
+      {
+        "name" : "Bubble Tea",
+        "description" : "Bubbles.",
+        "image" : "tea.png",
+        "in-stock" : true
+      },
+      {
+        "name" : "The Sippy",
+        "description" : "The classic. In a sippy cup.",
+        "image" : "the-sippy.png",
+        "in-stock" : false
+      }
+    ],
+    "foods" : [
+      {
+        "name" : "Cereal",
+        "description" : "To complement the most important drink of the day",
+        "image" : "cereal.png",
+        "in-stock" : true
+      },
+      {
+        "name" : "Coffee Noodles",
+        "description" : "The next big thing.",
+        "image" : "noodles.jpg",
+        "in-stock" : true
+      },
+      {
+        "name" : "Dougnut",
+        "description" : "We don't have bagels.",
+        "image" : "doughnut.png",
+        "in-stock" : false
+      }
+    ]
+  }
+ }

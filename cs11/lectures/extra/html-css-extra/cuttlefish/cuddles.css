@@ -1,0 +1,62 @@
+* {
+	font-family: "DejaVu Sans";
+}
+
+body {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #DDD;
+}
+
+
+#info img {
+	float: right;
+	height: 200px;
+	margin: 10px;
+}
+
+#info, #stats {
+	height: 380px;
+}
+
+#info {
+	padding-left: 20px;
+	overflow: auto;
+
+}
+
+#stats {
+	width: 20%;
+	float: left;
+	background-color: #AAA;
+}
+
+li {
+	list-style: none;
+	margin-bottom: 10px;
+	margin-right: 5px;
+	font-size: 10pt;
+}
+
+ul {
+	padding-left: 15px;
+}
+
+h1, h3 {
+	text-align: center;
+}
+
+#gallery {
+	clear: both;
+	text-align: center;
+}
+
+#gallery img {
+	height: 130px;
+	vertical-align: top;
+}
+
+#main {
+	border: 5px solid #AAA;
+}

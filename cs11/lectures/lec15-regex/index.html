@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+		<meta charset="utf-8">
+		<title>Lecture 15 - Regex</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+      '../../site/reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+				<section>
+					<h1>CSE 154</h1>
+					<h3>Lecture 15: Regular Expressions</h3>
+				</section>
+
+        <section>
+          <h2>Agenda</h2>
+          <p>Review POST Requests with Validation</p>
+          <p>Which motivates... regular expressions!</p>
+        </section>
+
+        <section>
+          <h3>Friday's Case Study: A WPL Queue Tool</h3>
+          <p>
+            <img class="centered-figure w-66" src="hidden/wpl.png" alt="Validation Form Example">
+          </p>
+          <p>Solution code (try adding more validation methods on your own!):</p>
+          <ul>
+            <li><a href="code/wpl-form/wpl-solution.html">wpl.html</a> (running solution)</li>
+            <li><a href="code/wpl-form/wpl-solution.js">wpl.js</a> (JS source code)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Some Forms in the Wild</h2>
+          <ul>
+            <li><a href="https://secure.nba.com/membership/user/register/">https://secure.nba.com/membership/user/register/
+</a></li>
+            <li><a href="https://www.awwwards.com/standard-submission/">https://www.awwwards.com/standard-submission/</a></li>
+            <li><a href="https://auth.tesla.com/register">https://auth.tesla.com/register</a></li>
+            <li><a href="https://yummygum.com/contact">https://yummygum.com/contact</a></li>
+            <li><a href="https://tripplanner.kingcounty.gov/">https://tripplanner.kingcounty.gov/</a></li>
+            <li><a href="https://www.callitspring.com/us/en_US/create-account">https://www.callitspring.com/us/en_US/create-account</a></li>
+            <li><a href="https://www.tsbvi.edu/web-accessiblity/2427-bad-form-example">https://www.tsbvi.edu/web-accessiblity/2427-bad-form-example</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Importance of Validation in Web Development</h2>
+          <p>
+            Prioritizing validation is important as web developers so that the websites we build are:
+          </p>
+          <ol>
+            <li>User-friendly</li>
+            <li>Secure*</li>
+          </ol>
+          <p>If you're interested in learning more, <a
+             href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/First_steps/Website_security"
+             target="_blank">MDN</a>
+            has a good quick introduction to web security, and <a href="https://www.owasp.org/index.php/Main_Page">OWASP</a> is a fantastic resource for
+            all things related to web security. You can also find a good article on how to write
+            user-friendly form UIs <a href="https://www.webfx.com/blog/web-design/best-practices-for-hints-and-validation-in-web-forms/" target="_blank">here</a>.</p>
+            <p>The takeaway? There are many ways to perform validation, but MDN/OWASP both are great
+                  resources to refer to based on the context of your websites</p>
+            <p>Most importantly, <strong>don't trust that users will provide correct/safe
+              input!</strong></p>
+        </section>
+
+        <section>
+          <h2>HTML5 Input Validation</h2>
+          <p>
+            We've already seen some ways to use HTML5 tags to require certain types of input by
+            adding attributes to your <code>&lt;input&gt;</code> tags to help with validation
+          </p>
+          <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>&gt;</span></code></pre>
+          <p class="code-caption">HTML</p>
+          <p>We can limit the up and down arrows with <code>min</code> (and <code>max</code> if we choose)</p>
+          <p>
+            </p><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">0</span>&gt;</span></code></pre>
+            <p class="code-caption">HTML</p>
+          <p></p>
+          <p>
+            To insist that there is a value in the input field we can add <code>required</code>
+          </p>
+          <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">required</span>&gt;</span></code></pre>
+          <p class="code-caption">HTML</p>
+          <p>
+            To prevent a user from being able to type in erroneous values, we can add a
+            <em>regular expression</em> to the <code>required</code> attribute
+          </p>
+          <p>
+            </p><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">required</span>=<span class="hljs-string">"\d+"</span>&gt;</span></code></pre>
+            <p class="code-caption">HTML</p>
+        </section>
+
+        <section>
+          <h3>wpl.html Form (with Validation Attributes)</h3>
+          <pre><code class="hljs font-12pt">&lt;form id="input-form"&gt;
+  &lt;div&gt;
+    &lt;label for="name-input"&gt;Name: &lt;/label&gt;
+    &lt;input id="name-input" name="student-name" type="text" pattern="[A-Z][a-z]+" required/&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for="email-input"&gt;E-mail (@uw.edu): &lt;/label&gt;
+    &lt;input id="email-input" name="email" type="email" required/&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for="sid-input"&gt;Student Number: &lt;/label&gt;
+    &lt;input id="sid-input" name="sid" type="number" min=1000000 max=1999999 /&gt;
+  &lt;/div&gt;
+  &lt;div id="minute-options"&gt;
+    &lt;label&gt;2-Minute Question &lt;input type="radio" name="minutes" value=2 /&gt;&lt;/label&gt;
+    &lt;label&gt;10-Minute Question &lt;input type="radio" name="minutes" value=10 /&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;textarea name="question" minlength=20 rows=5 placeholder="Enter your question..."&gt;&lt;/textarea&gt;
+  &lt;button id="submit-btn" type="submit"&gt;Enter Queue!&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+          <p class="code-caption">HTML</p>
+        </section>
+        <section>
+          <h3>Client Validation with JS</h3>
+          <pre class="no-syntax-highlight"><code class="hljs font-14pt">/**
+ * Just before send form data to the WPL web service.
+ */
+function checkInputs() {
+  let email = qs("input[name='email']").value;
+  let question = qs("textarea").value;
+  if (!email.includes("uw.edu")) {
+    handleError("Please provide a UW email");
+  } else if (!question.includes(" ")) // not a real question...
+    // Build the 5 parameters for our POST request
+    handleError("Please provide a descriptive question");
+  } else {
+    // could add other checks before this
+    submitWPLForm();
+  }
+}</code></pre>
+          <p class="code-caption">wpl.js</p>
+          <p>While this is a bit more work, we don't always need to send all form elements in an
+          API request, and it also gives us more control over validation checks in JS (for
+          properties you can't check with HTML5 attributes) before the fetch.
+          </p>
+        </p>
+        </section>
+        <section>
+          <h2>Limitations of HTML5 Attributes</h2>
+          <p>
+           There are some limitations of input validation given what we've learned so far.
+          </p>
+          <ul class="fragment" data-fragment-index="0">
+            <li>How do you test for integers vs. real numbers vs. strings?</li>
+            <li>How do you test for a valid UW email?</li>
+            <li>How do you test that a person's name has a middle initial?</li>
+            <li>(How do you test whether a given string matches a particular complex format?)</li>
+          </ul>
+        </section>
+        <section>
+					<h2>Regular Expressions!</h2>
+          <pre><code data-trim="" class="hljs">/^[a-zA-Z_\-]+@(([a-zA-Z_\-])+\.)+[a-zA-Z]{2,4}$/</code></pre>
+          <p><strong>Regular expression</strong> ("regex"): a description of a pattern of text</p>
+          <ul>
+            <li>Can test whether a string matches the expression's pattern</li>
+            <li>Can use a regex to search/replace characters in a string</li>
+          </ul>
+          <p>
+            Regular expressions are extremely power but tough to read (the above regular expression
+            matches email addresses)
+          </p>
+					<p>Regular expressions occur in many places:</p>
+          <ul>
+						<li>
+              Java: Scanner, String's <code>split</code> method (CSE 143
+							random grammar generator)
+            </li>
+            <li>Supported by HTML5, JS, Java, Python, PHP, and other languages</li>
+            <li>
+              Many text editors (TextPad, Sublime, Vim, etc.) allow regexes in
+						  search/replace
+            </li>
+						<li>
+              The site <a href="http://rubular.com" target="_blank">Rubular</a> is useful
+							for testing a regex
+						</li>
+          </ul>
+        </section>
+        <section>
+					<h2>Basic Regular Expressions</h2>
+          <pre><code class="hljs">/abc/</code></pre>
+          <p>In JS, regexes are strings that begin and end with <samp>/</samp></p>
+          <p>The simplest regexes simply match a particular substring</p>
+          <p>The above regular expression <a href="http://rubular.com/r/J87FHaVFh9" target="_blank">matches any string containing "abc"</a></p>
+          <ul>
+            <li>Match: "abc", "abcdef", "defabc", ".=.abc.=.", ...</li>
+            <li>Don't Match: "fedcba", "ab c", "PHP", ...</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Useful Regex Quick Reference</h2>
+          <a href="hidden/regex-reference.png" target="_blank">
+            <img src="hidden/regex-reference.png" alt="regex quick reference">
+          </a>
+        </section>
+        <section>
+          <h2>Wildcards: <samp>.</samp></h2>
+          <p>A <samp>.</samp> matches any character except a <samp>\n</samp> line break</p>
+          <ul>
+            <li><code>/.ow.l./</code> matches "Mowgli", "Powell", etc.</li>
+          </ul>
+          <p>
+            A trailing <samp>i</samp> at the end of a regex (after the closing <samp>/</samp>)
+            signifies a case-insensitive match
+          </p>
+          <ul>
+            <li><code>/cal/i</code> matches "Pascal", "California", "GCal", etc.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Special Characters: <samp>|</samp>, <samp>()</samp>, <samp>\</samp></h2>
+          <p><samp>|</samp> means OR</p>
+          <ul>
+            <li><code>/abc|def|g/</code> matches "abc", "def", or "g"</li>
+          </ul>
+          <p><samp>()</samp> are for grouping</p>
+          <ul>
+            <li><code>/iP(ad|hone)/</code> matches "iPad" or "iPhone"</li>
+          </ul>
+          <p><samp>\</samp> starts an escape sequence</p>
+          <ul>
+            <li>Many characters must be escaped to match them literally: <samp>/\$.[]()^*+?</samp></li>
+            <li><code>/&lt;br \/&gt;/</code> matches lines containing <samp>&lt;br /&gt;</samp> tags</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Quantifiers: <samp>*</samp>, <samp>+</samp>, <samp>?</samp></h2>
+          <p><samp>*</samp> means 0 or more occurrences</p>
+          <ul>
+            <li><code>/abc*/</code> matches "ab", "abc", "abcc", "abccc", ...</li>
+            <li><code>/a(bc)*/</code> matches "a", "abc", "abcbc", "abcbcbc", ...</li>
+            <li><code>/a.*a/</code> matches "aa", "aba", "a8qa", "a!?xyz__9a", ...</li>
+          </ul>
+          <p><samp>+</samp> means 1 or more occurrences</p>
+          <ul>
+            <li><code>/Hi!+ there/</code> matches "Hi! there", "Hi!!! there!", ...</li>
+            <li><code>/a(bc)+/</code> matches "abc", "abcbc", "abcbcbc", ...</li>
+          </ul>
+          <p><samp>?</samp> means 0 or 1 occurrences</p>
+          <ul>
+            <li><code>/a(bc)?/</code> matches only "a" or "abc"</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Character Sets: <samp>[]</samp></h2>
+          <p>
+            <samp>[]</samp> groups characters into a <strong>character set</strong>; will match any single
+            character from the set
+          </p>
+          <ul>
+            <li><code>/[bcd]art/</code> matches strings containg "bart", "cart", and "dart"</li>
+            <li>equivalent to <code>/(b|c|d)art/</code> but shorter</li>
+          </ul>
+          <p>Inside <samp>[]</samp>, many of the modifier keys act as normal characters</p>
+          <ul>
+            <li><code>/what[!*?]*/</code> matches "what", "what!", "what?**!", "what??!", etc.</li>
+          </ul>
+          <p>Practice: What regex matches strings containing a lowercase vowel? (<a href="http://rubular.com/r/V9fT7ButuL" target="_blank">try
+                                                                                    it!</a>)</p>
+          <p>Practice: What regex matches strings containing consecutive vowels? (<a href="http://rubular.com/r/tozaer4ytW" target="_blank">try
+                                                                                    it!</a>)</p>
+        </section>
+        <section>
+          <h3>Character ranges: <samp>[start-end]</samp></h3>
+          <p>Inside a character set, specify a range of characters with <samp>-</samp></p>
+          <ul>
+            <li><code>/[a-z]/</code> matches any lowercase letter</li>
+            <li><code>/[a-zA-Z0-9]/</code> matches any lowercase or uppercase letter or digit</li>
+          </ul>
+          <p>Inside a character set, <samp>-</samp> must be escaped to be matched</p>
+          <ul>
+            <li>
+              <code>/[+\-]?[0-9]+/</code> matches an optional <samp>+</samp> or <samp>-</samp>,
+              followed by at least one digit
+            </li>
+          </ul>
+          <p>Practice: Write a regex for Student ID numbers that are exactly 7 digits and start with 1
+          (<a href="https://rubular.com/r/I0k4iARj5JAYBo" target="_blank">try it!</a>)</p>
+       </section>
+        <section>
+          <h2>Negations</h2>
+          <p>An initial <samp>^</samp> inside a character set negates it</p>
+          <ul>
+            <li><code>/[^abcd]/</code> matches any character other than a, b, c, or d</li>
+          </ul>
+        </section>
+       <section>
+          <h2>Exercise: First and Last Names</h2>
+          <p>Write a regex for names in the format: "First Last"
+            (<a href="https://rubular.com/r/DEcFPX98oqljee">Try it!</a>)</p>
+          <p>Should pass:</p>
+          <ul>
+            <li>Good Student</li>
+          </ul>
+          <p>Should not pass:</p>
+          <ul>
+            <li>G00d Student4Lyfe</li>
+            <li>Not So Good Student</li>
+            <li>Student</li>
+          </ul>
+          <p>When done, let's add this to our HTML using the <code>pattern</code> attribute.</p>
+        </section>
+        <section>
+          <h2>Regular Expressions in HTML Forms</h2>
+          <pre><code class="hljs font-12pt">&lt;form id="input-form"&gt;
+  ... rest of form
+  &lt;input id="name-input" name="student-name" type="text" pattern="[A-Z][a-z]+ [A-Z][a-z]+"
+     title="Required name format: 'First Last'" /&gt;
+  ... rest of form
+&lt;/form&gt;</code></pre>
+          <p class="code-caption">HTML</p>
+          <div class="output" class="font-16pt">
+            <form id="html-form-ex" class="font-16pt">Name:
+              <input type="text" name="student-name" pattern="[A-Z][a-z]+ [A-Z][a-z]+"
+                     title="Required name format: 'First Last'">
+              <button id="html-form-ex-btn" type="submit">Submit</button>
+            </form>
+          </div>
+          <p>HTML5 adds a new pattern attribute to input elements</p>
+          <p>
+            When an input is in a form along with a button, clicking the button
+            automatically verifies the input and does a POST request (can use <code>title</code>
+            parameter for more useful feedback, or the JS Constraint Validation API).
+          </p>
+        </section>
+        <section>
+          <h2>More Quantifiers: <samp>{min, max}</samp></h2>
+          <p><samp>{<em>min</em>, <em>max</em>}</samp> means between <em>min</em> and <em>max</em> occurrences
+          (inclusive)</p>
+          <ul>
+            <li><code>/a(bc){2,4}/</code> matches "abcbc", "abcbcbc", or "abcbcbcbc"</li>
+          </ul>
+          <p><em>min</em> or <em>max</em> may be omitted to specify any number</p>
+          <ul>
+            <li><samp>{2,}<samp> means 2 or more</samp></samp></li>
+            <li><samp>{,6}<samp> means up to 6</samp></samp></li>
+            <li><samp>{3}<samp> means exactly 3</samp></samp></li>
+          </ul>
+        </section>
+        <section>
+					<h2>Example</h2>
+          <p>
+            When you search Google, it shows the number of pages of results as the number of "o"s
+            in the word "Google".
+          </p>
+          <p>
+            What regex matches such words with an even number of 'o's
+            ("Google", "Goooogle", "Goooooogle", ...?
+          </p>
+          <p>
+            Your regex should not match strings with fewer than two o's and shold be
+            case-sensitive (only the first letter should be capitalized) (<a href="http://rubular.com/r/FOAtw3IWWl" target="_blank">try it</a>)
+          </p>
+          <p class="fragment" data-fragment-index="0">Solution: <span class="fragment" data-fragment-index="1"><code>G(oo)+gle</code> or
+            <code>Go{2}+gle</code> both work!</span></p>
+        </section>
+        <section>
+          <h2>Anchors: <samp>^</samp> and <samp>$</samp></h2>
+          <p><samp>^</samp> represents the beginning of the string or line; <samp>$</samp> represents the end</p>
+          <ul>
+            <li><code>/Doggy/</code> matches all strings that contain Doggy</li>
+            <li><code>/^Doggy/</code> matches all strings that <em>start</em> with Doggy</li>
+            <li><code>/Doggy$/</code> matches all strings that <em>end</em> with Doggy</li>
+            <li><code>/^Doggy$/</code> matches the exact string "Doggy" only</li>
+            <li>
+              <code>/^Mo.*Doggy$/</code> matches "MoDoggy", "Mowgli Doggy", "Mowgli is my Doggy", ... but
+              not "Doggy Mowgli is my Doggy", "Mowgli" or "my Doggy"
+            </li>
+          </ul>
+          <p>
+            (on the other slides, when we say, /PATTERN/ matches "text", we really mean that it
+            matches any string that contains the text)
+          </p>
+        </section>
+        <section>
+					<h2>Escape Sequences</h2>
+          <p>Special escape sequence characters sets</p>
+          <ul>
+            <li>
+              <samp>\d</samp> matches any digit (same as <samp>[0-9]</samp>);
+              <samp>\D</samp> any non-digit (<samp>[^0-9]</samp>)
+            </li>
+            <li>
+              <samp>\w</samp> matches any word characters (alphanumeric and _ underscore, same as <samp>[a-zA-Z0-9_]</samp>);
+              <samp>\W</samp> any non-word character
+            </li>
+            <li>
+              <samp>\s</samp> matches any whitespace character ( , \t, \n, etc.);
+              <samp>\S</samp> any non-whitespace character
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Regular Expressions in JavaScript!</h2>
+          <p>Regex can be a very handy tool with JS as well, from validation to fun find/replace features. There are two common ways regex can be used:</p>
+          <ul>
+            <li>
+                With the RegExp constructor (either with a literal or string, use when you don't always know what
+                the pattern is, such as user input)
+              </li>
+              <li>
+                With a literal (when you know exactly what the regex pattern is, evaluated exactly once)
+              </li>
+            </ol>
+            <pre><code>let pattern1 = new RegExp(/cse154/, "i");
+let pattern2 = new RegExp("cse154", "i");
+let pattern3 = /cse154/;</code></pre>
+            <p class="code-caption">JS</p>
+            <p>Note that we don't use "/" when using strings for patterns in the second RegExp
+            constructor. This can be useful when we want to search for a particular pattern given as
+            text input (e.g. a word replacer tool)!</p>
+            <p>Practice in the console <a href="code/regex-practice/regex-practice.html" target="_blank">here</a>!</p>
+          </section>
+          <section>
+            <h2>Some Regex Functions in JS</h2>
+            <p>Regex Objects have a few useful functions that take strings as arguments</p>
+            <p><code>regex.test(string)</code> returns a boolean if a string matches the regex</p>
+            <pre><code class="hljs">let namePattern = /[A-Z][a-z]+ [A-Z][a-z]+/;
+namePattern.test("Mowgli Hovik"); // true
+
+let sidPattern = new RegExp("1\d{6}");
+sidPattern.test("-123");          // false</code></pre>
+            <p class="code-caption">JS</p>
+          </section>
+          <section>
+            <h2>Some String Functions in JS</h2>
+            <p>
+              Some JavaScript string methods can take Regular Expressions,
+              like <code>match</code>, <code>search</code>, and <code>replace</code>
+            </p>
+            <p><code>string.match(regex)</code> returns an array of information about a match, including the index of the first match</p>
+<pre><code>"Hello world".match(/wo.l/); // [0: "worl", index: 6, input: "Hello world"]</code></pre>
+            <p class="code-caption space-below">JS</p>
+
+<p><code>origStr.replace(regex, replStr)</code> returns a new string replacing a <samp>pattern</samp> match in <samp>origStr</samp> with the string <samp>replStr</samp></p>
+<pre><code class="hljs">let newStr = "My dog is a good dog".replace(/dog/, "pup");
+// newStr === "My pup is a good dog"</code></pre>
+<p class="code-caption">JS</p>
+          </section>
+        <section>
+          <h2>Regex Flags</h2>
+          <p>The two common flags for patterns are "g" and "i"</p>
+          <p>"i" ignores letter-casing in the match, and "g" is a "global" search, meaning it won't stop
+            on the first match.
+          </p>
+          <pre><code>let str = "My dog is a good dog";
+let newStr = str.replace(/dog/g, "pup"); // My pup is a good pup</code></pre>
+          <p class ="code-caption">JS</p>
+            <pre><code data-trim>let pattern = new RegExp("spring", "i");
+// or let pattern = /spring/i;
+let str = "CSE154: Web Programming Spring 2019";
+let newStr = str.replace(pattern, "Summer"); // Summer 2019</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+          <section>
+            <h2>More Regex Functions</h2>
+          <p>
+            Note there are a variety of useful methods you may find for different things, but there
+            are also a few nuances depending on whether you are using the RegExp with strings or
+            the literal type in JavaScript. Refer to
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">this helpful page</a> for more of an overview!
+          </p>
+        </section>
+        <section>
+          <h2>A Word Replacer</h2>
+          <p><a href="code/regex-practice/word-replacer.html" target="_blank">Demo</a></p>
+<pre><code>function replace() {
+  let search = id("find").value;
+  // "ig" are optional flags:
+  // "i" - ignore case in search
+  // "g" - 'global' search to replace all occurrences (otherwise only one match is replaced)
+
+  // Alternative to /pattern/ig
+  let searchRegex = new RegExp(search, "ig");
+  let replace = id("replace").value;
+  let input = id("input-text").value;
+
+  if (search && replace && input) {
+    let output = input.replace(searchRegex, replace);
+    id("output").textContent = output;
+  }
+}</code></pre>
+  <p class="code-caption">JS</p>
+          </section>
+        <section>
+          <h2>Additional Resources and Regex Fun</h2>
+          <p>
+            <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation" target="_blank">HTML Form Validation (MDN)</a>: A neat overview of the
+            different features offered in HTML5 for client-side form validation!</p>
+          <p>
+            <a href="https://regexone.com/lesson/introduction_abcs" target="_blank">RegexOne</a>: A helpful interactive regex tutorial
+          </p>
+          <p>
+            <a href="https://regexcrossword.com" target="_blank">Regex Crossword Game</a>: A super
+            fun way to practice regex for puzzle-lovers :)
+          </p>
+        </section>			</div>
+    </div>
+
+    <script src="../../site/reveal/lib/js/head.min.js"></script>
+    <script src="../../site/reveal/js/reveal.js"></script>
+		<script src="validation-slides.js"></script>
+
+    <script>
+        Reveal.initialize({
+          controls: true,
+          progress: true,
+          history: true,
+          center: true,
+
+          transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+          // More info https://github.com/hakimel/reveal.js#dependencies
+          dependencies: [
+            { src: '../../site/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '../../site/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+            { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+            { src: '../../site/reveal/plugin/search/search.js', async: true },
+            { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+          ]
+        });
+
+      </script>
+
+    </body>
+  </html>

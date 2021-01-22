@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 20 - POST requests and API Deployment</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal/css/print/pdf.css' :
+'../../reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>CSE 154</h1>
+          <h3>Lecture 20: POST requests and API Deployment</h3>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <p>Breaking down a directory-based Cafe API implementation</p>
+          <p>How to handle errors in Express apps: best practices</p>
+          <p>Implementing POST requests with the <code>multer</code> module</p>
+          <p>Deploying an API with Heroku!</p>
+        </section>
+
+        <section>
+          <h2>Implementing the CSE154 Cafe API</h2>
+          <p>Recall that our orignal cafe website worked with <a href="code/cse154-cafe/menu.json" target="_blank">menu.json</a> in the following format to store information
+          about menu categories, items, images, etc.</p>
+          <pre><code class="font-12pt">{
+  "categories" : {
+    "drinks" : [
+      {
+        "name" : "Classic Coffee",
+        "description" : "The classic.",
+        "image" : "coffee.png",
+        "in-stock" : true
+      }, ...
+    ],
+    "foods" : [
+      ...
+    ]
+ }</code></pre>
+        </section>
+
+        <section>
+          <h3>Current Cafe Directory Structure</h3>
+          <p>The cafe web service now holds its data in a <a href="code/cse154-cafe/categories" target="_blank">directory structure</a> to help process the results. We can process these directories
+            in various ways.</p>
+          <div class="side-by-side r-1-2">
+            <div>
+          <pre><code class="font-12pt">cse154-cafe/
+   app.js
+   categories/
+     drinks/
+       drinks-icon.png
+       bubble-tea/
+         info.txt
+         purchase-history.txt
+       classic-coffee/
+         info.txt
+         purchase-history.txt
+       ...
+     foods/
+       ...
+   public/
+     fetch-menu.js
+     admin.html
+     admin.js
+     contact.html
+     contact.js
+     img/
+   stock-img/
+     ...</code></pre>
+     <p class="code-caption">Contents (abbreviated)</p>
+   </div>
+   <div class="fragment">
+<pre><code class="font-12pt">let categoryReaddirPaths = await readdir("categories");
+// ["drinks", "foods"]</code></pre>
+
+<pre><code class="font-12pt">let categoryGlobPaths = await globPromise("categories/*");
+// ["categories/foods", "categories/drinks"]</code></pre>
+
+<pre><code class="font-12pt">let drinksReaddirPaths = await readdir("categories/drinks");
+// ["bubble-tea", "classic-coffee",
+//  "drinks-icon.png", "the-sippy"]</code></pre>
+
+<pre><code class="font-12pt">let drinksInfo =
+  await globPromise("categories/drinks/*/info.txt");
+// ["categories/drinks/bubble-tea/info.txt",
+//  "categories/drinks/classic-coffee/info.txt",
+//  "categories/drinks/the-sippy/info.txt"]</code></pre>
+
+<pre><code class="font-12pt">// ** recursively searches within the current directory
+// and all subdirectories
+let allJS = await globPromise("**/*.js");
+// ["app.js", "public/fetch-menu.js", "public/admin.js",
+//  "public/contact.js", "public/fetch-menu.js"]</code></pre>
+
+<pre><code class="font-12pt no-syntax-highlight">// can use [patt1|patt2|...] to match patt1 or patt2 or ...
+let allImages = await globPromise("stock-img/*[png|jpg]");</code></pre>
+   </div>
+        </section>
+        <section>
+          <h2>Where's the Item Data Now?</h2>
+          <p>In our original <a href="code/cse154-cafe/menu.json" target="_blank"><code>menu.json</code></a>, we had an array for each category with an object for each item.</p>
+          <pre><code>{ "name" : "Bubble Tea",
+ "description" : "Bubbles",
+ "image" : "tea.png",
+ "in-stock" : true }</code></pre>
+           <p>
+             We now have a directory for each item
+             containing an <code>info.txt</code> with the description, stock quantity, and image.</p>
+           <pre><code class="no-syntax-highlight">Bubbles.
+10
+tea.png</code></pre>
+          <p class="code-caption"><a href="code/cse154-cafe/categories/drinks/bubble-tea/info.txt" target="_blank">categories/drinks/bubble-tea/info.txt</a></p>
+        </section>
+
+        <section>
+          <h3>Breaking down the <code>menu/</code> Endpoint</h3>
+          <p>
+            How could we use everything we've been learning with file I/O to generate
+            <code>menu.json</code> using the <code>categories</code> directories and item <code>info.txt</code> files?</p>
+          </p>
+          <p>An approach:</p>
+          <ol>
+            <li>Get all category directories using <code>fs.readdir</code></li>
+            <li>For each category, build an array of item data using <code>glob</code> and <code>fs.readFile</code></li>
+            <li>Return the result JSON:</li>
+          </ol>
+<pre><code>{ "categories" :
+  &lt;category&gt; : &lt;itemArray&gt;,
+  &lt;category&gt; : &lt;itemArray&gt;,
+  ...
+}</code></pre>
+          <p>Visit the live <a href="https://fathomless-badlands-58662.herokuapp.com/menu" target="_blank">/menu</a> endpoint for an example!</p>
+        </section>
+
+        <section>
+          <h2>A Start to <code>/menu</code></h2>
+          <p>
+            This endpoint requires various steps to process directories and files for categories and items.
+            Remember to break down your code into functions for readability and maintainability!
+          </p>
+          <pre><code class="font-14pt">const SERVER_ERROR = "Something went wrong on the server, please try again later.";
+
+// Returns a JSON collection of all categories and items served at the cafe
+// Returns a 500 error if something goes wrong on the server.
+app.get("/menu", async (req, res) => {
+  try {
+    let result = await getMenuData();
+    res.json(result);
+  } catch (err) {
+    res.status(500).send(SERVER_ERROR);
+  }
+});</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+        <section>
+          <h2>Getting all Category Directories</h2>
+          <pre><code class="font-14pt">async function getMenuData() {
+  let categories = await readdir("categories");
+  // ["drinks", "foods"]
+  for (let i = 0; i &lt; categories; i++) {
+    let category = categories[i];
+    let items = await globPromise("categories/" + category + "/*/");
+    // ["categories/drinks/bubble-tea/", "categories/drinks/classic-coffee/", ...]
+    ...
+  }
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Unlike <code>fs.readdir</code>, the array returned by <code>glob</code> will include the full path (relative to the directory of the program) for matches.</p>
+          <p>How do we get the item names from these path strings?</p>
+        </section>
+
+        <section>
+          <h3>Getting Item Names from File Paths</h3>
+          <p>We could do some string splitting...</p>
+          <pre><code>for (let i = 0; i &lt; items.length; i++) {
+  let itemPath = items[i]; // ex: "categories/drinks/bubble-tea"
+  let parts = itemPath.split("/");
+  let itemName = parts[parts.length - 2];
+  ... // get rest of item data from itemName/info.txt
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>But this is awkward, prone to programmer error, and causes issues on different machines that <a href="https://www.howtogeek.com/181774/why-windows-uses-backslashes-and-everything-else-uses-forward-slashes/">separate paths differently</a> (e.g. "\" vs. "/")</p>
+          <p>If only we had functionality to work with path strings... a new module!</p>
+        </section>
+
+        <section>
+          <h2>The <code>path</code> Core Module</h2>
+          <p>A core module that includes <a href="https://nodejs.org/dist/latest-v12.x/docs/api/path.html">many useful functions</a> for working with file system paths.</p>
+          <table class="code-table">
+            <tr>
+              <th>function</th>
+              <th>description</th>
+              </tr>
+              <tr>
+                <td><a href="https://nodejs.org/dist/latest-v12.x/docs/api/path.html#path_path_basename_path">path.basename(pathString)</a></td>
+                <td>Returns the basename for the given path</td>
+              </tr>
+              <tr>
+                <td><a href="https://nodejs.org/dist/latest-v12.x/docs/api/path.html#path_path_extname_path">path.extname(pathString)</a></td>
+                <td>returns the extension of the path</d>
+              </tr>
+              <tr>
+                <td><a href="https://nodejs.org/dist/latest-v12.x/docs/api/path.html#path_path_dirname_path">path.dirname(pathString)</a></td>
+                <td>Returns the directory containing the given path</td>
+              </tr>
+            </table>
+            <pre><code>path.basename("a/b/c.txt"); // "c.txt"
+path.extname("a/b/c.txt");  // "txt"
+path.dirname("a/b/c.txt");  // "b"
+
+path.dirname("a/b/");       // "a"
+path.basename("a/b/");      // "b"
+path.basename("a/b");       // "b"</code></pre>
+<p class="code-caption">Examples</p>
+        </section>
+
+        <section>
+          <h3>Using <code>path.basename</code> in <code>getMenuData</code></h3>
+          <p><code>path</code> is another core module so we'll need to require it
+            with the rest of the modules (<em>remember that you don't need to install core modules</em>).</p>
+          <p>Then, we're ready to use it to help process file paths!</p>
+          <pre><code>const path = require("path"); // defined at top of file
+...
+
+// ex: itemPath === "categories/drinks/bubble-tea"
+let itemName = path.basename(itemPath); // "bubble-tea"
+let formattedName = formatTitleCase(itemName); // "Bubble Tea"
+... // get rest of item data from info.txt</code></pre>
+            <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h3>Factoring out further with <code>getItemData</code></h3>
+<pre><code>async function getItemData(itemPath) {
+  let itemName = path.basename(itemPath);
+  let formattedName = formatTitleCase(itemName);
+  // readfile error will be caught all the way up in /menu endpoint
+  let contents = await readFile(itemPath + "/info.txt", "utf8");
+  let lines = contents.split("\n");
+  let description = lines[0]; // e.g. Bubbles.
+  let qty = lines[1];         // e.g. 10
+  let img = lines[2];         // e.g. tea.png
+  return {
+    "name" : formattedName,
+    "image" : img,
+    "description" : description,
+    "in-stock" : qty > 0
+  };
+}</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h3>A Full Version of <code>getMenuData</code></h3>
+          <pre class="font-12pt"><code>async function getMenuData() {
+  let result = {};
+  let categories = await readdir("categories");
+  for (let i = 0; i &lt; categories.length; i++) {
+    let category = categories[i];
+    let categoryData = [];
+    let items = await globPromise("categories/" + category + "/*/");
+    for (let j = 0; j &lt; items.length; j++) {
+      let itemDir = items[j];
+      let itemPath = await getItemData(itemPath);
+      categoryData.push(itemData);
+    }
+    // "drinks" -&gt; "Drinks"
+    let formattedCategory = formatTitleCase(category);
+    result[formattedCategory] = categoryData;
+  }
+  return { "categories" : result };
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p><em>Note: This function could also be improved with <code>Promise.all</code> - how?</em></p>
+        </section>
+
+        <section>
+          <h2>Error Handling So Far</h2>
+          <p>Since introducing file processing, we've had to consider both client-specific and server-specific errors.</p>
+          <p>Now that we are implementing our own APIs, it's our job to use <a href="https://www.restapitutorial.com/httpstatuscodes.html" target="_blank">appropriate errors</a> for API requests:</p>
+          <ul>
+            <li>200: A 200 error is the default, and represents a successful response.</li>
+            <li>4XX: Client-specific errors, related to the client's use of the web service.</li>
+            <li>5XX: Server-specific errors, independent of the client's use.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Choosing Error Codes</h2>
+          <p>Use 400 (Invalid Requests) for client-specific errors.</p>
+          <ul>
+            <li>Invalid parameter format (e.g. "Seattle" instead of a required 5-digit zipcode)</li>
+            <li>Missing a required query parameter</li>
+            <li>Requesting an item that doesn't exist</li>
+          </ul>
+          <p>
+            Use 500 (Server error) status codes for errors that are independent of any client input.
+          </p>
+          <ul>
+            <li>Errors caught in <code>fs</code> or <code>glob</code> that are not related to any request parameters</li>
+            <li>SQL Database connection errors (next week!)</li>
+            <li>Other mysterious server errors...</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Handling Errors: Best Practices</h2>
+          <p>
+            You should never send the caught <code>err</code> variable to the client in a published web service. Why not?
+          </p>
+          <div class="fragment">
+          <pre><code>try {
+  ...
+} catch (err) {
+  // Bad: We may be leaking information the client shouldn't see
+  res.status(500).send("There was an error: " + err);
+  <span class="fragment">// Better
+  res.status(500).send("Something went wrong on the server... " +
+                       "Please try again later.");</span>
+  <span class="fragment">// Best
+  if (DEBUG) { // a boolean program const set to true when testing locally
+    console.error(err); // prints details to your command line
+  }
+  // SERVER_ERROR is a const with the generic message above
+  res.status(500).send(SERVER_ERROR);</span>
+}</code></pre>
+          <p class="code-caption">JS</p>
+        </div>
+        </section>
+        <section>
+          <h3>Using ENOENT ("Entry Not Found") error constant</h3>
+          <div class="font-18pt">
+          <p>
+            If a request parameter is used when file-processing in a request and you want a 400-error
+            if the parameter is invalid, use the <code>ENOENT</code> ("entry not found") error code
+            to catch a file I/O error. This is one of Node's <a href="https://nodejs.org/api/errors.html#errors_common_system_errors">built-in System Errors</a>.
+          </p>
+          <p>Each error caught in a catch block is an Error object, with properties we can inspect like the string <a href="https://nodejs.org/api/errors.html#errors_class_systemerror" target="_blank"><code>error.code</code></a></p>
+        </div>
+          <pre><code class="font-12pt">/**
+ * Returns a JSON array of item folders for the given category name (ignoring letter-casing).
+ * Returns a 400 text/plain error if no category found for the given name.
+ * Returns a 500 text/plain error if something goes wrong on the server.
+ */
+app.get("/menu/:category", async (req, res) => {
+  let categoryDir = req.params.category.toLowerCase();
+  try {
+    // add the slash at the end to only match directories
+    let itemDirs = await readdir("categories/" + categoryDir);
+    res.json(itemDirs);
+  } catch (err) {
+    res.type("text");
+    if (err.code === "ENOENT") {
+      res.status(400).send("No results found for category: " req.params.category);
+    } else {
+      res.status(500).send(SERVER_ERROR);
+    }
+  }
+});</code></pre>
+        <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h3>Catching/Throwing Errors in Helper Functions</h3>
+          <p>It's best not to pass the <code>res</code> object to helper functions unless you <a href="https://expressjs.com/en/guide/error-handling.html" target="_blank">define them as middleware</a> (the "best practice" in Express)</p>
+          <p>However, middleware can be a little tricky to conceptualize, and we don't require mastery in this class</p>
+          <p>You can omit try/catch in the helper function - any errors will automatically jump to the original function's <code>catch</code> (e.g. the /menu endpoint)</p>
+          <p>If you want to learn about the middleware approach, come ask in office hours!</p>
+        </section>
+
+        <section>
+          <h3>Sending Descriptive Error Messages</h3>
+          <p class="font-16pt">Always send a descriptive error message to the client to let them know what they should do differently (if client-specific)</p>
+          <pre><code class="font-12pt">// shorthand to set and send the default error message (don't do)
+res.sendStatus(400);  // "Bad Request"
+// Better examples:
+res.status(400).send("Missing required name query parameter");
+res.status(400).send("zipcode parameter must be 5 digits");
+res.status(400).send("No results found for category: " req.params.category);</code></pre>
+  <p class="code-caption">Server-side JS</p>
+          <p class="font-16pt">This status text is also exactly what you see when you access <code>response.statusText</code> in a <code>fetch</code> Response object</p>
+          <pre><code class="font-12pt">function checkStatus(resp) {
+  if (!resp.ok) // response.status is not between 200 and 300
+    // Possible 400: No results found for category: foo
+    // Possible 500: Something went wrong on the server... please try again later.
+    throw Error("Error in request: " + resp.statusText);
+  }
+  return resp;
+}</code></pre>
+          <p class="code-caption">Client-side JS</p>
+        </section>
+        <section>
+          <h2>Sending Errors: Content Type</h2>
+          <p>Remember that all responses are HTML by default (including errors).</p>
+          <p>Use plain text or JSON errors, but be consistent, and include in your documentation.</p>
+          <pre><code>res.type("text");
+res.status(400).send("Missing required name query parameter");
+// or
+res.status(400).json({ "error" : "Missing required name query parameter" });</code></pre>
+  <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>Handling POST Requests on the server-side</h2>
+          <p>We've seen how to handle GET requests with <code>app.get</code></p>
+          <p>But what about POST requests that we send with <code>FormData</code>?</p>
+        </section>
+
+        <section>
+          <h2>GET vs. POST</h2>
+          <p>Consider the Cafe page so far. We have three pages - index.html, admin.html, and contact.html</p>
+          <p>The solution supports a few GET endpoints: <code>/menu</code>, <code>/menu/:category/</code>, <code>/categories</code>, <code>/images</code></p>
+          <p>What are examples of POST requests we might want to add?</p>
+        </section>
+
+        <section>
+          <h3>Implementing a <code>/contact</code> POST endpoint</h3>
+          <p>Let's implement an a POST endpoint to process a contact message sent from the contact page form.</p>
+          <div class="side-by-side r-1-2" style="align-items: flex-end">
+          <img src="hidden/contact-view.png" alt="Contact form view" />
+          <div class="fragment">
+          <p>To add a POST endpoint, use <code>app.post</code> instead of <code>app.get</code></p>
+          <pre><code>app.post("/contact", (req, res) => {
+  ...
+});</code></pre>
+          <p class="code-caption">JS</p>
+        </div>
+        </section>
+
+        <section>
+          <h2>POST Parameters</h2>
+          <p>
+            With GET endpoints, we've used <code>req.params</code> and <code>req.query</code> to get endpoint parameters passed
+            in the request URL.
+          </p>
+          <p>But remember that POST requests send parameters in the Request body, not in the URL.</p>
+          <pre><code>app.post("/contact", (req, res) => {
+  let name = req.params.name; // this doesn't work!
+  ...
+});</code></pre>
+<p class="code-caption">JS</p>
+          <p>What is a disadvantage of sending parameters in a URL?</p>
+          <ul>
+            <li class="fragment">Not secure, limit to the length of data we can send in a URL</li>
+          </ul>
+          <p class="fragment">So, how can we get POST parameters sent by a client?</p>
+        </section>
+
+        <section>
+          <h2>Handling Different POST Requests</h2>
+          <p>POST requests can be sent with <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST">different data types</a>:
+          <ul>
+            <li><code>application/x-www-form-urlencoded</code></li>
+            <li><code>application/json</code></li>
+            <li><code>multipart/form-data</code></li>
+          </ul>
+          <p>In Express, we have to use middleware to extract the POST parameters from the <code>req.body</code>. For the first two, there is built-in middleware - we don't need middleware for text/plain.</p>
+          <p>With forms and fetch, we use the <code>FormData</code> object to send POST parameters, which is always
+            sent as <code>multipart/form-data</code>.</p>
+          <p>There is no built-in middleware to access the <code>req.body</code> params for multipart content.</p>
+          <p>Another module!</p>
+        </section>
+
+        <section>
+          <h2>The <code>multer</code> Module</h2>
+          <p>A module for extracting POST parameter values sent through multipart POST requests like those sent with FormData</p>
+          <p>Has a lot of functionality to support file uploading, but we will just use it to access
+            the body of a POST request sent through FormData, which we can't get with just
+            <code>req.body</code>.
+          </p>
+          <p>
+            To use, we'll need to set an option to ignore upload features with <code>multer().none()</code>
+          </p>
+          <pre><code>const multer = require("multer");
+
+app.use(multer().none());</code></pre>
+<p class="code-caption">JS</p>
+          <p>Remember to run <code>npm install multer</code> in any project that uses it.</p>
+        </section>
+
+        <section>
+          <h2>Supporting all POST requests</h2>
+          <p>We often don't want to make assumptions about what method a client uses to POST data.
+            It's best to support all three with the appropriate middleware.</p>
+          <pre><code class="hljs font-12pt">// other required modules ...
+const multer = require("multer");
+
+// for application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true })) // built-in middleware
+// for application/json
+app.use(express.json()); // built-in middleware
+// for multipart/form-data (required with FormData)
+app.use(multer().none()); // requires the "multer" module
+
+...
+app.post("/contact", (req, res) => {
+  let name = req.body.name;
+  let email = req.body.email;
+  let message = req.body.message;
+  let timestamp = new Date.toUTCString();
+  // validate parameters, then update message.json file with new data
+  ...
+});</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+        <section>
+          <h3>Summary of Handling a POST Request</h3>
+          <ol>
+            <li>Use <code>app.post</code> instead of <code>app.get</code></li>
+            <li>Use <code>req.body.paramname</code> instead of <code>req.params.paramname</code>/<code>req.query.paramname</code></li>
+            <li>Require the <code>multer</code> (non-core) module with the rest of your modules</li>
+            <li>Use the three middleware functions to support the three different types of POST requests from different possible clients</li>
+            <li>Test your POST requests with Postman or with <code>fetch</code> and <code>FormData</code> in client-side JS (similar to HW3) - remember you can't test POST requests in the URL!</p>
+          </ol>
+        </section>
+
+        <section>
+        <section>
+          <h2>A Note about Postman</h2>
+          <p>You may have seen Postman in section as a handy tool to test fetch requests.</p>
+          <p>It's particularly useful to test your server-side code before writing your front-end.</p>
+          <p>Turns out, it has a very neat API documentation generator.</p>
+          <p>You can check out screenshots on using Postman with API documentation in the slides below.</p>
+          <p>You can find an example of published API documentation for the Cafe API here using Postman <a href="https://documenter.getpostman.com/view/8370820/SVYtPJZM?version=latest#29ddc146-5f46-44c9-888f-edf5dda29823" target="_blank">here</a>!</p>
+        </section>
+
+        <section>
+          <h2>Adding Example Endpoints</h2>
+          <img class="centered-figure w-80" src="hidden/postman-post.png" />
+        </section>
+
+        <section>
+          <h2>Publishing Documentation</h2>
+          <img class="centered-figure one-third-width" src="hidden/publish-doc-postman.png" />
+        </section>
+
+        <section>
+          <h2>Viewing Published Documentation</h2>
+          <img class="centered-figure" src="hidden/view-doc.png" />
+        </section>
+
+        <section>
+          <h2>A Note about APIDOC.md</h2>
+          <p>
+            If you would like, you may choose to generate API documentation with Postman for CP4 or the Final Project, as long as you meet the requirements.
+            You must then add a link to your APIDOC.md to the published documentation on Postman, and make sure it's publicly-accessible.
+          </p>
+        </section>
+      </section>
+
+        <section>
+          <h2>Practice on your own</h2>
+          <p>On Tuesday, you implemented a Typing Test API</p>
+          <p>One of the parts involved implementing a GET endpoint to update scores</p>
+          <p>Try converting this endpoint to a POST endpoint with <code>multer</code>!</p>
+          <p><a href="https://courses.cs.washington.edu/courses/cse154/19su/sections/week07-tues/slides/index.html#/7/4" target="_blank">Relevant slide</a></p>
+        </section>
+
+        <section>
+          <h3>Publishing your Node.js App to a Public Server</h3>
+          <p>So far, our API's have all been ran with a local server on a local port (e.g. 8000).</p>
+          <p>If you ever want other people to be able to make requests from your API, you don't usually want to require them to install your project and host locally on their own machine.</p>
+          <p>There are many options to host your API to a server - one of the easiest to get started with is Heroku.</p>
+        </section>
+
+        <section>
+          <h2>Heroku</h2>
+          <p>A <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">platform</a> that allows you to publish server-side code</p>
+          <p>Free to use, and supports many server-side languages, including Node.js.</p>
+          <p>We have provided a <a href="../../resources/assets/node/deploying-heroku-app.pdf" target="_blank">Quick Start</a> guide linked in today's extra resources.</p>
+          <p>Example of a TA's published Node.js app:</p>
+          <ul>
+            <li><a href="https://gentle-everglades-29405.herokuapp.com/" target="_blank">https://gentle-everglades-29405.herokuapp.com/movies/beemovie</a></li>
+          </ul>
+          <p>Live version of CSE154 Cafe:</p>
+          <ul>
+              <li><a href="https://fathomless-badlands-58662.herokuapp.com/messages" target="_blank">https://fathomless-badlands-58662.herokuapp.com/</a></li>
+          </ul>
+          <p>You can practice the instructions from the following slides or the Quick Start guide using <a href="code/heroku-example.zip"><code>heroku-example.zip</code></a> containing the same files as the Quick Start guide.</p>
+        </section>
+
+        <section>
+          <h2>Creating a Heroku Project</h2>
+          <div class="font-18pt">
+          <p>First, you'll need to <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">create an account and install the Heroku CLI</a>.</p>
+          <p>Then, you'll need to add <code>"start" : "node &lt;app-js-name"&gt;</code> to <code>"scripts"</code>
+            in <code>package.json</code> to specify what command to run on Heroku's server to start your app.</p>
+          </div>
+          <img class="centered-figure two-thirds-width" src="hidden/package-start-script.png" alt="adding the start script"/>
+        </section>
+
+        <section>
+          <h2>Creating and Publishing your Heroku Repo</h2>
+          <p>Within your project directory (e.g. <code>heroku-test</code> on the previous slide), perform the following commands in the command line:</p>
+          <pre class="no-syntax-highlight"><code>git init
+heroku create
+heroku login [just for the first time you use the heroku CLI]
+git add [each file you want, but not node_modules]
+git commit -m "your commit message"
+git push heroku master
+heroku open [this will open the browser]</code></pre>
+        </section>
+
+        <section>
+          <h3>Initializing the Repo</h3>
+          <img class="centered-figure two-thirds-width" src="hidden/init-create-add-commit.png" alt="steps to initialize the heroku repo" />
+        </section>
+
+        <section>
+          <h3>Pushing to the Heroku Git Repo</h3>
+          <img class="centered-figure two-thirds-width" src="hidden/init-create-add-commit.png" alt="steps to initialize the heroku repo" />
+        </section>
+
+        <section>
+          <h2>Viewing your Published Project!</h2>
+          <a href="https://hidden-wildwood-24595.herokuapp.com/" target="_blank"><img class="centered-figure w-80" src="hidden/viewing-live.png" alt="viewing your published heroku project" /></a>
+          <p>Note that after a period of inactivity (on the free plan), your app will sleep to save resources. When someone visits the app after sleeping, you may have a 10-second delay as it starts back up.</p>
+        </section>
+
+        <section>
+          <h3>A Note about fetching from your Published API</h3>
+          <p>If you want clients to be able to fetch from your API from other domains (e.g. localhost), you will specify cors permissions (Cross Origin Resource-Sharing)</p>
+          <p>There's a good overview <a href="https://flaviocopes.com/express-cors/">here</a> of how CORS works and how to use the <code>cors</code> module with Express appropriately.</p>
+          <p>The Cafe API uses <code>cors</code> to allow clients from other origins (e.g. <code>localhost</code>) to make requests, but otherwise you would not be able to <code>fetch</code> from it.</p>
+          <pre><code>// other required modules
+const cors = require("cors");
+
+app.use(express.static("public"));
+app.use(cors());
+
+// endpoints and helper functions, etc.</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>Summary</h2>
+          <div class="font-18pt">
+          <p>There are usually different solutions to processing directories (e.g. <code>readdir</code> vs. <code>glob</code>)</p>
+          <ul>
+            <li>Remember that you cannot use patterns in <code>readdir</code>, but you don't have to worry about full paths</p>
+            <li>We can use patterns with <code>glob</code>, but we will need to do extra processing if you want to process the returned paths - the <code>path</code> module is very useful here!</p>
+          </ul>
+          <p>There are also different ways to choose and handle errors, but make sure you review the best practices we model</p>
+          <p>Consider factoring out your endpoint functionality into helper functions, but make sure you are still handling errors with the <code>res</code> in your endpoint function scope.</p>
+          <p>You can publish your Node.js apps easily with Heroku! <strong>You are free to publish your CPs, but not HW solutions</strong>. Have fun, and let us know if you have any questions!</p>
+        </div>
+        </section>
+
+        <!-- end of slides (last section tag) -->
+      </div>
+    </div>
+   <script src="../../site/reveal/lib/js/head.min.js"></script>
+      <script src="../../site/reveal/js/reveal.js"></script>
+
+      <script>
+
+        Reveal.initialize({
+          controls: true,
+          progress: true,
+          history: true,
+          center: true,
+
+          transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+          // More info https://github.com/hakimel/reveal.js#dependencies
+          dependencies: [
+            { src: '../../site/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '../../site/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+            { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+            { src: '../../site/reveal/plugin/search/search.js', async: true },
+            { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+          ]
+        });
+
+      </script>
+
+    </body>
+  </html>

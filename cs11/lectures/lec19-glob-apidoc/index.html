@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 19 - async/await review, glob and APIDOC</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal/css/print/pdf.css' :
+'../../reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>CSE 154</h1>
+          <h3>Lecture 19: More async/await, glob, and API Documentation</h3>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <p>Review async/await</p>
+          <p>Finding files/directories with <code>glob</code></p>
+          <p>API documentation</p>
+        </section>
+
+        <section>
+          <h3>Check Your Understanding: Callbacks and Promises</h3>
+          <ul>
+            <li>What is the difference between a callback and a Promise?</li>
+            <li>Why are callbacks and Promises useful?</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Check Your Understanding: Node.js APIs</h3>
+          <ul>
+            <li>What files should you ignore when pushing to Gitlab in a Node project?</li>
+            <li>Where does <code>package.json</code> come from, and when is it updated?</li>
+            <li>What is the purpose of a <code>public</code> directory and where is it relative to <code>app.js</code>?</li>
+            <li>What is an example of a core module and a non-core module?</li>
+          </ul>
+          <p class="fragment">More about <a href="https://courses.cs.washington.edu/courses/cse154/codequalityguide/node/#1.1" target="_blank">example project directories</a></p>
+        </section>
+
+        <section>
+          <h3>Check Your Understanding: File I/O in Node.js</h3>
+          <ul>
+            <li>What module do we use for file processing, and what are some of its functions?</li>
+            <li>What common properties of all <code>fs</code> functions?</li>
+            <li>What are the different types of errors we should consider in an API that uses client requests <em>and</em> file processing?</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>File I/O So Far</h2>
+          <p>Read files with <code>fs.readFile</code></p>
+          <p>Write files with <code>fs.writeFile</code>/<code>fs.appendFile</code></p>
+          <p>Read directories with <code>fs.readdir</code></p>
+        </section>
+
+        <section>
+          <h2>Pre-Check Question</h2>
+          <p>What's the output?</p>
+          <pre><code>// this function intends to log active users to a single file.
+// in this case, we are worried about the order, so ensure it is preserved.
+function logUsers(clientList) {
+  for (let client of clientList) {
+    fs.writeFile("user-log.txt", client, "utf8", (err) => {
+      if (err) {
+        console.error(err + "\nFailed to log user.");
+      }
+    });
+  }
+}
+
+logUsers(["Tal", "Manny", "Hudson"]);</code></pre>
+<p class="code-caption">JS</p>
+          <p><a href="code/file-practice/precheck-logUsers.js" target="_blank">Demo code</a></p>
+        </section>
+        <section>
+          <h2>What's the Issue?</h2>
+          <p>First, if we want to <em>append</em> each name, we should use <code>fs.appendFile</code> instead of <code>fs.writeFile</code></p>
+          <p>That still won't solve the problem of order though</p>
+          <p>This is an example where <code>async</code>/<code>await</code> come in handy!</p>
+        </section>
+
+        <section>
+          <h2>Using async/await with File I/O</h2>
+          <p class="fragment">There are a few ways we can use async/await with <code>fs</code>, but the key thing is we need to use <code>await</code> on functions that return Promises</p>
+          <p class="fragment"><code>fs.readFile</code> and <code>fs.writeFile</code> are asynchronous but do not return Promises</p>
+          <p class="fragment">We could make our own Promise-returning functions, but that can be tedious.</p>
+          <p class="fragment">Instead, we'll need to "promisify" these functions so we can use <code>async</code> and <code>await</code></p>
+        </section>
+
+        <section>
+          <h2>"Promisifying" Functions</h2>
+          <p>
+            The core <code>utils</code> package comes with a function <a href="https://nodejs.org/api/util.html#util_util_promisify_original" target="_blank"><code>promisify</code></a>
+             which we can use to return a Promise-returning version of a function</p>
+          </p>
+          <p class="fragment">Let's practice with the previous example (and update it to use <code>fs.appendFile</code>).</p>
+        </section>
+        <section>
+          <h2>A Better Solution</h2>
+          <pre><code class="hljs">const fs = require("fs");
+const util = require("util");
+
+async function logUsers(clientList) {
+  const appendFile = util.promisify(fs.appendFile);
+  for (let client of clientList) {
+    try {
+      await appendFile("user-log.txt", client + "\n");
+    } catch (err) {
+      console.error(err + "\nFailed to append file with user: " + client);
+    }
+  }
+}
+
+logUsers(["Tal", "Manny", "Hudson"]);</code></pre>
+          <p class="code-caption">JS</p>
+          <p><a href="code/file-practice/precheck-logUsers-async.js" target="_blank">Demo code</a></p>
+        </section>
+
+        <section>
+          <h3>Comparison: <code>readFile</code> 3 Ways</h3>
+          <p class="font-14pt">The following functions are three ways to read a file. Note that all are good solutions, but
+            the more asynchronous fucntions you work with in your functions, the more useful it is to use <code>async</code>/<code>await</code> with
+            promisified functions.</p>
+          <pre class="h400px"><code>const fs = require("fs");
+const util = require("util");
+const readFile = util.promisify(fs.readFile);
+
+function readFileCallback() {
+  // Syntax: readFile(fileName, (error, result) callback)
+  fs.readFile("data/example.txt", "utf8", (err, contents) => {
+    if (err) {
+      handleError(err);
+    } else {
+      printContents(contents);
+    }
+  });
+}
+
+// Promisified version
+function readFilePromisified() {
+  const readFilePromise = readFile("data/example.txt", "utf8");
+  readFilePromise
+    .then(printContents)
+    .then(() => { console.log("Done reading file!") })
+    .catch(handleError);
+}
+
+async function readFileAsync() {
+  try {
+    const contents = await readFile("data/example.txt", "utf8");
+    printContents(contents);
+    console.log("Done reading file!");
+  } catch (err) {
+    handleError(error);
+  }
+}
+
+function printContents(contents) {
+  console.log("File contents:");
+  console.log(contents);
+}
+
+function handleError(err) {
+  console.log("There was an error: " + err);
+}
+
+readFileCallback();
+readFilePromisified();
+readFileAsync();</code></pre>
+  <p class="code-caption">JS</p>
+          <!-- <p><a href="code/file-practice/file-reading-3-ways.js" target="_blank">Demo code</a></p> -->
+        </section>
+
+        <section>
+          <h3>Error-handling with <code>async</code>/<code>await</code></h3>
+          <p>For error-handling with async/await, you must use try/catch instead of .then/.catch</p>
+          <p>The catch statement will catch any errors that occur in the then block (whether it’s in a Promise or a syntax error in the function), similar to the .catch in a fetch promise chain</p>
+          <p>Remember that if you are using these in a web service, you should handle client-specific (400) errors differently than server-specific (500) errors (such as those caught by a <code>fs</code> function).
+        </section>
+
+        <section>
+          <h2>Recall: Reading Directories</h2>
+          <p><code>fs.readdir</code> returns an array of files within a given directory path</p>
+          <div class="side-by-side">
+            <div>
+          <pre><code class="font-12pt">fs.readdir("data", (err, paths) => {
+  if (err) {
+    console.error("Error reading directory");
+  } else {
+    console.log("data directory contents: ");
+    console.log(contents);
+  }
+});</code></pre>
+  <p class="code-caption">JS (standard callback version)</p>
+</div>
+<div>
+          <pre><code class="font-12pt">const readdir = utils.promisify(fs.readdir);
+try {
+  const paths = await readdir("data");
+  console.log("data directory contents: ");
+  console.log(paths);
+} catch (err) {
+  console.error("Error reading directory");
+}</code></pre>
+  <p class="code-caption">JS (async/await version)</p>
+
+</div>
+</div>
+         <p>Example code: <a href="code/file-practice/directory-reading.js" target="_blank">directory-reading.js</a></p>
+        </section>
+
+        <section>
+          <h2>Finding Files in Node.js</h2>
+          <p>Sometimes you will want to find files and directories in your Node.js programs</p>
+          <p>This is useful particularly when writing scripts, as well as extensible APIs that rely on directory structures (e.g. returning a list of all menu categories based on non-empty directories)</p>
+          <p>What if we could match patterns to look for certain files and directories?</p>
+          <p>We can't with <code>fs</code>, but there are various modules to help</p>
+          <p>How do we pick a new module to use in our Node.js projects?</p>
+        </section>
+
+        <section>
+          <h2>Choosing Modules</h2>
+          <p>There are <em>many</em> modules we can use in Node.js in addition to the core modules</p>
+          <p>"glob" is a method that many programming languages use to process the file system with regex-like patterns</p>
+          <p>Node.js has <em>many</em> glob modules</p>
+          <p>A very useful site to choose modules is <a href="https://www.npmtrends.com/glob-fs-vs-node-glob-vs-globby-vs-fast-glob-vs-glob" target="_blank">npmtrends.com</a>
+          </p>
+          <p>We will use <code>glob</code> since it has most support and is very easy to get started with.</p>
+        </section>
+
+        <section>
+          <h2>Using <code>glob</code></h2>
+          <pre><code class="hljs">glob(pattern, [options], (err, matches) => { ... });</code></pre>
+          <p class="code-caption">JS (syntax)</p>
+          <pre><code class="hljs">glob("*.png", (err, matches) => {
+  if (err) {
+    console.error("There was an error: " + err);
+  } else {
+    console.log(".png images in current directory:", matches);
+  }
+});</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Check out some useful documentation of more features <a href="https://github.com/isaacs/node-glob/blob/master/README.md" target="_blank">here</a></p>
+          <p>Examples: <a href="code/file-practice/glob-examples.js">glob-examples.js</a></p>
+        </section>
+        <section>
+          <h2>Promisifying Glob</h2>
+          <p>
+            Since glob takes a callback as its last argument, we can use <code>utils.promisify</code> to
+            define a promise-returning version.
+          </p>
+          <pre><code>const globPromise = util.promisify(glob);
+
+async function globAsync() {
+  try {
+    let matches = await globPromise("data/*");
+    console.log(".png images in current directory:", matches);
+  } catch(err) {
+    console.error("There was an error: " + err);
+  }
+}</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>A More Motivating Example</h2>
+          <p>Often, web services don't rely on hard-coding data in files</p>
+          <p>For example, our menu web service returns JSON, but what if we want to support different JSON responses?</p>
+          <pre><code>{
+  "categories" : {
+    "Drinks" : [
+      {
+        "name" : "Classic coffee",
+        "description" : "The classic.",
+        "image" : "coffee.png",
+        "in-stock" : true
+      }, ...
+    ],
+    "Foods" : [
+      ...
+    ]
+ }</code></pre>
+         <p>We might want to keep track of item quantity for example, and uses that to determine the in-stock key</p>
+         <p>Let's take a closer look at the new directory structure, and get a bit more practice with glob</p>
+        </section>
+
+        <section>
+          <h2>Example with Cafe Directory</h2>
+          <p>The cafe web service now holds its data in a directory structure to help process the results</p>
+          <div class="side-by-side r-1-2">
+            <div>
+          <pre><code class="font-12pt">cse154-cafe/
+   app.js
+   categories/
+     Drinks/
+       bubble-tea/
+         info.txt
+         purchase-history.txt
+       classic-coffee/
+         info.txt
+         purchase-history.txt
+       ...
+     Foods/
+       ...
+   public/
+     fetch-menu.js
+     admin.js
+     img/
+   stock-img/
+     ...</code></pre>
+     <p class="code-caption">Contents (abbreviated)</p>
+   </div>
+   <div>
+<pre><code class="font-12pt">let categoryPaths = await globPromise("categories/*");
+// ["categories/Foods", "categories/Drinks"]
+
+let publicFolders = await globPromise("public/*/");
+// ["public/img/"]
+
+let drinksInfo =
+  await globPromise("categories/Drinks/*/info.txt");
+// ["categories/Drinks/bubble-tea/inf.txt",
+//  "categories/Drinks/classic-coffee/info.txt",
+//  "categories/Drinks/the-sippy/info.txt"]
+
+// ** recursively searches within the current directory
+// and all subdirectories
+let allJS = await globPromise("**/*.js");
+// ["app.js", "public/fetch-menu.js", "public/admin.js"]
+
+// can use [patt1|patt2|...] to match patt1 or patt2 or ...
+let allImages = await globPromise("**/*.[png|jpg]");</code></pre>
+          <p class="code-caption">JS</p>
+   </div>
+        </section>
+
+        <section>
+          <h2>Options</h2>
+          <p>Like many other <code>fs</code> functions, there is an optional "options" parameter to the <code>glob</code> function to support
+            various useful options</p>
+          <p>To use, just pass an object as the second argument with the option(s) you want as keys.</p>
+          <pre><code class='hljs'>// the nodir option ignores directories
+let dataFiles = await globPromise("data/*", { "nodir" : true });</code></pre>
+          <pre><code class='hljs'>// the ignore option takes patterns to ignore
+let noGifs = await globPromise("public/img/*", { "ignore" : ['*png'] });</code></pre>
+        </section>
+
+        <section>
+          <h2>API Documentation</h2>
+        </section>
+
+        <section>
+          <h2>Some Good Examples</h2>
+          <ul>
+            <li><a href="https://deckofcardsapi.com/">Deck of Cards API</a></li>
+            <li><a href="https://stripe.com/docs/api/pagination">Stripe API</a></li>
+            <li><a href="https://api.nasa.gov/api.html#apod">NASA APOD API</a></li>
+            <li><a href="https://developer.spotify.com/documentation/web-api/reference/object-model/">Spotify API</a></li>
+            <li><a href="https://scryfall.com/docs/api/cards/search">Scryfall (Magic Card Game)</a></li>
+            <li><a href="https://restcountries.eu/">REST Countries</a></li>
+            <li><a href="https://www.themoviedb.org/documentation/api">TMDB</a></li>
+            <li><a href="https://placekitten.com/">placekitten</a> - easy to get started, very limited on response details (e.g. errors)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>API Documentation in this Class</h2>
+          <p>
+            At minimum, all route functions must be documented (1-2 sentences) and your overall file header
+            should include a summary of all endpoints (with their response formats/possible errors)
+          </p>
+          <p>
+            If you have API documentation, it can be much easier to refer to in your header comments
+          </p>
+          <p>In HW4, you will not be submitting an APIDOC.md, so your file header should serve as an overview of the endpoints</p>
+          <p>In CP4 and the Final Project, you are required to submit APIDOC.md</p>
+        </section>
+
+        <section>
+          <h2>Writing APIDOC.md</h2>
+          <p>There are provided templates (APIDOC.md), but you are free to modify it based on what you like most.</p>
+          <p>
+            If you would like to use an API documentation tool generator (such as POSTMan or Swagger), you are free to do so, but must
+            receive permission from the instructor to receive credit in your submission in place of APIDOC.md.
+          </p>
+          <p>We'll get more practice in section tomorrow!</p>
+        </section>
+
+        <section>
+          <h2>Looking Ahead</h2>
+          <p>Tomorrow, you will get practice with using file-processing, async/await, glob, and API documentation.</p>
+          <p>On Friday, we will learn how to handle POST requests and how to deploy our Node APIs on a real server!</p>
+        </section>
+
+        <!-- end of slides (last section tag) -->
+      </div>
+    </div>
+   <script src="../../site/reveal/lib/js/head.min.js"></script>
+      <script src="../../site/reveal/js/reveal.js"></script>
+
+      <script>
+
+        Reveal.initialize({
+          controls: true,
+          progress: true,
+          history: true,
+          center: true,
+
+          transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+          // More info https://github.com/hakimel/reveal.js#dependencies
+          dependencies: [
+            { src: '../../site/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '../../site/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+            { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+            { src: '../../site/reveal/plugin/search/search.js', async: true },
+            { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+          ]
+        });
+
+      </script>
+
+    </body>
+  </html>

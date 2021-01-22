@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--
+  Example of posting to a form using AJAX!
+  In form-post-ajax.js, the default page-refresh behavior of the submit
+  event is overridden, and we can process elements as an extra layer of 
+  validation in JS and then send a POST request using FormData with fetch.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Form Example</title>
+    <script src="form-post-ajax.js"></script>
+  </head>
+  <body>
+    <form id="input-form">
+      <p>City: <input name="city" type="text"/></p>
+      <p>State: <input name="state" type="text"/></p>
+      <p>ZIP: <input name="zip" type="number"/></p>
+      <p><button id="submit-btn">Submit</button><p>
+    </form>
+    <p id="result"></p>
+  </body>
+</html>

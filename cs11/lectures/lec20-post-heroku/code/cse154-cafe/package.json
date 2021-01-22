@@ -1,0 +1,16 @@
+{
+  "name": "cse154-cafe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app-solution.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "glob": "^7.1.4",
+    "multer": "^1.4.2"
+  }
+}

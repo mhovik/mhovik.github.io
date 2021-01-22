@@ -1,0 +1,3440 @@
+{
+  "pokemon": [
+    {
+      "name": "Abra",
+      "description": "Sleeps 18 hours a day. If it senses danger, it will teleport itself to safety even as it sleeps.",
+      "id": "63",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Energy Ball",
+          "type": "grass"
+        },
+        {
+          "name": "Thief",
+          "type": "dark"
+        },
+        {
+          "name": "Psychic",
+          "type": "psychic"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Aerodactyl",
+      "description": "This vicious Pokemon is said to have flown in ancient skies while shrieking high-pitched cries.",
+      "id": "142",
+      "type": "flying",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Ice Fang",
+          "type": "ice"
+        },
+        {
+          "name": "Wing Attack",
+          "type": "flying"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Alakazam",
+      "description": "Its brain can outperform a supercomputer. Its intelligence quotient is said to be 5,000.",
+      "id": "65",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Psychic",
+          "type": "psychic"
+        },
+        {
+          "name": "Shadow Ball",
+          "type": "ghost"
+        },
+        {
+          "name": "Kinesis",
+          "type": "psychic"
+        },
+        {
+          "name": "Focus Blast",
+          "type": "fighting"
+        }
+      ]
+    },
+    {
+      "name": "Arbok",
+      "description": "It is rumored that the ferocious warning markings on its belly differ from area to area.",
+      "id": "24",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Screech",
+          "type": "normal"
+        },
+        {
+          "name": "Acid",
+          "type": "poison"
+        },
+        {
+          "name": "Thunder Fang",
+          "type": "electric"
+        }
+      ]
+    },
+    {
+      "name": "Arcanine",
+      "description": "This legendary Chinese Pokemon is considered magnificent. Many people are enchanted by its grand mane.",
+      "id": "59",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Fire Fang",
+          "type": "fire"
+        },
+        {
+          "name": "Extreme Speed",
+          "type": "normal"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Articuno",
+      "description": "A legendary bird Pokemon that is said to appear to doomed people who are lost in icy mountains.",
+      "id": "144",
+      "type": "ice",
+      "weakness": "rock",
+      "moves": [
+        {
+          "name": "Ancient Power",
+          "type": "rock"
+        },
+        {
+          "name": "Ice Beam",
+          "type": "ice"
+        },
+        {
+          "name": "Hurricane",
+          "type": "flying"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Beedrill",
+      "description": "Flies at high speed and attacks using its large venomous stingers on its forelegs and tail.",
+      "id": "15",
+      "type": "flying",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Twineedle",
+          "type": "bug"
+        },
+        {
+          "name": "Pursuit",
+          "type": "dark"
+        },
+        {
+          "name": "Venoshock",
+          "type": "poison"
+        },
+        {
+          "name": "Swords Dance",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Bellsprout",
+      "description": "A carnivorous Pokemon that traps and eats bugs. It uses its root feet to soak up needed moisture.",
+      "id": "69",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Vine Whip",
+          "type": "grass"
+        },
+        {
+          "name": "Acid",
+          "type": "poison"
+        },
+        {
+          "name": "Growth",
+          "type": "grass"
+        },
+        {
+          "name": "Wrap",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Blastoise",
+      "description": "The rocket cannons on its shell fire jets of water capable of punching holes through thick steel.",
+      "id": "9",
+      "type": "water",
+      "weakness": "grass",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Hydro Pump",
+          "type": "water"
+        },
+        {
+          "name": "Withdraw",
+          "type": "water"
+        },
+        {
+          "name": "Flash Cannon",
+          "type": "steel"
+        }
+      ]
+    },
+    {
+      "name": "Bulbasaur",
+      "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokemon.",
+      "id": 1,
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Vine Whip",
+          "type": "grass"
+        },
+        {
+          "name": "Amnesia",
+          "type": "psychic"
+        },
+        {
+          "name": "Magical Leaf",
+          "type": "grass"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Butterfree",
+      "description": "In battle, it flaps its wings at high speed to release highly toxic dust into the air.",
+      "id": "12",
+      "type": "flying",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Psybeam",
+          "type": "psychic"
+        },
+        {
+          "name": "Gust",
+          "type": "flying"
+        },
+        {
+          "name": "Silver Wind",
+          "type": "bug"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Caterpie",
+      "description": "Its short feet are tipped with suction pads that enable it to tirelessly climb slopes and walls.",
+      "id": "10",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        {
+          "name": "Bug Bite",
+          "type": "bug"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Chansey",
+      "description": "Being few in number and difficult to capture, it is said to bring happiness to the Trainer who catches it.",
+      "id": "113",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Defense Curl",
+          "type": "normal"
+        },
+        {
+          "name": "Pound",
+          "type": "normal"
+        },
+        {
+          "name": "Egg Bomb",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Charizard",
+      "description": "Spits fire that is hot enough to melt boulders. Known to cause forest fires unintentionally.",
+      "id": "6",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Flare Blitz",
+          "type": "fire"
+        },
+        {
+          "name": "Smokescreen",
+          "type": "normal"
+        },
+        {
+          "name": "Slash",
+          "type": "normal"
+        },
+        {
+          "name": "Air Slash",
+          "type": "flying"
+        }
+      ]
+    },
+    {
+      "name": "Charmander",
+      "description": "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
+      "id": "4",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Ember",
+          "type": "fire"
+        },
+        {
+          "name": "Dragon Rage",
+          "type": "dragon"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Scratch",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Charmeleon",
+      "description": "When it swings its burning tail, it elevates the temperature to unbearably high levels.",
+      "id": "5",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Dragon Rage",
+          "type": "dragon"
+        },
+        {
+          "name": "Flame Burst",
+          "type": "fire"
+        },
+        {
+          "name": "Smokescreen",
+          "type": "normal"
+        },
+        {
+          "name": "Slash",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Clefable",
+      "description": "With its acute hearing, it can pick up sounds from far away. It usually hides in quiet places.",
+      "id": "36",
+      "type": "fairy",
+      "weakness": "poison",
+      "moves": [
+        {
+          "name": "Minimize",
+          "type": "normal"
+        },
+        {
+          "name": "Pound",
+          "type": "normal"
+        },
+        {
+          "name": "Disarming Voice",
+          "type": "fairy"
+        },
+        {
+          "name": "Covet",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Clefairy",
+      "description": "The moonlight that it stores in the wings on its back apparently gives it the ability to float in midair.",
+      "id": "35",
+      "type": "fairy",
+      "weakness": "poison",
+      "moves": [
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Pound",
+          "type": "normal"
+        },
+        {
+          "name": "Wakeup Slap",
+          "type": "fighting"
+        },
+        {
+          "name": "Disarming Voice",
+          "type": "fairy"
+        }
+      ]
+    },
+    {
+      "name": "Cloyster",
+      "description": "Even a missile can't break the spikes it uses to stab opponents. They're even harder than its shell.",
+      "id": "91",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Hydro Pump",
+          "type": "water"
+        },
+        {
+          "name": "Aurora Beam",
+          "type": "ice"
+        },
+        {
+          "name": "Withdraw",
+          "type": "water"
+        },
+        {
+          "name": "Poison Jab",
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Cubone",
+      "description": "Tal's favorite Pokemon! Cubone's both cute and completely hardcore.",
+      "id": "104",
+      "type": "ground",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Bone Club",
+          "type": "ground"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Headbutt",
+          "type": "normal"
+        },
+        {
+          "name": "Stomping Tantrum",
+          "type": "ground"
+        }
+      ]
+    },
+    {
+      "name": "Dewgong",
+      "description": "Its entire body is a snowy-white. Unharmed by even intense cold, it swims powerfully in icy waters.",
+      "id": "87",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Headbutt",
+          "type": "normal"
+        },
+        {
+          "name": "Aqua Tail",
+          "type": "water"
+        },
+        {
+          "name": "Ice Beam",
+          "type": "ice"
+        }
+      ]
+    },
+    {
+      "name": "Diglett",
+      "description": "It burrows through the ground at a shallow depth. It leaves raised earth in its wake, making it easy to spot.",
+      "id": "50",
+      "type": "ground",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Scratch",
+          "type": "normal"
+        },
+        {
+          "name": "Mud Bomb",
+          "type": "ground"
+        },
+        {
+          "name": "Astonish",
+          "type": "ghost"
+        }
+      ]
+    },
+    {
+      "name": "Ditto",
+      "description": "Duncan's favorite Pokemon (he has an awesome painting of Ditto on his wall). It can transform into anything. When it sleeps, it changes into a stone to avoid being attacked.",
+      "id": "132",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Transform",
+          "type": "normal"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Dodrio",
+      "description": "Uses its three brains to execute complex plans. While two heads sleep, one head stays awake.",
+      "id": "85",
+      "type": "flying",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Swords Dance",
+          "type": "normal"
+        },
+        {
+          "name": "Drill Peck",
+          "type": "flying"
+        },
+        {
+          "name": "Tri Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Pursuit",
+          "type": "dark"
+        }
+      ]
+    },
+    {
+      "name": "Doduo",
+      "description": "It races through grassy plains with powerful strides, leaving footprints up to four inches deep.",
+      "id": "84",
+      "type": "flying",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Peck",
+          "type": "flying"
+        },
+        {
+          "name": "Pursuit",
+          "type": "dark"
+        }
+      ]
+    },
+    {
+      "name": "Dragonair",
+      "description": "They say that if it emits an aura from its whole body, the weather will begin to change instantly.",
+      "id": "148",
+      "type": "dragon",
+      "weakness": "fairy",
+      "moves": [
+        {
+          "name": "Dragon Rage",
+          "type": "dragon"
+        },
+        {
+          "name": "Dragon Dance",
+          "type": "dragon"
+        },
+        {
+          "name": "Slam",
+          "type": "normal"
+        },
+        {
+          "name": "Aqua Tail",
+          "type": "water"
+        }
+      ]
+    },
+    {
+      "name": "Dragonite",
+      "description": "It is said to make its home somewhere in the sea. It guides crews of shipwrecks to shore.",
+      "id": "149",
+      "type": "dragon",
+      "weakness": "fairy",
+      "moves": [
+        {
+          "name": "Dragon Dance",
+          "type": "dragon"
+        },
+        {
+          "name": "Thunder Punch",
+          "type": "electric"
+        },
+        {
+          "name": "Outrage",
+          "type": "dragon"
+        },
+        {
+          "name": "Hurricane",
+          "type": "flying"
+        }
+      ]
+    },
+    {
+      "name": "Dratini",
+      "description": "Long considered a mythical Pokemon until recently when a small colony was found living underwater.",
+      "id": "147",
+      "type": "dragon",
+      "weakness": "fairy",
+      "moves": [
+        {
+          "name": "Water Gun",
+          "type": "water"
+        },
+        {
+          "name": "Dragon Dance",
+          "type": "dragon"
+        },
+        {
+          "name": "Dragon Rage",
+          "type": "dragon"
+        },
+        {
+          "name": "Slam",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Drowzee",
+      "description": "Puts enemies to sleep then eats their dreams. Occasionally gets sick from eating bad dreams.",
+      "id": "96",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Headbutt",
+          "type": "normal"
+        },
+        {
+          "name": "Meditate",
+          "type": "psychic"
+        },
+        {
+          "name": "Ice Punch",
+          "type": "ice"
+        },
+        {
+          "name": "Psybeam",
+          "type": "psychic"
+        }
+      ]
+    },
+    {
+      "name": "Dugtrio",
+      "description": "A team of triplets that can burrow over 60 MPH. Due to this, some people think it's an earthquake.",
+      "id": "51",
+      "type": "ground",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Earthquake",
+          "type": "ground"
+        },
+        {
+          "name": "Night Slash",
+          "type": "dark"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Tri Attack",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Eevee",
+      "description": "Sven's favorite Pokemon! Due to its unstable genetic makeup, this special Pokemon conceals many different possible evolutions.",
+      "id": "133",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Swift",
+          "type": "normal"
+        },
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Shadow Ball",
+          "type": "ghost"
+        }
+      ]
+    },
+    {
+      "name": "Ekans",
+      "description": "It always hides in grass. When first born, it has no poison, so its bite is painful, but harmless.",
+      "id": "23",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Acid",
+          "type": "poison"
+        },
+        {
+          "name": "Mud Bomb",
+          "type": "ground"
+        },
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Electabuzz",
+      "description": "Electricity runs across the surface of its body. In darkness, its entire body glows a whitish-blue.",
+      "id": "125",
+      "type": "electric",
+      "weakness": "ground",
+      "moves": [
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        {
+          "name": "Thunder Punch",
+          "type": "electric"
+        },
+        {
+          "name": "Swift",
+          "type": "normal"
+        },
+        {
+          "name": "Karate Chop",
+          "type": "fighting"
+        }
+      ]
+    },
+    {
+      "name": "Electrode",
+      "description": "It is dangerous. If it has too much electricity and has nothing to do, it amuses itself by exploding.",
+      "id": "101",
+      "type": "electric",
+      "weakness": "ground",
+      "moves": [
+        {
+          "name": "Screech",
+          "type": "normal"
+        },
+        {
+          "name": "Tackle",
+          "type": "electric"
+        },
+        {
+          "name": "Thunder",
+          "type": "electric"
+        },
+        {
+          "name": "Thief",
+          "type": "dark"
+        }
+      ]
+    },
+    {
+      "name": "Exeggcute",
+      "description": "Often mistaken for eggs. When disturbed, they quickly gather and attack in swarms.",
+      "id": 102,
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Uproar",
+          "type": "normal"
+        },
+        {
+          "name": "Bullet Seed",
+          "type": "grass"
+        },
+        {
+          "name": "Hidden Power",
+          "type": "normal"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Exeggutor",
+      "description": "Its cries are very noisy. This is because each of the 3 heads thinks about whatever it likes.",
+      "id": "103",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Barrage",
+          "type": "normal"
+        },
+        {
+          "name": "Stomp",
+          "type": "normal"
+        },
+        {
+          "name": "Seed Bomb",
+          "type": "grass"
+        },
+        {
+          "name": "Confide",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Farfetch'd",
+      "description": "The sprig of green onions it holds is its weapon. It is used much like a metal sword.",
+      "id": "83",
+      "type": "flying",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Swords Dance",
+          "type": "normal"
+        },
+        {
+          "name": "Slash",
+          "type": "normal"
+        },
+        {
+          "name": "Air Cutter",
+          "type": "flying"
+        },
+        {
+          "name": "Fury Cutter",
+          "type": "bug"
+        }
+      ]
+    },
+    {
+      "name": "Fearow",
+      "description": "With its huge and magnificent wings, it can keep aloft without ever having to land for rest.",
+      "id": "22",
+      "type": "flying",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Drill Peck",
+          "type": "flying"
+        },
+        {
+          "name": "Drill Run",
+          "type": "ground"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        {
+          "name": "Assurance",
+          "type": "dark"
+        }
+      ]
+    },
+    {
+      "name": "Flareon",
+      "description": "It fluffs out its fur collar to cool down its body temperature, which can reach 1,650 degrees Fahrenheit.",
+      "id": "136",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Ember",
+          "type": "fire"
+        },
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Sand Attack",
+          "type": "ground"
+        }
+      ]
+    },
+    {
+      "name": "Gastly",
+      "description": "With its gas-like body, it can sneak into any place it desires. However, it can be blown away by wind.",
+      "id": "92",
+      "type": "ghost",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Payback",
+          "type": "dark"
+        },
+        {
+          "name": "Lick",
+          "type": "ghost"
+        },
+        {
+          "name": "Thief",
+          "type": "dark"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Gengar",
+      "description": "Chadi's favorite Pokemon! It is said to emerge from darkness to steal the lives of those who become lost in mountains.",
+      "id": "94",
+      "type": "ghost",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Dark Pulse",
+          "type": "dark"
+        },
+        {
+          "name": "Shadow Ball",
+          "type": "ghost"
+        },
+        {
+          "name": "Venoshock",
+          "type": "poison"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Geodude",
+      "description": "Found in fields and mountains. Mistaking them for boulders, people often step or trip on them.",
+      "id": "74",
+      "type": "rock",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Rock Throw",
+          "type": "rock"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        {
+          "name": "Bulldoze",
+          "type": "ground"
+        },
+        {
+          "name": "Defense Curl",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Gloom",
+      "description": "Smells incredibly foul! However, around 1 out of 1,000 people enjoy sniffing its nose-bending stink.",
+      "id": "44",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Acid",
+          "type": "poison"
+        },
+        {
+          "name": "Razor Leaf",
+          "type": "grass"
+        },
+        {
+          "name": "Hidden Power",
+          "type": "normal"
+        },
+        {
+          "name": "Growth",
+          "type": "grass"
+        }
+      ]
+    },
+    {
+      "name": "Golbat",
+      "description": "It attacks in a stealthy manner, without warning. Its sharp fangs are used to bite and suck blood.",
+      "id": "42",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Wing Attack",
+          "type": "flying"
+        },
+        {
+          "name": "Swift",
+          "type": "normal"
+        },
+        {
+          "name": "Screech",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Goldeen",
+      "description": "A strong swimmer, it is capable of swimming nonstop up fast streams at a steady speed of five knots.",
+      "id": "118",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Peck",
+          "type": "flying"
+        },
+        {
+          "name": "Horn Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Water Pulse",
+          "type": "water"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Golduck",
+      "description": "Often seen swimming elegantly by lake shores. It is often mistaken for the Japanese monster, Kappa.",
+      "id": "55",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Amnesia",
+          "type": "psychic"
+        },
+        {
+          "name": "Zen Headbutt",
+          "type": "psychic"
+        },
+        {
+          "name": "Scratch",
+          "type": "normal"
+        },
+        {
+          "name": "Water Pulse",
+          "type": "water"
+        }
+      ]
+    },
+    {
+      "name": "Golem",
+      "description": "It is enclosed in a hard shell that is as rugged as slabs of rock. It sheds skin once a year to grow larger.",
+      "id": "76",
+      "type": "rock",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Earthquake",
+          "type": "ground"
+        },
+        {
+          "name": "Rock Throw",
+          "type": "rock"
+        },
+        {
+          "name": "Steamroller",
+          "type": "bug"
+        },
+        {
+          "name": "Defense Curl",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Graveler",
+      "description": "Rolls down slopes to move. It rolls over any obstacle without slowing or changing its direction.",
+      "id": "75",
+      "type": "rock",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Smack Down",
+          "type": "rock"
+        },
+        {
+          "name": "Bulldoze",
+          "type": "ground"
+        },
+        {
+          "name": "Hidden Power",
+          "type": "normal"
+        },
+        {
+          "name": "Defense Curl",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Grimer",
+      "description": "Appears in filthy areas. Thrives by sucking up polluted sludge that is pumped out of factories.",
+      "id": "88",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Sludge",
+          "type": "poison"
+        },
+        {
+          "name": "Pound",
+          "type": "normal"
+        },
+        {
+          "name": "Mud Bomb",
+          "type": "ground"
+        }
+      ]
+    },
+    {
+      "name": "Growlithe",
+      "description": "Conner's favorite Pokemon ('It's adorable'). It has a brave and trustworthy nature and fearlessly stands up to bigger and stronger foes.",
+      "id": "58",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Fire Fang",
+          "type": "fire"
+        },
+        {
+          "name": "Iron Tail",
+          "type": "steel"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Gyarados",
+      "description": "It appears whenever there is world conflict, burning down any place it travels through.",
+      "id": "130",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Crunch",
+          "type": "dark"
+        },
+        {
+          "name": "Hydro Pump",
+          "type": "water"
+        },
+        {
+          "name": "Dragon Tail",
+          "type": "dragon"
+        },
+        {
+          "name": "Dragon Dance",
+          "type": "dragon"
+        }
+      ]
+    },
+    {
+      "name": "Haunter",
+      "description": "It hides in the dark, planning to take the life of the next living thing that wanders close by.",
+      "id": "93",
+      "type": "ghost",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Double Team",
+          "type": "normal"
+        },
+        {
+          "name": "Shadow Punch",
+          "type": "ghost"
+        },
+        {
+          "name": "Thief",
+          "type": "dark"
+        },
+        {
+          "name": "Venoshock",
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Hitmonchan",
+      "description": "Its punches slice the air. They are launched at such high speed, even a slight graze could cause a burn.",
+      "id": "107",
+      "type": "fighting",
+      "weakness": "flying",
+      "moves": [
+        {
+          "name": "Fire Punch",
+          "type": "fire"
+        },
+        {
+          "name": "Mach Punch",
+          "type": "fighting"
+        },
+        {
+          "name": "Ice Punch",
+          "type": "ice"
+        },
+        {
+          "name": "Work Up",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Hitmonlee",
+      "description": "If it starts kicking repeatedly, both legs will stretch even longer to strike a fleeing foe.",
+      "id": "106",
+      "type": "fighting",
+      "weakness": "flying",
+      "moves": [
+        {
+          "name": "Double Kick",
+          "type": "fighting"
+        },
+        {
+          "name": "Blaze Kick",
+          "type": "fire"
+        },
+        {
+          "name": "Meditate",
+          "type": "psychic"
+        },
+        {
+          "name": "Mega Kick",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Horsea",
+      "description": "It maintains balance using its tail, which is wound up like a coil. It may spray ink from its mouth.",
+      "id": "116",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Bubble",
+          "type": "water"
+        },
+        {
+          "name": "Twister",
+          "type": "dragon"
+        },
+        {
+          "name": "Aurora Beam",
+          "type": "ice"
+        },
+        {
+          "name": "Smokescreen",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Hypno",
+      "description": "It carries a pendulum-like device. There once was an incident in which it took away a child it hypnotized.",
+      "id": "97",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Headbutt",
+          "type": "normal"
+        },
+        {
+          "name": "Meditate",
+          "type": "psychic"
+        },
+        {
+          "name": "Fire Punch",
+          "type": "fire"
+        },
+        {
+          "name": "Psychic",
+          "type": "psychic"
+        }
+      ]
+    },
+    {
+      "name": "Ivysaur",
+      "description": "When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.",
+      "id": 2,
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Razor Leaf",
+          "type": "grass"
+        },
+        {
+          "name": "Magical Leaf",
+          "type": "grass"
+        },
+        {
+          "name": "Venoshock",
+          "type": "poison"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Jigglypuff",
+      "description": "Garrett's favorite Pokemon! When its huge eyes light up, it sings a mysteriously soothing melody that lulls its enemies to sleep.",
+      "id": "39",
+      "type": "fairy",
+      "weakness": "poison",
+      "moves": [
+        {
+          "name": "Pound",
+          "type": "normal"
+        },
+        {
+          "name": "Defense Curl",
+          "type": "normal"
+        },
+        {
+          "name": "Rollout",
+          "type": "rock"
+        },
+        {
+          "name": "Wakeup Slap",
+          "type": "fighting"
+        }
+      ]
+    },
+    {
+      "name": "Jolteon",
+      "description": "It concentrates the weak electric charges emitted by its cells and launches wicked lightning bolts.",
+      "id": "135",
+      "type": "electric",
+      "weakness": "ground",
+      "moves": [
+        {
+          "name": "Double Kick",
+          "type": "fighting"
+        },
+        {
+          "name": "Thunder Shock",
+          "type": "electric"
+        },
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Sand Attack",
+          "type": "ground"
+        }
+      ]
+    },
+    {
+      "name": "Jynx",
+      "description": "It has several different cry patterns, each of which seems to have its own meaning.",
+      "id": "124",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Blizzard",
+          "type": "ice"
+        },
+        {
+          "name": "Powder Snow",
+          "type": "ice"
+        },
+        {
+          "name": "Pound",
+          "type": "normal"
+        },
+        {
+          "name": "Fake Tears",
+          "type": "dark"
+        }
+      ]
+    },
+    {
+      "name": "Kabuto",
+      "description": "It is thought to have inhabited beaches 300 million years ago. It is protected by a stiff shell.",
+      "id": "140",
+      "type": "rock",
+      "weakness": "grass",
+      "moves": [
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Scratch",
+          "type": "normal"
+        },
+        {
+          "name": "Mud Shot",
+          "type": "ground"
+        },
+        {
+          "name": "Aqua Jet",
+          "type": "water"
+        }
+      ]
+    },
+    {
+      "name": "Kabutops",
+      "description": "Its sleek shape is perfect for swimming. It slashes prey with its claws and drains the body fluids.",
+      "id": "141",
+      "type": "rock",
+      "weakness": "grass",
+      "moves": [
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Night Slash",
+          "type": "dark"
+        },
+        {
+          "name": "Ancient Power",
+          "type": "rock"
+        },
+        {
+          "name": "Slash",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Kadabra",
+      "description": "It emits special alpha waves from its body that induce headaches just by being close by.",
+      "id": "64",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Kinesis",
+          "type": "psychic"
+        },
+        {
+          "name": "Fire Punch",
+          "type": "fire"
+        },
+        {
+          "name": "Ice Punch",
+          "type": "ice"
+        },
+        {
+          "name": "Psychic",
+          "type": "psychic"
+        }
+      ]
+    },
+    {
+      "name": "Kakuna",
+      "description": "While awaiting evolution, it hides from predators under leaves and in nooks of branches.",
+      "id": "14",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Kangaskhan",
+      "description": "To protect its young, it will never give up during battle, no matter how badly wounded it is.",
+      "id": "115",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Dizzy Punch",
+          "type": "normal"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        {
+          "name": "Mega Punch",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Kingler",
+      "description": "It can hardly lift its massive, overgrown pincer. The pincer's size makes it difficult to aim properly.",
+      "id": "99",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Crabhammer",
+          "type": "water"
+        },
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Vice Grip",
+          "type": "normal"
+        },
+        {
+          "name": "Mud Shot",
+          "type": "ground"
+        }
+      ]
+    },
+    {
+      "name": "Koffing",
+      "description": "If one gets close enough to it when it expels poisonous gas, the gas swirling inside it can be seen.",
+      "id": "109",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        {
+          "name": "Sludge",
+          "type": "poison"
+        },
+        {
+          "name": "Smokescreen",
+          "type": "normal"
+        },
+        {
+          "name": "Assurance",
+          "type": "dark"
+        }
+      ]
+    },
+    {
+      "name": "Krabby",
+      "description": "Its pincers are superb weapons. They sometimes break off during battle, but they grow back fast.",
+      "id": "98",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Bubble",
+          "type": "water"
+        },
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Vice Grip",
+          "type": "normal"
+        },
+        {
+          "name": "Metal Claw",
+          "type": "steel"
+        }
+      ]
+    },
+    {
+      "name": "Lapras",
+      "description": "Nicole's favorite Pokemon! Its high intelligence enables it to understand human speech. It likes to ferry people on its back.",
+      "id": "131",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Hydro Pump",
+          "type": "water"
+        },
+        {
+          "name": "Thunder",
+          "type": "electric"
+        },
+        {
+          "name": "Ice Beam",
+          "type": "ice"
+        }
+      ]
+    },
+    {
+      "name": "Lickitung",
+      "description": "Its tongue spans almost 7 feet and moves more freely than its forelegs. Its licks can cause paralysis.",
+      "id": "108",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Stomp",
+          "type": "normal"
+        },
+        {
+          "name": "Slam",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Machamp",
+      "description": "Using its heavy muscles, it throws powerful punches that can send the victim clear over the horizon.",
+      "id": "68",
+      "type": "fighting",
+      "weakness": "flying",
+      "moves": [
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        {
+          "name": "Low Sweep",
+          "type": "fighting"
+        },
+        {
+          "name": "Strength",
+          "type": "normal"
+        },
+        {
+          "name": "Ice Punch",
+          "type": "ice"
+        }
+      ]
+    },
+    {
+      "name": "Machoke",
+      "description": "Its muscular body is so powerful, it must wear a power save belt to be able to regulate its motions.",
+      "id": "67",
+      "type": "fighting",
+      "weakness": "flying",
+      "moves": [
+        {
+          "name": "Karate chop",
+          "type": "fighting"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Machop",
+      "description": "Always brimming with power, it passes time by lifting boulders. Doing so makes it even stronger.",
+      "id": "66",
+      "type": "fighting",
+      "weakness": "flying",
+      "moves": [
+        {
+          "name": "Karate chop",
+          "type": "fighting"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Magikarp",
+      "description": "A pathetic excuse for a Pokemon that is only capable of flopping and splashing. This behavior prompted scientists to undertake research into it.",
+      "id": "129",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Splash",
+          "type": "water"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Magmar",
+      "description": "The fiery surface of its body gives off a wavering, rippling glare that is similar to the sun.",
+      "id": "126",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Fire Punch",
+          "type": "fire"
+        },
+        {
+          "name": "Ember",
+          "type": "fire"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Magnemite",
+      "description": "The electricity emitted by the units on each side of its body cause it to become a strong magnet.",
+      "id": "81",
+      "type": "steel",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Thunder Shock",
+          "type": "electric"
+        },
+        {
+          "name": "Screech",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Magneton",
+      "description": "Generates strange radio signals. It raises the temperature by 3.6F degrees within 3,300 feet.",
+      "id": "82",
+      "type": "steel",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Tri Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Screech",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mankey",
+      "description": "Extremely quick to anger. It could be docile one moment then thrashing away the next instant.",
+      "id": "56",
+      "type": "fighting",
+      "weakness": "flying",
+      "moves": [
+        {
+          "name": "Karate chop",
+          "type": "fighting"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        {
+          "name": "Scratch",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Marowak",
+      "description": "The bone it holds is its key weapon. It throws the bone skillfully like a boomerang to KO targets.",
+      "id": "105",
+      "type": "ground",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Bone Club",
+          "type": "ground"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Headbutt",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Meowth",
+      "description": "Adores circular objects. Wanders the streets on a nightly basis to look for dropped loose change.",
+      "id": "52",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Scratch",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Metapod",
+      "description": "A steel-hard shell protects its tender body. It quietly endures hardships while awaiting evolution.",
+      "id": "11",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mew",
+      "description": "Its DNA is said to contain the genetic codes of all Pokemon.",
+      "id": "151",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Amnesia",
+          "type": "psychic"
+        },
+        {
+          "name": "Psychic",
+          "type": "psychic"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mewtwo",
+      "description": "It was created by a scientist after years of horrific gene splicing and DNA engineering experiments.",
+      "id": "150",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Amnesia",
+          "type": "psychic"
+        },
+        {
+          "name": "Swift",
+          "type": "normal"
+        },
+        {
+          "name": "Psychic",
+          "type": "psychic"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Moltres",
+      "description": "This legendary Pokemon scatters embers with every flap of its wings. It is a thrilling sight to behold.",
+      "id": "146",
+      "type": "fire",
+      "weakness": "rock",
+      "moves": [
+        {
+          "name": "Flamethrower",
+          "type": "fire"
+        },
+        {
+          "name": "Sky Attack",
+          "type": "flying"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Mr. Mime",
+      "description": "Always practices its pantomime act. It makes enemies believe something exists that really doesn't.",
+      "id": "122",
+      "type": "psychic",
+      "weakness": "ghost",
+      "moves": [
+        {
+          "name": "Barrier",
+          "type": "psychic"
+        },
+        {
+          "name": "Psybeam",
+          "type": "psychic"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Muk",
+      "description": "As it moves, a very strong poison leaks from it, making the ground there barren for three years.",
+      "id": "89",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Sludge",
+          "type": "poison"
+        },
+        {
+          "name": "Mud Bomb",
+          "type": "ground"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Nidoking",
+      "description": "One swing of its mighty tail can snap a telephone pole as if it were a matchstick.",
+      "id": "34",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Venoshock",
+          "type": "poison"
+        },
+        {
+          "name": "Mega Horn",
+          "type": "bug"
+        },
+        {
+          "name": "Earth Power",
+          "type": "ground"
+        },
+        {
+          "name": "Amnesia",
+          "type": "psychic"
+        }
+      ]
+    },
+    {
+      "name": "Nidoqueen",
+      "description": "Its hard scales provide strong protection. It uses its hefty bulk to execute powerful moves.",
+      "id": "31",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Venoshock",
+          "type": "poison"
+        },
+        {
+          "name": "Superpower",
+          "type": "fighting"
+        },
+        {
+          "name": "Earth Power",
+          "type": "ground"
+        },
+        {
+          "name": "Charm",
+          "type": "fairy"
+        }
+      ]
+    },
+    {
+      "name": "Nidoran(F)",
+      "description": "Although small, its venomous barbs render this Pokemon dangerous. The female has smaller horns.",
+      "id": "29",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Double Kick",
+          "type": "fighting"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Peck",
+          "type": "flying"
+        }
+      ]
+    },
+    {
+      "name": "Nidoran(M)",
+      "description": "It stiffens its ears to sense danger. The larger its horns, the more powerful its secreted venom.",
+      "id": "32",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Double Kick",
+          "type": "fighting"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Peck",
+          "type": "flying"
+        }
+      ]
+    },
+    {
+      "name": "Nidorina",
+      "description": "When resting deep in its burrow, its thorns always retract. This is proof that it is relaxed.",
+      "id": "30",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Cut",
+          "type": "normal"
+        },
+        {
+          "name": "Double Kick",
+          "type": "fighting"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Nidorino",
+      "description": "It raises its big ears to check its surroundings. If it senses anything, it attacks immediately.",
+      "id": "33",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Horn Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Double Kick",
+          "type": "fighting"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Ninetales",
+      "description": "Very smart and very vengeful. Grabbing one of its many tails could result in a 1000-year curse.",
+      "id": "38",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Flamethrower",
+          "type": "fire"
+        },
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Oddish",
+      "description": "It may be mistaken for a clump of weeds. If you try to yank it out of the ground, it shrieks horribly.",
+      "id": "43",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Acid",
+          "type": "poison"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Omanyte",
+      "description": "Revived from an ancient fossil, this Pokemon uses air stored in its shell to sink and rise in water.",
+      "id": "138",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Omastar",
+      "description": "Apparently, it cracked Shellder's shell with its sharp fangs and sucked out the insides.",
+      "id": "139",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Hydro Pump",
+          "type": "water"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Onix",
+      "description": "It rapidly bores through the ground at 50 mph by squirming and twisting its massive, rugged body.",
+      "id": "95",
+      "type": "rock",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Slam",
+          "type": "normal"
+        },
+        {
+          "name": "Rock Slide",
+          "type": "rock"
+        },
+        {
+          "name": "Dig",
+          "type": "ground"
+        }
+      ]
+    },
+    {
+      "name": "Paras",
+      "description": "Mushrooms named tochukaso grow on its back. They grow along with the host Paras.",
+      "id": "46",
+      "type": "bug",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Scratch",
+          "type": "normal"
+        },
+        {
+          "name": "Peck",
+          "type": "flying"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Parasect",
+      "description": "A host-parasite pair in which the parasite mushroom has taken over the host bug. Prefers damp places.",
+      "id": "47",
+      "type": "bug",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Slash",
+          "type": "normal"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Persian",
+      "description": "Many adore it for its sophisticated air. However, it will lash out and scratch for little reason.",
+      "id": "53",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Swift",
+          "type": "normal"
+        },
+        {
+          "name": "Screech",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Pidgeot",
+      "description": "It spreads its gorgeous wings widely to intimidate enemies. It races through the skies at Mach-2 speed.",
+      "id": "18",
+      "type": "flying",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Sand Attack",
+          "type": "ground"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Pidgeotto",
+      "description": "It has outstanding vision. However high it flies, it is able to distinguish the movements of its prey.",
+      "id": "17",
+      "type": "flying",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Wing Attack",
+          "type": "flying"
+        },
+        {
+          "name": "Sand Attack",
+          "type": "ground"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Pidgey",
+      "description": "Jeffrey's favorite Pokemon! Because it dislikes fighting, it protects itself by kicking up sand.",
+      "id": "16",
+      "type": "flying",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Peck",
+          "type": "flying"
+        },
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Sand Attack",
+          "type": "ground"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Pikachu",
+      "description": "Melissa's favorite Pokemon! When several Pikachu gather, their electricity could build and cause lightning storms.",
+      "id": "25",
+      "type": "electric",
+      "weakness": "ground",
+      "moves": [
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Thunderbolt",
+          "type": "electric"
+        },
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Pinsir",
+      "description": "When the temperature drops at night, it sleeps on treetops or among roots where it is well hidden.",
+      "id": "127",
+      "type": "bug",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Vice Grip",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Poliwag",
+      "description": "Its newly grown legs prevent it from running. It appears to prefer swimming than trying to stand.",
+      "id": "60",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Water Gun",
+          "type": "water"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Poliwhirl",
+      "description": "Its two legs are well developed. Even though it can live on the ground, it prefers living in water.",
+      "id": "61",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Bubble Beam",
+          "type": "water"
+        },
+        {
+          "name": "Mud Bomb",
+          "type": "ground"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Poliwrath",
+      "description": "Although an energetic, skilled swimmer that uses all of its muscles, it lives on dry land.",
+      "id": "62",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Bubble Beam",
+          "type": "water"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Ponyta",
+      "description": "It has a brave and trustworthy nature. It fearlessly stands up to bigger and stronger foes. Not to be confused with the 20% cooler PonyTA.",
+      "id": "77",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Ember",
+          "type": "fire"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Stomp",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Porygon",
+      "description": "A manmade Pokemon that came about as a result of research. It is programmed with only basic motions.",
+      "id": "137",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Tri Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Sharpen",
+          "type": "normal"
+        },
+        {
+          "name": "Psybeam",
+          "type": "psychic"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Primeape",
+      "description": "Always furious and tenacious to boot. It will not abandon chasing its quarry until it is caught.",
+      "id": "57",
+      "type": "fighting",
+      "weakness": "flying",
+      "moves": [
+        {
+          "name": "Karate chop",
+          "type": "fighting"
+        },
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        {
+          "name": "Assurance",
+          "type": "dark"
+        },
+        {
+          "name": "Scratch",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Psyduck",
+      "description": "Always tormented by headaches. It uses psychic powers, but it is not known if it intends to do so.",
+      "id": "54",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Amnesia",
+          "type": "psychic"
+        },
+        {
+          "name": "Scratch",
+          "type": "normal"
+        },
+        {
+          "name": "Water Gun",
+          "type": "normal"
+        },
+        {
+          "name": "Zen Headbutt",
+          "type": "psychic"
+        }
+      ]
+    },
+    {
+      "name": "Raichu",
+      "description": "Its long tail serves as a ground to protect itself from its own high voltage power.",
+      "id": "26",
+      "type": "electric",
+      "weakness": "ground",
+      "moves": [
+        {
+          "name": "Thunderbolt",
+          "type": "electric"
+        },
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        {
+          "name": "Thunder",
+          "type": "electric"
+        }
+      ]
+    },
+    {
+      "name": "Rapidash",
+      "description": "Very competitive, this Pokemon will chase anything that moves fast in the hopes of racing it.",
+      "id": "78",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Fire Blast",
+          "type": "fire"
+        },
+        {
+          "name": "Stomp",
+          "type": "normal"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Raticate",
+      "description": "Its whiskers help it to maintain balance. Its fangs never stop growing, so it gnaws to pare them down.",
+      "id": "20",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Assurance",
+          "type": "dark"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Rattata",
+      "description": "Bites anything when it attacks. Small and very quick, it is a common sight in many places.",
+      "id": "19",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Rhydon",
+      "description": "Protected by an armor-like hide, it is capable of living in molten lava of 3,600 degrees Fahrenheit.",
+      "id": "112",
+      "type": "rock",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Earthquake",
+          "type": "ground"
+        },
+        {
+          "name": "Horn Attack",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Rhyhorn",
+      "description": "It doesn't care if there is anything in its way. It just charges and destroys all obstacles.",
+      "id": "111",
+      "type": "rock",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Horn Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Peck",
+          "type": "flying"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Sandshrew",
+      "description": "Its body is dry. When it gets cold at night, its hide is said to become coated with a fine dew.",
+      "id": "27",
+      "type": "ground",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Swift",
+          "type": "normal"
+        },
+        {
+          "name": "Scratch",
+          "type": "normal"
+        },
+        {
+          "name": "Dig",
+          "type": "ground"
+        },
+        {
+          "name": "Sand Attack",
+          "type": "ground"
+        }
+      ]
+    },
+    {
+      "name": "Sandslash",
+      "description": "Curls up into a spiny ball when threatened. It can roll while curled up to attack or escape.",
+      "id": "28",
+      "type": "ground",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Earthquake",
+          "type": "ground"
+        },
+        {
+          "name": "Swords Dance",
+          "type": "normal"
+        },
+        {
+          "name": "Slash",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Scyther",
+      "description": "Its blindingly fast speed adds to the sharpness of its twin forearm scythes which can slice through thick logs in one wicked stroke.",
+      "id": "123",
+      "type": "bug",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Swords Dance",
+          "type": "normal"
+        },
+        {
+          "name": "Wing Attack",
+          "type": "flying"
+        },
+        {
+          "name": "Slash",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Seadra",
+      "description": "Capable of swimming backwards by rapidly flapping its wing-like pectoral fins and stout tail.",
+      "id": "117",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Bubble Beam",
+          "type": "water"
+        },
+        {
+          "name": "Smokescreen",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Seaking",
+      "description": "The horn on its head is sharp like a drill. It bores a hole in a boulder to make its nest.",
+      "id": "119",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Horn Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Waterfall",
+          "type": "water"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Seel",
+      "description": "The light blue fur that covers it keeps it protected against the cold. It loves iceberg-filled oceans.",
+      "id": "86",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Headbutt",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Shellder",
+      "description": "It swims backward by opening and closing its two shells. Its large tongue is always kept hanging out.",
+      "id": "90",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Leer",
+          "type": "normal"
+        },
+        {
+          "name": "Water Gun",
+          "type": "water"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Slowbro",
+      "description": "An attached Shellder won't let go because of the tasty flavor that oozes out of its tail.",
+      "id": "80",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Amnesia",
+          "type": "psychic"
+        },
+        {
+          "name": "Headbutt",
+          "type": "normal"
+        },
+        {
+          "name": "Psychic",
+          "type": "psychic"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Slowpoke",
+      "description": "Incredibly slow and dopey. It takes 5 seconds for it to feel pain when under attack.",
+      "id": "79",
+      "type": "psychic",
+      "weakness": "dark",
+      "moves": [
+        {
+          "name": "Amnesia",
+          "type": "psychic"
+        },
+        {
+          "name": "Headbutt",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Snorlax",
+      "description": "Very lazy. Just eats and sleeps. As its rotund bulk builds, it becomes steadily more slothful.",
+      "id": "143",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Amnesia",
+          "type": "psychic"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Spearow",
+      "description": "Inept at flying high. However, it can fly around very fast to protect its territory.",
+      "id": "21",
+      "type": "flying",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Peck",
+          "type": "flying"
+        },
+        {
+          "name": "Growl",
+          "type": "normal"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Squirtle",
+      "description": "Whitaker's favorite Pokemon! After birth, its back swells and hardens into a shell. Powerfully sprays foam from its mouth.",
+      "id": "7",
+      "type": "water",
+      "weakness": "grass",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Water Gun",
+          "type": "water"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        {
+          "name": "Withdraw",
+          "type": "water"
+        }
+      ]
+    },
+    {
+      "name": "Starmie",
+      "description": "The center section is named the core. People think it is communicating when it glows in 7 colors.",
+      "id": "121",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Bubble Beam",
+          "type": "water"
+        },
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        {
+          "name": "Swift",
+          "type": "normal"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Staryu",
+      "description": "An enigmatic Pokemon that can effortlessly regenerate any appendage it loses in battle.",
+      "id": "120",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Water Gun",
+          "type": "water"
+        },
+        {
+          "name": "Harden",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Tangela",
+      "description": "The whole body is swathed with wide vines that are similar to seaweed. Its vines shake as it walks.",
+      "id": "114",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Vine Whip",
+          "type": "grass"
+        },
+        {
+          "name": "Slam",
+          "type": "normal"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Tauros",
+      "description": "They fight each other by locking horns. The herd's protector takes pride in its battle-scarred horns.",
+      "id": "128",
+      "type": "normal",
+      "weakness": "fighting",
+      "moves": [
+        {
+          "name": "Horn Attack",
+          "type": "normal"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Tentacool",
+      "description": "Drifts in shallow seas. Anglers who hook them by accident are often punished by its stinging acid.",
+      "id": "72",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Acid",
+          "type": "poison"
+        },
+        {
+          "name": "Barrier",
+          "type": "psychic"
+        },
+        {
+          "name": "Water Gun",
+          "type": "water"
+        },
+        null
+      ]
+    },
+    {
+      "name": "Tentacruel",
+      "description": "The tentacles are normally kept short. On hunts, they are extended to ensnare and immobilize prey.",
+      "id": "73",
+      "type": "water",
+      "weakness": "electric",
+      "moves": [
+        {
+          "name": "Barrier",
+          "type": "psychic"
+        },
+        {
+          "name": "Hydro Pump",
+          "type": "water"
+        },
+        {
+          "name": "Screech",
+          "type": "normal"
+        },
+        {
+          "name": "Acid Spray",
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Vaporeon",
+      "description": "As it uses the fins on the tip of its tail to swim, it blends with the water perfectly.",
+      "id": "134",
+      "type": "water",
+      "weakness": "grass",
+      "moves": [
+        {
+          "name": "Hydro Pump",
+          "type": "water"
+        },
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Sand Attack",
+          "type": "ground"
+        },
+        {
+          "name": "Ice Beam",
+          "type": "ice"
+        }
+      ]
+    },
+    {
+      "name": "Venomoth",
+      "description": "The dust-like scales covering its wings are color-coded to indicate the kinds of poison it has.",
+      "id": "49",
+      "type": "bug",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Psychic",
+          "type": "psychic"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Venonat",
+      "description": "Lives in the shadows of tall trees where it eats insects. It is attracted by light at night.",
+      "id": "48",
+      "type": "bug",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Psybeam",
+          "type": "psychic"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Venusaur",
+      "description": "The plant blooms when it is absorbing solar energy. It stays on the move to seek sunlight.",
+      "id": 3,
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Razor Leaf",
+          "type": "grass"
+        },
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Victreebel",
+      "description": "Said to live in huge colonies deep in jungles, although no one has ever returned from there.",
+      "id": "71",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Razor Leaf",
+          "type": "grass"
+        },
+        {
+          "name": "Leaf Tornado",
+          "type": "flying"
+        },
+        {
+          "name": "Acid Spray",
+          "type": "poison"
+        },
+        {
+          "name": "Tickle",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Vileplume",
+      "description": "It has the world's largest petals. With every step, the petals shake out heavy clouds of toxic pollen.",
+      "id": "45",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Petal Blizzard",
+          "type": "grass"
+        },
+        {
+          "name": "Venoshock",
+          "type": "poison"
+        },
+        {
+          "name": "Swords Dance",
+          "type": "normal"
+        },
+        {
+          "name": "Hidden Power",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Voltorb",
+      "description": "It was discovered when Poke balls were introduced. It is said that there is some connection.",
+      "id": "100",
+      "type": "electric",
+      "weakness": "ground",
+      "moves": [
+        {
+          "name": "Tackle",
+          "type": "normal"
+        },
+        {
+          "name": "Screech",
+          "type": "normal"
+        },
+        {
+          "name": "Charge Beam",
+          "type": "electric"
+        },
+        {
+          "name": "Rollout",
+          "type": "rock"
+        }
+      ]
+    },
+    {
+      "name": "Vulpix",
+      "description": "At the time of birth, it has just one tail. The tail splits from its tip as it grows older.",
+      "id": "37",
+      "type": "fire",
+      "weakness": "water",
+      "moves": [
+        {
+          "name": "Ember",
+          "type": "fire"
+        },
+        {
+          "name": "Quick Attack",
+          "type": "normal"
+        },
+        {
+          "name": "Feint Attack",
+          "type": "dark"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Wartortle",
+      "description": "It cleverly controls its furry ears and tail to maintain its balance while swimming.",
+      "id": "8",
+      "type": "water",
+      "weakness": "grass",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Water Pulse",
+          "type": "water"
+        },
+        {
+          "name": "Iron Defense",
+          "type": "steel"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Weedle",
+      "description": "Its poison stinger is very powerful. Its bright-colored body is intended to warn off its enemies.",
+      "id": "13",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Poison String",
+          "type": "poison"
+        },
+        {
+          "name": "Bug Bite",
+          "type": "bug"
+        },
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Weepinbell",
+      "description": "When hungry, it swallows anything that moves. Its hapless prey is melted inside by strong acids.",
+      "id": "70",
+      "type": "grass",
+      "weakness": "fire",
+      "moves": [
+        {
+          "name": "Vine Whip",
+          "type": "grass"
+        },
+        {
+          "name": "Acid",
+          "type": "poison"
+        },
+        {
+          "name": "Slam",
+          "type": "normal"
+        },
+        {
+          "name": "Growth",
+          "type": "grass"
+        }
+      ]
+    },
+    {
+      "name": "Weezing",
+      "description": "Very rarely, a sudden mutation can result in two small Koffing twins becoming conjoined as a Weezing.",
+      "id": "110",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Sludge",
+          "type": "poison"
+        },
+        {
+          "name": "Smokescreen",
+          "type": "normal"
+        },
+        {
+          "name": "Assurance",
+          "type": "dark"
+        },
+        {
+          "name": "Tackle",
+          "type": "normal"
+        }
+      ]
+    },
+    {
+      "name": "Wigglytuff",
+      "description": "Its body is full of elasticity. By inhaling deeply, it can continue to inflate itself without limit.",
+      "id": "40",
+      "type": "fairy",
+      "weakness": "poison",
+      "moves": [
+        {
+          "name": "Defense Curl",
+          "type": "normal"
+        },
+        {
+          "name": "Covet",
+          "type": "normal"
+        },
+        {
+          "name": "Feint Attack",
+          "type": "dark"
+        },
+        {
+          "name": "Brick Break",
+          "type": "fighting"
+        }
+      ]
+    },
+    {
+      "name": "Zapdos",
+      "description": "A legendary Pokémon that is said to live in thunderclouds. It freely controls lightning bolts.",
+      "id": "145",
+      "type": "electric",
+      "weakness": "rock",
+      "moves": [
+        {
+          "name": "Drill Peck",
+          "type": "flying"
+        },
+        {
+          "name": "Thunder",
+          "type": "electric"
+        },
+        {
+          "name": "Charge",
+          "type": "electric"
+        },
+        {
+          "name": "Ancient Power",
+          "type": "rock"
+        }
+      ]
+    },
+    {
+      "name": "Zubat",
+      "description": "Forms colonies in perpetually dark places. Uses ultrasonic waves to identify and approach targets.",
+      "id": "41",
+      "type": "poison",
+      "weakness": "psychic",
+      "moves": [
+        {
+          "name": "Bite",
+          "type": "dark"
+        },
+        {
+          "name": "Wing Attack",
+          "type": "flying"
+        },
+        {
+          "name": "Poison Fang",
+          "type": "poison"
+        },
+        {
+          "name": "Double Team",
+          "type": "normal"
+        }
+      ]
+    }
+  ]
+}

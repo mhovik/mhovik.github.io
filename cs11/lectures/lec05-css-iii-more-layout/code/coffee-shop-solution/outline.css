@@ -1,0 +1,13 @@
+body * {
+  border: 2px solid black;
+  margin: 5px;
+}
+
+a {
+  border: none !important;
+  margin: 0 !important;
+}
+
+ul {
+  padding-left: 0;
+}

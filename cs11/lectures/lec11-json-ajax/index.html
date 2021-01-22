@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Lecture 11: JSON and Intro to AJAX</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+      '../../site/reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+        <section>
+          <h2>Lecture 11</h2>
+          <h3>JSON and Intro to AJAX</h3>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <p>JSON - a format for packaging data</p>
+          <p>Using JSON to generate webpages</p>
+          <p>Using JSON to request/receive data</p>
+          <p>Preview of promises/fetch</p>
+        </section>
+
+        <section>
+          <dl>
+            <dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a></dt>
+            <dd>JavaScript Object Notation</dd>
+          </dl>
+
+          <p>
+            A data format that represents data as a set of JavaScript objects
+            invented by JS guru Douglas Crockford of Yahoo!
+            natively supported by all modern browsers (and libraries to support it in old ones)
+          </p>
+        </section>
+
+      <section>
+          <h2>But first... JavaScript objects</h2>
+          <pre><code class="hljs" data-trim>let myobj = {
+  fieldName1: value1,
+  ...
+  fieldName: value
+};</code></pre>
+          <p class="code-caption">JS (example)</p>
+          <p>
+              In JavaScript, you can create a new object without creating a
+              "class" like you do in Java
+          </p>
+
+<pre><code>let bestCourse = {
+  dept : "CSE",
+  code : 154,
+  qtr : "19su",
+  sections : ["AB", "AC", "AD", "AE"]
+};</code></pre>
+
+          <p>You can add properties to any object even after it is created:</p>
+
+          <pre><code class="hljs"  data-trim>bestCourse.mascot = "Mowgli Hovik";</code></pre>
+          <p class="code-caption">JS (example)</p>
+
+      </section>
+
+      <section>
+        <h2>Example of JS Object</h2>
+        <pre><code class="hljs"  data-trim>let doggo = {
+  name: "Mowgli",                             // string
+  breedName: "Great Dane",                    // string
+  bark: function() {
+    console.log(this.name + " says woof!");   // function
+  },
+  age: 2,                                     // number
+  toys: ["elephant", "kong", "giggly wiggly"] // array
+};
+console.log(doggo.toys[1]);      // kong
+doggo.bark();                    // Mowgli says woof!
+console.log(doggo["breedName"]); // Great Dane
+console.log(doggo.breedName]);   // Great Dane</code></pre>
+          <p class="code-caption">JS (example)</p>
+          <p class="font-16pt">
+              An object can have methods (function properties) that refer to itself as this <br>
+              can refer to the fields with <code>.fieldName</code> or 
+              <code>["fieldName"]</code> syntax<br>
+          </p>
+          <p>We don't create JS Objects in CSE 154 programs, but you can find more info <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics">here</a>.</p>
+          <p class="font-16pt">JSON Practice:
+            <a href="https://www.codestepbystep.com/problem/view/javascript/objects/jsonMystery0">here</a>,
+            <a href="https://www.codestepbystep.com/problem/view/javascript/objects/jsonMystery1">here</a>, and
+            <a href="https://www.codestepbystep.com/problem/view/javascript/objects/jsonMystery2">here</a>.
+          </p>
+      </section>
+      <section>
+          <h2>Examples of JS objects we've seen so far</h2>
+          <ul>
+            <li>DOM elements</li>
+            <li><code>document</code>, <code>window</code></li>
+          </ul>
+      </section>
+
+      <section>
+          <h2>JavaScript Objects vs. JSON</h2>
+          <p>
+              JSON is a way of representing objects, or structured data.
+          </p>
+          <p class="space-left space-right medium-small-font">
+              (The
+              technical term is "serializing" which is just a fancy
+              word for turning an object into a savable string of characters)
+          </p>
+
+          <p>
+              Browser JSON methods:
+          </p>
+
+          <ul>
+              <li><a href="https://www.impressivewebs.com/what-is-json-introduction-guide-for-beginners/#using-jsonparse">
+                <code>JSON.parse( /* JSON string */ )</code></a>
+                -- converts JSON string into Javascript object
+              </li>
+              <li><a href="https://www.impressivewebs.com/what-is-json-introduction-guide-for-beginners/#using-stringify">
+                <code>JSON.stringify( /* Javascript Object */ )</code></a>
+                -- converts a Javascript object into JSON text
+              </li>
+          </ul>
+      </section>
+      <section>
+        <h3>Demo converting JS Object to String and JSON</h3>
+        <img src="hidden/json-console-demo.png" alt="Example of using JSON methods" />
+      </section>
+      <section>
+        <h2>JSON limitations</h2>
+        <p>
+            JSON can't handle certain data types, so these things just fall out of the object if you try to make JSON
+            strings out of them:
+        </p>
+        <ul>
+          <li>Function</li>
+          <li>Date</li>
+          <li>RegExp</li>
+          <li>Error</li>
+        </ul>
+
+        <p>
+          Since JSON is ideal for communicating across different types of systems, you can't put Javascript functions
+          in JSON. Other languages wouldn't be able to read JSON effectively if it had Javascript code in it.
+        </p>
+
+        <p>
+          (This is also why Dates and RegExps can't go into the JSON object -- other languages wouldn't know how to interpret
+          them for what they are.)
+        </p>
+        <p>There are a few other JSON rules which you can get more details in the reading.</p>
+        <p>
+            Numerous validators/formatters available, eg <a href="https://jsonlint.com/">JSONLint</a>
+        </p>
+        </section>
+
+
+    <section id="json-exercise">
+        <h2>JSON Exercise</h2>
+
+        <div class="side-by-side">
+            <div class="space-right">
+                <p>
+                    Consider the JSON data at the right. Write each statement to get:
+                </p>
+                <ul>
+                    <li>The name of the customer</li>
+                    <li>The number of meals returned</li>
+                    <li>The status of the fish</li>
+                    <li>The last meal object in the array</li>
+                </ul>
+            </div>
+            <div>
+<pre><code class="hljs font-12pt"  data-trim>let data = {
+   "name": "Jo Smith",
+   "items": [
+      { "fish": "fishy-smelling" },
+      { "cheesecake": "a bit burnt" },
+      { "chips": "These are computer chips." }
+   ],
+   "gift": "hamburger",
+   "table-number": 20
+};</code></pre>
+<p class="code-caption">JSON</p>
+            </div>
+        </div>
+    </section>
+
+  <section>
+      <h2>Answers</h2>
+  <pre><code class="hljs" data-trim >let name = data.name;
+// name === "Jo Smith"
+let mealCount = data["meal-status"].length;
+// mealCount === 4
+let fishStatus = data["meal-status"][0]["fish"];
+// fishStatus === "fishy"
+let lastItem = data.items[data.items.length];
+// lastItem = { "chips" : "These are computer chips." }
+</code></pre>
+      <p class="code-caption">JS</p>
+    </section>
+    <section>
+      <h2>A Few Other Notes</h2>
+      <p>What if you want to loop through all categories in the following object?</p>
+      <p>Sometimes, you'll want to loop through a collection of keys.</p>
+      <pre><code>let menu = {
+  "categories" : {
+    "Drinks" : ["Coffee", "Tea", "Espresso"],
+    "Foods" : ["Cereal", "Toast"]
+  }
+}</code></pre>
+<p class="code-caption">JSON</p>
+      <p>You can use <code>Object.keys(obj)</code> to get an array of keys (strings)</p>
+      <p>
+         You can also use <code>for (let key of obj) { ... }</code> to loop through a collection.
+      </p>
+      <pre><code>let categories = Object.keys(menu.categories); // ["Drinks", "Foods"]
+for (let category of categories) {
+  console.log(category); // e.g. "Drinks"
+  console.log(menu.categories[category]); // e.g. ["Coffee", "Tea", "Espresso"]
+}</code></pre>
+<p class="code-caption">JS</p>
+</section>
+
+
+      <section>
+        <h2>So what is JSON used for?</h2>
+        <p>On your own website, it can be used to represent data to generate webpages dynamically</p>
+        <p>JSON data also comes from many sources on the web:</p>
+        <ul>
+            <li>web services use JSON to communicate</li>
+            <li>web servers store data as JSON files</li>
+            <li>databases sometimes use JSON to store, query, and return data</li>
+        </ul>
+        <p>JSON is the de facto universal format for exchange of data</p>
+       </section>
+
+    <section>
+      <h2>Using JSON for Dynamic Webpages</h2>
+      <p>Return to the CSE 154 Cafe!</p>
+      <img class="centered-figure one-third-width" src="hidden/cafe-starter.png" />
+    </section>
+
+    <section>
+      <h2>Initial Page</h2>
+      <div class="side-by-side">
+      <p>
+        What are the limitations of having everything in the HTML for a website
+        with items/products like a cafe?
+      </p>
+      <a href="code/cse154-cafe/index.html" target="_blank"><img src="hidden/cafe-html.png" alt="HTML of Cafe Page" /></a>
+    </section>
+
+    <section>
+      <h3>Part 1: Using JSON as a variable in <code>menu-populator.js</code></h3>
+      <p>Example <a href="code/cse154-cafe/menu.json" target="_blank">menu.json</a></p>
+      <pre class="font-12pt h400px"><code>"use strict";
+(function() {
+  let menu = {
+    "categories" : {
+      "Drinks" : [
+        { "name" : "Classic Coffee", "description" : "The Classic.",
+          "image" : "img/coffee-4.png", "in-stock" : true },
+        { other drinks... }
+      ],
+      "Foods" : [ { other foods... } ]
+    },
+  };
+
+  window.addEventListener("load", populateMenu);
+
+  function populateMenu() {
+    let categories = Object.keys(menu);
+    for (let category of categories) {
+      let categorySection = genCategorySection(category);
+      let div = gen("div");
+      div.classList.add("item-container");
+      for (let i = 0; i &lt; categories[category].length; i++) {
+        let itemData = categories[category][i];
+        if (itemData["in-stock"]) {
+          div.appendChild(genItemArticle(itemData));
+        }
+      }
+    }
+    categorySection.appendChild(div);
+    id("menu-container").appendChild(categorySection);
+  }
+
+  // rest of program ...
+})();</code></pre>
+      <p class="code-caption">JS (partial)</p>
+    </section>
+
+    <section>
+      <h2>But what's wrong with putting the JSON as a module-global in our JS?</h2>
+      <p>What if we want to feature different menus?</p>
+      <p>What if other websites want to use the menu data?</p>
+    </section>
+
+    <section>
+      <h2>Part 2: Fetching JSON from the web</h2>
+      <ul>
+        <li>What kind of data can we get from the internet?</li>
+        <li>How do we request data from the internet?</li>
+        <li>What happens when something goes wrong on the internet?</li>
+        <li>Can you trust everything you find on the internet?</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>LET's FETCH ALL THE DATA!!!!!</h2>
+      <p>A <em>ton</em> of <a href="https://github.com/public-apis/public-apis">examples</a></p>
+    </section>
+
+    <section>
+      <h2>Hold your horses</h2>
+      <p>While we are still using JS with JSON, these are new questions that we have to consider.</p>
+      <p>Data is fun. It's powerful. It drives the modern society. But with great power, comes great responsibility.</p>
+      <p>What we learn these next few lectures will be simple to code, but will take some time to conceptualize.</p>
+    </section>
+
+    <section>
+      <h2>Synchronous requests</h2>
+      <img src="hidden/images/sync-diagram.png" alt="synchronous request diagram">
+    </section>
+
+    <section>
+      <h2>Why are synchronized requests are problematic?</h2>
+
+      <p class="fragment">
+        Your code waits for the request to completely finish before proceeding.
+      </p>
+      <p class="fragment">
+        It is easier to program for synchronous behavior,
+        but the user's entire browser LOCKS UP until the download is completed, which is
+        a terrible user experience (especially if the page is very large or slow to transfer)
+      </p>
+    </section>
+
+   <section>
+     <h2>Asynchronous Programs</h2>
+     <img class="centered-figure" src="hidden/images/async-diagram.png" alt="asynchronous request diagram">
+     <p>We've seen asynchronous requests with <code>setTimeout</code> and <code>setInterval</code></p>
+     <p>This is a good transition to fetching data</p>
+     <p>Timer callback functions are guaranteed* to execute after <code>delayMs</code></p>
+     <p>Fetch (AJAX) callback functions are <em>not</em> guaranteed to execute after a certain number of seconds, and have two possible states:</p>
+     <ol>
+       <li>Success ("resolved")</li>
+       <li>Failure ("rejected")</li>
+     </ol>
+   </section>
+
+   <section>
+     <h2>Visualization of AJAX</h2>
+     <div class="side-by-side">
+       <div>
+         <img src="hidden/images/sync-async-guess.png" alt="visualization of Synchronous/Asynchronous fetch calls to guess about ">
+         <p class="small-font">
+           Modified from <a href="https://www.quora.com/What-is-asynchronous-JavaScript-on-a-website">Quora:
+           What is Asynchronous JavaScript on a Website</a></p>
+       </div>
+       <div class="one-third-width">
+         <p>
+           Which picture depicts "synchronous" fetch calls and which depicts "asynchronous"
+           fetch calls?
+         </p>
+         <p>What is the total time it takes to do the 5 requests in each case?</p>
+       </div>
+     </div>
+   </section>
+
+   <section>
+     <h2>Visualization of fetch calls - answer</h2>
+     <img src="https://qph.fs.quoracdn.net/main-qimg-e464153a46ebfc0bbe9401ca39c31f68" alt="visualization of Synchronous/Asynchronous fetch calls ">
+   </section>
+
+    <section>
+      <h3>Suppose...</h3>
+      <p>We knew how to get this JSON from a server instead of storing it in a variable in our client-side JS</p>
+      <p>What are new potential issues?</p>
+      <ul>
+        <li class="fragment">There is no way to now how long the server will take the respond</li>
+        <li class="fragment">Will it even respond?</li>
+      </ul>
+      <p>We need some way to <em>wait</em> for a server to respond and do something with the data afterwards (<em>and handle uncertainty</em>).</p>
+    </section>
+    <section>
+      <h2>Naive Approach: While Loop</h2>
+      <pre><code>makeRequestToServer(url);
+while (serverHasNotResponded()) {
+  // do nothing here, page is frozen
+}
+let jsonData = getServerResponse().json();</code></pre>
+      <p class="code-caption">JS (psuedocode)</code>
+      <p>What is the issue with this?</p>
+      <ul>
+        <li>It stops execution of the JS</li>
+        <li>It will freeze the page - other events like clicking will not be called since this will never finish.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Callbacks to the Rescue!</h2>
+      <pre><code>makeRequestToServer(url, function(response) {
+    // function to callback when server is done processing/responding
+    let jsonData = response.json();
+  });
+}</code></pre>
+      <p class="code-caption">JS (psuedocode)</code>
+      <p>This does not stop execution!</p>
+      <p>
+        The callback is run only when the server (from url) is done responding, so there is no halting
+        execution of other parts of your JS (just like setInterval/setTimeout!)
+      </p>
+    </section>
+    <section>
+      <h2>What if we wanted to make multiple requests?</h2>
+      <pre><code class="font-12pt">makeRequestToServer(firstUrl, dataToServer, function(response1) {
+    // function to call when server is done responding
+    let jsonData = JSON.parse(response1);
+    processResponse1(jsonData, function(processedData1) {
+        getUserInput(processedData1, function(userReponse) {
+            makeRequestToServer(secondUrl, userReponse, function(response2) {
+                processResponse2(response2, function(processedData2) {
+                    // Do something with processedData2.
+                });
+            });
+        });
+    });
+}</code></pre>
+         <p class="code-caption">JS (psuedocode)</p>
+
+       <p>Code is very confusing and hard to follow the logical flow of execution and data</p>
+       <p>What if we could attach callback functions for each step like a pipeline to be easier to follow?</p>
+     </section>
+     <section>
+       <h2>Example with a Cafe API</h2>
+       <p>To ask for data, we will need URL's to request from.</p>
+       <p>
+         Suppose we had an API we could request JSON from for our Cafe.
+       </p>
+       <p>
+         To get categories, we would use <code><a href="https://cse154.appspot.com/cafeexample/getCategories">/getCategories</a></code> appended to the URL, which
+         returns an array of strings.
+       </p>
+       <p>
+         To get items for a category, we would use <code><a href="https://cse154.appspot.com/cafeexample/getItems/drinks">/getItems/&lt;categoryName&gt;</a></code>
+         to get an array of objects for each item.
+       </p>
+       <p>
+         This is pretty similar to the <code>menu</code> variable we used
+         in our JS! But in this API, the second request (to get item data) depends on the first (category names).
+       </p>
+     </section>
+     <section>
+       <h3>Using Callbacks to Handle Asynchronous Dependencies</h3>
+       <pre><code class="font-12pt">function fetchAndPopulateMenu() {
+  const URL = “https://path-to-cafe-api”;
+  fetchCallback(url + "/getCategories", function(categories) {
+    for (let i = 0; i &lt; categories.length; i++) {
+      let categorySection = genCategorySection(categories[i]);
+      fetchCallback(url + "/getItems/" + categories[i], function(itemList) {
+        filterInStockItems(itemList, function(inStockItems) {
+          for (let i = 0; i &lt; inStockItems.length; i++) {
+            categorySection.append(genItemData(inStockItems[i]));
+          }
+        });
+      });
+    }
+  });
+}</code></pre>
+       <p class="code-caption">JS (pseudo-code)</p>
+       <p>... Callbacks help ensure we have the data before using it, but this isn't easy to read.</p>
+       <p>What if we were to modify our code? What about handling request errors? It will only get more nested.</p>
+     </section>
+     <section>
+       <h2>Friday</h2>
+       <p>Promises and Fetch to the Rescue!</p>
+       <p>Fetching data from public API's (NASA, Webster Dictionary, Movie DB, etc.)</p>
+     </section>
+			</div>
+		</div>
+  <script src="../../site/reveal/lib/js/head.min.js"></script>
+  <script src="../../site/reveal/js/reveal.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [{
+          src: '../../site/reveal/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/marked.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/markdown.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/highlight/highlight.pack.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+        { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+        { src: '../../site/reveal/plugin/search/search.js', async: true },
+        { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+      ]
+    });
+  </script>
+</body>
+</html>

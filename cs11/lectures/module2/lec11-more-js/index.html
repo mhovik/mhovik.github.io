@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 11</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+      '../../site/reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>CSE 154</h1>
+          <h3>Lecture 11: Deeper JS Language Features</h3>
+          <h4>AKA: How to avoid common errors</h4>
+        </section>
+
+        <section>
+          <h2>Quick Administrivia</h2>
+          <ul>
+            <li>Reminders
+              <ul>
+                <li> Set! due tomorrow 11pm</li>
+                <li>Fill out the <a href="https://catalyst.uw.edu/webq/survey/bricker/371649">left
+                  handed seat</a> form by 11 pm tonight.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="https://courses.cs.washington.edu/courses/cse154/19sp/exams/assets/19sp-midterm-cheatsheet.pdf">Midterm
+                cheat sheet</a> has been posted
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>What we've covered in Module 2 so far...</h2>
+          <ul>
+            <li>Basic JavaScript
+              <ul>
+                <li>Types (Strings, Numbers, Arrays)</li>
+                <li>Conditionals, Loops, Functions</li>
+              </ul>
+            </li>
+            <li>Basic HTML UI Elements (buttons, text input, etc.)</li>
+            <li>Handling Events</li>
+            <li>Page Event Flow</li>
+            <li>Modular JS Pattern and Scoping</li>
+            <li>Timed events (Delays/Intervals)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>What's left in Module 2</h2>
+            <p>More!!!</p>
+            <li class="fragment">More on JavaScript types, including null and undefined</li>
+            <li class="fragment">More on (resetting) timers</li>
+            <li class="fragment">More on arrow functions</li>
+            <li class="fragment">More on (computed) styles</li>
+            <li class="fragment">More on (programatic) DOM tree traversal and TextNodes</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>More on JavaScript types</h2>
+          <h3>including null and undefined</h3>
+        </section>
+
+        <section>
+          <h2>Reminder: "Types" in JavaScript</h2>
+          <p>Types are not specified, but JS <em>does</em> have types ("loosely-typed")</p>
+          <ul>
+            <li><code>Number</code>, <code>Boolean</code>, <code>String</code>,
+                <code>Array</code>, <code>Object</code>, <code>Function</code>, <code>Null</code>,
+                <code>Undefined</code></li>
+            <li>
+                Can use <a target="_blank"
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof">typeof</a>
+                to find a variable's type but it is poor practice.</li>
+          </ul>
+          <pre><code class="hijs" data-trim>let level = 23; // Number
+let accuracyRate = 0.99; // Number
+let name = "Pikachu"; // String
+let temps = [55, 60, 57.5]; // Array
+</code></pre>
+          <p class="code-caption">JS (example)</p>
+        </section>
+
+        <section>
+          <h2><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_Types#Data_types">Boolean</a> Type</h2>
+          <pre>
+            <code class="hijs" data-trim>let iLikeJS = true;
+if ("web dev is great") { /* true */ }
+if (0) { /* false */ }
+if (1) { /* true */ }</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Any value can be used as a <code>Boolean</code></p>
+          <ul>
+            <li>"falsey" values: <code>false</code>, <code>0</code>, <code>NaN</code>,
+            <code>""</code>, <code>null</code>, and <code>undefined</code></li>
+            <li>"truthy" values: anything else</li>
+          </ul>
+          <p>
+            Understanding what is "falsey" vs. "truthy" takes patience and practice.
+          </p>
+          <p>
+            When in doubt, check in the browser console!
+          </p>
+        </section>
+
+        <section>
+          <h2>Logical Operators</h2>
+          <p>Relational: <code>&gt; &lt; &gt;= &lt;=</code></p>
+          <p>Logical: <code>&amp;&amp; || !</code></p>
+          <p>Equality: <code>== != </code></p>
+          <p>
+            Strict Equality: <code> === !==</code> (checks <strong>both
+              type and value</strong>).
+          </p>
+          <ul>
+            <li>Most logical operators automatically convert types.
+              <ul>
+                <li><code>5 &lt; "7"</code><code class="fragment green"> // true</code></li>
+                <li><code>42 == 42.0</code><code class="fragment "> // true</code></li>
+                <li><code>"5.0" == 5</code><code class="fragment">  // true</code></li>
+                <li><code>"5.0" === 5</code><code class="fragment"> // false</code></li>
+              </ul>
+            </li>
+            <li>
+              It is usually a good idea to use <code>===</code> instead of <code>==</code>.
+            </li>
+          </ul>
+          <p>
+            A <a href="https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a"
+                     target="_blank">good reading on == vs. ===</a> (and don't forget about the
+                 <a href="https://dorey.github.io/JavaScript-Equality-Table/" target="_blank">JS
+                   equality table</a>)!
+          </p>
+       </section>
+
+
+      <section>
+        <h2>Common error with type coercion</h2>
+        <pre><code class="hijs" data-trim>let woops = "abc" > 0; <span class=
+        "fragment">// false</span></code></pre>
+        <p class="code-caption">JS</p>
+        <p class="fragment">But why??!??!</p>
+        <div class="fragment">
+          <p><code>parseInt("abc") === NaN</code> and <code>NaN > 0</code> is <code>false</code> </p>
+          <p class="fragment">Why is this important? </p>
+        </div>
+        <div class="fragment">
+          <p>
+            Imagine you want to validate user input on your page to ensure someone has typed
+            a non-blank value into an input text box (id <code>#my-input</code>) before hitting
+            the submit button... so you add this to your .js file
+          </p>
+          <pre><code>if (id("my-input").value > 0) { /* do submission stuff */ }</code></pre>
+          <p>But there's a bug! What is it?</p>
+        </div>
+        <div class="fragment">
+          <p>The fix</p>
+          <pre><code>if (id("my-input").value.length > 0) { /* do submission stuff */ }</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <h2>Special Values: <code>null</code> and <code>undefined</code></h2>
+        <pre><code class="hijs" data-trim>let foo = null;
+let bar = 9;
+let baz;
+
+/* At this point in the code,
+ * foo is null
+ * bar is 9
+ * baz is undefined
+ */</code></pre>
+          <p class="code-caption">JS</p>
+          <p><code>undefined</code>: declared but has not yet been assigned a value</p>
+          <p>
+            <code>null</code>: exists, but was specifically assigned an empty value or
+            <code>null</code>. Expresses intentional a lack of identification.
+          </p>
+
+          <p>
+            A good motivating overview of
+            <a target="_blank" href="https://codeburst.io/javascript-null-vs-undefined-20f955215a2"><code>null</code> vs.
+             <code>undefined</code></a></p>
+          <p>Note: This takes some time to get used to, and remember this slide if you get
+          confused later.</p>
+        </section>
+
+        <section>
+          <h2>Common Error... </h2>
+          <div>
+            <p>Did you see this in the inspector when working on CP2 or HW 2?</p>
+            <img src="hidden/type-error.png" />
+          </div>
+          <div class="fragment">
+            <p>
+              The cause is typically that you tried to dereference a DOM element was
+              null because the id does not exist.
+            </p>
+            <pre><code class="hijs" data-trim>&lt;button id="bar-btn"&gt;Submit&lt;/button&gt;</code></pre>
+              <p class="code-caption">HTML</p>
+
+            <pre><code class="hijs" data-trim>id("foo-btn").addEventListener("click", handleButton);</code></pre>
+              <p class="code-caption">JS</p>
+
+            <p>
+              Only non-null objects can be dereferenced using the . (dot) notation to call a method
+              or retrieve a value stored in that object
+            </p>
+          </div>
+        </section>
+
+
+        <section>
+          <h2>A Few Last Notes on Types in JavaScript</h2>
+          <div class="font-18pt">
+          <p>
+            As you write JS programs, you <del>may</del> <ins>will</ins> run into some silent
+            bugs resulting from odd typing behavior in JS. Automatic type conversion, or coersion,
+            is a common, often perplexing, source of JS bugs (even for experienced JS programmers).
+          </p>
+          <p>
+          <strong>Why does it happen?</strong> JS was designed to "work" as intuitively as
+            possible without requiring the strict types.
+          </p>
+          <p>
+          <strong>Why is this important to be aware of?</strong> You'll be writing
+            programs which use variables and conditional logic. Knowing
+            what is considered truthy/false and how types are evaluated (at a
+            high level) can make you a much happier JS developer
+            (<a
+              href="https://www.codestepbystep.com/problem/view/javascript/expressions/expressions3">some
+              practice</a>)
+          <p>Examples of some "less-intuitive" evaluations:</p>
+          <div class="side-by-side space-between">
+            <div>
+            <p><code>154 === 154.0</code><code class="fragment green">// true</code> </p>
+            <p><code>2 &lt; 1 &lt; 2;</code><code class="fragment green">// true</code></p>
+            <p><code>0 + "1" + 2;</code><code class="fragment green">// "012"</code></p>
+            <p><code>0.1 + 0.2 == 0.3;</code><code class="fragment green">//
+                false</code></p>
+          </div>
+          <div>
+            <p><code>[] + [];</code><code class="fragment green">// ""</code></p>
+            <p><code>"1" / null;</code><code class="fragment green">// Infinity</code></p>
+            <p><code>[0] === true</code><code class="fragment green">// false (expected?)</code></p>
+            <p><code>!![0]</code><code class="fragment green">// true</code></p>
+
+          </div>
+          </div>
+          <p class"fragment">
+            <a href="https://www.destroyallsoftware.com/talks/wat">
+              This is worth 3 minutes of your viewing pleasure.
+            </a> (starting at 1:20)
+          </p>
+          </div>
+        </section>
+
+        <section>
+          <h2>More on (resetting) timers</h2>
+          <h3>With <a href="examples/bubbles/bubbles.html">Bubbles!</a></h3>
+        </section>
+
+        <section>
+          <h2>Toggling Timers</h2>
+          <pre><code>&lt;button id="toggle-btn"&gt;Start/Stop&lt;button&gt;
+</code></pre>
+          <p class="code-caption">HTML</p>
+          <pre class="font-14pt"><code class="hljs " data-trim>let timerId = null; // stores ID of interval timer
+function initialize() {
+  id("toggle-btn").addEventListener("click", toggleMessageInterval);
+}
+
+function toggleMessageInterval() {
+  if (!timerId) {
+    timerId = setInterval(sayHello, 1000);
+  } else {
+    clearInterval(timerId);
+    timerId = null;
+  }
+}
+
+function sayHello() {
+  id("output-text").innerText += "Hello!";
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <div class="output">
+            <button id="demo-btn-toggle">Start/Stop</button>
+            <span id="output-text-toggle"></span>
+            <p class="output-caption">output (<a href="examples/toggle-interval.html"
+                                                 target="_blank">full example page</a>)</p>
+          <div>
+        </section>
+
+        <section>
+          <h2>Common error with timers</h2>
+          <p>Common error: Not resetting the timer to null after <code>clearInterval</code>!</p>
+          <p>Your timer may not start again or you may wind up with a proliferation of timers</p>
+
+          <pre class="font-14pt"><code class="hljs " data-trim>let timerId = null; // stores ID of interval timer
+...
+
+function toggleMessageInterval() {
+  if (!timerId) {
+    timerId = setInterval(sayHello, 1000);
+  } else {
+    clearInterval(timerId); // Do this first (don't forget)!!!
+    timerId = null; // Don't forget this!!!
+  }
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>What happens if you swap the <code>clearInterval(timerId)</code>/<code>timerId = null</code>? </p>
+          <p>Do you always need a timerId? (think about this on your own)</p>
+        </section>
+
+        <section>
+          <h2>More on <span id="rocket-h2">Fat Arrow Functions</span></h2>
+
+          <button id="aka" style="padding: 5px;">Officially Known As...</button>
+          <div id="rocket-demo" style="display: none">
+          <h1>ROCKET SHIPS</h1>
+          <pre><code style="position: relative; width:100%; padding-top: 10px;
+          padding-bottom: 10px"><span style="position:
+          absolute; font-size: 36pt" id="rocket-ship">=&gt;</span>
+</code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>Fat arrow functions</h2>
+          <p>Fat arrow functions are just another way of writing an anonymous function.</p>
+          <pre><code class="hljs small-font" data-trim >/* named function with one parameter that logs to the console. */
+function sayHello(you) {
+  console.log("Hello " + you);
+}
+
+/* Equivalent function as an anonymous function */
+(you) => {
+  console.log("Hello " + you);
+}
+
+/* Equivalent function with no parens because there is only 1 parameter */
+you => {
+  console.log("Hello " + you);
+}
+
+/* anonymous function with no parameters */
+() => {
+  console.log("Hello!");
+}</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>Fat arrow function syntax</h2>
+          <p>Some sample basic syntax
+            (from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">MDN</a>)</p>
+          <pre><code class="hljs" data-trim>// General form with multiple parameters
+(param1, param2, …, paramN) => { statements }
+
+// Multiple parameters and a return statement
+(param1, param2, …, paramN) => { return expression; }
+// or ...
+(param1, param2, …, paramN) => expression
+
+// Parentheses are optional when there's only one parameter name:
+(singleParam) => { statements }
+singleParam => { statements }
+
+// The parameter list for a function with no parameters should
+// be written with a pair of parentheses.
+() => { statements }</pre></code>
+          <p class="code-caption">JS (templates)</p>
+          <p>Note: the scoping of <code>this</code> is different with fat arrow functions that
+            traditional anonymous functions ()
+          </p>
+
+          </section>
+
+          <section>
+            <h2>Examples </h2>
+            <pre><code class="hljs small-font" data-trim >// Quick max and min function definitions
+let max = (a, b) => a > b ? a : b;
+let min = (a, b) => a < b ? a : b;
+
+// Array filtering
+let arr = [1, 2, -1, 0, 3, 4, 6, 20];
+let even = arr.filter(v => v % 2 == 0);    // [2, 0, 4, 6, 20]</code></pre>
+            <p class="code-caption">JS</p>
+            <p>More information on <a href="https://codeburst.io/learn-understand-javascripts-filter-function-bde87bce206"><code>filter</code></a></p>
+        </section>
+
+        <section>
+          <h2>Fat arrow functions in CSE 154</h2>
+          <ul>
+            <li>
+              This information on the "fat arrow" notation was mostly "FYI" because you are
+              going to run in to them in documentation.
+            </li>
+            <li>
+              You may continue to use anonymous functions as taught previously
+              (<code>function() { }</code>) or use fat arrow functions as you feel
+              comfortable with them. You do NOT have to use fat arrow functions at all.
+           </li>
+           <li>
+             As always, we would prefer you be consistent in your usage of either regular
+             anonymous functions or fat arrow functions as that is good Code Quality
+           </li>
+           <li>
+             Remember to only use anonymous functions (in general) when you have a small number of
+             statements (<= 3 ish) that won't need to be reused or duplicated anywhere.
+           </li>
+        </ul>
+      </section>
+
+
+        <section>
+          <h2>More on reading & changing styles</h2>
+        </section>
+
+        <section>
+          <h2>Review: Changing styles</h2>
+          <p>
+            Recall that the <code>.style</code> property of a DOM object lets you set any
+            CSS style for an element
+          </p>
+
+          <pre><code class="hljs" data-trim>button { font-size: 16pt; }</code></pre>
+          <p class="code-caption">CSS</p>
+
+          <pre><code class="hljs" data-trim>&lt;button id="clickme"&gt;Click Me&lt;/button&gt;</code></pre>
+          <p class="code-caption">HTML</p>
+
+          <pre><code class="hljs" data-trim data-noescape>window.addEventListener("load", initialize);
+function initialize() {
+  document.getElementById("clickme").addEventListener("click", biggerFont);
+};
+function biggerFont() {
+  let button = document.getElementById("clickme");
+  let size = parseInt(button.style.fontSize); // size === 16pt to start
+  button.style.fontSize = (size + 4) + "pt"; // notice adding the units!
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <div class="output">
+            <button id="clickme" style="font-size:16pt;">Click Me</button>
+            <p class="output-caption">output</p>
+          </div>
+
+        </section>
+
+        <section>
+          <h2>Problem with reading & changing styles</h2>
+          <p><strong>Note!</strong> Be careful to </p>
+          <ul>
+            <li>remove the units from a  <code>.style</code> value before doing arithmetic on it. </li>
+            <li>add the units to numerical values (like <code>pt</code>, <code>px</code>,
+              <code>vw</code>, etc) when setting <code>.style</code> values.
+            </li>
+          </ul>
+          <p>
+            Also: <strong>a catch:</strong> you can only use this to read styles
+            that have been set with the DOM <code>.style</code>
+            earlier in the code <span class="small-font">or with inline CSS which we don't
+              want you to do </span>.
+          </p>
+          <p>
+            You cannot read style properties set in the <code>.css</code> file using <code>.style</code>.
+          </p>
+
+        </section>
+
+
+        <section>
+          <h2>Accessing elements' computed styles</h2>
+          <p>
+            <code>getComputedStyle</code> method of global
+            <code>window</code> object accesses existing styles
+          </p>
+
+          <pre><code class="hljs" data-trim data-noescape>window.getComputedStyle(element).propertyName;</code></pre>
+          <p class="code-caption">JS (template)</p>
+
+          <pre><code class="hljs" data-trim data-noescape>#river {
+  height: 600px;
+}</code></pre>
+          <p class="code-caption">CSS (in bubbles.css)</p>
+
+          <pre><code class="hljs" data-trim data-noescape>> let river = document.querySelector("river");
+> river.style.height;
+> ""
+> river.style.height = "25%";
+> "25%"
+> window.getComputedStyle(river).height;
+> "828.234px"</code></pre>
+          <p class="code-caption">JS Console Output</p>
+          <p class="small-font">Thanks to Daniel H for the example</p>
+
+        </section>
+
+        <section>
+          <h2>Common bug: incorrect usage of existing styles</h2>
+          <p>
+            The following example attempts to add 100px to the top of <code>main</code>, but fails.
+          </p>
+          <p>
+            Consider the case when <code>main</code> has <code>top</code> set to "200px". Then
+            this code would update <code>style.top</code> to be the invalid value of "200px100px"
+          </p>
+          <pre><code class="hljs" data-trim data-noescape>let main = document.getElementById("main");
+<del class="bad">main.style.top = window.getComputedStyle(main).top + 100 + "px";</del></code></pre>
+          <p class="code-caption">JS</p>
+
+          <p>A corrected version:</p>
+          <pre><code class="hljs" data-trim data-noescape>main.style.top = parseInt(window.getComputedStyle(main).top) + 100 + "px";</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+
+        <section>
+          <h2>More on (programatic) DOM tree traversal and TextNodes</h2>
+        </section>
+
+
+        <section>
+          <h2>Review: Creating New Nodes</h2>
+          <table class="code-table">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>document.<a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement">createElement("tag")</a></td>
+              <td>creates and returns a new empty DOM node representing an element of that type</td>
+            </tr>
+            <tr>
+              <td>document.<a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode">createTextNode("text")</a></td>
+              <td>creates and returns a text node containing given text</td>
+            </tr>
+          </table>
+          <pre><code class="hljs" data-trim>// create a new &lt;h2&gt; node
+let newHeading = document.createElement("h2");
+// Add text to the node method 1
+let newText = document.createTextNode("This is a new heading!");
+newHeading.appendChild(newText);
+// Add text to the node method 2
+newHeading.innerText = "This is a newer heading!";
+document.querySelector("body").appendChild(newHeading);</code></pre>
+
+          <p class="code-caption">JS</p>
+        </section>
+
+
+        <section>
+          <h2>Traversing the DOM Tree Manually</h2>
+          <p>Every node's DOM object has the following (read-only) properties:</p>
+          <table class="code-table">
+            <tr>
+              <th>Name(s)</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild"
+                   target="_blank">firstChild</a>,
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/lastChild"
+                   target="_blank">lastChild</a>
+              </td>
+              <td>start/end of this node's list of children, may include text or comments</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/firstElementChild"
+                   target="_blank">firstElementChild</a>,
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/lastElementChild"
+                   target="_blank">lastElementChild</a>
+              </td>
+              <td>start/end of this node's list of children elements</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes"
+                   target="_blank">childNodes</a>
+              </td>
+              <td>array of all of this node's children</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling"
+                   target="_blank">nextSibling</a>,
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/previousSibling"
+                   target="_blank">previousSibling</a>
+              </td>
+              <td>neighboring nodes with the same parent, including whitespace nodes</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/NonDocumentTypeChildNode/nextElementSibling"
+                   target="_blank">nextElementSibling</a>,
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/NonDocumentTypeChildNode/previousElementSibling"
+                   target="_blank">previousElementSibling</a>
+              </td>
+              <td>neighboring element nodes with the same parent, skipping whitespace nodes</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode"
+                   target="_blank">parentNode</a>
+              </td>
+              <td>the element that contains this node</td>
+            </tr>
+          </table>
+          <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node" target="_blank">Complete list of DOM node properties</a></p>
+          <p><a
+            href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Browser_support_for_JavaScript_APIs"
+            target="_blank">Browser incompatibility information</a> (IE6 sucks)</p>
+        </section>
+
+        <section>
+          <h2>DOM Tree Traversal Example</h2>
+          <div class="side-by-side">
+            <div class="panel-left two-panel">
+              <pre><code class="hljs" data-trim>&lt;p id="foo"&gt;
+This is a paragraph of text with a
+&lt;a href="page.html"&gt;link&lt;/a&gt;.
+&lt;/p&gt;</code></pre>
+              <p class="code-caption">HTML</p>
+            </div>
+            <div class="panel-right two-panel no-margin-top">
+              <p class="space-above"><img src="hidden/dom-traversal-example.png" alt="DOM traversal example" /></p>
+              <p>From <a href="http://www.webstepbook.com/supplements/slides/lecture16-dom_tree.shtml">Web Step Book Supplemental resources</a></p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Element vs. Text Nodes</h2>
+          <pre><code class="hljs" data-trim>&lt;div&gt;
+  &lt;p id="foo"&gt;
+    This is a paragraph of text with a
+    &lt;a href="page.html"&gt;link&lt;/a&gt;.
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          <p class="code-caption">HTML</p>
+          <p>Q: How many children does the <code>div</code> have?
+          <span class="fragment">A: 3</span></p>
+          <ul class="fragment">
+            <li>an element node representing the <code>&lt;p&gt;</code></li>
+            <li>two <em>text nodes</em> representing "\n\t" (before/after the paragraph)</li>
+          </ul>
+          <p>Q: How many children does the paragraph have? <span class="fragment">A: 3 (text, a, text)</span></p>
+          <p>Q: The <code>a</code> tag? <span class="fragment">A: 1 (text)</span></p>
+        </section>
+
+        <section>
+          <h2>Common bug</h2>
+          <h3>Not accounting for Text Nodes in the tree traversal</h3>
+          <p>Incorrect usage of firstChild/lastChild/nextSibling/previousSibling
+            instead of firstElementChild/lastElementChild/firstElementSibling/lastElementSibling
+          </p>
+        </section>
+
+
+        <section>
+         <h2>Summary of Java vs. JS vs. Python</h2>
+         <p>Final thoughts about JavaScript as a language</p>
+         <table>
+           <tr>
+             <th></th>
+             <th>Java</th>
+             <th>JS</th>
+             <th>Python</th>
+           </tr>
+           <tr>
+             <td>Compiled vs. Interpreted</td>
+             <td>Compiled</td>
+             <td>Interpreted</td>
+             <td>Interpreted</td>
+           </tr>
+           <tr>
+             <td>Typing</td>
+             <td>Strong</td>
+             <td>Loose</td>
+             <td>Loose</td>
+           </tr>
+           <tr>
+             <td>Variable Declaration</td>
+             <td>Must be declared before use</td>
+             <td>Does not need to be declared before use</td>
+             <td>Does not need to be declared before use</td>
+           </tr>
+           <tr>
+             <td>Key Construct</td>
+             <td>Classes (OOP)</td>
+             <td>Function</td>
+             <td>Function</td>
+           </tr>
+         </table>
+       </section>
+
+
+
+      <section>
+        <h2>CSE 154 Modules</h2>
+        <ol>
+          <li >
+            Webpage structure and appearance with HTML5 and CSS. <i class="fa fa-check
+              good fragment" aria-hidden="true"></i>
+          </li>
+          <li >
+            Client-side interactivity with JS DOM and events.<i class="fa fa-check
+              good fragment" aria-hidden="true"></i>
+          </li>
+          <li class="bolded">
+            Using web services (API's) as a client with JS.
+          </li>
+          <li class="faded">
+            Writing JSON-based web services with PHP.
+          </li>
+          <li class="faded">
+            Storing and retreiving information in a database with MySQL and server-side
+            programs.
+          </li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>MAMP</h2>
+        <p>
+          In preparation for working with our server side code we will be installing
+          and configuring a server on our machine called MAMP (Mac Apache MySQL PHP)
+        </p>
+        <p>
+          Now instead of your urls being
+          <code>file:///Users/lauren/Desktop/cse154/hw2-set-bricker/set.html</code></p>
+        </p>
+        <p>
+          We will run them through <strong>locahost</strong>, e.g.
+        </p>
+        <ul class="no-bullets">
+          <li>Mac: <br> <code>http://localhost:8888/154-19sp/hw2-set-bricker/set.html</code> </li>
+          <li>Windows: <br>  <code>http://localhost/154-19sp/hw2-set-bricker/set.html</code></li>
+        </ul>
+      </section>
+
+
+
+      </div>
+    </div>
+  <script src="../../site/reveal/lib/js/head.min.js"></script>
+  <script src="../../site/reveal/js/reveal.js"></script>
+  <script src="hidden/lec11.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [{
+          src: '../../site/reveal/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/marked.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/markdown.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/highlight/highlight.pack.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+        { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+        { src: '../../site/reveal/plugin/search/search.js', async: true },
+        { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+      ]
+    });
+  </script>
+</body>
+</html>

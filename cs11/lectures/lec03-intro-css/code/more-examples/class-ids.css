@@ -1,0 +1,11 @@
+.product {
+  text-decoration: underline; /* both elements share this! */
+}
+
+#doggo-cal {
+  color: #D06613; /* only the first p has this color */
+}
+
+#cat-mug {
+  background-color: #C0FFEE; /* only the second p has this color */
+}

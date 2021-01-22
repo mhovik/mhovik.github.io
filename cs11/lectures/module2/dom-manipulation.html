@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>DOM Manipulation</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+      '../../site/reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>CSE 154</h1>
+					<h3>DOM Manipulation</h3>
+        </section>
+
+        <section>
+          <h2>Recall: Accessing DOM objects</h2>
+          <ol>
+            <li>Ask for them by id: <code>document.getElementyById(...)</code></li>
+            <li class="space-below">Query for them with CSS style selectors:
+              <ul>
+                <li><code>document.querySelector(...)</code></li>
+                <li><code>document.querySelectorAll(...)</code></li>
+              </ul>
+          </ol>
+          <p>We will use the <code>id</code>, <code>qs</code>, and <code>qsa</code> shorthand functions often</p>
+        </section>
+
+        <section>
+          <h2>Creating New Node Objects</h2>
+          <table class="code-table">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>document.<a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement">createElement</a>("tag")</td>
+              <td>creates and returns a new empty DOM node representing an element of that type</td>
+            </tr>
+          </table>
+          <pre><code class="hljs" data-trim>// create a new &lt;h2&gt; node
+let newHeading = document.createElement("h2");
+newHeading.textContent = "This is a new heading!";</code></pre>
+          <p class="code-caption">JS</p>
+
+          <p>Note: Merely creating an element does not add it to the page</p>
+          <p>You must add the new element as a child of an existing element on the page...</p>
+        </section>
+
+        <section>
+          <h2>Adding/Removing Nodes to the DOM</h2>
+          <p>
+            When you have a parent DOM node, you can add or remove a child DOM node using
+            the following functions:
+          </p>
+          <table class="code-table half-width-columns">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild" target="_blank">
+                parentNode.appendChild</a>(node)</td>
+              <td>places the given node at end of this node's child list</td>
+            </tr>
+            <tr>
+              <td><a href="https://www.w3schools.com/jsref/met_node_insertbefore.asp"
+                  target="_blank">parentNode.insertBefore</a>(new, old)</td>
+              <td>places the given node in this node's child list just before old child</td>
+            </tr>
+            <tr>
+              <td><a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild"
+                  target="_blank">parentNode.removeChild</a>(node)</td>
+              <td>removes the given node from this node's child list</td>
+            </tr>
+            <tr>
+              <td><a href="https://www.w3schools.com/jsref/met_node_remove.asp"
+                     target="_blank">node.remove()</a></td>
+              <td>removes the node from the page</td>
+            </tr>
+            <tr>
+              <td><a href="https://www.w3schools.com/jsref/met_node_replacechild.asp"
+                  target="_blank">parentNode.replaceChild</a>(new, old)</td>
+              <td>replaces given child with new nodes</td>
+            </tr>
+          </table>
+
+          <pre><code class="hljs" data-trim>let li = document.createElement("li");
+li.textContent = "A list item!";
+id("my-list").appendChild(li);</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+      <section>
+        <h2>Modifying the <code>classList</code></h2>
+        <p>You can manipulate the DOM element's
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList" target="_blank">classList</a>
+          with the following methods:
+        </p>
+        <table class="code-table half-width-columns">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>add(classname)</td>
+            <td>
+              Adds the specified class(es) to the list of classes on this element. Any that are
+              already in the classList are ignored.
+            </td>
+          </tr>
+          <tr>
+            <td>remove(classname)</td>
+            <td>
+              Removes the specified class(es) to the list of classes from this element. Any that are
+              already not in the classList are ignored without an error
+            </td>
+          </tr>
+          <tr>
+            <td>toggle(classname)</td>
+            <td>
+              Removes a class that is in the list, adds a class that is not in the list.
+            </td>
+          </tr>
+          <tr>
+            <td>contains(classname)</td>
+            <td>
+              Returns true if the class is in the the DOM element's classList, false if not.
+            </td>
+          </tr>
+          <tr>
+            <td>replace(oldclass, newclass)</td>
+            <td>
+              Replaces the old class with the new class.
+            </td>
+          </tr>
+        </table>
+      </section>
+
+        <section>
+          <h2>Three methods for removing elements</h2>
+          <p>Get all of the DOM elements and remove them from the DOM</p>
+          <pre><code class="hljs" data-trim>function clearJar() {
+  let skittles = qsa(".skittle");
+  for (let i = 0; i &lt; skittles.length; i++) {
+    // 1. Using node.remove();
+    skittles[i].remove();
+    // 2. Using parentNode.removeChild(node);
+    // skittles[i].parentNode.removeChild(skittles[i]);
+  }
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <div class="fragment">
+            <p>Or ... Method 3: Set the Jar's <code>innerHTML</code> to be empty!</p>
+            <pre><code class="hljs" data-trim>function clearJar() {
+  id("jar").innerHTML = "";
+}</code></pre>
+            <p class="code-caption">JS</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Note: in general <code>innerHTML</code> hacking is <span class="bad">bad</span></h2>
+          <p>Why not just code this way?</p>
+          <pre><code class="hljs" data-trim data-noescape>document.getElementById("add")<span class="bad">.innerHTML = </span> &quot;&lt;p&gt;A result!&lt;/p&gt;&quot;;</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Bad code quality (maintainability) on many levels </p>
+          <ul>
+            <li>Not modular: HTML code embedded within JS</li>
+            <li>What if you have a complicated new node (with many subchildren) to add? </li>
+            <li>Error-prone: must carefully distinguish " and '</li>
+            <li>Can only add at beginning or end, not in middle of child list</li>
+          </ul>
+          <pre><code class="hljs" data-trim data-noescape>// Substitutes all children
+id("add").innerHTML =  &quot;&lt;p&gt;A result!&lt;/p&gt;&quot;;
+// adds a node to the front of the list of children.
+id("add").innerHTML  = &quot;&lt;p&gt;A result!&lt;/p&gt;&quot; + id("result").innerHTML;
+// adds a node to the end of the list of children
+id("add").innerHTML += &quot;&lt;p&gt;A result!&lt;/p&gt;&quot;;</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>One more: removing elements via the parent node</h2>
+          <h3>What if you were to add code to get rid of a skittle when its double clicked?</h3>
+          <p>What is the source element? <span class="fragment">A skittle (div)</span></p>
+          <p>What is the event we want to respond to? <span class="fragment">dblclick</span></p>
+          <p>What is the response? <span class="fragment">removeSkittle</span></p>
+          <p>What is the output/elements changed? <span class="fragment">the parent of the skittle (the jar)</span></p>
+          <div class="fragment">
+            <pre><code class="hljs" data-trim>//code added to addSkittle()
+skittle.addEventListener("dblclick", removeSkittle);
+...
+// new function added (with JSDoc not seen here)
+function removeSkittle() {
+  this.parentNode.removeChild(this);
+  // can also use this.remove() to remove from the document entirely (ES6)
+}</code></pre>
+          <p class="code-caption">JS</p>
+          </div>
+        </section>
+
+		</div>
+
+  <script src="../../site/reveal/lib/js/head.min.js"></script>
+
+  <script src="../../site/reveal/js/reveal.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [{
+          src: '../../site/reveal/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/marked.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/markdown.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/highlight/highlight.pack.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+        { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+        { src: '../../site/reveal/plugin/search/search.js', async: true },
+        { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+      ]
+    });
+  </script>
+</body>
+</html>

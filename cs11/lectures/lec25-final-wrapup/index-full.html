@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CSE 154 Lecture 28</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+    <link rel="stylesheet" href="hidden/lec11.css">
+
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+  '../../site/reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <script src="hidden/lec11js.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h2>Lecture 28</h2>
+          <h3>Final Lecture!</h3>
+          <pre><code>&lt;Hello!&gt;&lt;/Farewell...&gt;</code></pre>
+        </section>
+
+        <section>
+          <h3>Agenda</h3>
+          <ul>
+            <li>Final Exam Overview</li>
+            <li><a href="#/recap">Quarter Recap</a></li>
+<li><a href="#/web-portfolio">Extending your web portfolio</a>
+          <ul>
+            <li><a href="#/publishing-student-website">Getting your student website
+            published/managed</a></li>
+          </ul>
+          <ul>
+            <li>Continuing Web Programming Beyond CSE 154</li>
+            <li><a href="#/side-projects">Side Project Ideas</a></li>
+            <li><a href="#/applying-internships">Applying for Web Programming Internships/Projects/TAing</a></li>
+            <li>How to get started with new web technologies</li> 
+          </ul>
+</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Adminstrivia</h2>
+          <ul>
+            <li>Last day to submit HW5 is <strong>Saturday at 11PM</strong></li>
+            <li>Final Exam Review Session: Saturday 2:30-4:30PM (SAV 260)</li>
+            <li>
+              Remember to please fill out evals for your TA and both Lauren/Melissa. We read each and every one of these, and they are very useful for knowing what works best for students
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Topics Included/Not Included on the Exam</h3>
+          <p><a href="../../exams/exams.html">Exam Info Page</a></p>
+        </section>
+        <section>
+          <h3>General Exam Tips</h3>
+          <ul>
+            <li>
+              Breathe. You're here to learn. You've successfully completed the CPs, HWs, and 
+              section problems, and it's just a matter of applying what you've learned to 
+              different problems!
+            </li>
+            <li>
+              Practice early and consistently so you don't cram the day before!
+              </p>
+              <p>
+              With that, it's perhaps most important to get at least 7 hours of sleep the night before to 
+              be able to have a sharp mind when the time comes to solve new problems with familiar topics.
+            </li>
+            <li>
+              <strong>Work on practice exams on paper, not your computer</strong>. 
+            </li>
+            <li>Review your Midterm and HW assignments!</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Any Other Exam-Related Questions?</h2>
+        </section>
+
+        <section>
+          <h2>What is CSE 154?</h2>
+          <p>Looking back: 
+          <ul>
+            <li>
+              What is one of the most useful things you think you'll take away from this
+              course?
+            </li>
+            <li>What was the most challenging part of the course?</li>
+          </ul>
+        </section>
+        <section>
+          <h2>CSE 154 Modules: What you've Learned</h2>
+          <ol>
+            <li>
+              Webpage structure and appearance with HTML5 and CSS. <i class="fa fa-check
+              good fragment" aria-hidden="true"></i>
+            </li>
+            <li>
+              Client-side interactivity with JS DOM and events. <i class="fa fa-check
+              good fragment" aria-hidden="true"></i>
+            </li>
+            <li>
+              Using web services (API's) as a client with JS. <i class="fa fa-check
+              good fragment" aria-hidden="true"></i>
+            </li>
+            <li>
+              Writing JSON-based web services with PHP. 
+              <i class="fa fa-check good fragment" aria-hidden="true"></i>
+            </li>
+            <li>
+              Storing and retreiving information in a database with MySQL and server-side
+              programs.
+              <i class="fa fa-check good fragment" aria-hidden="true"></i>
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h2>Also...</h2>
+          <p class="fragment">How to follow a code quality guide and discuss design decision trade-offs</p>
+<p>How to learn different types of programming languages and
+          technologies all at once (this is a super important skill)</p>
+          <p class="fragment">How to use Git version control (very important for programming projects!)</p>
+          <p class="fragment">How to learn a public API with various endpoints and response types</p>
+
+          <p class="fragment">How to write and document public APIs with PHP</p>
+          <p class="fragment">Basic motivation of accessibility, usability, and security on the web</p>
+          <p class="fragment">You can add all of this to your resume! (conservatively)</p>
+        </section>
+
+        <!--
+        <section>
+          <h2>CP Showcase!</h2>
+          <p>Let's take a look at <a href="../../creative/cp-showcase.html" target="_blank">some of the work</a> you've done this quarter...</p>
+        </section>
+        -->
+
+<section id="publishing-student-website">
+          <section>
+            <h2>Getting Your Student Website Published</h2>
+            <p>You've done all of this work to make some pretty neat web sites and programs... but now
+            what?</p>
+            <p>Every student has their own website managed by UW's Shared Web Hosting platform.</p>
+            <p>You can add to your webspace anything written the languages we've learned this quarter,
+            including projects in HTML/CSS, JS, PHP, SQL,
+            etc.</p>
+            <p><a href="http://students.washington.edu/medskm/" target="_blank">Here's mine!</a> (outdated)</p>
+          </section>
+          <section>
+            <h2>Why set up your own website?</h2>
+            <p>You can stand out among a sea of applicants for jobs with an online resume/portfolio</p>
+            <p>You can show off your web programming work to friends, family, and even future
+            employers! Also it's free while you're a UW student :)</p>
+            <p>You can have a public repository of class/side projects you've done throughout
+            college</p>
+            <ul>
+              <li>Side web dev projects, art/design, blog, photo albums, etc.</li>
+              <li>Hackathon projects</li>
+            <li><strong>Note: You may not publish any assignment solutions online</strong> (we
+            included the creative projects so that you can have something you <em>can</em> publish by
+            the end of the quarter)</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Things I've Used My Website For</h2>
+            <p>Landing page (content that I couldn't otherwise fit on a resume)</p>
+            <p>Online Resume (demonstates web development skills and provides employers with links to relevant projects)</p>
+            <p>
+              Teaching materials
+            </p>
+            <p>Various side projects/course projects/APIs I want to share with others and/or need a server for</p>
+          </section>
+          <section>
+            <h2>First Steps: Activating Shared Web Hosting</h2>
+            <div>
+              <img src="img/activating-shared-web-hosting.png" alt="activating shared web hosting" />
+            </div>
+            <p>Visit
+              <a href="https://itconnect.uw.edu/connect/web-publishing/shared-hosting/activating-shared-web-hosting/"
+                 target="_blank">
+                https://itconnect.uw.edu/connect/web-publishing/shared-hosting/activating-shared-web-hosting/</a>
+                for a comprehensive guide to manage your student website on the Shared Web Hosting platform
+            </p>
+          </section>
+          <section>
+            <h2>Activating Shared Web Hosting (Continued)</h2>
+            <div>
+              <img src="img/myuwaccount.png" alt="setting account preferences">
+            </div>
+          </section>
+          <section>
+            <h2>Activating Shared Web Hosting (Continued)</h2>
+            <div>
+              <img style="width: 50%" src="img/manageuwresources.png" alt="setting account preferences">
+            </div>
+            <p>Subscribe to "Dante/Vergil Account" and "Student Web Publishing"</p>
+          </section>
+        </section>
+        <section>
+          <h2>Now, Let's Publish Some HTML</h2>
+          <p>
+            You'll need either an SFTP client (<a href="filezilla-project.org">FileZilla</a>,
+            <a href="https://cyberduck.io/?l=en">CyberDuck</a>, etc.) or you can use
+            <a href="https://mediatemple.net/community/products/dv/204403684/connecting-via-ssh-to-your-server">ssh</a>
+            on a terminal to log into your student webspace with your uwnetid and password. Most students
+            find an SFTP client easiest to use.
+          </p>
+          <p>
+            As of writing these slides, UW students will need to use <span class="monospace">vergil</span>
+            as the server name for logging into your website.
+          </p>
+        </section>
+        <section>
+          <section id="sftp">
+            <h2>Method 1: Using FileZilla to Transfer Local Files to your Student Web Space</h2>
+            <p>
+              FileZilla is a free program for Mac, Windows, and Linux which
+              will allow you to easily upload and transfer local files to the internet.
+            </p>
+          </section>
+          <section>
+            <h2>1. Installing and Starting FileZilla</h2>
+            <p>
+              First, install <a href="https://filezilla-project.org/">FileZilla</a>
+              (choose the <strong>Download FileZilla Client</strong> option, not the server option).
+            </p>
+            <p>
+              Once installed, start the application. You should see something like this when it loads:
+            </p>
+            <p><a href="img/filezilla.png" target="_blank"><img class="center-slide-image width-60"
+                                                                src="img/filezilla.png"
+                                                                alt="filezilla" /></a></p>
+
+          </section>
+          <section>
+            <h2>2. Connecting to <span class="monospace">vergil</span> Student Server</h2>
+            <p>
+              Use the information provided on the
+              <a href="https://itconnect.uw.edu/connect/web-publishing/shared-hosting/sftp/">Generic Connect Settings</a>
+              page to connect to your student webspace (vergil) in FileZilla:
+            </p>
+            <div>
+              <img class="center-slide-image" style="margin: 10px auto;" src="img/filezilla-connect.png">
+              <img class="center-slide-image" src="img/uw-generic-connection-settings.png">
+            </div>
+          </section>
+          <section>
+            <h2>2. Connecting to <span class="monospace">vergil</span> Student Server</h2>
+            <p>
+              Once you have connected successfully, you will see a directory structure on the right
+              column of FileZilla:
+            </p>
+            <p>
+              <img class="center-slide-image full-width" src="img/local-and-remote.png">
+            </p>
+            <p>
+              The left (with a "Local site" dropdown) shows all of your files on your local
+              computer, and the right (with a "Remote site" dropdown) shows all of your files
+              on your student webspace.
+            </p>
+          </section>
+          <section>
+            <h2>3. Transferring Your Files Using FileZilla</h2>
+            <p>
+              To publish files to your public student url, simply drag and
+              drop folders/files from local to remote.
+            </p>
+            <p>
+              Make sure any files you want to be accessible by
+              the public are put in the public_html folder - if you are also an employee of UW (e.g.
+              a TA) you can activate both Student Web Publishing and the employee Web Publishing
+              services, but you'll then use student_html for your student webspace and public_html
+              for your employee one (more information on the
+              differences between these two folders
+              <a href="https://itconnect.uw.edu/connect/web-publishing/shared-hosting/your-public_html-and-student_html-folders/">here</a>).
+            </p>
+            <p>Check that your files are now accessible by going to:</p>
+            <p class="centered-text">
+            <span class="monospace">https://students.washington.edu/netid</span></p>
+            <p>replacing "netid" with your UW student netid. For example, my website is accessible at
+            </p>
+            <p class="centered-text">
+            <a class="monospace" href="https://students.washington.edu/medskm">
+              https://students.washington.edu/medskm</a>
+            </p>
+            <p>Note that for any server-side code (e.g. PHP) you don't need to do anything to run it!
+            It works as soon as you upload it to the shared web hosting space.</p>
+          </section>
+        </section>
+        <section>
+          <section id="ssh">
+            <h2>Method 2: Using ssh to Access your Student Web Space</h2>
+            <p>Secure Shell (SSH) allows a user to connect to a server remotely and open up a
+            command-line terminal to run commands, scripts, or edit files. If you know how to use a
+            terminal, this tends to be faster than SFTP (and is overall a good tool to know).
+            </p>
+          </section>
+          <section>
+            <h3>1. Connecting with SSH on the Command Line</h3>
+            <p><strong>If on Windows without Bash (Windows 10):</strong> You'll need to install
+            a terminal that allows you to ssh (e.g. <a href="http://www.putty.org/">PuTTY</a>). Then
+            follow the same instructions as below.
+            </p>
+            <p>In a terminal window, run the following command to connect to a server via SSH,
+            replacing "netid" with your UW netid:</p>
+            <pre><code class="no-syntax-highlight">ssh netid@vergil.u.washington.edu</code></pre>
+            <p>Example of logging into SSH (use CTRL+D to quit session):</p>
+            <p>
+            <a href="img/ssh-demo.png" target="_blank"><img class="center-slide-image"
+                                                            src="img/ssh-demo.png" alt="ssh demo" /></a>
+            </p>
+            <p>
+              Use <code>ls</code> to list your files in the current directory (note you no longer
+              are in the local directory when in an ssh session) and <code>cd</code> to change
+              directory (anything you edit in the public_html folder will be seen immediately
+              on your public student website)
+            </p>
+          </section>
+          <section>
+            <h3>1. Connecting with SSH on the Command Line (Continued)</h3>
+            <p>
+              Tip: I have a bash alias for ssh-ing into different servers. To do this on your own
+              computer, add the following line as an alias:
+            </p>
+            <p>
+              <img class="center-slide-image full-width" src="img/bashrc.png" alt="bashrc alias for ssh" />
+            </p>
+            <p>
+              You can then just type <code>vergil</code> in the terminal to ssh quickly. Here is a
+              starting <a href="code/.bashrc"><code>.bashrc</code></a> file if you don't have one,
+              with the alias command included on line 135 (among a few other aliases you may find
+              helpful). You can create/edit your .bashrc which should be located at <code>~/.bashrc</code>.
+            </p>
+          </section>
+          <section>
+            <h3>2. Transferring Files with SCP on the Command Line: Local to Remote</h3>
+            <p>
+              SSH lets you log into the student server and navigate/edit files from the terminal.
+              However, you cannot access your local files while in an ssh session.
+            </p>
+            <p>
+              To transfer files from your local computer to the server, use the <a
+                          href="https://haydenjames.io/linux-securely-copy-files-using-scp/">scp</a> (secure copy) command on the
+              command line:
+            </p>
+            <pre><code class="no-syntax-highlight">scp sourcefile netid@vergil.u.washington.edu:destination</code></pre>
+            <p class="code-caption">Command Line (local)</p>
+            <p>
+              The first argument is the path of the file you want to transfer relative to what
+              current directory you are in - destination is the location on the server that you want to
+              transfer the sourcefile to (use . for destination to transfer to the home directory, which
+              is where you go each time you ssh into the server).
+            </p>
+            <p>To transfer an entire folder to the server, add <span class="monospace">-r</span>
+            after <span class="monospace">scp</span> and replace <span class="monospace">sourcefile</span>
+            with the folder name.
+            </p>
+          </section>
+          <section>
+            <h3>2. Transferring Files with SCP on the Command Line: Remote to Local</h3>
+            <p>
+              If you know the path of a file/folder in your student website and want to transfer it
+              to your local computer, just swap the argument order:
+            </p>
+            <pre><code class="no-syntax-highlight">scp netid@vergil.u.washington.edu:sourcepath .</code></pre>
+            <p class="code-caption">Command Line (local)</p>
+            <p>
+              In this case, since your local directory system, the last <code>.</code> results in
+              copying the file(s) located at sourcepath (on vergil) to the current directory.
+            </p>
+          </section>
+          <section>
+            <h3>2. Transferring Files with SCP: Example of Transferring a Local Folder to Remote</h3>
+            <p>
+              The following is an example of sending <code class="no-syntax-highlight">foo.html</code>
+              (in my current directory) to my student webspace (ran locally):
+            </p>
+            <p class="oversize-p-110">
+            <a href="img/local-to-remote.png" target="_blank"><img src="img/local-to-remote.png"
+                                                                   alt="spc local to remote"/></a>
+            </p>
+          </section>
+          <section>
+            <h3>2. Transferring Files with SCP: Example of Transferring a Local Folder to Remote</h3>
+            <p>
+              The following is an example of sending <code class="no-syntax-highlight">creative-project</code>
+              (a folder of files in my current directory) to my student webspace (ran locally):
+            </p>
+            <p>
+            <a href="img/local-to-remote-r.png" target="_blank"><img src="img/local-to-remote-r.png"
+                                                                     alt="spc local to remote"/></a>
+            </p>
+          </section>
+          <section>
+            <h3>2. Transferring Files with SCP: Example of Transferring a Remote File to Local</h3>
+            <p>
+              The following is an example of sending <code class="no-syntax-highlight">bar.html</code>
+              (a file in my student public_html directory) to my current local directory (ran locally):
+            </p>
+            <p>
+              <a href="img/remote-to-local.png" target="_blank"><img src="img/remote-to-local.png"
+                                                                     alt="spc local to remote"/></a>
+            </p>
+          </section>
+        </section>
+        <section>
+          <h2>Web Programming after CSE 154</h2>
+        </section>
+        <section>
+          <h2>Beyond CSE 154...</h2>
+          <p>Q: What are some ideas to continue web programming/CS beyond this course?</p>
+          <p>A:</p>
+          <ul>
+            <li>Related courses (CSE, Info, HCDE, etc.)</li>
+            <li>Publish/continue your creative project work and portfolio from this quarter!
+              (remember you have free webspace as UW students!)</li>
+            <li>Hackathons</li>
+            <li>Internships/side projects</li>
+            <li>TAing!
+              <ul>
+                CSE TA applications for next year (Autumn and/or Spring) open about a month before the offering. Email
+                Lauren/Melissa if you are interested in learning more!
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Course Ideas After CSE 154</h2>
+          <p><a href="https://courses.cs.washington.edu/courses/cse143/">
+                CSE 143 (Java II)</a></p>
+          <p><a href="https://courses.cs.washington.edu/courses/cse160/">CSE 160</a>/<a
+                href="https://ischool.uw.edu/programs/informatics/curriculum/course-information">INFO
+                180</a> (Python/Data Science)</p>
+          <p><a href="https://courses.cs.washington.edu/courses/cse344/">CSE 344</a>/
+          <a href="https://courses.cs.washington.edu/courses/cse414">CSE 414</a>/
+          <a href="https://ischool.uw.edu/programs/informatics/curriculum/course-information">INFO
+            330</a>(Majors/Non-majors Databases)</p>
+          <p><a href="https://courses.cs.washington.edu/courses/cse484/">CSE 484</a> (Computer Security with module on web security)</p>
+          <p><a href="https://ischool.uw.edu/programs/informatics/curriculum/course-information/">INFO 200</a> (focus on web design/prototyping/UX)</p>
+          <p><a href="https://ischool.uw.edu/programs/informatics/curriculum/course-information">INFO 201</a> (non-majors, R and data visualization)</p>
+          <p><a href="https://ischool.uw.edu/programs/informatics/curriculum/course-information">INFO 340</a> (deeper into client-side development and frameworks like SASS, Bootstrap,
+          jQuery, and React)</p>
+          <p><a href="https://www.washington.edu/students/crscat/hcde.html">HCDE 210</a> (Explorations in HCDE; methods and applications of human-centered design)</p>
+          <p>Research in any of these (and related) departments!</p>
+        </section>
+        <section>
+          <h2>Student Websites</h2>
+          <p>Q: What are some ideas to use my creative project/portfolio work after finals?</p>
+          <p>Over the quarter, you've had 5 CP's exploring the "full stack" of web technologies - consider
+          writing a brief reflection for each, discussing what you learned, your design process (and how that changed as you gained more experience), and what you would like to do if you were to
+          continue a project.</p>
+          <p>You can add to your student webspace anything written the languages we've learned this quarter,
+          including projects in HTML/CSS, JS, PHP, SQL, etc.</p>
+        </section>
+        <section>
+          <h2>Why set up your own website?</h2>
+          <p>You can stand out among a sea of applicants for jobs with an online resume/portfolio</p>
+          <p>You can show off your web programming work to friends, family, and even future
+          employers! Also it's free while you're a UW student :)</p>
+          <p>You can have a public repository of class/side projects you've done throughout
+          college</p>
+          <ul>
+            <li>Side web dev projects, art/design, blog, photo albums, etc.</li>
+            <li>Hackathon projects</li>
+            <li><strong>Note: You may not publish any HW solutions beyond HW1 online</strong> (we
+              included the creative projects so that you can have something you <em>can</em> publish by
+              the end of the quarter)</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Online Portfoli/Resume Tips</h2>
+          <p>
+            You all have enough experience in the different languages we've covered to add these to
+            your resume</p>
+          <p>You all have enough experience to apply for web programming internships or project
+          "contracts"</p>
+          <p>As a web developer, you now have a lot of tools in your toolset to support your
+          resume</p>
+        </section>
+        <section>
+          <h3>Things to Consider When Applying for a Web Development Role</h3>
+          <p>What area do you feel more comfortable with? Do you see yourself working ~8 hours a day
+          writing/debugging front-end code? Back-end code? Both?
+          </p>
+          <p>Remember to list your skills such that you'd be confident talking about them to a
+          potential employer during an interview</p>
+        </section>
+        <section>
+          <h2>Skills to Continue Developing</h2>
+          <p>Some particularly helpful skills/experience to have today include:
+          </p>
+          <ul>
+            <li>Using public APIs in creative/useful ways</li>
+            <li>Writing/documenting your own API</li>
+            <li>Proficiency in SQL</li>
+            <li>Client-side and server-side input validation (shows you're user-focused and can
+              think ahead about edge cases)</li>
+            <li>Any web tools that demonstrate an interest in solving problems using what you know
+              (e.g. a calculator for a specific domain of problems, a website that allows users to
+              play/solve puzzles, a todo-list application for users where they can log with a
+              username and password)
+            </li>
+            <li>Various JS libraries/frameworks (Node.js, React, Backbone.js, Rx.js, etc.)
+            </li>
+          </ul>
+        </section>
+<section>
+          <h2>Building/Extending Your Website - What Should You Include?</h2>
+          <p>
+            It depends. Think about the purpose of your website - do you want a simple landing
+            page? An online resume? A portfolio of different projects you've worked on? A blog?
+          </p>
+          <p>A good "general-purpose" website can include:</p>
+          <ul>
+            <li>Overview page/About Me page
+            </li>
+            <li>Academic background and current/post-graduation goals</li>
+            <li>Professional/Work experience
+              <ul>
+                <li>Internships, part-time jobs, research, volunteering, etc.</li>
+              </ul>
+            </li>
+            <li>
+              Blog
+              <ul>
+                <li>Life as a college student</li>
+                <li>RSO blog</li>
+                <li>Cooking/Travel/Seattle/etc.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Some Examples from CSE 154 TAs!</h2>
+          <ul>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+          </ul>
+        </section>
+        <section>
+          <section id="internship-tips">
+            <h3>Tips for Applying for Web Development Internships/Projects</h3>
+            <p>Q: I’d love to get some sort of job/internship in web development. How do I use my skills that I’ve learned here to get employed?</p>
+            </p>
+            <p>Q: What can I put on an online resume after this course, and what should I focus on learning more about?</p>
+          </section>
+          <section>
+            <h2>Online Resume Tips</h2>
+            <p>
+              You all have enough experience in the different languages we've covered to add these to
+              your resume and apply for internships, side projects, etc.
+            </p>
+            <p>
+              As a web developer, you now have a lot of tools in your toolset to support your
+              resume, but expect to learn more
+            </p>
+            <p>Look at other resumes and portfolios for web developers. How do they showcase their projects? What were their first internship/job/research experiences? How do they talk about their
+            hard/soft skills?</p>
+          </section>
+          <section>
+            <h2>Finding Internships/Projects</h2>
+            <p>
+              Web development is probably one of the most useful things to apply to a variety of projects. You can look for internships, as well as research groups on campus looking for website
+              development.
+            </p>
+            <p>Networking is one of the most useful things to invest in. Check out some really cool <a href="https://www.meetup.com/find/tech/" target="_blank">meetups</a> in Seattle - for most of these, you don't need to be an expert, and can get connected to
+            people who know about local opportunities.</p>
+          </section>
+          <section>
+            <h2>Things to Consider When Applying for a Web Development Internship</h2>
+            <p>
+              What area do you feel more comfortable with? Do you see yourself working ~8 hours a day
+              writing/debugging front-end code? Back-end code? Both?
+            </p>
+            <p>
+              Remember to list your skills such that you'd be confident talking about them to a
+              potential employer during an interview
+            </p>
+          </section>
+        </section>
+        <section>
+          <section id="side-projects">
+          <h2>Q: How do I decide on a project to learn/add to an online portfolio?</h2>
+          <p>You already have some cool work you can publish with your Creative Projects!</p>
+          <p>If you wrote a personal web page for one of your creative projects, you can iterate on
+          that</p>
+          <p>If you enjoy the process of <a href="http://thevisualcommunicationguy.com/2014/10/23/the-50-most-important-rules-of-document-design-color-crayon-tip-method/">designing
+            and customizing your own website</a>, you can expand
+          on what you've learned in this class and explore new HTML5, CSS3, and JavaScript features
+          you could add to your website</p>
+          <p>If you're not as confident about web design, you can start with open-source
+          HTML/CSS templates/components
+          like <a href="https://getbootstrap.com/">Bootstrap</a> (make sure to change it enough to
+          make it your own style).
+          </p>
+        </section>
+        <section>
+          <h2>Side Project Ideas</h2>
+          <p><strong>Write a Chrome extension!</strong></p>
+          <ul>
+            <li>These are tricky to learn at first, but are well worth the time - <a
+                  href="../lec23-chrome-extensions/index.html">once you learn
+                  them</a>, you can find ideas to automate everything you do on the internet</li>
+          </ul>
+          <p><strong>Explore more public APIs</strong> and use one in a creative way (or use
+          multiple together) similar to CP3. 
+          <p><strong>Write a web page or application for a holiday gift for
+            family/friends</strong></p>
+          <p>More ideas in slides below...</p>
+        </section>
+        <section>
+          <h2>Side Project Ideas (Continued)</h2>
+          <p><strong>If you like/are studying...</strong></p>
+          <p>... Pokemon</p>
+          <ul>
+            <li>
+              Write your own Pokemon API (Pokemon stats, information between
+              different games, move descriptions, etc.)
+            </li>
+            <li>
+              Write a webpage that lets a user take care of their own
+              Pokemon, Tamagatchi-style (cookies and sessions would be helpful
+              here!)
+            </li>
+          </ul>
+          <p>... Biology</p>
+          <ul>
+            <li>Write a web application that teaches biology
+              concepts through CSS/JS animations (<a href="http://tabletopwhale.com/index.html" target="_blank">example</a>, <a href="http://www.species-in-pieces.com/#">example</a>)</li>
+            <li>Write a web page with a text area input and processes
+              DNA/RNA/Amino Acid sequences (and or converts between each)</li>
+            <li>Write an API that sends facts about animals/plants/other
+              biology domains in JSON format</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Side Project Ideas (Continued)</h2>
+          <p>... Chemistry</p>
+          <ul>
+            <li>Write an interactive periodic table web page (e.g. clicking a
+              chemical symbol pops up a module with more information)</li>
+            <li>Write an application that balances chemical equations</li>
+            <li>Write an application that calculates molecular weights of
+              different compounds</li>
+          </ul>
+          <p>... Linguistics</p>
+          <ul>
+            <li>Write a web page that translates English input into some other
+              language/variation using your own code or a public API (<a href="https://market.mashape.com/ismaelc/yoda-speak">example (YodaSpeak) API</a>
+            </li>
+            <li>If you've taken CSE 143 and/or have experience with writing
+              grammars, write a webpage that randomly generates sentences
+              in that grammar</li>
+            <li>
+              Write a web app that replaces common grammar errors in a text
+              area input (JS) or file (PHP)
+            </li>
+            <li>Implement <a href="https://xkcd.com/1288/">this</a> and <a href="https://xkcd.com/1625/">this</a> and <a href="https://xkcd.com/1679/">this</a>.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Side Project Ideas (Continued)</h2>
+          <p>... Data</p>
+          <ul>
+            <li>Use a public API to process some cool data set and display it
+              on your page using a data visualization library (e.g. <a href="https://d3js.org/">d3.js</a>)</li>
+            <li>Write your own API for clients who want to do the above</li>
+          </ul>
+          <p>... Art</p>
+          <ul>
+            <li>Build a portfolio of your artwork/photography/film, etc. (I'd
+              recommend looking at other <a href="https://www.awwwards.com">art portfolios
+                online</a> - there are some
+              really amazing ones</li>
+            <li>For musicians, write a portfolio of any music you've
+              written</li>
+            <li>
+              Write a program that automates things for artists/musicians or
+              provides helpful tools (e.g. music score analysis)
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Side Project Ideas (Continued)</h2>
+          <p><strong>If you like/are studying...</strong></p><p>
+          </p><p>... Teaching/TAing</p>
+          <ul>
+            <li>Write a <a href="http://students.washington.edu/medskm/cse154/ae/index.html">section
+                website</a> with weekly recaps</li>
+            <li>Visualize different topics using CSS/JS (e.g. for CSE 14X
+              TA's, a little <a href="https://visualgo.net/en/list?slide=1">linked list</a> or stack animation)</li>
+          </ul>
+          <p>... Math</p>
+          <ul>
+            <li>Write a calculator webpage for different domains in math (e.g.
+              calculus, algebra, linear algebra)</li>
+            <li>Write a page that solves your math homework for you using JS</li>
+          </ul>
+          <p>... Video Games</p>
+          <ul>
+            <li>Try to find a public API for your <a href="https://www.programmableweb.com/news/top-10-games-apis-eve-online-riot-games-battlenet/analysis/2015/11/25">favorite
+                video game/console</a>
+              and use the data in a way that is helpful/interesting to you
+            </li>
+            <li>Write your own online board/card/video game in JS and publish on your
+              student space so your friends can play. For cards, <a href="https://deckofcardsapi.com/">this API</a> may
+              be helpful.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Side Project Ideas (Continued)</h2>
+          <p><strong>If you like/are studying...</strong></p><p>
+          </p><p>... Sports</p>
+          <ul>
+            <li>Write a website that keeps track of your favorite sport/sports
+              team stats</li>
+          </ul>
+          <p>... Cooking</p>
+          <ul>
+            <li>Build an online recipe website, letting users create accounts
+              and view/add their favorite recipes</li>
+            <li>
+              Use a <a href="https://www.programmableweb.com/category/food/api">recipe/food-related
+                API</a> to filter foods that meet dietary
+              restrictions</li>
+            <li>
+              Write a program that calculates calories of different foods and
+              serving sizes
+            </li>
+            <li>Randomly generate recipe ideas given a collection of
+              ingredients</li>
+          </ul>
+        </section>
+        </section>
+        <section>
+          <h3>Q: What are some ways to stay up-to-date with the latest web dev tools and trends?</section>
+          <p>Follow blogs, social media, tech news, etc. specific to web development</p>
+          <ul>
+            <li></li>
+          </ul>
+          <p>Podcasts are also great!</p>
+          <p>If you are interested in research, there's a ton in security and accessibilty on the web - check out USENIX!</p>
+          <p>Be patient, and take it a day at a time. Focus on one thing and learn it well, and focus on the foundations.</p>
+          <p>Look for events/talks in Seattle related to your intersts in web programming</p>
+          <p>Don't try to learn it all :)</p>
+        </section>
+        <section>
+          <h3>Q: Where to Start (and How to Keep up with) all of the new Web Technologies - React, Polymer, Angular, Vue, ...?</h3>
+          <p>Being able to learn new libraries/frameworks quickly is key
+          and comes with practice :) It will <strong><em>not</em></strong> be worth your
+          <p>Follow a couple of blogs/feeds and stay up to day with 1-2 articles a
+          week, just so that you have a sense of where things are and what recent things have
+          happened</p>
+          <p><a href="https://news.ycombinator.com/">HackerNews</a> is a good source of
+          programming-related news and tools... and I wrote a <a href="https://chrome.google.com/webstore/detail/hn-feed/bgjhiiflpbcdfiddhefbhogajpfdhlgl?hl=en">Chrome Extension for
+            that</a> :)</p>
+        </section>
+        <section>
+          <h2>Diving Deeper into the Front-end</h2>
+          <ul>
+            <li>Web Accessibility
+              <ul>
+                <li><a href="">Responsive layout with media queries</a></li>
+                <li>C<a href="">SASS</a> - CSS preprocess</li>
+                <li><a href=""></a></li>
+              </ul>
+            <li>Advanced CSS
+              <li>CSS preprocessors like <a href="https://www.creativebloq.com/web-design/what-is-sass-111517618">Sass</a></li>
+              <li>Grid Layout</li>
+              <li><a href=""></a></li>
+          </ul>
+        </section>
+        <section>
+          <h3>Example Web Programming Libraries/Frameworks to Explore</h3>
+          <ul>
+            <li><a href="https://jquery.com/">jQuery</a>* - One of the most commonly-used JavaScript
+              libraries with helpful DOM/AJAX/UI functions (fairly easy to learn
+              with 154 knowledge, and will make your life a lot easier)</li>
+            <li><a href="https://www.typescriptlang.org/index.html">TypeScript</a> - Provides types in JS (much easier to
+              handle common JS errors)</li>
+
+            <li><a href="http://reactivex.io/rxjs/">Rx.js</a> - Reactive programming in JS (moderately-easy to learn)</li>
+            <li><a href="https://reactjs.org/">React</a> - A popular component-based JS library (moderate difficulty to learn, mostly due to setting it up on your computer)</li>
+            <li><a href="http://backbonejs.org/">Backbone.js with Marionette.js</a>* - A JS MVC
+              framework (lets you easily create single-page web apps)</li>
+            <li><a href="https://d3js.org/">d3.js</a>* - Data visualization library for JavaScript
+              (moderately-easy to learn)</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Diving deeper on the server-side</h2>
+          <ul>
+            <li>Why and how to learn <a href="https://www.youtube.com/watch?v=gWjofpeBUU4">PHP in 2019</a></li>
+            <li><a href="https://nodejs.org/en/">Node.js</a>* - Server-side JavaScript
+              (oftne used with <a href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction">Express.js</a> to write web APIs like the ones we did in PHP</li>
+            <li><a href="../lec26-flask/index.html">Python Flask</a> - Another server-side solution for
+              web apps, but often integrated with the front-end</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Additional Resources for Writing a Personal Website</h2>
+          <p><a href="https://itconnect.uw.edu/connect/web-publishing/shared-hosting/basic/">Adding a password to your website</a></p>
+          <p><a href="http://getbootstrap.com/components/">Boostrap Components</a></p>
+          <p><a href="https://collegeinfogeek.com/essential-components-of-personal-websites/">"Essential Components of a Great Personal Website"</a> - geared towards
+          college students</p>
+          <p><a href="https://www.smashingmagazine.com/2009/02/10-steps-to-the-perfect-portfolio-website/">10 Tips for the Perfect Portfolio Website</a> - some good tips and resources</p>
+          <p>Cool <a href="http://www.rleonardi.com/interactive-resume/">interactive resume</a> developed with JavaScript and CSS</p>
+          <p>Another <a href="http://www.guillaumejuvenet.com/#home">interactive resume</a></p>
+          <p><a href="https://www.awwwards.com/">AWWWards</a></p>
+          <ul>
+            <li>Just a lot of cool "best-of-the-best" portfolios, websites, and web applications to
+              get inspiration from</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Portfolios In Conclusion...</h2>
+          <p>You've all learned a ton of new languages and technologies</p>
+          <p>From here on, you'll be able to "speak the language of web
+          development" among friends, co-workers, employers, professors,
+          etc.</p>
+          <p>Chances are, you'll know material they don't</p>
+          <p>Don't be overwhelmed about the world of the web today - there's a
+          lot, but patience, practice, and focusing on a particular domain will be most helpful
+          to improve as a web developer</p>
+        </section>
+        <section>
+          <h2>Final Slide...</h2>
+          <p>Thank you for a fantastic quarter! We've really enjoyed working with you all.</p>
+          <p>Have a great Summer Break, and feel free to keep in touch!</p>
+          <img src='hidden/pikachu-gif.gif' alt="good luck pikachu" />
+        </section>
+      </div>
+    </div>
+    <script src="../../site/reveal/lib/js/head.min.js"></script>
+    <script src="../../site/reveal/js/reveal.js"></script>
+
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [{
+          src: '../../site/reveal/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+          {
+            src: '../../site/reveal/plugin/markdown/marked.js',
+            condition: function() {
+              return !!document.querySelector('[data-markdown]');
+            }
+          },
+          {
+            src: '../../site/reveal/plugin/markdown/markdown.js',
+            condition: function() {
+              return !!document.querySelector('[data-markdown]');
+            }
+          },
+          {
+            src: '../../site/reveal/plugin/highlight/highlight.pack.js',
+            async: true,
+            callback: function() {
+              hljs.initHighlightingOnLoad();
+            }
+          },
+          { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+          { src: '../../site/reveal/plugin/search/search.js', async: true },
+          { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+        ]
+      });
+    </script>
+  </body>
+</html>

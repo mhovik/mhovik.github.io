@@ -1,0 +1,43 @@
+/*
+  Section: CSE 154
+  Dictionary example, Spring 2019
+  CSS for dictionary example used in class
+*/
+
+@import url('https://fonts.googleapis.com/css?family=EB+Garamond');
+
+body {
+  width: 450px;
+}
+
+body, button, input, textarea {
+  font-family: 'EB Garamond', serif;
+}
+
+#term {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+button {
+  float: right;
+}
+
+button, textarea, input {
+  font-size: 12pt;
+}
+
+#definition {
+  width: 440px;
+}
+
+.hidden {
+  display: none;
+}
+
+/*
+ * if more challenge needed, add bad input highlighting
+ */
+.invalid {
+  background-color: red;
+}

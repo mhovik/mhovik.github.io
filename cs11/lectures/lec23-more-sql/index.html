@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 23 - More SQL Queries and JOINs</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+'../../site/reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+      .hidden {
+          display: none;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+        <section>
+          <h2>Lecture 23 - More SQL Queries and Joins</h2>
+          <div class="side-by-side" style="align-items: flex-end">
+          <img src="https://i.redd.it/gzu3xcchpon21.jpg" alt="Node Module Relief" />
+          <p class="caption"><a href="https://www.reddit.com/r/ProgrammerHumor/comments/b4612u/npm_install_everything/">Image source</a></a>
+          </div>
+          <p><strong>Remember to not push your <code>node_modules</code>...</strong></p>
+        </section>
+
+        <section>
+          <h2>Some Wireframe Highlights!</h2>
+          <ul>
+            <li><a href="../../final-project/examples/wireframes/music-store.pdf" target="_blank">Anonymous, Music Store</a></li>
+            <li><a href="../../final-project/examples/wireframes/hp-store.pdf" target="_blank">Anonymous, "Weasley's Wizard Wheezes"</a></li>
+            <li><a href="../../final-project/examples/wireframes/mythical-pet-store.pdf" target="_blank">Qiaoxue Liu, Mythical Pet Store</a></li>
+            <li><a href="../../final-project/examples/wireframes/bt-computer-store.pdf" target="_blank">Botao Zan, BT Computer Store</a></li>
+            <li><a href="../../final-project/examples/wireframes/potato-store.pdf" target="_blank">cleanjk, "Poppin Potato Party"</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Other Notes and Agenda</h2>
+          <p>Video on Postman <a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=02f7e458-885f-4108-8680-aaab002f12fb" target="_blank">out</a>!</p>
+          <p>Provided demos of importing a <a href="../../resources/assets/sql/import-sql-demo.mp4" target="_blank">.sql</a> and <a href="../../resources/assets/ssql/import-csv-demo.mp4" target="_blank">.csv</a> file in phpMyAdmin also available.</p>
+          <p>Today:</p>
+          <ul>
+            <li>Using ? placeholders for variables in SQL queries</li>
+            <li>More database manipulation
+              <ul>
+                <li><a href="#delete">DELETE data from a table</a></li>
+                <li><a href="#update">UPDATE data in a table</a></li>
+              </ul>
+            </li>
+            <li>Multi-table Databases and Queries</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>How to Submit/Use Data for SQL Tables</h2>
+          <ol>
+            <li>Create tables in a <code>setup.sql</code> file</li>
+            <li>Either use INSERT statements to populate the tables in .sql or Node.js, or provide a csv file (similar to <code>menu-data.csv</code>).</li>
+            <li>Only you have your tables populated in phpMyAdmin, so it's important others can setup your project on a different computer without manually inserting all of the data.</li>
+            <li>Use Node.js to query your table(s) to help implement GET/POST endpoints.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Final Project SQL Requirements</h2>
+          <ul>
+            <li>Must have at least 2 tables in your SQL database - your database and table creation code should be defined in your .sql file.</li>
+            <li>Each table must contain at least 4 columns that are used in queries to store or retrieve useful data (id can count as one of these columns)</li>
+            <li>
+              There should be at least 15 items in your E-commerce store (although we encourage you to add more to create a more interesting storefront).
+              These items should be inserted into the table in your .sql file using INSERT statements.
+            </li>
+          </ul>
+          <p>You may add more data with .csv files for your TA to import in phpMyAdmin (refer to Tuesday's menu-data.csv demo) as long as you include 15 INSERT statements in your .sql file and make it clear
+          (in your .sql file header comment) what data you have added for your TA to import and populate your table(s) with.</p>
+        </section>
+        <section>
+          <h2>Example Outline</h2>
+          <pre><code>-- SQL Comments
+-- Include any comments about extra csv importing directions here.
+CREATE DATABASE IF NOT EXISTS &lt;yourdb&gt;;
+
+USE &lt;yourdb&gt;;
+
+CREATE TABLE &lt;table&gt; IF NOT EXISTS(...);
+CREATE TABLE &lt;table&gt; IF NOT EXISTS(...);
+
+-- Initial INSERT statements</code></pre>
+          <p class="code-caption">setup.sql outline</p>
+        </section>
+
+        <section>
+          <h2>SQL so far</h2>
+          <p>Database querying</p>
+          <ul>
+            <li>SELECT, DISTINCT, WHERE, LIKE, ORDER BY, LIMIT</li>
+          </ul>
+          <p>Database manipulation (create/insert)</p>
+          <ul>
+            <li>CREATE TABLE with:
+              <ul>
+                <li>Datatypes: INT, VARCHAR(N), DATETIME, etc.</li>
+                <li>Constraints: PRIMARY KEY, DEFAULT, NOT NULL, etc.</li>
+              </ul>
+            </li>
+            <li>INSERT INTO TABLE</li>
+          </ul>
+          <p>Accessing SQL from Node.js with promise-mysql:</p>
+          <ul>
+            <li>db = await <code>mysql.createConnection(...)</code></li>
+            <li>rows = await <code>db.query(...)</code></li>
+          </ul>
+        </section>
+
+        <section>
+          <h>Recap: Using <code>db.query</code></h3>
+          <p>Recall the following query used in section yesterday to implement the <code>/menu/:category</code> GET endpoint:</p>
+          <pre><code data-trim class="font-12pt">
+let qry = "SELECT name, category, subcategory FROM menu WHERE category = '" +
+           req.params.category + "'";
+// e.g. SELECT name, category, subcategory FROM menu WHERE category = 'drinks';
+let rows = db.query(qry);</pre></code>
+           <p class="code-caption">Node.js (example)</p>
+           <p class="fragment">However this isn't is not secure!!! It is vulnerable to
+            <a href="https://developer.mozilla.org/en-US/docs/Glossary/SQL_Injection">SQL injection</a>
+          </p>
+          </section>
+
+          <section>
+            <h2>Little Bobby Tables</h2>
+            <p><img class="simpleimg" style="width: 900px" src="https://imgs.xkcd.com/comics/exploits_of_a_mom.png" /></p>
+            <p><a href="https://xkcd.com/327/">XKCD 327</a></p>
+          </section>
+
+          <section>
+            <h2>Another example of SQL injection</h2>
+            <p><img class="simpleimg" src="https://hackaday.com/wp-content/uploads/2014/04/18mpenleoksq8jpg.jpg?w=636" /></p>
+            <p><a href="https://hackaday.com/2014/04/04/sql-injection-fools-speed-traps-and-clears-your-record/">Hackaday</a></p>
+          </section>
+
+          <section>
+            <h2>Another Example</h2>
+            <p>Suppose we had a POST endpoint to validate a user logging in:</p>
+            <pre><code class="font-12pt">let user = req.body.username;
+let pw = req.body.password;
+let qry = "SELECT * FROM users WHERE username='" + user +
+          "' AND password='" + pw + "'";
+// e.g. SELECT * FROM users WHERE username='foo' AND password='bar';
+let result = await db.query(qry);
+if (result.length === 0) {
+  res.type("text");
+  res.status(400).send("user not found");
+} else {
+  res.json(result); // send the user info data (a single row) as JSON
+}</code></pre>
+            <p class="code-caption">JS</p>
+         </section>
+          <section>
+            <h3>What if a user predicts we're using SQL with their parameters?</h3>
+            <p>CONDITION_A OR CONDITION_B evaluates to TRUE in SQL if either condition is true. 1=1 always
+              evaluates to TRUE. What if we have many users in the users database? What user data could be leaked in such a response?</p>
+            <pre><code class="font-12pt">let user = req.body.username; // "' OR 1=1"
+let pw = req.body.password; // "oops :)"
+let qry = "SELECT * FROM users WHERE username='" + user +
+          "' AND password='" + pw + "'";
+// e.g. SELECT * FROM users WHERE username='' OR 1=1 -- AND password='oops :)'
+let result = await db.query(qry);
+if (result.length === 0) {
+  res.type("text");
+  res.status(400).send("user not found");
+} else {
+  res.json(result); // send the user info data (a single row) as JSON
+}</code></pre>
+            <p class="code-caption">JS</p>
+         </section>
+         <section>
+           <h2>Result - Returning All User Data</h2>
+           <img class="two-thirds-width centered-figure" src="hidden/sql-injection.png" alt="result of returning all user data" />
+         </section>
+         <section>
+           <h2>Improved Solution: <a href="https://flaviocopes.com/node-mysql/" target="_blank">? Placeholders</a></h2>
+           <pre><code class="font-12pt">let user = req.body.username;
+let pw = req.body.password;
+let qry = "SELECT * FROM users WHERE username=? AND password=?";
+// the qry will be escaped internally and no rows will be returned
+let result = await db.query(qry, [user, pw]);
+if (result.length === 0) {
+  res.type("text");
+  res.status(400).send("user not found");
+}</code></pre>
+           <p class="code-caption">JS</p>
+           <div class="font-16pt">
+           <p>Using ? placeholders in the <code>db.query</code> string, we not only avoid evaluating SQL with user-provided parameters, but we also have much cleaner query strings to work with.</p>
+           <p>The order of each ? placeholder in the query string must match the index of a passed array to the <code>db.query</code>'s optional second argument.</p>
+         </div>
+         </section>
+         <section>
+           <h2>Result - Preventing SQL Injection</h2>
+           <img class="two-thirds-width centered-figure" src="hidden/preventing-sql-injection.png" alt="user not found result" />
+         </section>
+
+        <section>
+          <h2><code>DELETE</code> and <code>UPDATE</code></h2>
+          <p>Once we have rows in our table, how might we change the table later?</p>
+          <p>What is a case when we might want to delete or update a table?</p>
+          <ul>
+            <li>Deleting a user account (e.g. on Twitter)</li>
+            <li>Updating the stock of an inventory table</li>
+            <li>Updating the status of a user (e.g. promotion of an employee)</li>
+          </ul>
+        </section>
+
+        <section id="delete">
+          <h2><a href="https://www.tutorialrepublic.com/sql-tutorial/sql-delete-statement.php">
+            <code>DELETE</code></a></h2>
+            <p>Deletes the specified records based on the results of the WHERE clause</p>
+            <p>CAUTION: if you omit the WHERE clause all records will be deleted.</p>
+          <pre><code data-trim>
+  DELETE FROM table WHERE condition;
+          </code></pre>
+          <p class="code-caption">SQL (template)</p>
+          <pre><code data-trim>DELETE FROM queue WHERE qid = 8;
+DELETE FROM queue WHERE question LIKE "%Java %";
+DELETE FROM queue;   # caution!!!</code></pre>
+          <p class="code-caption">SQL (example)</p>
+        </section>
+        <section>
+          <h3><code>DROP TABLE</code> vs. <code>DELETE FROM TABLE</code></h3>
+          <p><code>DROP TABLE</code> will delete the <strong>entire table</strong> from the database
+            <ul><li>Only do this in a <code>setup.sql</code> file with <code>DROP TABLE IF EXISTS</code> to re-initialize a database with new tables)</li></ul>
+          <pre><code data-trim>DROP TABLE IF EXISTS queue; -- no error if table doesn't exist
+SELECT * FROM queue;        -- error</code></pre>
+<p class="code-caption">SQL</p>
+          <p><code>DELETE FROM TABLE</code> will delete all rows from the table, but <strong>the table will still exist</strong>.</p>
+          <pre><code data-trim>DELETE FROM queue;         -- assume queue table exists
+SELECT * FROM queue;       -- no error, 0 records returned</code></pre>
+<p class="code-caption">SQL</p>
+        </section>
+
+        <section id="update">
+          <h2><a href="https://www.tutorialrepublic.com/sql-tutorial/sql-update-statement.php">
+            <code>UPDATE</code></a></h2>
+          <pre><code data-trim>UPDATE table_name
+SET col1 = val1, col2 = val2, ...
+WHERE condition;
+          </code></pre>
+          <p class="code-caption">SQL (template)</p>
+          <pre><code data-trim>UPDATE queue
+SET assigned_ta = "twolman"
+WHERE id = 4;</code></pre>
+          <p class="code-caption">SQL (example)</p>
+        <p>UPDATE changes all rows where the condition is true.</p>
+        <p>If you omit the <code>WHERE</code> constraint, all records will be updated.</p>
+          <pre><code data-trim>UPDATE queue
+SET assigned_ta = "twolman"; -- 800 WPM? More like 800 q's-per-minute.
+</code></pre>
+          <p class="code-caption">SQL (example)</p>
+        </section>
+
+        <section>
+          <h2>Using Multible Tables in Databases</h2>
+        </section>
+
+        <section>
+          <h2>Related tables and keys</h2>
+          <div class="side-by-side" style="align-items: flex-end">
+            <img src="https://www.tutorialrepublic.com/lib/images/foreign-key-relationship-diagram.png" alt="keys example"/>
+            <p class="citation font-14pt italic"><a href="https://www.tutorialrepublic.com/sql-tutorial/sql-constraints.php#foreign-key">Image source</a></p>
+          </div>
+          <ul>
+            <li><strong><a href="https://www.tutorialrepublic.com/sql-tutorial/sql-constraints.php#primary-key" target="_blank">Primary Key</a></strong>: a column guaranteed to be unique for
+              each record</li>
+            <li><strong><a href="https://www.tutorialrepublic.com/sql-tutorial/sql-constraints.php#foreign-key" target="_blank">Foreign Key</a></strong>: a column from Table B that references a in PRIMARY KEY or UNIQUE column in Table A</li>
+            <pre><code>...
+FOREIGN KEY (dept_id) REFERENCES employees (dept_id)</code></pre>
+            <li><strong><a href="http://www.studytonight.com/dbms/database-normalization.php">Normalizing</a></strong>: Splitting tables to improve
+              structure/redundancy (linked by unique IDs)
+              <ul>
+                <li>More in-depth coverage in database courses: <a href="http://courses.cs.washington.edu/courses/cse344/">CSE 344</a> (CSE majors),
+                  <a href="http://courses.cs.washington.edu/courses/cse414/">CSE 414</a> (non-CSE-majors), and INFO 330.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Using FOREIGN KEYs</h2>
+          <p>The <a href="https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.admin.dbobj.doc/doc/c0020166.html" target="_blank">following rules</a> apply to foreign key definitions:</p>
+          <ul>
+            <li>A table can have 0 or more foreign keys.</li>
+            <li>Define the FOREIGN KEY(s) when a table is created or altered.</li>
+            <li>If the referenced column is null, the foreign key can be null.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Redesigning the WPL Queue Table</h2>
+          <p>Suppose we wanted to manage TA shifts, and also allow other admin roles in a Queue Interface.</p>
+          <p>The following is an attempt to add more data to a WPL <code>queue</code> table:</p>
+          <pre><code class="font-12pt">CREATE TABLE old_queue(
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   status VARCHAR(10) DEFAULT "waiting",
+   name VARCHAR(255) NOT NULL,           -- name of student
+   email VARCHAR(255) NOT NULL,          -- email of student
+   student_id INT NOT NULL,              -- 1000000
+   length TINYINT NOT NULL,              -- e.g. 2 or 10
+   question TEXT,
+   assigned_ta VARCHAR(255),             -- username of TA (e.g. em66)
+   creation_date DATETIME DEFAULT NOW()
+);</code></pre>
+<p class="code-caption">SQL</p>
+        </section>
+        <section>
+          <h2>A Potential Improved Breakdown</h2>
+          <p>This version demonstrates using <code>FOREIGN KEY</code>s in different ways.</p>
+          <pre class="h400px"><code class="font-12pt">CREATE TABLE users(
+  uwid INT PRIMARY KEY, -- 1500000
+  name VARCHAR(255),    -- Manny Munoz
+  email VARCHAR(255)    -- em66@uw.edu
+);
+
+CREATE TABLE staff(
+  username VARCHAR(255) PRIMARY KEY, -- em66
+  uwid INT,                          -- 1500000
+  password VARCHAR(255) NOT NULL,    -- mochi
+  section VARCHAR(2),                -- AD
+  role VARCHAR(10) DEFAULT "TA",     -- TA
+  -- keys don't need to be identical, but they are here.
+  FOREIGN KEY (uwid) REFERENCES users(uwid)
+);
+
+CREATE TABLE queue(
+  qid INT PRIMARY KEY AUTO_INCREMENT,    -- 2
+  status VARCHAR(10) DEFAULT "waiting",  -- "assigned"
+  length TINYINT NOT NULL,               -- 2
+  student_id INT,                        -- 10000002
+  assigned_ta VARCHAR(255) DEFAULT NULL, -- em66
+  question TEXT,                         -- "Weird JS bug."
+  creation_date DATETIME DEFAULT NOW(),
+  FOREIGN KEY (student_id) REFERENCES users(uwid),
+  FOREIGN KEY (assigned_ta) REFERENCES staff(username)
+);</code></pre>
+<p class="code-caption"><a href="code/setup-wplv2.sql" target="_blank">setup-wplv2.sql</a></p>
+<p>See code for some inserted rows!</p>
+</section>
+        <section>
+          <h2>Section Cafe Example</h2>
+          <p>The following are the <code>CREATE TABLE</code> statements for both tables in the <code>cafe</code> database from section.</p>
+          <pre class="h300px"><code class="font-12pt">CREATE TABLE menu(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  category VARCHAR(100),
+  subcategory VARCHAR(100),
+  price DECIMAL(6, 2),
+  cost DECIMAL(6, 2)
+);
+
+CREATE TABLE orders(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  mid INT NOT NULL,
+  phone_number VARCHAR(20),
+  email VARCHAR(63),
+  item_name VARCHAR(63) NOT NULL,
+  qty INT DEFAULT 0,
+  total_price DECIMAL(6,2) NOT NULL,
+  order_time DATETIME DEFAULT NOW(),
+  FOREIGN KEY(??) REFERENCES menu(??)
+);</code></pre>
+          <p class="code-caption"><a href="code/setup-cafev2.sql" target="_blank">setup-cafev2.sql</a></p>
+          <p>What <code>menu</code> table column would be good to reference as a FOREIGN KEY in the <code>orders</code> table? </p>
+          <p>Can we remove any redundant columns now? Is there another table you can think of factoring out?</p>
+        </section>
+
+        <section>
+          <h3>How can we use multiple tables in one SQL query?</h3>
+          <p>When you have relationships defined with <code>FOREIGN KEY</code>/<code>PRIMARY KEY</code>, it is often useful
+            to reference both tables to combine data (e.g. category of a menu item to display order details, requiring both <code>menu</code> and <code>orders</code> tables)</p>
+          <p>We can reference multiple tables either with an additional WHERE constraint or the JOIN keyword.</p>
+        </section>
+        <section>
+          <h2>Multi-table WHERE Syntax</h2>
+          <pre><code data-trim>
+SELECT col(s)
+FROM table1, table2, ...
+WHERE table1.a = table2.b
+AND table2.c &gt; '42';
+</code></pre>
+          <p class="code-caption">SQL (template)</p>
+          <pre><code data-trim>
+SELECT queue.question, queue.creation_date, users.name
+FROM queue, users
+WHERE queue.student_id = users.uwid
+AND queue.question LIKE "%Halp%";</code></pre>
+          <p class="code-caption">SQL (example)</p>
+        </section>
+
+        <section>
+          <h2>Giving Names to Tables (Aliases)</h2>
+          <pre><code data-trim>
+SELECT queue.question, queue.creation_date, users.name
+FROM queue, users
+WHERE queue.student_id = users.uwid
+AND queue.question LIKE "%Halp%";</code></pre>
+          <p class="code-caption">SQL (example)</p>
+
+          <p>A more compact solution (giving variable names to tables)</p>
+          <pre><code data-trim>
+SELECT q.question, q.creation_date, users.name
+FROM queue q, users
+WHERE q.student_id = users.uwid
+AND q.question LIKE "%Halp%";</code></pre>
+          <p class="code-caption">SQL (alternative example)</p>
+          <ul>
+            <li>You can optionally give names to tables (like a variable) following the table name in FROM.</li>
+            <li>Note: To specify all columns in a table, you can write <em>table.*</em>, but this tends to be poor practice if you don't use all columns</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>An Equivalent Way to JOIN Tables</h2>
+            <pre><code data-trim>
+SELECT q.question, q.creation_date, users.name
+FROM queue q, users
+WHERE q.student_id = users.uwid
+AND q.question LIKE "%Halp%";</code></pre>
+          </code></pre>
+          <p class="code-caption">SQL (example from previous slide)</p>
+          <pre><code data-trim>
+SELECT q.question, q.creation_date, users.name
+FROM queue q
+JOIN users ON q.student_id = users.uwid
+WHERE q.question LIKE "%Halp%";</code></pre>
+          <p class="code-caption">SQL (alternative example, using the JOIN keyword)</p>
+          <p>
+            The <code><a href="https://mode.com/resources/sql-tutorial/sql-joins/" target="_blank">JOIN</a></code> keyword is another way to join multiple tables. Some people find
+            this more intuitive, while others find joining tables on multiple WHERE conditions more
+            intuitive. Use whichever form you prefer most.</p>
+        </section>
+
+        <section>
+          <h3>Final Tips for Designing Different SQL Queries</h3>
+          <ol>
+            <li>Which table(s) contain the critical data? (<code>FROM</code>)</li>
+            <li>Which columns do I need in the result set? (<code>SELECT</code>)</li>
+            <li>How are tables connected (<code>JOIN</code> and/or <code>WHERE</code>) and values
+              filtered (<code>WHERE</code>)?</li>
+            <li>Do I need to return only <code>DISTINCT</code> records?</li>
+            <li>Do I care about the order of records returned? If so, which columns do I need to
+              sort by and in what precedence?</li>
+          </ol>
+        </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../site/reveal/lib/js/head.min.js"></script>
+    <script src="../../site/reveal/js/reveal.js"></script>
+
+    <script>
+
+Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  // More info https://github.com/hakimel/reveal.js#dependencies
+  dependencies: [
+  { src: '../../site/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+  { src: '../../site/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../site/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../site/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+  { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+  { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+  { src: '../../site/reveal/plugin/search/search.js', async: true },
+  { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+  ]
+});
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 18 - <code>async</code>/<code>await</code></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal/css/print/pdf.css' :
+'../../reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <!--
+        <section>
+          <iframe src="https://embed.polleverywhere.com/free_text_polls/T9cyvCSBPsB8ZQgiNMXaJ?controls=none&short_poll=true" width="800" height="600" frameBorder="0"></iframe>
+        </section>
+        -->
+
+        <section>
+          <h1>CSE 154</h1>
+          <h3>Lecture 18: More File I/O with <code>async</code>/<code>await</code></h3>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <p>Administrivia</p>
+          <ul>
+            <li>Final Project Proposal due tonight (remember no late days on Final Project deadlines) - a TA has created <a href="https://i.imgur.com/4lT5rRM.gif" target="_blank">an example demo</a> of their own!</li>
+            <li>Introduce <a href="https://gitlab.cs.washington.edu/cse154-19su-students/cp4-node-api" target="_blank">CP4</a> (final Creative Project!)</li>
+            <li>HW4 (last HW) out tomorrow</li>
+          </ul>
+          <p>More File I/O</p>
+          <p>Handling asynchronous functions with <code>async</code>/<code>await</code></p>
+        </section>
+
+        <section>
+          <h2>File I/O in Node.js</h2>
+          <p>On Friday, we introduced the core <code>fs</code> module</p>
+          <p>This module provides useful functionality for reading and writing files</p>
+          <p>Remember that on the browser, we don’t have access to the file system, but we do in Node.js</p>
+          <p>Files can be useful as basic solutions to manage data (recall the TA <code>SECTIONS</code> JSON, which was just a small motivation)</p>
+        </section>
+
+        <section>
+          <h2>The <code>fs</code> Core Module</h2>
+          <p>There are many functions in the <code>fs</code> module for reading and writing files and directories (with <a href="https://nodejs.org/dist/latest-v10.x/docs/api/fs.html">excellent documentation</a>)</p>
+          <p>By default, all functions are asynchronous</p>
+          <p>There are synchronous versions for many, but you should not use them, as they block the main thread</p>
+          <p>Most functions rely on the Node.js idiom of error-first callbacks</p>
+        </section>
+
+        <section>
+          <h2>Reading Files</h2>
+          <p><code>fs.readFile(fileName, encodingType, callback)</code></p>
+          <ul>
+            <li><code>fileName</code> (string) file name</li>
+            <li><code>encodingType</code> file encoding (usually "utf8")</li>
+            <li><code>callback</code> "error-first" function that takes two arguments: an Error object (undefined if no error) and the result file contents (e.g. string text)</li>
+          </ul>
+          <pre><code>fs.readFile("example.txt", "utf8", (err, contents) =&gt; {
+  if (err) {
+    console.error("Something went wrong when reading the file...");
+  } else {
+    let lines = contents.split("\n");
+    console.log("First line contents: " + lines[0]);
+  }
+});</code></pre>
+<p class="code-caption">JS</p>
+          <p>Example code: <a href="../lec17-file-io/code/file-io/file-reading.js" target="_blank">file-reading.js</a></p>
+        </section>
+
+        <section>
+          <h2>Reading and Parsing JSON</h2>
+          <p>You can read any file, including JSON. To parse JSON file contents and use as a JS object, use <code>JSON.parse</code> (works similarly to <code>.json()</code> you've used in <code>fetch</code>).</p>
+          <pre><code>// Example reading/parsing JSON
+fs.readFile("package.json", "utf8", (err, contents) =&gt; {
+  if (err) {
+    console.error(err);
+  } else {
+    let data = JSON.parse(contents);
+    console.log(data);
+  }
+});</code></pre>
+<p class='code-caption'>JS</p>
+        </section>
+        <section>
+          <h2>Writing Files</h2>
+          <p>To write a file, use the <code>fs.writeFile(fileName, data, callback)</code> function.</p>
+          <p>This function's <code>callback</code> is also error-first, but only takes an <code>error</code> argument</p>
+          <pre><code>fs.writeFile("new-file.txt", "Hello!", (err) => {
+  if (err) {
+    console.error("Something went wrong when writing the file...");
+  } else {
+    console.log("new-file.txt written to successfully!");
+  }
+});</code></pre>
+<p class="code-caption">JS</p>
+          <p>Example code: <a href="../lec17-file-io/code/file-io/file-writing.js" target="_blank">file-writing.js</a></p>
+        </section>
+
+        <section>
+          <h2>Appending to Files</h2>
+          <p><code>fs.writeFile</code> will always overwrite an existing file</p>
+          <p>If you want to append to a file, you can use <code>fs.appendFile</code></p>
+          <pre><code>fs.appendFile("example.txt", "Another line\n", (err) =&gt; {
+  if (err) {
+    console.error("Something went wrong when writing the file...");
+  } else {
+    console.log("example.txt appended to successfully!");
+  }
+});</code></pre>
+<p class="code-caption">JS</p>
+  <p>Example code: <a href="code/file-io/file-appending.js" target="_blank">file-appending.js</a></p>
+        </section>
+
+        <section>
+          <h2>Reading Directories</h2>
+          <p><code>fs.readdir</code> returns an array of files (including directory names) within a given directory path</p>
+          <p>We will learn about another way to process directories (<code>glob</code>) on Wednesday</p>
+          <pre><code>fs.readdir("data", (err, contents) =&gt; {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log("data directory contents: ");
+    console.log(contents);
+  }
+});</code></pre>
+  <p class="code-caption">JS</p>
+  <p>Example code: <a href="code/file-io/directory-reading.js" target="_blank">directory-reading.js</a></p>
+        </section>
+
+        <section>
+          <h2>Asynchronous Programming</h2>
+          <p>One of the advantages of Node.js is its efficiency to handle asynchronous code with a single thread</p>
+          <p>Common asynchronous functions:</p>
+          <ul>
+            <li>setTimeout and setInterval</li>
+            <li>Network requests</li>
+            <li>File I/O</li>
+            <li>Database connections</li>
+          </ul>
+
+          <p>However, this can make it difficult to write code with asynchronous functions that are dependent on another asynchronous function</p>
+        </section>
+
+        <section>
+          <h2>Handling Asynchronous Code in <code>fs</code></h2>
+          <p>Most <code>fs</code> functions are asynchronous, including <code>readFile</code> and <code>writeFile</code></p>
+          <p>This means that we have to be careful when relying on file i/o functions finishing before moving on to subsequent statements in a program</p>
+          <p>We've <a href="../lec12-ajax-fetch/code/callback-cookies.html" target="_blank">seen asynchronous programming already</a> with <code>setTimeout</code>/<code>setInterval</code></p>
+        </section>
+
+        <section>
+          <h3>From Callbacks to Promises to <code>async</code>/<code>await</code></h3>
+          <p>We've seen callbacks and Promises as ways to package uncertain (asynchronous) behavior</p>
+          <p>More recently (2017), <code>async</code>/<code>await</code> keywords have been added to JS to make asynchronous code feel synchronous, while still getting the efficiency benefits</p>
+        </section>
+
+        <section>
+          <h2>Using <code>async</code> and <code>await</code></h2>
+          <p>The <code>async</code> keyword will label a function as having asynchronous code</p>
+          <p>To use, simply use the <code>async</code> keyword before the function declaration</p>
+          <pre><code class='hljs'>// In named functions:
+async function fnName() { ... }
+
+// Arrow functions:
+async () =&gt; { ... }
+
+// Anonymous functions
+async function() { ... }</code></pre>
+<p class="code-caption">JS</p>
+          <p>The <code>async</code> function’s return value will be wrapped in a Promise</p>
+        </section>
+
+        <section>
+           <h2>A Simple Example</h2>
+           <pre><code>function sayHello(name) {
+  return "Hello " + name;
+}
+
+console.log(sayHello("dubs")); // Hello dubs
+
+async function sayHelloAsync(name) {
+   return "Hello " + name;
+}
+
+sayHelloAsync("dubs"); // Promise &lt;pending&gt;
+sayHelloAsync("dubs").then(console.log); // Hello dubs</code></pre>
+           <p class="code-caption">JS</p>
+           <p>In this example, we can see how <code>async</code> wraps a function into one that returns a Promise that resolves to the returned value</p>
+           <p>Just like other Promises, we can use <code>.then</code> to extract the resolved value</p>
+        </section>
+
+        <section>
+          <h2><code>await</code> with <code>async</code></h2>
+          <p>Within an <code>async</code> function, we can now use <code>await</code> on asynchronous function calls</p>
+          <p>On each line with <code>await</code>, the JS engine will wait for the function to finish until continuing</p>
+          <p>The result of the awaited function call will be the resolved value</p>
+        </section>
+
+        <section>
+          <h3>Chaining Delayed Promises with <code>.then</code> vs. <code>await</code></h3>
+          <pre class="h450px font-14pt"><code>function doubleAfter1s(n) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => { resolve(n * 2); }, 1000);
+  });
+}
+
+// standard .then solution
+doubleAfter1s(2) // 4
+  .then(doubleAfter1s) // 8
+  .then(doubleAfter1s) // 16
+  .then(result => console.log(result)); // 16 (after seconds)
+
+// equivalent async/await solution (as anonymous function call)
+(async () => {
+  let a = await doubleAfter1s(2); // 4
+  let b = await doubleAfter1s(a); // 8
+  let c = await doubleAfter1s(b); // 16
+  console.log(c); // 16 (after 3 seconds)
+})();</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h3>Error-handling with <code>async</code>/<code>await</code></h3>
+          <p>For error-handling with <code>async</code>/<code>await</code>, use <code>try</code>/<code>catch</code> instead of <code>.then</code>/<code>.catch</code></p>
+          <p>The catch statement will catch any errors that occur in the then block (whether it’s in a Promise or a syntax error in the function), similar to the <code>.catch</code> in a fetch promise chain</p>
+          <p>If you don’t have <code>try</code>/<code>catch</code> in the async function but an error occurs, the generated Promise will be rejected</p>
+        </section>
+        <section>
+          <h3><code>async</code>/<code>await</code> Example with <code>try</code>/<code>catch</code></h3>
+          <pre class="h450px font-12pt"><code>function doubleAfter1sUnless4(n) {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      if (n === 4) {
+        reject("Rejected!");
+      } else {
+        resolve(n * 2);
+      }
+    }, 1000);
+  });
+}
+
+async function delayDoubles() {
+  try {
+    let a = await doubleAfter1sUnless4(2); // 4
+    let b = await doubleAfter1sUnless4(a); // error!
+    let c = await doubleAfter1sUnless4(b); // unreached
+  } catch (err) {
+    console.error(err); //  "Rejected!"
+  }
+}
+delayDoubles(); // Rejected! (after 2 seconds)</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h3>So are Callbacks and Promises "Bad"?</h3>
+          <p>The challenge is managing asynchronous code with dependencies, leading to the nested callback pyramid structure</p>
+          <p>We've seen Promises as a way to capture asynchronous code, and remove the callback nesting cleanly with a <code>.then</code>/<code>.catch</code> pipeline</p>
+          <p>
+            The challenge with Promises is having to create "promisifying" functions to capture asynchronous code. This isn't bad, but it is challenging to learn at first,
+            and there’s a lot of shared code between creating a Promise-returning function
+          </p>
+          <p><code>async</code> is just "syntactic sugar" to working with Promises</p>
+        </section>
+
+        <section>
+          <h3>What else do we know that returns a Promise?</h3>
+          <p class="fragment">
+            <code>fetch</code> also returns a Promise! So yes, this means we can use <code>async</code>
+            to handle <code>fetch</code> requests in client-side JS</p>
+
+
+          <div class="fragment">
+          <pre><code class="hljs">async function makeRequest() {
+  let response = await fetch(url);
+  if (!response.ok) {
+    throw Error("Request error: " + response.statusText);
+  }
+  let data = await response.json();
+  // let data = await response.text();
+  // etc.
+}</code></pre>
+        <p class="code-caption">JS</p>
+      </div>
+      </section>
+      <section>
+        <h2>Using <code>async</code>/<code>await</code> in our APOD Example</h2>
+        <p><a href="code/apod/apod.html" target="_blank">Running demo</a> (see console and Network tab through example functions)</p>
+        <p><a href="code/apod/apod.js" target="_blank">apod.js</a> source code with all 5 examples</p>
+        <div class="side-by-side">
+          <div>
+            <pre><code class="font-12pt">function requestAPOD(date) {
+  let url = URL + "&date=" + date;
+  fetch(url)
+    .then(checkStatus)
+    .then(resp => resp.json())
+    .then(processApodJson)
+    .catch(handleRequestError);
+}
+
+
+
+</code></pre>
+  <p class="code-caption">JS (normal fetch Promise chain version)</p>
+          </div>
+          <div>
+        <pre><code class="font-12pt">async function requestAPODAsync(date) {
+  let url = URL + "&date=" + date;
+  try {
+    let resp = await fetch(url);
+    resp = checkStatus(resp);
+    let data = await resp.json();
+    processApodJson(data);
+  } catch (err) {
+    handleRequestError(err);
+  }
+}</code></pre>
+<p class="code-caption">JS (new async/await version)</p>
+</div>
+</div>
+      <p>The <code>async</code>/<code>await</code> solution on the right looks longer, but what if we have dependent fetch calls? What if we want to fetch 5 days in a row?
+      </section>
+
+      </section>
+      <section>
+        <h3>Making Multiple Requests with <code>.then</code>/<code>.catch</code></h3>
+        <p>
+          Suppose we had a function <code>fetchOneDay</code> that takes a date string and fetches from the APOD
+          service, returning a Promise that resolves to the result JSON (see <a href="code/apod/apod.js" target="_blank">source code</a>).
+        </p>
+        <p>We want to log the results for 5 days in a row. The following example uses <code>.then</code>/<code>.catch</code> to make 5 simultaneous requests, but we don't guarantee the order of the <code>console.log</code> statements</p>
+        <pre><code class="hljs">function multiFetchRequest() {
+  let date = "2019-08-0";
+  let results = [];
+  for (let i = 1; i &lt;= 5; i++) {
+    fetchOneDay(date + i)
+      .then(console.log)
+      .catch(handleRequestError);
+   }
+}</code></pre>
+ <p class="code-caption">JS (then/catch version)</p>
+</section>
+<section>
+   <h3>Making Multiple Requests with <code>async</code>/<code>await</code></h3>
+   <p>This next example uses <code>await</code> in an <code>async</code> function to wait for each fetch call to finish, allowing us
+     to guarantee the order of the logged results.</p>
+   <p>However, we lose the asynchronous efficiency, as each fetch request isn't started until the previous is resolved.</p>
+<pre><code class="hljs">async function multiAsyncRequest() {
+  let date = "2019-08-0";
+  for (let i = 1; i &lt;= 5; i++) {
+    try {
+      let data = await fetchOneDay(date + i);
+      console.log("async/await request returned for " + data["date"]);
+    } catch (err) {
+      handleRequestError(err);
+    }
+  }
+}</code></pre>
+<p class="code-caption">JS (async/await version)</p>
+        <p>We can improve this with <code>Promise.all</code>, which returns a Promise resolving to an array of Promise results</p>
+      </section>
+      <section>
+        <h2>Parallelizing Requests</h2>
+        <p>This final version uses <code>Promise.all</code> to make 5 simultaneous fetch calls, collect them in order, and output them
+          only when all have finished executing</p>
+<pre><code>async function multiRequestParallel() {
+  let promises = [];
+  let date = "2019-08-0";
+  for (let i = 1; i <= 5; i++) {
+    let apodPromise = fetchOneDay(date + i);
+    promises.push(apodPromise);
+  }
+  let results = await Promise.all(promises);
+  for (let i = 0; i < results.length; i++) {
+    let data = results[i];
+    console.log("Promise.all requests returned for " + data["date"]);
+  }
+}</code></pre>
+  <p class="code-caption">JS</p>
+  <p>We could also use <code>Promise.all</code> without <code>await</code> (it just takes an array of Promises), but this example motivates a solution that is much cleaner with <code>async</code>/<code>await</code></p>
+</section>
+        <section>
+          <h2>Common Pitfalls when using <code>async</code>/<code>await</code></h2>
+          <p>1. Using <code>await</code> outside of an <code>async</code> function</p>
+          <ul>
+            <li>This will cause a Syntax Error - <code>await</code> is a keyword that is only allowed in a function labeled as <code>async</code></li>
+          </ul>
+          <p>2. Not using <code>await</code> on an <code>async</code> function</p>
+          <ul>
+            <li>
+              Remember that any function labeled as <code>async</code> now returns a Promise - in order to get a resolved value, you need to use <code>await</code>
+              (or <code>.then</code>)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Using <code>async</code>/<code>await</code> with File I/O</h2>
+          <p>There are a few ways we can use <code>async</code>/<code>await</code> with <code>fs</code>, but the key thing is we need to use <code>await</code> on functions that return Promises</p>
+          <p>As mentioned earlier, <code>fs</code> functions like <code>readFile</code> and <code>writeFile</code> are asynchronous by default but do not return Promises</p>
+          <p>We could make our own Promise-returning functions, but that can be tedious.</p>
+          <p>Instead, we'll need to "promisify" these functions so we can use <code>async</code> and <code>await</code></p>
+          <p>We'll learn how with a useful <code>utils</code> function in tomorrow's section!</p>
+        </section>
+
+        <section>
+          <h2>Summary</h2>
+          <p><code>async</code>/<code>await</code> is just "syntactic sugar" to make asynchronous programming feel synchronous</p>
+          <p>Many Node.js functions are asynchronous, and we can use <code>async</code>/<code>await</code> to simplify callback pyramids</p>
+          <p>Be careful about the common pitfalls with <code>await</code>!</p>
+        </section>
+
+        <!-- end of slides (last section tag) -->
+      </div>
+    </div>
+   <script src="../../site/reveal/lib/js/head.min.js"></script>
+      <script src="../../site/reveal/js/reveal.js"></script>
+
+      <script>
+
+        Reveal.initialize({
+          controls: true,
+          progress: true,
+          history: true,
+          center: true,
+
+          transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+          // More info https://github.com/hakimel/reveal.js#dependencies
+          dependencies: [
+            { src: '../../site/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '../../site/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+            { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+            { src: '../../site/reveal/plugin/search/search.js', async: true },
+            { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+          ]
+        });
+
+      </script>
+
+    </body>
+  </html>

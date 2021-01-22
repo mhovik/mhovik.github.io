@@ -1,0 +1,732 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 1 - Introduction, the Internet, and HTML Basics</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <!--  <link rel="stylesheet" href="../../site/reveal/lib/css/zenburn.css">-->
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+    <style>
+      .staff-container {
+        width: 90%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-bottom: 15px !important;
+      }
+
+      .staff-container img {
+         width: 15%;
+      }
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+'../../site/reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>CSE 154</h1>
+          <h2>Lecture 1: Intro to CSE 154, the Internet, and Basic HTML</h2>
+        </section>
+
+        <section>
+          <h2>Today's Agenda</h2>
+          <p>Introductions</p>
+          <p>Course Overview</p>
+          <p>The Internet</p>
+          <p>Introduction to HTML!</p>
+        </section>
+
+        <section>
+          <h2>What This Class is About:</h2>
+          <p>An overview of how the Internet works</p>
+          <p class="fragment">What is a website and how to create one from scratch</p>
+          <p class="space-right fragment">... with semantic markup and design/layout</p>
+          <p class="space-right fragment">... with interactivity through client- and server-side programs</p>
+          <p class="space-right fragment">... with up to four different languages</p>
+          <p class="space-right fragment">... by searching through online documentation</p>
+          <p class="space-right fragment">... and by following detailed specifications</p>
+          <p class="space-right fragment">... and overall, building design/development strategies across the "full-stack"</p>
+          <p class="fragment">The end result? A better understanding of the web, important technologies, and a portfolio for you to show!</p>
+      </section>
+
+      <section>
+        <h2>CSE 154 Modules</h2>
+        <ol>
+          <li>Webpage structure and appearance with HTML5 and CSS.</li>
+          <li>Client-side interactivity with JS DOM and events.</li>
+          <li>Using web services (APIs) as a client with JS.</li>
+          <li>Writing JSON-based APIs with Node.js.</li>
+          <li>Storing and retreiving information in a database with MySQL and server-side programs.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Instructor: Melissa Hovik</h2>
+        <div class="side-by-side">
+          <div style="width: 30%;">
+            <img class="simpleimg" style="margin-top: 30px" src="../../staff/photos/melissa-hovik.jpg" alt="Melissa's mug shot">
+          </div>
+          <div style="width: 65%; margin-left: 20px;">
+              <p>Masters student in the Paul G. Allen School of Computer Science And Engineering</p>
+              <p>
+                Has been a TA for various classes since Spring 2015 (CSE 143, 154, 190,
+                311, 332, and 341).
+              </p>
+              <p>
+                Head TA/co-instructor for CSE 154 for the last two years, and is very excited
+                to be teaching a new summer offering!
+              </p>
+              <p><strong>Office Hours</strong> (CSE 210): Mondays 2:30-3:30PM and Wednesday 11-12PM</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="tas">
+        <h2>TAs</h2>
+        <div class="staff-container">
+          <img src="../../staff/photos/tal-wolman.png" alt="Tal's mug shot"/>
+          <img src="../../staff/photos/hudson-gilmore.jpg" alt="Hudson's mug shot"/>
+          <img src="../../staff/photos/sven-hansen.jpg" alt="Sven's mug shot"/>
+          <img src="../../staff/photos/jack-venberg.png" alt="Jack's mug shot"/>
+        </div>
+        <div class="staff-container">
+          <img src="../../staff/photos/manny-munoz.jpg" alt="Manny's mug shot"/>
+          <img src="../../staff/photos/theresa-tran-square.jpg" alt="Theresa's mug shot"/>
+          <img src="../../staff/photos/jeremy-zhang.png" alt="Jeremy's mug shot"/>
+          <img src="../../staff/photos/austin-jenchi.jpg" alt="Austin's mug shot"/>
+        </div>
+        <p>Don't forget to check out the Advice for CSE 154 Students on each TA's About Me Page!</p>
+      </section>
+
+      <section id="syllabus">
+        <h2>Course Resources</h2>
+        <p><a href="https://courses.cs.washington.edu/courses/cse154/19su/" target="_blank">Course Website</a> - it has everything!</p>
+        <ul>
+          <li>Review the <a href="https://courses.cs.washington.edu/courses/cse154/19su/syllabus/index.html" target="_blank">Syllabus</a>
+          </li>
+          <li>
+            Materials including Readings, Pre-Checks, and materials will be posted regularly on the <a href="https://courses.cs.washington.edu/courses/cse154/19su/calendar/index.html" target="_blank">course calendar</a>
+          </li>
+          <li>Use the <a href="https://piazza.com/class/jx5hhz8jbsn44r" target="_blank">Piazza Message Board</a> to ask questions, share interesting web-related finds, etc.</li>
+          <li>GitGrade to submit assignments (first assignment will be posted tonight)</li>
+          <li>Canvas to submit most Lecture Pre-Checks (and review grades over the quarter)</li>
+          <li>No course textbook, but readings are chosen to support each lecture (MDN is the reference we will use most often)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Course Structure</h2>
+        <p>Lectures 3x per week</p>
+        <ul>
+          <li>Lecture "Pre-Checks" due 12:30PM day of lecture unless otherwise noted (usually as Canvas quizzes, will also be posted on calendar)</li>
+        </ul>
+        <p>Sections 2x per week (Tuesday and Thursday)</p>
+        <ul>
+          <li>More hands-on practice of concepts introduced in lecture, new material is occassionally introduced.</li>
+          <li>You'll have the same TA both days, but the rooms will be different and Thursday sections will combine two classes in a "lab-like" structure</p>
+          <li>
+            The University has a <a href="https://stlp.uw.edu/">short term loan</a> program if
+            you do not have a computer of your own to bring.
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Getting Help</h2>
+        <ul>
+          <li>Instructor Office Hours</li>
+          <li>Web Programming Lab (WPL)</li>
+          <li>Piazza Message Board</li>
+          <li>
+            <a href="https://courses.cs.washington.edu/courses/cse154/19su/mentorship/index.html">Mentor
+              Circles</a> - Commit to 1 extra hour a week to focus on section material and CPs!
+          </li>
+        </ul>
+        <p>Ask questions, take advantage of CP's to explore the material, and study a little each day.</p>
+      </section>
+
+      <section>
+        <h2>Course Deliverables</h2>
+        <p>1 Creative Project (CP) + 1 HW for each Module 1-4</p>
+        <ul>
+          <li>
+            CPs (10%) are smaller assignments designed to give students freedom to explore the material and get feedback
+            before applying to formal HW assignments. And you can create something you can show to others!
+          </li>
+          <li>
+            HW (30%) are the formal assessments for each Module.
+          </li>
+        </ul>
+        <p>Section Participation (10%)</p>
+        <p>Short Lecture Pre-Checks (5%)</p>
+        <p>Two Exams (30%)</p>
+        <p>Final "Full-Stack" Project! (15%)</p>
+      </section>
+
+      <section>
+        <h2>Web Development Tools</h2>
+        <p>
+          Throughout the quarter, we will be using the following web development tools:
+        </p>
+        <ul>
+          <li>Chrome: a browser to view and debug webpages</li>
+          <li>Atom: a text editor to write HTML/CSS/JS/SQL (with various helpful packages available)</li>
+          <li>Command Line with Git: to clone/push CP/HW repositories (available packages with Atom)</li>
+        </ul>
+        <p>Make sure to follow the CSE 154 <a href="https://courses.cs.washington.edu/courses/cse154/19su/resources/setup.html">Setup Guide</a> before section tomorrow (and ask on Piazza if you have any questions!).</p>
+      </section>
+
+      <section>
+        <h2>So, what is a web page, really?</h2>
+      </section>
+
+      <section>
+        <h2>Web Languages / Technologies</h2>
+        <p class="fragment"><strong>Hypertext Markup Language (<a href="https://en.wikipedia.org/wiki/HTML">HTML</a>)</strong>: semantic markup for web page content</p>
+        <p class="fragment"><strong>Cascading Style Sheets (<a href="https://en.wikipedia.org/wiki/CSS">CSS</a>)</strong>: styling web pages</p>
+        <p class="fragment">
+          <strong>Client-side <a href="https://en.wikipedia.org/wiki/javascript">JavaScript</a></strong>: adding programmable interacitvity to web pages
+        </p>
+        <p class="fragment"><strong>Asynchronous JavaScript and XML</strong>: fetching data from web services using
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">JavaScript fetch API</a>
+        </p>
+        <p class="fragment"><strong>JavaScript Object Notation (<a href="https://en.wikipedia.org/wiki/JSON">JSON</a>)</strong>: file format for organizing human-readable data</p>
+        <p class="fragment"><strong>REST APIs</strong>: web services handling and responding to client requests on the server</p>
+        <p class="fragment"><strong><a href="https://en.wikipedia.org/wiki/SQL">SQL</a></strong>: interaction with databases</p>
+      </section>
+
+      <section>
+        <section>
+          <h2>The Internet</h2>
+          <div>
+            <img class="simpleimg" src="../img/tubes.png" alt="Internet iz tubez" style="margin: 25px 20px 0px 0px;" height="300"  align="left"/>
+            <p style="padding-top: 20px;">Wikipedia: <a href="http://en.wikipedia.org/wiki/internet">http://en.wikipedia.org/wiki/internet</a></p>
+            <p>A connection of computer networks built on the Internet Protocol (IP)</p>
+            <p>Layers of communication protocols (<strong>click the down arrow to see more</strong>)</p>
+          </div>
+          <p class="fragment" style="float:left;padding-top: 20px;">So's the difference between the Internet and the World Wide Web (WWW)?</p>
+        </section>
+
+        <section>
+          <h2>Layered Architecture</h2>
+          <div class="side-by-side">
+            <div>
+              <p><strong>Physical layer</strong>: devices such as ethernet, coaxial cables, fiber-optic
+              lines, modems</p>
+              <p><strong>Data Link Layer</strong>: basic hardware protocols (ethernet,
+              wifi, DSL PPP)</p>
+              <p><strong>Network/Internet Layer</strong>: basic software protocol (IP)</p>
+              <p><strong>Transport Layer</strong>: adds reliability to network layer
+              (TCP, UDP)</p>
+              <p><strong>Application Layer</strong>: implements specific
+              communications for each kind of program (HTTP, POP3/IMAP, SSH, FTP)</p>
+            </div>
+            <div>
+              <img src="../img/osi-model.png" height=400px width=500px alt="OSI model" />
+            </div>
+          </div>
+          <p>From <a href="http://www.webstepbook.com/supplements/slides/ch01-internet.shtml"> Web Stepp Book Chapter 1</a></p>
+        </section>
+      </section>
+
+      <section>
+        <h2>The Internet: A Brief History</h2>
+        <img class="simpleimg" src="../img/mainframes.png" alt="Mainframes" style="margin: 0px;" height="200"  align="right"/>
+        <p>Began as a US Department of Defense network called <a href="http://en.wikipedia.org/wiki/ARPANET">ARPANET</a>
+        (1960s-70s)</p>
+        <p style="text-indent:30px;">Initial services: electronic mail, file transfer</p>
+        <p style="text-indent:30px;">Opened to commercial interests in late 80s</p>
+        <p>WWW created in 1989-91 by <a
+           href="http://en.wikipedia.org/wiki/Tim_Berners-Lee">Tim Berners-Lee</a></p>
+        <p>Popular web browsers released: Netscape 1994, IE 1995</p>
+        <p>Then... all this: <a href="http://www.evolutionoftheweb.com/" target="_blank">http://www.evolutionoftheweb.com</a>
+        </p>
+        <p>Other notable web events:</p>
+        <div class="side-by-side">
+        <ul class="medium-small-font">
+          <li>Amazon.com opens in 1995; Google in January 1996</li>
+          <li><a href="http://www.hampsterdance.com/classics/originaldance.htm">Hamster Dance</a>
+            web page created in 1999</li>
+          <li>Facebook founded in February 2004</li>
+          <li>Chrome released in September 2008</li>
+          <li>Snapchat created in September 2011</li>
+        </ul>
+        <div style="display:flex">
+          <img width=100px src="../img/hamu.gif" alt="Hamster Dance" />
+          <img width=100px src="../img/hamu.gif" />
+          <img width=100px src="../img/hamu.gif" />
+        </div>
+      </section>
+
+      <section>
+        <h2>Question</h2>
+        <p>Who "runs" the Internet? Who is responsible for overseeing it?</p>
+      </section>
+
+        <section>
+          <h2>People and Organizations (and Companies)</h2>
+          <p>Internet Engineering Task Force
+            (<a href="http://en.wikipedia.org/wiki/Internet_Engineering_Task_Force">IETF</a>):
+             Internet protocol standards</p>
+          <p>Internet Corporation for Assigned Names and Numbers
+             (<a href="http://en.wikipedia.org/wiki/ICANN">ICANN</a>):
+            decides top-level <a href="http://news.com.com/ICANN+rejects+.xxx+domain/2100-1047_3-6071124.html">domain names</a>
+          </p>
+          <p>World Wide Web Consortium
+            (<a href="http://en.wikipedia.org/wiki/World_Wide_Web_Consortium">W3C</a>): web standards
+          </p>
+          <p class="flex-row">
+          <img class="space-right" style="height: 70px" src="../img/ietf-logo.gif" alt="IETF" />
+          <img class="space-right" style="height: 70px" src="../img/icann.jpg" alt="ICANN" />
+          <img class="space-right" style="height: 70px" src="../img/w3c.png" alt="W3C" />
+          </p>
+          <p>These protocols are carried out in large part by <strong>Internet service
+            providers</strong> and other companies and organizations who build
+          Internet-related products and applications</p>
+        </section>
+
+        <section>
+          <h2>Internet Protocol (IPv4 or IPv6)</h2>
+          <p>A simple protocol for attempting to send data between two computers</p>
+          <p>Each device has a 32- or 128-bit IP address for other machines to find it. For IPv4 this is written as four 8-bit numbers (0-255)</p>
+          <p><img src="../img/fig1_ip_address.png" alt="IP Address Example" /></p>
+          <p>Find your internet IP address: <a href="http://whatismyip.com" target="_blank">whatismyip.com</a></p>
+          <p>Find out your local IP address: in a terminal, type <code>ipconfig</code>
+          (Windows) or <code>ifconfig</code> (Mac/Linux)</p>
+        </section>
+
+        <section>
+          <h2>Domain Name System (<a href="https://www.cloudflare.com/learning/dns/what-is-dns/">DNS</a>)</h2>
+          <p>Think about some domain names you know (e.g. https://www.google.com). What do they end with?<p>
+          <p class="fragment">Used to be only .com, .org, .net, .gov, .edu, .int, .mil</p>
+          <p class="fragment">... then there were two letter extensions like .uk, .es</p>
+          <p class="fragment">Now .everything!</p>
+          <div class="fragment">
+            <p>A Domain Name System is a set of servers that map written hostnames to IP addresses
+            <ul>
+              <li>Example: <code>www.cs.washington.edu &rarr; 128.208.3.88</code></li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Transmission Control Protocol (<a
+               href="http://en.wikipedia.org/wiki/Tcp_protocol">TCP</a>)</h2>
+          <p>Adds multiplexing, guaranteed message delivery on top of IP</p>
+          <p><strong>Multiplexing</strong>: multiple programs using the same IP address
+          <ul>
+            <li><strong>Port</strong>: a number given to each program or service</li>
+            <li>port 80: web browser (port 443 for secure browsing)</li>
+            <li>port 25: email</li>
+            <li>port 22: ssh</li>
+            <li>port 5190: AOL Instant Messenger</li>
+            <li><a
+               href="http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers">More common ports</a></li>
+          </ul>
+          </p>
+          <p>Some programs (games, streaming media programs) use simpler <a
+               href="http://en.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a>
+          protocol instead of TCP</p>
+        </section>
+
+        <section>
+          <h2>The World Wide Web (WWW)</h2>
+          <h3>Wait, how is it different than the Internet again?</h3>
+          <p>The Internet describes all the interconnected devices that use the "internet
+          protocol." The World Wide Web is the <strong>subset of the Internet</strong> that uses the HTTP
+          and HTTPS protocols, mostly to transmit "webpages."</p>
+        </section>
+
+        <section>
+          <h2>The World Wide Web</h2>
+          <p><a href="https://en.wikipedia.org/wiki/web_server">Web server</a>: software that listens for web page requests
+          <ul>
+            <li><a href="http://www.apache.org/">Apache</a></li>
+            <li>Microsoft Internet Information Server (IIS) (<a
+                   href="https://www.iis.net/">part of windows</a>)</li>
+            <li><a href="https://www.nginx.com/resources/wiki/">NGINX</a></li>
+          </ul>
+          </p>
+          <p><a href="https://en.wikipedia.org/wiki/web_browser">Web browser</a>: fetches/displays documents from web servers
+          </p>
+          <ul>
+            <li><a href="http://www.google.com/chrome/">Google Chrome</a></li>
+            <li><a href="http://www.getfirefox.com/">Mozilla Firefox</a></li>
+            <li>Microsoft <a href="https://en.wikipedia.org/wiki/Internet_Explorer">Internet Explorer</a> (IE) and <a href="https://en.wikipedia.org/wiki/Microsoft_Edge">Edge</a></li>
+            <li>Apple <a href="http://www.apple.com/safari/">Safari</a></li>
+            <li><a href="http://www.opera.com/">Opera</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Uniform Resource Locator (<a href="http://en.wikipedia.org/wiki/Url">URL</a>)</h2>
+          <p>An identifier for the location of a document on a web site</p>
+          <p>
+          A basic URL:
+          <br />
+          <pre><code class="hljs nohighlight">https://courses.cs.washington.edu/courses/cse154/19su/
+~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~
+protocol           host               path</code></pre>
+
+          </p>
+          <p>Upon entering this URL into the browser, it would:
+          <ul>
+            <li>Ask the "DNS" server for the IP address of
+              <code>courses.cs.washington.edu</code></li>
+            <li>Connect to that IP address at port 80</li>
+            <li>Ask the server to <code>GET /courses/cse154/19su/index.html</code></li>
+            <li>Display the resulting page on the screen</li>
+          </ul>
+          </p>
+        </section>
+
+        <section>
+          <h2>Hypertext Transport Protocol (<a
+                     href="http://en.wikipedia.org/wiki/Http_protocol">HTTP</a>)</h2>
+          <p>The set of commands understood by a web server and sent from a browser</p>
+          <p>Some HTTP commands (your browser sends these internally):</p>
+          <table class="code-table">
+            <tr>
+              <th>HTTP Method</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>GET resource</td>
+              <td>Retrieve a resource from the server</td>
+            </tr>
+            <tr>
+              <td>POST resource</td>
+              <td>Change data on the server</td>
+            </tr>
+            <tr>
+              <td>PUT resource</td>
+              <td>Replace data on the server</td>
+            </tr>
+            <tr>
+              <td>DELETE resource</td>
+              <td>Remove data from the server</td>
+            </tr>
+          </table>
+          <p>We will learn more about <code>get</code> and <code>post</code> when we start
+          the server-side programming module of this course</p>
+
+          <!--
+          <p>
+          simulating a browser with a terminal window:
+          <img src="../img/telnet.png" alt="terminal browser" />
+          </p>
+          -->
+        </section>
+
+        <section>
+          <h2>http error codes</h2>
+          <p>when something goes wrong, the web server returns a special "error code"
+          number to the browser, possibly followed by an html document</p>
+          <p>common error codes:</p>
+          <table>
+            <tr>
+              <th>number</th>
+              <th>meaning</th>
+            </tr>
+            <tr><td>200</td><td>ok</td></tr>
+            <tr>
+              <td><a href="http://clsc.net/research/google-302-page-hijack.htm">301-303</a></td>
+              <td>page has moved (permanently or temporarily)</td></tr>
+            <tr>
+              <td><a href="http://www.cs.washington.edu/education/courses/cse190d/07sp/lectures/">403</a></td>
+              <td>you are forbidden to access this page</td>
+            </tr>
+            <tr><td><a href="http://www.homestarrunner.com/404.html">404</a></td><td>page not found</td></tr>
+            <tr><td>
+              <a href="https://httpstatuses.com/418">418</a></td><td>i'm a teapot
+              (<a href=" https://www.gizmodo.com.au/2017/08/aussie-programmers-attempt-to-remove-joke-im-a-teapot-web-error-ends-up-making-it-official-instead/ ">fun
+              fact</a>, <a href="https://www.google.com/teapot">example</a>)
+            </td></tr>
+            <tr><td>500</td><td>internal server error</td></tr>
+          </table>
+          <p><a href="http://en.wikipedia.org/wiki/http_error_codes">complete list</a></p>
+          <p>... as <a href="https://httpstatusdogs.com/" target="_blank">dogs</a> and ... as <a href="https://http.cat/" target="_blank">cats</a></p>
+        </section>
+
+        <section>
+          <h2>the real innovation</h2>
+          <p>http built resilience into the internet by creating the 404.</p>
+          <p>a website will always give a response, even if what a user wants isn't found. </p>
+          <p>examples:</p>
+          <ul>
+            <li><a href="http://acm.illinois.edu/404" target="_blank">acm’s 404</a></li>
+            <li><a href="http://www.wsdot.wa.gov/xyz" target="_blank">wsdot</a> </li>
+            <li><a href="http://imgur.com/gallery/ki2g9ya" target="_blank">imgur</a></li>
+            <li><a href="https://labs.ft.com/articles/four-oh-four/" target="_blank">ft labs</a></li>
+            <li><a href="https://discordapp.com/404" target="_blank">discord</a></li>
+            <li><a href="https://www.android.com/404/" target="_blank">android</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>they are everywhere</h2>
+          <div style="display:flex; flex-wrap: wrap;">
+            <img src="../img/kid404.png" alt="iphone 404" height=300px style="margin:5px;"/>
+            <img src="../img/coat404.png" alt="missing coat 404" height=300px style="margin:5px;"/>
+            <img src="../img/candle404.png" alt="missing candles 404" height=300px style="margin:5px;"/>
+            <img src="../img/clock404.png" alt="clock 404" width=300px style="margin:5px;"/>
+            <img src="../img/room404.png" alt="room 404" width=300px style="margin:5px;"/>
+          </div>
+          <p class="fragment">except in the allen center (cse building)</p>
+        </section>
+
+        <section>
+          <section>
+            <h2>activity: what do you see here?</h2>
+            <a href="http://www.washington.edu/news/" target="_blank">
+            <img class="simpleimg" src="../img/uw-news-page-19su.png" alt="sample web page" align="middle" style="display:block; margin:auto;" height="500px"/></a>
+          </section>
+
+          <!--
+          the slides below are good to compare each part of the stack for the example uw page for each
+          content, html, and css. to use with the "day of" uw site, you'll need to use current html, css, etc. screenshots (or pull from a past quarter if you're not that ambitious)
+          <section>
+            <h2>what did you see?<h2>
+            <ul>
+              <li><a href="#title-tag">title</a></li>
+              <li><a href="#header-footer-tags">header and footer</a></li>
+              <li><a href="#img-tag">images</a></li>
+              <li><a href="#ul-li-tags">list</a></li>
+              <li><a href="#p-tag">paragraph</a></li>
+              <li><a href="#heading-tags">headings (various sizes)</a></li>
+              <li><a href="#article-section-tags">articles and sections</a></li>
+              <li><a href="#hr-tag">lines (aka horizontal rule)</a></li>
+              <li><a href="#a-tag">links to click</a></li>
+              <li>menu items</a></li>
+              <li>buttons</a></li>
+              <li>places to enter text</a></li>
+              <li>...</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>content</h2>
+            <div class="side-by-side r-1-2">
+              <div>
+                <img class="two-thirds-width" src="../img/bones.png" alt="pile of bones" />
+                <p>words and images</p>
+              </div>
+              <img src="../img/content.png" alt="sample content" />
+            </div>
+          </section>
+
+          <section>
+            <h2>structure</h2>
+            <div class="side-by-side r-1-2">
+              <div>
+                <a href="http://www.washington.edu/news/"><img class="simpleimg" src="../img/full-skeleton.png" alt="skelton" style="margin:5px; "/></a>
+                <p>html</p>
+              </div>
+              <img src="../img/structure.png" alt="sample structure" />
+            </div>
+          </section>
+
+          <section>
+            <h2>style</h2>
+            <div class="side-by-side">
+              <div style="width:25%;  position:absolute; left:0px;" >
+                <a href="http://www.washington.edu/news/"><img class="simpleimg" src="../img/dressed-skeleton.png" alt="skelton" style="margin:5px; "/></a>
+                <p >css</p>
+              </div>
+              <div>
+                <img src="../img/style.png" height=425  align="right" alt="sample content" />
+              </div>
+            </div>
+          </section>
+        -->
+        </section>
+
+        <section>
+          <div class="side-by-side">
+            <div style="width:25%;" >
+              <img class="simpleimg" src="../img/full-skeleton.png" alt="skelton" style="margin:5px;"/>
+            </div>
+              <div>
+                <h1 style="margin-top: 400px; text-align: right;">html</h1>
+              </div>
+          </div>
+        </section>
+
+        <section>
+            <h3>getting started with html</h3>
+            <p>
+            there are <em>many</em> different types of html tags used to structure web pages (we can't
+            possibly cover all of them within class). we've consolidated a
+            <a href="../../resources/assets/language-references/html-tags.html">handy slide deck</a>
+            with examples of common tags you should know, but you can find a comprehensive list
+            <a href="https://developer.mozilla.org/en-us/docs/web/html/element" target="_blank">on mdn</a>
+            (it's a great bookmark page for reference this quarter!)
+            </p>
+            <p><strong>you are not expected to memorize these!</strong> you'll all get more practice tomorrow in section :)</p>
+        </section>
+
+        <section>
+          <h2>hypertext markup language (<a href="https://developer.mozilla.org/en-us/docs/web/html">html</a>)</h2>
+
+          <p>
+          describes the <em>content</em> and <em>structure</em> of information on a web page
+          <ul>
+            <li>not the same as the <em>presentation</em> (appearance on screen)</li>
+          </ul>
+          </p>
+
+          <p>surrounds text content with opening and closing <strong>tags</strong></p>
+          <p>
+          each tag's name is called an <strong>element</strong>
+          <ul>
+            <li>syntax:
+              <code>
+                <strong>&lt;element&gt;</strong> content <strong>&lt;/element&gt;</strong>
+              </code>
+            </li>
+            <li>example:
+              <code>
+                <strong>&lt;p&gt;</strong>this is a paragraph<strong>&lt;/p&gt;</strong>
+              </code>
+            </li>
+          </ul>
+          </p>
+          <p>most whitespace is insignificant in html (ignored or collapsed to a single space)</p>
+          <p>we will use a newer version called html5</p>
+        </section>
+
+        <section>
+          <h2>structure of an html page</h2>
+          <pre><code class="hljs" data-trim>&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    information about the page
+  &lt;/head&gt;
+  &lt;body&gt;
+    page contents
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p class="code-caption">html</p>
+
+          <p>an html page is saved into a file ending with extension <code>.html</code></p>
+          <p>the <code>&lt;head&gt;</code> tag describes the page and the <code>&lt;body&gt;</code> tag
+          contains the page's content</p>
+          <p>the <code>doctype</code> tag tells the browser to interpret our page's code as
+          html5, the lastest/greatest version of the language</p>
+          <p>let's start with a <a href="lec01-code/html-template.html" target="_blank">template</a>!</p>
+        </section>
+
+        <section>
+          <h2>html tag attributes</h2>
+          <p>
+            some tags can contain additional information called
+            <strong>attributes</strong>
+          </p>
+          <ul>
+            <li class="medium-small-font">syntax: <br /><code>&lt;element
+                attribute=&quot;value&quot;
+                attribute=&quot;value&quot;&gt;
+                <var>content</var> &lt;/<var>element</var>&gt;</code></li>
+            <li class="medium-small-font">example: <br /><code>&lt;a href="page2.html"&gt;next page&lt;/a&gt;</code></li>
+          </ul>
+
+          <p>some tags don't contain content and can be opened and closed in one tag</p>
+          <ul>
+            <li class="medium-small-font">syntax: <br /><code>&lt;<var>element</var> <var>attribute</var>=&quot;<var>value</var>" <var>attribute</var>=&quot;<var>value</var>" /&gt;</code></li>
+            <li class="medium-small-font">example: <br /><code>&lt;br /&gt;, &lt;hr /&gt;, &lt;br&gt;, &lt;hr&gt;</code> </li>
+            <li class="medium-small-font">example: <br /><code>&lt;img src="bunny.jpg" alt="pic from easter" /&gt;</code></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>comments: <a href="https://developer.mozilla.org/en-us/docs/learn/html/introduction_to_html/getting_started#html_comments"><code>&lt;!--</code> ...<code>--&gt;</code></a></h2>
+
+          <p class="term-definition">comments to document your html file or "comment out" text</p>
+
+          <pre><code class="hljs" data-trim>&lt;!-- my web page, by mowgli hovik
+     cse 154, spring 2048     --&gt;
+&lt;p&gt;school is&lt;!-- not --&gt; a lot of fun!&lt;/p&gt;</code></pre>
+          <p class="code-caption">html</p>
+
+          <div class="output">
+            <!-- my web page, by suzy student
+              cse 154 d, spring 2048     -->
+              <p>school is<!-- not --> a lot of fun!</p>
+              <p class="output-caption">output</p>
+          </div>
+
+          <p>many web pages are not thoroughly commented (or at all)</p>
+          <p>still useful at top of page and for disabling code</p>
+          <p>comments cannot be nested and cannot contain a <code>--</code></p>
+          <p><strong>do not leave commented-out html code in your homework assignments!</strong></p>
+        </section>
+
+        <section>
+          <h2>looking ahead</h2>
+          <p>remember to bring a computer with atom/git
+            <a href="https://courses.cs.washington.edu/courses/cse154/19su/resources/setup.html">installed</a>
+            to section tomorrow.
+          </p>
+          <p>
+            beginning of quarter survey due wednesday 11pm, first pre-check will be posted tomorrow.
+          </p>
+          <p>
+            fill out the mentorship circle survey if you are interested!
+          </p>
+        </section>
+      </div>
+    </div>
+    <script src="../../site/reveal/lib/js/head.min.js"></script>
+    <script src="../../site/reveal/js/reveal.js"></script>
+
+    <script>
+
+reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  // more info https://github.com/hakimel/reveal.js#dependencies
+  dependencies: [
+  { src: '../../site/reveal/lib/js/classlist.js', condition: function() { return !document.body.classlist; } },
+  { src: '../../site/reveal/plugin/markdown/marked.js', condition: function() { return !!document.queryselector( '[data-markdown]' ); } },
+  { src: '../../site/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.queryselector( '[data-markdown]' ); } },
+  { src: '../../site/reveal/plugin/highlight/highlight.pack.js', async: true, callback: function() { hljs.inithighlightingonload(); } },
+  { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+  { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+  { src: '../../site/reveal/plugin/search/search.js', async: true },
+  { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+  ]
+});
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,16 @@
+.wpl-shift .summary { 
+  background-color: #52d087;
+}
+
+.wpl-shift {
+  border: 2pt solid #52d087;
+}
+
+.wpl-shift p:first-child {
+  padding-left: 6px;
+}
+
+.wpl-shift p:nth-child(n + 2) {
+  margin: 6px;
+}
+

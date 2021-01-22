@@ -1,0 +1,42 @@
+{
+  "categories" : {
+    "Foods" : [
+      {
+        "name" : "Pizza",
+        "description" : "The Pizzazz.",
+        "image" : "img/pizza.png",
+        "in-stock" : true
+      },
+      {
+        "name" : "Pizza",
+        "description" : "Just a pizza.",
+        "image" : "img/pizza-1.png",
+        "in-stock" : true
+      },
+      {
+        "name" : "The Piazza",
+        "description" : "The Piazza.",
+        "image" : "img/pizza-2.png",
+        "in-stock" : true
+      },
+      {
+        "name" : "Mystery Pizza",
+        "description" : "Is it really a pizza?",
+        "image" : "img/pizza-3.png",
+        "in-stock" : true
+      },
+      {
+        "name" : "The Zippy.",
+        "description" : "Delivered fresh as pizza.zip",
+        "image" : "img/pizza-4.png",
+        "in-stock" : true
+      },
+      {
+        "name" : "Tofun Pizza",
+        "description" : "100% Vegetarian",
+        "image" : "img/pizza-5.png",
+        "in-stock" : true
+      }
+    ]
+  }
+}

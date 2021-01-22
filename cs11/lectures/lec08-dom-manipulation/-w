@@ -1,0 +1,14 @@
+<section>
+  <h2>Warm-up: Skittles Recap</h2>
+  <p>We ended yesterday's lecture adding a randomly-colored "test" skittle to the jar.</p>
+  <p>But we really want <code>fillJar</code> to fill our jar with many Skittles!</p>
+  <p>This is a short exercise to ask any lingering questions about building our UI, and review DOM manipulation</p>
+  <p>Start with the solution code that implements the 5 Parts you answered from Lecture 8 Pre-Check</p>
+  <ol>
+    <li>Change fillJar() to fill a random number of randomly-colored skittles.</li> 
+    <li>Change the event handler for clicking the <code>#start-game</code> to call a function <code>startGame()</code> to toggle views and call a fillJar()</li>
+    <li>Write a function clearJar() - when <code>#new-game</code> is clicked, this should toggle the views again and clear the jar for a new game.</li>
+  </ol>
+</section>
+<section>
+</section>

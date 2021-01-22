@@ -1,0 +1,34 @@
+/*
+ * CSE 154 Spring 2019
+ * Section 5: Intro to JS
+ *
+ * CSS for basic styling of Mystery Box page.
+ */
+
+header {
+  text-align: center;
+}
+
+main {
+  margin: auto auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer {
+  background-color: #efefef;
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  text-align: right;
+}
+
+footer p {
+  padding-right: 10px;
+}
+
+img {
+  cursor: pointer;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+  Admin interface for the WPL example
+  TODO: Another admin view with basic POST requests to add/update users (staff or students)
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="admin.css"/>
+  <script src="admin.js"></script>
+  <title>WPL Queue Admin interface</title>
+</head>
+<body>
+  <header>
+    <h1>WPL Queue Admin Interface</h1>
+  </header>
+  <main>
+    <form id="login-form">
+      <label>Username: <input name="username" type="text" /></label>
+      <label>Password: <input name="password" type="password" /></label>
+      <button type="submit" id="login">Login</button>
+    </form>
+    <section id="queue-mgmt">
+      <article>
+        <h2>2-Minute Queue</h2>
+        <table id="two-min-queue">
+          <tr>
+            <th>Student</th>
+            <th>Question</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>Test Student</td>
+            <td>Please halp.</td>
+            <td><button disabled>Dequeue</button></td>
+          </tr>
+        </table>
+      </article>
+      <article>
+        <h2>10-Minute Queue</h2>
+        <table id="ten-min-queue">
+          <tr>
+            <th>Student</th>
+            <th>Question</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>Dubs</td>
+            <td>I wanna learn Node.js!</td>
+            <td><button disabled>Dequeue</button></td>
+          </tr>
+        </table>
+      </article>
+    </section>
+    <!-- For request response results (e.g. errors) -->
+    <p id="results"></p>
+  </main>
+</body>
+</html>

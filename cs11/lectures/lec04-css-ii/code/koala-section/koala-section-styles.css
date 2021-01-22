@@ -1,0 +1,60 @@
+/*
+ * Author: Melissa Hovik
+ * CSE 154 Summer 2019
+ * Lecture 5 Simplified Koala Section CSS
+ */
+
+/* Example importing Google font family (remember to do this in CSS, not HTML) */
+@import url('https://fonts.googleapis.com/css?family=Oxygen:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+
+/* General page styles */
+body {
+  background-color: #AED581;
+  /* Using imported Google Font (remember the default font family!) */
+  font-family: Oxygen, sans-serif;
+
+  padding-left: 10px;
+  padding-right: 10px; /* gives some padding inside the body to center its contents a bit more */
+}
+
+/* This is an example of a combinator child selecetor to select ONLY the header directly
+   in the body */
+body > header, footer {
+  line-height: 80px;
+}
+
+/* Koala Facts section */
+section {
+  background-color: #222222; /* dark background */
+  padding: 40px;
+}
+
+header, article, p {
+  background-color: #E8E8E8; /* light gray background */
+}
+
+/* Shared styles for padding and centering of elements in the section */
+section header, article, h1, p {
+  padding: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  font-size: 14pt;
+}
+
+article img {
+  height: 150px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.koala-face {
+  font-family: 'Roboto Mono', monospace;
+}

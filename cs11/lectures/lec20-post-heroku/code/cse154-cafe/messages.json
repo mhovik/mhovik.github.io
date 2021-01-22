@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Mowgli",
+    "email": "mowgli@gmail.com",
+    "message": "HI I really like this cafe",
+    "timestamp": "Fri, 09 Aug 2019 03:26:50 GMT"
+  },
+  {
+    "name": "Dubs",
+    "email": "dubs@uw.edu",
+    "message": "Hi there. I'm dubs.",
+    "timestamp": "Fri, 09 Aug 2019 20:00:18 GMT"
+  },
+  {
+    "name": "Mowgli",
+    "email": "mowgli@gmail.com",
+    "message": "This cafe is really great.",
+    "timestamp": "Fri, 09 Aug 2019 20:57:49 GMT"
+  },
+  {
+    "name": "Mowgli Again",
+    "email": "mowgli@gmail.com",
+    "message": "This cafe is really great.",
+    "timestamp": "Fri, 09 Aug 2019 20:58:24 GMT"
+  },
+  {
+    "name": "Dubs",
+    "email": "dubs@uw.edu",
+    "message": "Dubs says hello again",
+    "timestamp": "Fri, 09 Aug 2019 21:00:48 GMT"
+  }
+]

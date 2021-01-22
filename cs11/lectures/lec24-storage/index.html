@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 24</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+'../../site/reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+        <section>
+          <h2>Lecture 24</h2>
+          <h3>More About SQL Joins</h3>
+          <h3><a href="#/cookies">Cookies</a> and <a href="#/browser-storage">localStorage/sessionStorage</a></h3>
+        </section>
+
+        <section class="font-16pt-slide">
+          <h2>Review: FOREIGN KEYs</h2>
+          <p>On Friday, we discussed the FOREIGN KEY property, which allows you to create a link between two tables within a database.</p>
+          <p>This has several advantages -- perhaps the most useful is the fact that a foreign key will prevent you from making an invalid link between tables, a great way to ensure that your databases remain "valid".</p>
+          <p>From Pre-Check: Which of the following are true about FOREIGN KEYs?</p>
+          <ul class="fragment">
+            <li>Every database must have at least one table with a FOREIGN KEY constraint.</li>
+            <li>The FOREIGN KEY must reference an existing column in the referenced table.</li>
+            <li>FOREIGN KEYs must reference PRIMARY KEY or UNIQUE columns defined in another table to ensure a unique 1-1 relation between two tables.</li>
+            <li>A table can have more than one FOREIGN KEY.</li>
+            <li>Using the syntax: FOREIGN KEY (tableACol) REFERENCES tableB (tableBCol), tableACol and tableBCol must have the same name.</li>
+            <li>Using the syntax: FOREIGN KEY (tableACol) REFERENCES tableB (tableBCol), tableACol and tableBCol must have different names.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Today's Database: Continuing with the WPL Queue</h3>
+          <img src="../img/wpldb.png" alt="wpldb">
+        </section>
+
+        <section>
+          <h2>Recall: The WPL Database Breakdown</h2>
+          <pre class="h400px"><code class="font-12pt">CREATE TABLE users(
+  uwid INT PRIMARY KEY, -- 1500000
+  name VARCHAR(255),    -- Manny Munoz
+  email VARCHAR(255)    -- em66@uw.edu
+);
+
+CREATE TABLE staff(
+  username VARCHAR(255) PRIMARY KEY, -- em66
+  uwid INT,                          -- 1500000
+  password VARCHAR(255) NOT NULL,    -- mochi
+  section VARCHAR(2),                -- AD
+  role VARCHAR(10) DEFAULT "TA",     -- TA
+  -- keys don't need to be identical, but they are here.
+  FOREIGN KEY (uwid) REFERENCES users(uwid)
+);
+
+CREATE TABLE queue(
+  qid INT PRIMARY KEY AUTO_INCREMENT,   -- 4
+  status VARCHAR(10) DEFAULT "waiting", -- "waiting"
+  length TINYINT NOT NULL,              -- 2
+  student_id INT,                       -- 1234567
+  assigned_ta VARCHAR(255),             -- em66
+  question TEXT,                        -- "Halp with SQL plz."
+  creation_date DATETIME DEFAULT NOW(),
+  FOREIGN KEY (student_id)  REFERENCES users(uwid),
+  FOREIGN KEY (assigned_ta) REFERENCES staff(username)
+);</code></pre>
+<p class="code-caption"><a href="code/wpl-queue/setup-wpl.sql">setup-wpl.sql</a></p>
+</section>
+        <section>
+          <h2>Viewing Relationships</h2>
+          <img src="../img/wpldb-highlighted.png" class="centered-figure" alt="3 WPLDB tables with primary and foreign keys"/>
+        </section>
+
+        <section>
+          <h3>How can we reference multiple tables in one SQL query?</h3>
+          <p>When you have relationships like <code>FOREIGN KEY</code>/<code>PRIMARY KEY</code>, it is often useful
+            to reference both tables to combine data (e.g. category of a menu item to display order details)</p>
+          <p>We can reference multiple tables either with an additional <code>WHERE</code> constraint or the <code>JOIN</code> keyword.</p>
+        </section>
+
+        <section>
+          <h2>Review: Multi-table Queries</h2>
+          <pre><code data-trim>
+SELECT q.question, q.creation_date, users.name
+FROM queue q, users
+WHERE q.student_id = users.uwid
+AND q.question LIKE "%Halp%";</code></pre>
+          </code></pre>
+          <p class="code-caption">SQL (example with WHERE)</p>
+          <pre><code data-trim>
+SELECT q.question, q.creation_date, users.name
+FROM queue q
+JOIN users ON q.student_id = users.uwid
+WHERE q.question LIKE "%Halp%";</code></pre>
+          <p class="code-caption">SQL (alternative example, using the JOIN keyword)</p>
+        </section>
+        <section>
+          <h2>What if we have more than 2 tables?</h2>
+          <p>You can join multiple tables using an additional equality WHERE condition, or an addition JOIN ON constraint.</p>
+          <pre><code>SELECT a.value1, b.value2, c.value3
+FROM table1 a, table2 b, table3 c
+WHERE a.value4 = b.value4
+AND a.value5 = c.value5;</code></pre>
+          <p class="code-caption">SQL join, WHERE-style</p>
+          <pre><code>SELECT a.value1, b.value2, c.value3
+FROM table1 a
+JOIN table2 b ON a.value4 = b.value4
+JOIN table3 c ON a.value5 = c.value5;</code></pre>
+          <p class="code-caption">SQL join, JOIN-style</p>
+          <p>
+            This is usually done to join a <code>FOREIGN KEY</code> from one
+            table with a <code>PRIMARY KEY</code> on another, giving access to the values in
+            the table with the <code>PRIMARY KEY</code>.
+          </p>
+        </section>
+        <section>
+          <h2>A Useful Example</h2>
+          <p>
+            In the <code>wpldb</code>, we might want to retrieve the <code>name</code> (e.g. Manny Munoz) of an <code>assigned_ta</code> (e.g. em66) for all queue entries,
+            as well as the entry's <code>creation_date</code>.
+          </p>
+          <p>
+            How can we use table relations and joins to get the TA's name from <code>users</code>?
+          </p>
+          <img class="centered-figure two-thirds-width" src="../img/wpldb-highlighted.png" alt="WPLDB with highlighted key columns" />
+        </section>
+
+        <section>
+          <h2>A Solution</h2>
+          <pre><code>SELECT u.name, q.creation_date
+FROM queue q, staff s, users u
+WHERE queue.assigned_ta = s.username
+AND s.uwid = u.uwid;</code></pre>
+          <p class="code-caption">SQL (join with WHERE)</p>
+          <pre><code>SELECT u.name, q.creation_date
+FROM queue q
+JOIN staff s ON queue.assigned_ta = s.username
+JOIN users u ON s.uwid = u.uwid;</code></pre>
+          <p class="code-caption">SQL (join with JOIN)</p>
+        </section>
+
+        <section>
+          <h2>What if we want to also include the student's name?</h2>
+          <p>In this case, we get stuck with three tables - <code>users</code> is the only table we have to access the <code>name</code>,
+            but this is constrained on the join for the <code>assigned_ta</code></p>
+          <p>We can add another instance of the <code>users</code> table though!</p>
+          <pre><code>SELECT u1.name, queue.creation_date, u2.name,
+FROM queue q, staff s, users u1, users u2
+WHERE q.assigned_ta = s.username
+AND staff.uwid = u1.uwid
+AND q.student_id = u2.uwid;</code></pre>
+         <p class="code-caption">SQL</p>
+       </section>
+        <section>
+          <h3>Using <code>db.query</code> with <code>INSERT</code>, <code>DELETE</code>, <code>UPDATE</code></h3>
+          <p>A well-designed WPL Queue database will be useful to allow us to update queue entries, student, and staff information.</p>
+          <p>In Express, we've seen <code>db.query</code> used with <code>SELECT</code> to return an array of <code>RowDataPacket</code>s, holding the values for each <code>SELECT</code>ed column.</p>
+          <p>For other queries, this function will return different objects</p>
+          <p><code>INSERT</code>/<code>DELETE</code>/<code>UPDATE</code> queries return an <code>OkPacket</code>, including information like <code>rowsAffected</code>.</p>
+          <p>This is useful when you want to see if a record was successfully inserted/deleted.</p>
+        </section>
+
+        <section>
+          <h2>The <code>OkPacket</code></h2>
+          <img class="centered-figure" src="hidden/okPacket-affectedRows.png" alt="okPacket Example with Chrome Node Debugger" />
+        </section>
+
+        <section>
+          <h2>Useful Properties of <code>OkPacket</code></h2>
+          <table class="code-table">
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>affectedRows</td>
+              <td>Returns the number of rows affected (inserted, updated, or deleted)</td>
+            </tr>
+            <tr>
+              <td>changedRows</td>
+              <td>Returns the number of rows updated</td>
+            </tr>
+            <tr>
+              <td>insertId</td>
+              <td>If the table has an auto-incremented id field, returns the id of the newly-inserted record</td>
+            </tr>
+            </table>
+          </section>
+
+        <section>
+          <h3>From Files, to SQL Databases, to other storage technologies</h3>
+          <p>We've been working with data stored on the server's file system and databases.</p>
+          <p>There are many advantages to storing data on the server, but there are also cases where it's more useful to remember information unique to a particular client.</p>
+          <p>This information can be stored as cookies (shared between client/server) and as browser storage (known only to the browser)</p>
+        </section>
+
+      <section>
+        <h2>HTTP and State</h2>
+        <p>
+          HTTP is a stateless protocol; it simply allows a browser to request a single resource from a web server.
+        </p>
+        <p>
+          Once the resource has been sent to the client, the server
+          does not keep track of any information about what was sent
+          (other than maybe in a log file of the transaction).
+        </p>
+        <p>But then how can websites like Amazon.com, Google, etc. remember whether you're logged in and your shopping preferences?</p>
+        <p>How does a client uniquely identify itself to
+        a server, and how does the server
+        provide specific content to each client?</p>
+      </section>
+
+      <section id="cookies">
+        <h2><a href="https://computer.howstuffworks.com/cookie3.htm">Cookies</a></h2>
+        <p>A small (max 4kb) amount of information stored within the computer browser</li>
+        <p>Introduced in 1994 for the Netscape browser to improve shopping experience</li>
+        <p>Have <a href="https://www.targetinternet.com/digital-marketing-guide-to-cookies/" target="_blank">many uses</a>:</p>
+          <ul>
+            <li>Authentication, remembering login information</li>
+            <li>User tracking</li>
+            <li>Maintaining user preferences, shopping carts, etc.</li>
+          </ul>
+          <p><a href="https://kingcounty.gov/depts/transportation/metro/schedules-maps/071.aspx" target="_blank">Demo example</a> of language preference cookie (try changing the language and finding the google translate cookie in your Chrome Applications tab - what happens when you refresh the page?).</p>
+        </ul>
+      </section>
+
+        <section>
+          <h3>Cookies: Shared Between Client and Server</h3>
+          <p>
+            Cookies are associated with certain websites. They consist of a key and a value.
+            They also have an expiration date, and will go away when it is reached. If an cookie does not have an expiration date, it is usually a "session cookie", cleared when the browser is closed.
+            (the KingCounty's language cookie is a session cookie).
+          </p>
+          <p>
+            Cookies let us store information on a user's computer, for things like keeping them
+            logged in even if they close the page. These are sent by the same client to the server in future requests (until they expire).
+          </p>
+          <p>
+            As a web developer,
+          this is a great feature to have to improve user experience (but you should be clear about <a href="https://www.cnn.com/privacy0?#turner_cookies" target="_blank">your Privacy Policy</a>).</li>
+          </p>
+        </section>
+
+       <section>
+        <h2>More Cookie Details</h2>
+        <ul>
+          <li>Cookies are only data, not program code.</li>
+          <li>Cookies can be used to track your viewing habits on a particular site.
+            <ul class="fragment">
+              <li>Do you think this is a good thing? Or a bad thing?</li>
+            </ul>
+          </li>
+          <li>
+            New privacy laws in Europe (<a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation" target="_blank">GDPR</a>)
+            are making website owners rethink using cookies.
+          </li>
+        </ul>
+        <p>A great 10-minute video <a href="https://www.youtube.com/watch?v=QWw7Wd2gUJk">here</a> with a simple overview of how different types of cookies work</p>
+      </section>
+
+        <section>
+          <h2>Viewing Cookies</h2>
+          <p>You can view your cookies for different sites on the Chrome Tools Application Tab</p>
+          <img class="centered-figure half-width" src="hidden/pinterest-cookies.png" />
+          <p>Try it out on different websites!</p>
+        </section>
+        <section>
+          <h2>Demo</h2>
+          <p>Visit <a href="https://hidden-lake-96056.herokuapp.com/index.html" target="_blank">this page</a> linked on the calendar.</p>
+          <p>Add some cookies - what do you see in the Application Tab? This web service sets two cookies with an expiration of 60 seconds, and
+            also has a feature to log requests from different clients.</p>
+          <p>Your cookies are special and other clients can't see them, but this service logs all requests and shares stats with the <code>/getRequests</code> endpoint.</p>
+        </section>
+
+        <section>
+          <h2>So how were everyone's personal cookies get set on this page?</h2>
+        </section>
+
+      <section>
+        <h2>How cookies can be set and retrieved</h2>
+        <p>Client-Side</p>
+        <ul>
+          <li>JavaScript can set and retrieved using <code>document.cookie</code></li>
+          <li>The demo used server-side cookies, but you can find more details <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie" target="_blank">here</a></li>
+        </ul>
+        <p>Server-Side (Node/Express, but also other server-side languages):
+        <ul>
+          <li>
+            When the browser requests a page, the server may send back a cookie(s)
+            with it to store on the client - this can be done in different server-side languages.
+          </li>
+          <li>
+            Future requests to the server will bring back the cookie until it expires.
+          </li>
+          <li>
+            If your server has previously sent any cookies to the browser, the browser
+            will send them back on subsequent requests to remind the server who is connecting
+            to it.
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Setting/Getting Cookies in Express</h2>
+        <p>1. <code>npm install cookie-parser</code> in the terminal.</p>
+        <p class="fragment">(yep. Another module to add to your resume)</p>
+        <p>2. <code>const cookieParser = require("cookie-parser");</code></p>
+        <p>3. <code>app.use(cookieParser());</code></p>
+        <p>
+           After doing this, you can set/modify cookies using the Response object, and read
+           cookies sent by the browser with the Request object.
+        </p>
+       </section>
+       <section>
+            <h2>Setting Cookies with the Response</h2>
+            <p>You can set/send/clear cookies back to the client with the <code>res</code> (Response) object's <code><a href="https://expressjs.com/en/4x/api.html#res.cookie" target="_blank">res.cookie()</a></code> and <code><a href="https://expressjs.com/en/4x/api.html#res.clearCookie" target="_blank">res.clearCookie()</a></code> functions</p>
+            <p>
+              To set or update a cookie, provide it a
+              key, a value, and optionally an object of metadata, like expiration time or max age:
+            </p>
+            <pre><code class="font-12pt">// expires in 60 seconds from time of request
+res.cookie("name", "value", { expires : new Date(Date.now() + 60 * 1000) });
+res.cookie("name", "value", { maxAge : 60 * 1000 }); // also expires in 60 seconds</code></pre>
+            <p class="code-caption">Syntax</p>
+            <pre><code class="font-12pt">res.cookie("logged_in", "true", { maxAge : 60 * 1000 });</code></pre>
+            <p class="code-caption">Node.JS Example</p>
+            <p>
+              To set an expiration time, you need to pass in a <code>Date</code> object set to the
+              time it will expire. Use <code>Date.now()</code> to get the current time, and then
+              add the number of milliseconds until you want it to expire (1 minute in the example.)
+            </p>
+          </section>
+          <section>
+            <h2>Reading Cookies from the Request</h2>
+            <p>
+              You can access cookies the same way you read query parameters:
+            </p>
+            <pre><code>console.log(req.cookies);
+// { logged_in : "true" , username : "dubs"}
+let loggedIn = req.cookies["logged_in"]; // "true"
+res.clearCookie("logged_in");
+res.clearCookie("username");</code></pre>
+            <p class="code-caption">Node.JS Examples</p>
+        </section>
+
+      <section>
+        <h2>An Application of "Visit Cookies"</h2>
+        <p>The following is a snippet of code to check for cookies in the demo link's <code>GET /makeCookie/:name</code> endpoint.</p>
+        <p class="italic">(the full endpoint solution also does some logic to log requests for different cookies it sets for each client.)</p>
+        <pre><code data-trim class="font-12pt">const COOKIE_EXP_TIME = 60 * 60 * 1000; // a new visit cookie lasts 1 hour.
+let expDate = new Date(Date.now() + COOKIE_EXP_TIME); // 1 hour from now
+
+let visits = req.cookies.visits;
+let name = req.cookies.name;
+let msg = "";
+if (visits && name) {
+  visits = parseInt(visits) + 1;
+  msg = "Welcome back " name + "! You have made " + visits + " visit(s) since your cookies were set.";
+} else {
+  let name = req.param.name;
+  let visits = 1;
+  msg = "Welcome to the cookie page! Your browser is remembered as '" + name + "'";
+}
+res.cookie("visits", visits, { expires: expDate });
+res.cookie("name", name, { expires: expDate });
+res.type("text");
+res.send(msg);</code></pre>
+<p class="code-caption">Node.js (with <code>cookie-parser</code> module)</p>
+</section>
+        <section>
+          <h2>Clearing Cookies</h2>
+          <p>The following is the solution for the <code>GET /clearCookie</code> endpoint</p>
+          <pre><code data-trim>
+app.get("/clearCookies", (req, res) => {
+  res.type("text");
+  let name = req.cookies.name;
+  let visits = req.cookies.visits;
+  if (name && visits) {
+    res.clearCookie("visits");
+    res.clearCookie("name");
+    // cookies are stored as strings, so we need to parseInt(visits)
+    res.send("Good bye " + name + "! You visited a total of " +
+              parseInt(visits) + 1 + " during your session.");
+  } else {
+    res.send("You have no cookies to clear!");
+  }
+});</code></pre>
+        <p class="code-caption">Node.js</p>
+       </section>
+
+        <section>
+          <h2>Back to the WPL Queue</h2>
+          <p>Ideally, we'd like an admin interface to:</p>
+          <ol>
+            <li>Allow staff to see students (by name) and their questions in the 2-minute and 10-minute queues</li>
+            <li>A feature to dequeue (remove) students from the queues</li>
+          </ol>
+          <p>
+            We also want to make sure only staff can access the queue admin page. We can use a login form!
+          </p>
+        </section>
+        <section>
+          <h2>A Simple Login UI</h2>
+          <div class="side-by-side" style="align-items: center">
+          <img style="margin-right: 10px" src="hidden/login-interface.png"/>
+          <img src="hidden/admin-view-logged-in.png" />
+        </div>
+          <p>However, it can be annoying to re-login each time the page is refreshed.</p>
+        </section>
+
+        <section>
+          <h3>How can we make an login form remember us for 3 days?</h3>
+          <div class="side-by-side">
+          <img src="hidden/admin-view-tal-logged-in.png" />
+          <div>
+            <p>We can use cookies to:<p/>
+            <li>Remember whether the client has recently logged in, hiding the form on the page reload if so.</li>
+            <li>Implement a <code>POST /logout</code> feature to clear the login cookies.</li>
+          </div>
+        </section>
+
+        <section>
+          <h3>Client-Side Browser Storage (Extra Material)</h3>
+          <p>Cookies are shared by clients and servers, and are fairly small (4kb)</p>
+          <p>There are Storage technologies built-in to the browser to store data that doesn't need to be stored on the server</p>
+          <p>What information can you think of that is useful to store only on the client?</p>
+          <ul class="fragment">
+            <li>Color theme preferences</li>
+            <li>Saved shopping cart (until an "order" button is clicked to submit a request</li>
+            <li>Previous searches</li>
+            <li>...</li>
+          </ul>
+        </section>
+       <section id="browser-storage">
+         <h2>Browser storage technologies</h2>
+         <p>
+           <code>localStorage</code> and <code>sessionStorage</code>
+           inherit from the browser's <code>Storage</code> API and can be used to store data on the browser.
+         </p>
+         <p>
+           <code>localStorage</code> is a <code>window</code> property that allows
+           you to save information across browser sessions (i.e after you close the browser)
+         </p>
+         <p>
+           <code>sessionStorage</code> is a <code>window</code> property that allows
+           you to save information for this session only, and will be cleared when
+           the page is closed.
+         </p>
+         <p>Name/value pairs (seen in cookies and Storage) are supported by
+           <a href="https://caniuse.com/#search=localstorage">most every
+             browser</a>
+         </p>
+         </section>
+
+      <section>
+        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage">Storage</a></h2>
+        <p>There are four useful methods for <code>Storage</code> </p>
+        <table>
+          <tr>
+            <th>method</th>
+            <th>description</th>
+          </tr>
+          <tr>
+            <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem">setItem(keyName, keyValue)</a></td>
+            <td>Sets the <code>keyName</code> location in storage to be <code>keyValue</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem">getItem(keyName)</a></td>
+            <td>Retrieves the <code>keyValue</code> in storage associated with <code>keyName</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage/removeItem">removeItem(keyName)</a></td>
+            <td>Removes the <code>keyName</code> location in storage</td>
+          </tr>
+          <tr>
+            <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear">clear()</a></td>
+            <td>Removes all key/values in the storage</td>
+          </tr>
+        </table>
+        <p><a href="code/storage-demo/storage-demo.html" target="_blank">storage-demo.html</a> compares the two storage technologies using the code on the following slides. Inspect the Chrome Application Tab to see the difference between different browser windows.</p>
+      </section>
+
+      <section>
+        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a> example</h2>
+        <pre><code data-trim>window.sessionStorage.setItem("color-mode", "dark");
+window.localStorage.setItem("language", "en");
+window.localStorage.setItem("favorite-drink", "coffee");
+window.localStorage.setItem("vegetarian", "true");
+let colorMode = window.localStorage.getItem("color-mode");
+window.localStorage.removeItem("color-mode");</code></pre>
+        <p class="code-caption">JavaScript (example)</p>
+      </section>
+
+      <section>
+        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage">sessionStorage</a> example</h2>
+        <p>Similarly for <code>sessionStorage</code>...</p>
+        <pre><code data-trim>window.sessionStorage.setItem("color-mode", "dark");
+window.sessionStorage.setItem("language", "en");
+window.sessionStorage.setItem("favorite-drink", "coffee");
+window.sessionStorage.setItem("vegetarian", "true");
+let colorMode = window.sessionStorage.getItem("color-mode");
+window.sessionStorage.removeItem("color-mode");</code></pre>
+        <p class="code-caption">JavaScript (example)</p>
+      </section>
+
+      <section>
+        <h2>Viewing Storage in the Applications Tab</h2>
+        <img class="centered-figure" src="hidden/viewing-local-storage.png" alt="Viewing local storage" />
+      </section>
+
+      <section>
+        <h2>Requirement: Values are Strings</h2>
+        <p>But what if you want a key to hold a collection of items (e.g. a dictionary of preferences, or a current cart)?</p>
+<pre><code data-trim>
+let notes = [{ tag : "Personal", note : "Feed Mowgli." },
+             { tag : "Work", note : "Finish Pre-Check"}];
+window.localStorage.setItem("notes", notes);
+let data = window.localStorage.getItem("notes");
+// { notes : [Object object] }</pre></code>
+<p class="code-caption">JS</p>
+        <p>Solution: Save stringified object (possibly an array) and access as parsed JSON</p>
+        <pre><code data-trim>
+window.localStorage.setItem("notes", JSON.stringify(notes));
+let data = JSON.parse(window.localStorage.getItem("notes"));
+// { notes : [{ tag : "Personal", note : "Feed Mowgli." },
+//            { tag : "Work", note : "Finish Pre-Check"}]}</code></pre>
+<p class="code-caption">JS</p>
+      </section>
+
+      <section>
+        <h2>Summary: Cookies vs. Browser Storage</h2>
+        <table>
+          <tr>
+            <th></th>
+            <th>Cookies</th>
+            <th>Local Storage</th>
+            <th>Session Storage</th>
+          </tr>
+          <tr>
+            <td>Size</td>
+            <td>4kb</td>
+            <td>~10mb</td>
+            <td>~5-10m</td>
+          </tr>
+          <tr>
+            <td>Expires</td>
+            <td>Manually Set</td>
+            <td>Never</td>
+            <td>When browser is closed</td>
+          </tr>
+          <tr>
+            <td>Storage Location</td>
+            <td>Browser and Server</td>
+            <td>Browser Only</td>
+            <td>Browser Only</td>
+          </tr>
+          <tr>
+            <td>Sent with HTTP Requests</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+        </table>
+        <p>Note that storage limits for local/session storage depend on browser and device (Desktop vs. Mobile).</p>
+      </section>
+    </div>
+
+    <script src="../../site/reveal/lib/js/head.min.js"></script>
+    <script src="../../site/reveal/js/reveal.js"></script>
+
+    <script>
+
+Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  // More info https://github.com/hakimel/reveal.js#dependencies
+  dependencies: [
+  { src: '../../site/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+  { src: '../../site/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../site/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../site/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+  { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+  { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+  { src: '../../site/reveal/plugin/search/search.js', async: true },
+  { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+  ]
+});
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+  HTML for WPL Form Demo
+  CSE 154 - Summer 2019
+  Author: Melissa Hovik
+
+  Example HTML with some HTML5 validation features!
+  What other validation methods can you think of adding? Check out the form validation reading!
+  There are a _ton_ of really neat HTML5 validation features to explore!
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css">
+  <script src="wpl.js"></script>
+  <title>WPL Queue</title>
+</head>
+<body>
+  <header>
+    <h1>Enter the WPL Queue!</h1>
+  </header>
+  <main>
+    <form id="input-form">
+      <div>
+        <label for="name-input">Name: </label>
+        <input type="text" id="name-input" name="name" required minlength=3/>
+      </div>
+      <div>
+        <label for="email-input">E-mail (@uw.edu): </label>
+        <input type="email" id="email-input" name="email" >
+      </div>
+      <div>
+        <label for="sid-input">Student Number: </label>
+        <input type="number" id="sid-input" name="sid" required min=1000000 max=2000000>
+      </div>
+      <div id="minute-options">
+        <label>2-Minute Question <input type="radio" name="minutes" value=2 selected /></label>
+        <label>10-Minute Question <input type="radio" name="minutes" value=10 /></label>
+      </div>
+      <textarea name="question" minlength=20 rows=5 placeholder="Enter your question..."></textarea>
+      <button id="submit-btn" type="submit">Enter Queue!</button>
+    </form>
+    <p id="results"></p>
+    <button id="log-queue">Show Queue</button>
+  </main>
+</body>
+</html>
