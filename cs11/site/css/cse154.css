@@ -1,0 +1,19 @@
+.faq {
+  font-weight: bold;
+}
+
+.space-above {
+  margin-top: 20px;
+}
+
+.space-below {
+  margin-bottom: 20px;
+}
+
+.space-right {
+  margin-right: 20px;
+}
+
+.space-left {
+  margin-left: 20px;
+}
