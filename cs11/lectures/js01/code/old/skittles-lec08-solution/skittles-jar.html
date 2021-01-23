@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+  CSE 154 Summer 2019
+  Melissa Hovik
+  Starter HTML for Skittles Game Exercise (V1). This is just the a jar with skittles.
+  Monday Lecture: V0
+    - Practice using document.querySelectorAll to select all green skittle divs.
+  Wednesday Lecture:
+    - Add two "views" to switch between to start/end games using classList and CSS classes.
+      Game Setup View: <article id="setup-view">
+      Game Play View : <article id="game-play">
+    - Factor out all hard-coded divs from #jar HTML and dynamically create green skittle divs to append to jar using JS!
+    - Randomize the color of skittles added to the jar.
+  -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Skittles Game</title>
+  <link rel="stylesheet" href="skittles.css">
+  <script src="skittles.js"></script>
+</head>
+<body>
+  <header>
+    <h1>How many <span id="color" class="green">green </span>Skittles are in the jar?</h1>
+  </header>
+
+  <main>
+    <!-- The Skittles jar! -->
+    <div id="jar">
+      <div class="skittle blue"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle red"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+    </div>
+    <!-- We will add the "hidden" class to the second view (#game-play),
+         but it's easier to test our JS for now when we can see both buttons. -->
+    <article id="game-setup">
+      <button id="start-btn">Start!</button>
+    </article>
+
+    <article id="game-play">
+      <button id="answer-btn">Give me the answer!</button>
+      <p class="hidden">There are <span id="count"></span> skittles in the jar!</p>
+    </article>
+  </main>
+</body>
+</html

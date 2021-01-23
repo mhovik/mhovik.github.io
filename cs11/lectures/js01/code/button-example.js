@@ -1,11 +1,11 @@
 /*
- * We'll learn this tomorrow, but you must wrap your JS code into a "module" pattern and
+ * You must wrap your JS code into a "module" pattern and
  * then attach your main code into a "load" event listener for the window. This
  * makes sure that the JavaScript code has access to the document elements (like the
  * button), which are loaded only when the page is done loading.
  */
+"use strict"; // used to help the browser catch more bugs in JS
 (function() {
-  "use strict"; // used to help the browser catch more bugs in JS, we'll learn later!
 
   /* When everything is loaded, get the button and add a click event listener to call
    * changeImage when the button is clicked */

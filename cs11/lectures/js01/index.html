@@ -35,13 +35,44 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
         <section>
-          <h1>CSE 154</h1>
-          <h2>Intro to JavaScript</h2>
+          <h1>CS 11 - JavaScript</h1>
           <h3>JS Language Basics</h2>
-          <img class="simpleimg" src="../img/animated-skeleton.gif" alt="skelton" width="225px"
-          style="float: right; margin-top: -150px">
         </section>
 
+        <section>
+          <h2>Agenda</h2>
+          <ul>
+            <li>Introductions</li>
+            <li>Course Overview</li>
+            <li>Introduction to JavaScript!</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Melissa Hovik (She/Her/Hers)</h2>
+          <img class='simpleimg' style='height: 200px; float: right;' src='../img/lorem.jpg' alt ='Lorem Hovik'>
+          <img class='simpleimg' style='margin-right: 15px; height: 200px; float: right;' src='../img/melissa-hovik.jpg' alt ='Melissa Hovik'>
+          <p><a href="">hovik@caltech.edu</a></p>
+          <p>
+            From Seattle (University of Washington) with various teaching background in web programming, CS 2, intro to theory, data structures, programming languages, and security.
+          </p>
+          <p>
+            Interested in interdisciplinary CS and bridging theory with real-world applications
+          </p>
+          <p>
+            In my free time, I enjoy spending time with pets (new puppy above: Lorem), solving puzzles, learning new languages/technologies, and mentoring
+          </p>
+        </section>
+        <section>
+          <h2>Course Overview</h2>
+          <p>The JS programming language and new features introduced in ES6</p>
+          <p>The browser DOM (which will involve an introduction of basic HTML and CSS)</p>
+          <p>Asynchronous programming with promises, callbacks, and async/await</p>
+          <p>Using fetch to retrieve data from public APIs on the web</p>
+          <p>Introduction to server-side JS (node.js) and implementing our own API with the express.js module</p>
+        </section>
+
+        <!--
         <section>
           <h2>Overview</h2>
           <p>Introduction to JavaScript</p>
@@ -54,34 +85,50 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
             <li>Adding JS to an HTML page!</li>
           </ul>
         </section>
+      -->
+      <!--
+      <section>
+          <h2>Textbook</h2>
+          <p>No textbook required for course</p>
+          <ul>
+            <li>The lecture slides contain most of the relevant details
+</li>
+            <li>
+Other essential materials are provided with the assignments and linked readings on Canvas
+            </li>
+          </ul>
+      </section>
+-->
 
-        <section>
-          <h2>What We've Learned So Far</h2>
-          <p>How to write <strong>content</strong> for a webpage using <code>HTML</code></p>
-          <p>
-            How to add <strong>styles</strong> to a webpage using <code>CSS</code> and linking a <code>CSS</code> file to an
-            <code>HTML</code> file
-          </p>
-          <p>How to inspect the <code>HTML</code> and <code>CSS</code> of web pages in the browser</p>
-        </section>
-
-        <section>
-          <h2>Webpage Behavior with JavaScript</h2>
-          <p>
-            Now that we know how to add <em><strong>content</strong></em> and <em><strong>styles</strong></em>
-            to a web page, lets explore how to add responsive <em><strong>behavior</strong></em>
-          </p>
+      <section>
+        <h2>Introduction of JavaScript</h2>
           <p>These slides will introduce the basics of the JavaScript language:</p>
           <ul>
             <li>History/Terminology</li>
-            <li>JavaScript vs. Java comparisons</li>
-            <li>Variables and Types</li>
-            <li>Loop and Conditionals</li>
+            <li>JavaScript Language Basics</li>
           </ul>
           <p>
-            Soon, we'll use these building blocks to dynamically update what you see on a web page in
+            We'll use these building blocks to dynamically update what you see on a web page in
             response to clicks, text input, timers, etc.
           </p>
+        </section>
+        <section>
+          <h2>Quick Reference</h2>
+          <ul>
+            <li><a href="#logging"><code>console.log</code> and <code>alert</code></a></li>
+            <li><a href="#comments">Comments and JSDoc</a></li>
+            <li><a href="#variables">Variables and constants</a></li>
+            <li><a href="#types">Basic types</a>: Number, Strings, Arrays</li>
+            <li><a href="#loops-conditionals">Loops and Conditionals</a></li>
+            <li><a href="#logical-operators">Booleans/Logical Operators</a></li>
+            <li><a href="#null-undefined"><code>null</code> and <code>undefined</code></a></li>
+            <li><a href="#functions">Function basics</a></li>
+        </section>
+        <section>
+          <h2>Motivating JavaScript</h2>
+          <p>In the early days of the web, pages were simply static, using HTML to “mark up” the structure of text</p>
+          <p>CSS (Cascading Style Sheets) was added to support styling capabilities for different HTML elements on the page (fonts, colors, layout, etc.)</p>
+          <p>JavaScript was invented in 1995 by Brendan Eich to provide support for  client-side interactivity on web pages (handling user events, such as button clicks)</p>
         </section>
 
         <section>
@@ -123,6 +170,28 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
           </p>
           </div>
         </section>
+        <section>
+          <h2>JS: Adding Behavior to HTML/CSS</h2>
+          <p>
+            We can use JS to...
+          </p>
+          <ul>
+            <li>
+              Insert dynamic text into HTML (e.g. username)
+              
+            </li>
+            <li>
+              React to events (e.g. page load, user’s mouse click)
+            </li>
+            <li>
+              Get information about a user’s computer (e.g. what browser they are using)
+            </li>
+            <li>
+              ...
+            </li>
+          </ul>
+          <p>We are starting with client-side JS, and will later cover server-side JS with node.js</p>
+        </section>
 
         <section>
           <h2>JavaScript vs. Java</h2>
@@ -142,7 +211,6 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
           <p>JS is contained within a web page and integrates with its <code>HTML/CSS</code> content</p>
         </section>
 
-        <!--
         <section>
           <h2>Linking to a JavaScript file: <code>&lt;script&gt;</code></h2>
           <pre><code class="hijs" data-trim>&lt;script src="filename"&gt;&lt;/script&gt;
@@ -156,11 +224,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
             The <code>script</code> tag should be placed in the <code>HTML</code> page's
             <code>head</code>.
           </p>
+          <p>If you've seen/used JS before, there are other ways to link JS to HTML, each with different trade-offs. This is what we'll use in the course.</p>
           </div>
         </section>
-
-        </section>
-      -->
         <section>
           <h2>Following Along</h2>
           <p>As an interpreted programming language, JS is great to interact with
@@ -168,7 +234,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
           start?</p>
           <p>
             The easiest way to dive in is with the browser's
-            Console tab in the same inspector tool you've used to inspect your HTML/CSS.
+            Console tab with the Chrome Inspect (which can also be used to inspect your HTML/CSS).
           </p>
           <img class="centered-figure" width="40%" src="../img/chrome-console.png" alt="Chrome Console"/>
           <p>
@@ -180,31 +246,69 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         </section>
 
         <section>
-          <h2>Our First JavaScript Statement: <code>alert</code></h2>
-          <pre><code class="hijs" data-trim>alert("message");
+          <h2>Comments</h2>
+          <pre><code class="hijs" data-trim>// single-line comment
+
+/* multi-line comment */
 </code></pre>
-          <p class="code-caption">JS (template)</p>
-          <pre>
-            <code class="hijs" data-trim>alert("IE6 detected. Suck-mode enabled.");
-</code></pre>
-          <p class="code-caption">JS (example)</p>
-          <div class="output">
-            <img src="../img/alert.png" alt="never use internet explorer" />
-          </div>
-          <p>
-            A JS command that pops up a dialog box with a message - not ideal in practice, but a
-            good debugging tool when first learning JS
+          <p class="code-caption">JS</p>
+          <p>Comments in JS are similar to Java</p>
+          <p>You will also see HTML/CSS in this class</p>
+            <ul>
+              <li><code>HTML: &lt;!-- comment --&gt;</code></li>
+              <li><code>CSS/Java/JS: /* comment */</code></li>
+              <li><code>Java/JS: // comment</code></li>
+            </ul>
           </p>
         </section>
+      <section>
+        <h2>Documenting JS Functions with JSDoc</h2>
+        <p>
+        In this class, we expect you to use the <a
+             href="http://usejsdoc.org/tags-param.html" target="_blank"><code>@param</code></a> and
+           <a href="http://usejsdoc.org/tags-returns.html"
+              target="_blank"><code>@returns</code></a> annotation tags in
+        JSDoc when appropriate for the function.
+        </p>
+        <p>
+        The <code>@param</code> annotation specifies the
+        name and type of each parameter, as well as what the purpose of that parameter
+        is in the function.
+      </p>
+      <p>
+        The <code>@returns</code> annotation specifies the type and expected value
+        of what is returned given the parameters and any other conditions of the
+        function. You do not need to use any other JSDoc annotations for this course.
+      </p>
+          <p>HW1 provides some example function comments which you'll finish writing.</p>
+    </section>
+    <section>
+        <h2>Documenting JS with JSDoc: Templates</h2>
+        <p>
+        Here is
+        an example of function comment skeletons as reference:
+        <pre><code class="hljs" data-trim>// Single-line JSDoc comment:
+/** Your comment here */</code></pre>
+        <p class="code-caption">JSDoc Single-Line Comment</p>
+        <pre><code class="hljs" data-trim>/**
+ * brief description of the function
+ * @param {datatype} parameterName1 - parameter description
+ * @param {datatype} parameterName2 - parameter description
+ * @returns {datatype} Description of the return value
+ */
+function functionName(parameterName1, parameterName2) {
+  ...
+}
+</code></pre>
+        <p class="code-caption">JSDoc Function Template (Multi-line)</p>
+        </section>
 
-        <section>
-          <h2>Output in JS: <code>console.log</code></h2>
+
+        <section id="logging">
+          <h2>Our First JavaScript Statement: <code>console.log</code></h2>
           <p>
-            Used to output values to the browser console (can view in your browser's dev tools under
-            "Console"). You can think of this as <code>System.out.println</code> in Java or <code>print</code> in Python.
-          </p>
-          <p>
-            Often preferred over <code>alert</code> to debug JS programs.
+            Used to output values to the browser console, most often used to debug JS programs.
+            You can think of this as <code>print</code> in Python or <code>System.out.println</code> in Java.
           </p>
           <pre><code class="hljs" data-trim>console.log("message");</code></pre>
           <p class="code-caption">JS (template)</p>
@@ -216,36 +320,198 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
           <p>
             <img src="../img/console-log.png" alt="console.log example" />
           </p>
-          <p>We'll often use it just to get familiar with the language/test things out in the Chrome Console.</p>
         </section>
 
         <section>
-          <h2>Comments (<em>same as Java</em>)</h2>
-          <pre><code class="hijs" data-trim>// single-line comment
+          <h2>The <code>alert</code> Function</h2>
+          <pre><code class="hijs" data-trim>alert("message");</code></pre>
+          <p class="code-caption">JS (template)</p>
+          <pre><code class="hijs" data-trim>alert("Your browser says hi!");</code></pre>
+          <p class="code-caption">JS (example)</p>
 
-/* multi-line comment */
-</code></pre>
-          <p class="code-caption">JS</p>
-          <p>Identical to Java's comment syntax</p>
-          <p>Recall: 3 comment syntaxes
-            <ul>
-              <li><code>HTML: &lt;!-- comment --&gt;</code></li>
-              <li><code>CSS/Java/JS: /* comment */</code></li>
-              <li><code>Java/JS: // comment</code></li>
-            </ul>
-          </p>
+          <img src="../img/browser-alert.png" class="centered-figure two-thirds-width" alt="Demo of browser alert" />
           <p>
-            For functions and program files, we'll use JSDoc commenting, which will be
-            introduced when we learn how to write JS functions (next lecture).
-          </p>
-          <p>Practice:
-            <code>
-              <a href="https://www.codestepbystep.com/problem/view/javascript/basics/commentSyntax">commentSyntax</a></code>,
-            <code>
-              <a href="https://www.codestepbystep.com/problem/view/javascript/basics/commentary">commentary</a></code>
+            A JS function that pops up a dialog box with a message - not ideal in practice, but
+            sometimes a recommended debugging tool when first learning JS. <strong>Don't include
+            alert statements in any of your assignments.</strong>
           </p>
         </section>
 
+
+        <section id="variables">
+          <h2><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics#Variables">Variables</a></h2>
+          <pre><code class="hijs" data-trim>let name = expression;
+</code></pre>
+          <p class="code-caption">JS (template)</p>
+          <pre><code class="hijs" data-trim>let level = 23;
+let accuracyRate = 0.99;
+let name = "Pikachu";
+</code></pre>
+          <p class="code-caption">JS (example)</p>
+          <p>Variables are declared with the <code>let</code> keyword (case-sensitive).
+          You may also see <code>var</code> used instead of <code>let</code> - this is an
+          older convention with
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Variable_scope"
+             target="_blank">weaker scope</a> - <strong>DO NOT USE <code>var</code> anywhere</strong></p>
+          </section>
+          <section>
+            <h2>"Types" in JavaScript</h2>
+          <pre><code class="hijs" data-trim>let level = 23; // Number
+let accuracyRate = 0.99; // Number
+let name = "Pikachu"; // String
+let temps = [55, 60, 57.5]; // Array
+</code></pre>
+          <p class="code-caption">JS (example)</p>
+          <p>Types are not specified, but JS <em>does</em> have types ("loosely-typed")</p>
+            <ul>
+            <li><code>Number</code>, <code>Boolean</code>, <code>String</code>,
+                <code>Array</code>, <code>Object</code>, <code>Function</code>, <code>Null</code>,
+                <code>Undefined</code></li>
+            <li>Can find out a variable's type by calling <a target="_blank"
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof">typeof</a>,
+            but usually this is poor practice (why?)</li>
+            <li>Note: Type conversion <a href="https://stackoverflow.com/questions/7202157/why-does-return-the-string-10">isn't always what you expect... </a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>A Note about Declaring Types in JavaScript</h2>
+          <p>
+          If you've programmed in a <em>statically-typed</em> language like Java, you will recall
+          that when declaring variables, you <strong>must</strong> specify their type which must
+          always stay the same.
+          </p>
+          <pre><code class="hljs" data-trim>boolean isValid = "hello!"; // error</code></pre>
+          <p class="code-caption">Java</p>
+          <p>In a <em>dynamically-typed</em> language like JavaScript, you don't need to specify the
+          type (just use <code>let</code> or <code>const</code>) and you <em>may</em> change the type the variable refers to later in execution.
+          </p>
+          <pre><code class="hljs" data-trim>let isValid = true; // no error
+isValid = "hello!";
+isValid = 1;
+</code></pre>
+          <p class="code-caption">JS</p>
+          <p>
+            This may seem to imply fewer errors in JS, but it's not uncommon to run into subtle
+            (silent) bugs in your JS programs as a result!
+          </p>
+        </section>
+
+        <section>
+          <h2>"Constants" in JavaScript</h2>
+          <p>
+            Since ECMA6, JavaScript has a special keyword to declare "constant" values. You should
+            use these over the <code>let</code> keyword for variables that are not intended to ever
+            be updated (similar to constants in Java).
+          </p>
+          <pre><code class="hljs" data-trim>let month = 12;
+month = 1; // no error
+
+const COOLEST_CLASS = "CS11";
+COOLEST_CLASS = "clazz"; // error
+</code></pre>
+          <p class="code-caption">JS</p>
+
+          <p>
+            These can help avoid some of the bugs
+            mentioned on the previous slide (an error occurs when trying to reassign a
+            <code>const</code>).
+          </p>
+        </section>
+
+        <section id="numbers">
+          <h2>Number Type</h2>
+          <pre><code class="hijs" data-trim>let enrollment = 99;
+let medianGrade = 2.8;
+let credits = 5 + 4 + (2 * 3);</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Integers and real numbers are the same type (no <code>int</code> vs.
+          <code>double</code>). All numbers in JS are floating point numbers.
+          <p>Same operators: <code>+ - * / % ++ -- = += -= *= /= %=</code></p>
+          <p>Similar <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence">precedence</a> to Java</p>
+          <p>Many operators auto-convert types: <code>"2" * 3</code> is <code>6</code></p>
+          <p><a href="https://www.codestepbystep.com/problem/view/javascript/basics/numberTypes" target="_blank">Practice</a>!</p>
+          <p>NaN is a return value from operations that have an undefined numerical result (e.g. division by 0)</p>
+        </section>
+
+        <section id="strings">
+          <h2>String type</h2>
+          <pre><code class="hijs" data-trim>let nickName = "Sparky O'Sparkz";                  // "Sparky O'Sparks"
+let fName = nickName.substring(0, s.indexOf(" ")); // "Sparky"
+let len = nickName.length;                         // 15
+let name = 'Pikachu';                              // can use "" or ''
+name === "Pikachu";                                // true
+name === "pikachu";                                // false
+</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Methods:
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charAt"><code>charAt</code></a>,
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt"><code>charCodeAt</code></a>,
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharcode"><code>fromCharCode</code></a>,
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf"><code>indexOf</code></a>,
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/lastIndexOf"><code>lastIndexOf</code></a>,
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace"><code>replace</code></a>,
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split"><code>split</code></a>,
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring"><code>substring</code></a>,
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase"><code>toLowerCase</code></a>,
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase"><code>toUpperCase</code></a>
+          </p>
+        </section>
+
+        <section>
+          <h2>More about Strings</h2>
+          <p><a href="https://codestepbystep.com/problem/view/javascript/basics/escapeRoom" target="_blank">Escape sequences</a> behave as in Java: <code>\' \" \&amp; \n \t \\</code></p>
+          <p>To convert between Numbers and Strings:
+          <pre><code class="hijs" data-trim>let count = 10;                              // 10
+let stringedCount = "" + count;              // "10"
+let puppyCount = count + " puppies, yay!";   // "10 puppies, yay!"
+let magicNum = parseInt("42 is the answer"); // 42
+let mystery = parseFloat("Am I a number?");  // NaN          </code></pre>
+          <p class="code-caption">JS</p>
+          <p>To access characters of a String <code>s</code>, use <code>s[index]</code> or
+          <code>s.charAt(index)</code>:</p>
+          <pre><code class="hijs" data-trim style="font-size: 14pt;">let firstLetter  = puppyCount[0];                            // "1"
+let fourthLetter = puppyCount.charAt(3);                     // "p"
+let lastLetter   = puppyCount.charAt(puppyCount.length - 1); // "!"
+</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+        <section>
+          <h2>Splitting strings: <code>split</code> and <code>join</code></h2>
+          <pre><code class="hijs" data-trim>let s = "the quick brown fox";
+let a = s.split(" "); // ["the", "quick", "brown", "fox"]
+a.reverse();          // ["fox", "brown", "quick", "the"]
+s = a.join("!");      // "fox!brown!quick!the"
+</code></pre>
+          <p class="code-caption">JS</p>
+          <p><code>split</code> breaks apart a String into an array using a delimiter</p>
+          <ul>
+            <li>Can also be used with regular expressions surrounded by /:
+            <br /><code>let a = s.split(/[ \t]+/);</code></li>
+          </ul>
+          <p>
+            <code>join</code> merges an array into a single String, placing a delimiter between
+            them
+          </p>
+        </section>
+
+
+        <section>
+          <h2>Common Bugs when Using Strings</h2>
+          <p>While Strings in JS are fairly similar to those you'd use in Java, there are a few special
+          cases that you should be aware of.</p>
+          <ul>
+          <li>Remember that <code>length</code> is a property (not a method, as it is in Java)</li>
+          <li>
+            Concatenation with <code>+</code>: <code>1 + 1</code> is <code>2</code>, but <code>"1" +
+              1</code> and <code>1 + "1"</code> are both <code>"11"</code>!
+          </li>
+          </ul>
+          <p>Practice: <code><a href="https://www.codestepbystep.com/problem/view/javascript/strings/repeat">repeat</a></code>, <code><a href="https://www.codestepbystep.com/problem/view/javascript/strings/repeat">containsTwice</a></code></p>
+        </section>
+
+
+        
         <section>
           <h2><a target="_blank" href="https://www.w3schools.com/js/js_variables.asp">Variables</a> and types</h2>
           <pre><code class="hijs" data-trim>let name = expression;
@@ -288,46 +554,6 @@ isValid = 1;
             This may seem to imply fewer errors in JS, but it's not uncommon to run into subtle
             (silent) bugs in your JS programs as a result!
           </p>
-        </section>
-
-        <section>
-          <h2>"Constants" in JavaScript</h2>
-          <p>
-            Since ECMA6, JavaScript has a special keyword to declare "constant" values. You should
-            use these over the <code>let</code> keyword for variables that are not intended to ever
-            be updated (similar to constants in Java).
-          </p>
-          <p>
-            Use <code>UPPER_CASING</code> naming conventions to
-            denote <code>const</code> in JS.
-          </p>
-          <pre><code class="hljs" data-trim>let month = 12;
-month = 1; // no error
-
-const COOLEST_CLASS = "CSE154";
-COOLEST_CLASS = "clazz"; // error
-</code></pre>
-          <p class="code-caption">JS</p>
-
-          <p>
-            These can help avoid some of the bugs
-            mentioned on the previous slide (an error occurs when trying to reassign a
-            <code>const</code>).
-          </p>
-        </section>
-
-        <section>
-          <h2>Number Type</h2>
-          <pre><code class="hijs" data-trim>let enrollment = 99;
-let medianGrade = 2.8;
-let credits = 5 + 4 + (2 * 3);</code></pre>
-          <p class="code-caption">JS</p>
-          <p>Integers and real numbers are the same type (no <code>int</code> vs.
-          <code>double</code>). All numbers in JS are floating point numbers.
-          <p>Same operators: <code>+ - * / % ++ -- = += -= *= /= %=</code></p>
-          <p>Similar <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence">precedence</a> to Java</p>
-          <p>Many operators auto-convert types: <code>"2" * 3</code> is <code>6</code></p>
-          <p><a href="https://www.codestepbystep.com/problem/view/javascript/basics/numberTypes" target="_blank">Practice</a>!</p>
         </section>
 
         <section>
@@ -407,12 +633,13 @@ let three = Math.floor(Math.PI);</code></pre>
         </section>
 
         <section>
-          <h2><code>for loop</code> (same as Java)</h2>
+            <h2><code>for</code> Loops</h2>
           <pre><code class="hijs" data-trim>for (initialization; condition; update) {
   statements;
 }
 </code></pre>
           <p class="code-caption">JS (template)</p>
+          <div id="loop-examples">
           <pre>
             <code class="hijs" data-trim>let sum = 0;
 for (let i = 0; i &lt; 100; i++) {
@@ -430,7 +657,7 @@ for (let i = 0; i &lt; s.length; i++) {
         </section>
 
         <section>
-          <h2>if/else Statements (same as Java)</h2>
+          <h2>if/else Statements</h2>
           <pre><code class="hijs" data-trim>if (condition) {
   statements;
 } else if (condition) {
@@ -451,7 +678,7 @@ for (let i = 0; i &lt; s.length; i++) {
         </section>
 
         <section>
-          <h2>while loops (same as Java)</h2>
+          <h2>while loops </h2>
           <pre><code class="hijs" data-trim>while (condition) {
   statements;
 }
@@ -517,13 +744,6 @@ if (1) { /* true */ }</code></pre>
           <p>
             When in doubt, check in the browser console!
           </p>
-          <!--
-          <p>Converting a value into a <code>Boolean</code> explicitly:</p>
-          <ul>
-            <li><code>let boolValue = Boolean(otherValue);</code></li>
-            <li><code>let boolValue = !!(otherValue);</code></li>
-          </ul>
-          -->
         </section>
 
         <section>
@@ -665,6 +885,90 @@ s = a.join("!");      // "fox!brown!quick!the"
             </a>
           </p>
         </section>
+        <section id="functions">
+          <h2>Defining Functions</h2>
+          <pre><code class="hijs" data-trim>function name(params) {
+  statement;
+  statement;
+  ...
+  statement;
+}</code></pre>
+          <p class="code-caption">JS (template)</p>
+          <pre>
+            <code class="hijs" data-trim>function myFunction() {
+  console.log("Hello!");
+  alert("Your browser says hi!");
+}
+</code></pre>
+          <p class="code-caption">JS (example)</p>
+          <p>The above could be the contents of a JS file linked to our
+          <code>HTML</code> page</p>
+          <p>Statements placed into functions can be evaluated in response to user events</p>
+          <p>Practice:
+            <a target="_blank"
+              href="https://codestepbystep.com/problem/view/javascript/basics/fixErrors2">
+              <code>fixErrors2</code>
+            </a>,
+            <a target="_blank" href="https://codestepbystep.com/problem/view/javascript/strings/containsTwice">
+              <code>containsTwice</code>
+            </a>,
+            <a target="_blank" href="https://codestepbystep.com/problem/view/javascript/basics/functionMystery1">
+              <code>functionMystery1</code>
+            </a>,
+            <a target="_blank" href="https://codestepbystep.com/problem/view/javascript/parameters/sumUpTo">
+              <code>sumUpTo</code>
+            </a>,
+            <a target="_blank" href="https://codestepbystep.com/problem/view/javascript/basics/veryBestSong">
+              <code>veryBestSong</code>
+            </a>
+          </p>
+        </section>
+        <section>
+          <h2>JS Function vs. Java Method</h2>
+          <pre><code class="hijs font-14pt" data-trim>function repeat(str, n) {
+  let result = str;
+  for (let i = 1; i &lt; n; i++) {
+    result += str;
+  }
+  return result;
+}
+let repeatedStr = repeat("echo...", 3); // "echo...echo...echo..."
+</code></pre>
+          <p class="code-caption">JS (example)</p>
+          <pre><code class="hljs font-14pt" data-trim>public static String repeat(String str, int n) {
+  String result = str;
+  for (int i = 1; i &lt; n; i++) {
+    result += str;
+  }
+  return result;
+}
+String repeatedStr = repeat("echo...", 3); // "echo...echo...echo..."
+</code></pre>
+          <p class="code-caption">Java (example)</p>
+        </section>
+        <section>
+          <h2>JS Function vs. Python Function</h2>
+          <pre><code class="hijs font-14pt" data-trim>function repeat(str, n) {
+  let result = str;
+  for (let i = 1; i &lt; n; i++) {
+    result += str;
+  }
+  return result;
+}
+let repeatedStr = repeat("echo...", 3); // "echo...echo...echo..."
+</code></pre>
+          <p class="code-caption">JS (example)</p>
+          <pre><code class="hijs font-14pt" data-trim>def repeat(str, n):
+  result = str;
+  for i in range(1, n):
+    result = result + str;
+  return result;
+
+repeatedStr = repeat("echo...", 3) // "echo...echo...echo..."
+</code></pre>
+          <p class="code-caption">Python (example)</p>
+        </section>
+      </section>
 
         <section>
           <h2>Summary of Java vs. JS vs. Python</h2>
@@ -708,27 +1012,19 @@ s = a.join("!");      // "fox!brown!quick!the"
         </section>
 
         <section>
-          <h2>Our Toolbox So Far: HTML/CSS + JS</h2>
+          <h2>The Webdev Toolbox: HTML/CSS + JS</h2>
 
           <p class="small-font centered-figure" style="width: 60%;">
             <img src="../img/execution.png" alt="HTML, CSS, and JS on the browser" />
             <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript#What_is_JavaScript_doing_on_your_page">Image source (MDN)</a> and recommended reading
           </p>
           <p>
-            So far, we have used Atom (or a similar editor) to write HTML/CSS for the
-            structure/styles for our page. We will continue to use Atom to write JavaScript and add
-            behavior.
-          </p>
-          <p>
-            As always, the webpage is rendered by the browser. We will add a link to our JS from HTML
-            (similar to the idea of linking a CSS file) and the browser will execute the JS after
-            the HTML/CSS has been loaded.
+            To develop with JavaScript, we recommend using VisualStudio Code, Atom, Vim (or a similar editor).
           </p>
         </section>
 
         <section>
           <h2>JS/HTML Connection</h2>
-          <p>In the Pre-Check, you were asked to think about some examples of interactive UI elements on webpages.</p>
           <p>There are many HTML5 tags to create a UI! We'll see a few as we learn about adding behavior to our webpages.</p>
           <p>But HTML tags aren't too helpful if we can't do anything with them.</p>
           <p>In general, to add interactivity to our HTML/CSS websites we need to:</p>
@@ -748,7 +1044,7 @@ s = a.join("!");      // "fox!brown!quick!the"
           <p>
             <img src="../img/event-driven-programming.png" alt="event-driven programming" />
           </p>
-          <p>Unlike Java programs, JS programs have no <code>main</code>; they respond to user actions
+          <p>Unlike a language like Java, JS programs have no <code>main</code>; they respond to user actions
           called <strong>events</strong></p>
           <p><strong>Event-Driven Programming</strong>: writing programs driven by <a href="https://codestepbystep.com/problem/view/javascript/events/events">user events</a></p>
         </section>
@@ -849,14 +1145,80 @@ element.onclick = handleFunction;
             More information about tradeoffs <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#What_mechanism_should_I_use">here</a>.
           </p>
         </section>
+          <p><code>document.querySelectorAll</code></p>
+          <p><code>document.querySelector</code></p>
+          <p>There are others, but these are the ones we'll be using.</p>
         </section>
+
         <section>
           <h2>Accessing Elements from the Document in JavaScript</h2>
-          <p><em>Finally...</em> the fun starts.</p>
+          <p>Methods in document and other DOM objects:</p>
+          <table class="code-table">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById" target="_blank">getElementById</a>(id)</td>
+              <td>
+                returns the element having the given id (null if not found)
+              </td>
+            <tr>
+
+            </tr>
+            <tr>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector" target="_blank">querySelector</a>(selector)</td>
+              <td>
+                returns the first element that would be matched by the given CSS selector string
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll" target="_blank">querySelectorAll</a>(selector)</td>
+              <td>
+                returns a collection of all elements that would be matched by the given CSS
+                selector string
+              </td>
+            </tr>
+          </table>
         </section>
 
+        <section>
+					<h2>Handy Shortcut Functions</h2>
+					<p>
+          We will use <code>document.getElementById</code> and
+          <code>document.querySelectorAll</code> a LOT. It's handy to
+						declare a shortcut to help us out. You may use the following in your JS
+            functions (these are exceptions to the rule of having description function
+            names).
+					</p>
+					<pre class="h300px"><code class="hljs" data-trim>/**
+ * Returns the element that has the ID attribute with the specified value.
+ * @param {string} idName - element ID
+ * @returns {object} DOM object associated with id.
+ */
+function id(idName) {
+  return document.getElementById(idName);
+}
 
+/**
+ * Returns the array of elements that match the given CSS selector.
+ * @param {string} selector - CSS query selector
+ * @returns {object[]} array of DOM objects matching the query.
+ */
+function qsa(selector) {
+  return document.querySelectorAll(selector);
+}
 
+/**
+ * Returns the first element that matches the given CSS selector.
+ * @param {string} selector - CSS query selector.
+ * @returns {object} The first DOM object matching the query.
+ */
+function qs(selector) { // less common, but you may find it helpful
+  return document.querySelector(selector);
+}</code></pre>
+					<p class="code-caption">JS</p>
+          <p>We will start using these in examples!</p>
+        </section>
         <section>
           <h2>Accessing an Element by ID</h2>
           <pre><code class="hijs" data-trim>let name = document.getElementById("id");
@@ -867,7 +1229,6 @@ element.onclick = handleFunction;
               <code>document.getElementById</code> returns the DOM object for an element with a given
               <code>id</code> (note that you omit the <code>#</code> when giving an id)
             </li>
-            <li id="example-id">We'll learn about other ways to get DOM elements (e.g. by class) tomorrow and Wednesday!</li>
           </ul>
         </section>
 
@@ -923,7 +1284,7 @@ function changeImage() {
           <h2>Putting it All Together</h2>
           <div class="font-16pt">
           <p>
-            We'll learn more about this tomorrow, but in order for our JS to work when
+            In order for our JS to work when
             attached to an HTML file, we need to wrap any code that interacts with the
             document inside the <em>window's</em> <code>load</code> event
             handler. <code>load</code> is the event listened to on the window to indicate when
@@ -952,135 +1313,321 @@ function changeImage() {
           <p class="code-caption"><a
              href="code/button-example.js">button-example.js</a> (commented example)</p>
           <p class="font-16pt">You can see the HTML output <a
-             href="code/button-example.html">here</a>. On Wednesday, we'll add one more important component to our JS files: the
-            module pattern.
+             href="code/button-example.html">here</a>.
           </p>
         </section>
-        <!--
-        <section>
-          <h2><a target="_blank" href="https://en.wikipedia.org/wiki/Event-driven_programming">Event-Driven Programming</a></h2>
-          <p>
-            <img src="../img/event-driven-programming.png" alt="event-driven programming" />
-          </p>
-          <p>Unlike Java programs, JS programs have no <code>main</code>; they respond to user actions
-          called <strong>events</strong></p>
-          <p><strong>Event-Driven Programming</strong>: writing programs driven by <a href="https://codestepbystep.com/problem/view/javascript/events/events">user events</a></p>
-        </section>
 
         <section>
-          <h2>Handling Events</h2>
-          <pre><code class="hijs" data-trim>
-            // attaching a named function
-            element.onclick = handleFunction;
-            let handleFunction = function() { // attaching onclick function
-              // event handler code
-
-            }
-            </code></pre>
-            <p class="code-caption">JS (onclick template)</p>
-
-            <pre><code class="hijs" data-trim>
-            // (alternative) attaching an "anonymous" function
-            element.onclick = function() { // attaching onclick function
-              // event handler code
-            };
-          </code></pre>
-          <p class="code-caption">JS (onclick template)</p>
-          <p>JavaScript functions can be set as <strong>event handlers</strong></p>
-          <p>When you interact with the element, the function will execute</p>
-          <p><a target="_blank" href="">onclick</a> is just one of many event <code>HTML</code> attributes we'll use</p>
-        </section>
-
-        <section>
-          <h2>Accessing an Element: <code>document.getElementById</code></h2>
-          <pre><code class="hijs" data-trim>
-            let name = document.getElementById("id");
-         </code></pre>
-          <p class="code-caption">JS</p>
-          <p><code>document.getElementById</code> returns the DOM object for an element with a given <code>id</code> (note that you omit the <code>#</code> when giving an id)</p>
-        </section>
-
-        <section>
-          <h2>Back to HTML with Buttons: <code>&lt;button&gt;</code></h2>
-          <pre>
-            <code class="hijs" data-trim>
-              &lt;button id="my-btn"&gt;Click me!&lt;/button&gt;
-          </code></pre>
-          <p class="code-caption">HTML</p>
-          <div class="output">
-            <button style="font-size: 18pt; margin-left: 5px;" onclick="alert('Whooaaaaaaaa...');">Click me!</button>
-            <p class="output-caption">output</p>
-          </div>
-          <p>Button's text appears inside tag; can also contain images</p>
-          <p>To make a responsive button or other UI control:</p>
+          <h2>What's involved in a page event?</h2>
+          <pre><code>source.addEventListener("event", response);
+function response() {
+  // response behavior with possible output/document elements changed
+}</code></pre>
           <ol>
-            <li>Choose the control (e.g., button) and event (e.g., mouse click) of interest</li>
-            <li>Write a JavaScript function to run when the event occurs</li>
-            <li>Attach the function to the event on the control</li>
+            <li>The <strong>source</strong> listening to the event, such as a 
+              button, dropdown, paragraph, etc.). You can
+              also have the window as a source to listen (always for the <code>load</code>
+              event, sometimes for various key events like <code>keypress</code>).
+            </li>
+            <li>The <strong>event</strong> listened to by a source object (e.g. click, load, mouseover,
+              keypress).</li>
+            <li>The <strong>response</strong> for the event (e.g. elements changed)</li>
+          </ol>
+        </section>
+        <section>
+          <h2>So how do I get started with adding interactivity to my page?</h2>
+          <ul>
+            <li>Add event listener to a source element, and respond
+              <ul>
+                <li>What is your source?</li>
+                <li>What is your event(s)?</li>
+                <li>What is the response behavior? Do any elements change as a result?</li>
+              </ul>
+              <li>Add/remove elements in the DOM as a response to an event.</li>
+            </li>
+          </ul>
+          <p>Tip: Draw tables and wireframes!</p>
+        </section>
+
+        <section>
+          <h2>The Notion of "Objects" in JavaScript</h2>
+          <p>
+            Anything you interact with on the page is an object. An object in JavaScript has:
+          </p>
+          <ol>
+            <li>a set of properties (e.g. textContent for DOM
+              objects)</li>
+            <li>built-in functions (e.g. <code>addEventListener</code>). Some
+            objects have different properties/functions than others.
+            </li>
+          </ol>
+          <p>It is helpful to think of the following "types" of objects in JavaScript:</p>
+          <ol>
+            <li>Window and Global DOM objects</li>
+            <li>Objects inside the <code>document</code> (which is a Global DOM object)</li>
+            <li>Event objects (yes, events are objects!)</li>
           </ol>
         </section>
 
         <section>
-          <h2><code>onclick</code> Event Handler: an Example</h2>
-          <pre><code class="hijs" data-trim>
-            &lt;img id="pokeball" src="images/pokeball.jpg" alt="a pokeball" /&gt;
-            &lt;button id="demo-btn"&gt;Click me!&lt;/button&gt;
-          </code></pre>
-          <p class="code-caption">HTML</p>
-          <pre>
-            <code class="hijs" data-trim>
-            let demoButton = document.getElementById("demo-btn");
-            demoButton.onclick = changeImg;
-
-            function changeImage() {
-              let pokeballImg = document.getElementById("pokeball");
-              pokeballImg.src = "images/mystery.gif";
-            }
-          </code></pre>
-          <p class="code-caption">JS</p>
-          <script>
-            function changeImage() {
-              let pokeballImg = document.getElementById("pokeball");
-              pokeballImg.src = "../img/mystery.gif";
-            }
-          </script>
-          <div class="output">
-            <img id="pokeball" style="height: 160px; margin-bottom: -10px;" src="../img/pokeball.jpg" alt="a pokeball" />
-            <button style="font-size: 18pt; margin-left: 15px; margin-bottom: -25px;" onclick="changeImage();">Click me!</button>
-            <p class="output-caption">output</p>
-          </div>
+          <h2>The window and the DOM</h2>
+          <div class="side-by-side">
+            <div>
+              <img src="../img/dom-bom.png" class="centered-figure" alt="window diagram" />
+              <p class="citation"><a href="https://javascript.info/browser-environment">Image source</a></p>
+            </div>
+            <div>
+              <p>The <code>window</code> is a global object your JavaScript programs have access to, representing the browser window.</p>
+              <p>Has access to the "DOM" document tree - the "load" event is fired when the DOM tree is done loading on the page.</p>
+              <p>The <code>document</code> object gives access to all page content (body, body's children, etc.)
+           </div>
+         </div>
         </section>
 
         <section>
-					<h2><code>onclick</code> Event Handler: Example with Anonymous Function</h2>
-          <pre><code class="hijs" data-trim style="font-size: 14pt">
-            &lt;img id="pokeball" src="images/pokeball.jpg" alt="a pokeball" /&gt;
-            &lt;button id="demo-btn2"&gt;Click me!&lt;/button&gt;
-          </code></pre>
-          <p class="code-caption">HTML</p>
-          <pre>
-            <code class="hijs" data-trim style="font-size: 14pt">
-            let demoButton = document.getElementById("demo-btn");
-            demoButton.onclick = function() {
-              let pokeballImg = document.getElementById("pokeball");
-              pokeballImg.src = "images/mystery.gif";
-            }
-          </code></pre>
-          <p class="code-caption">JS</p>
-          <script>
-            function changeImage2() {
-              let pokeballImg = document.getElementById("pokeball2");
-              pokeballImg.src = "../img/mystery.gif";
-            }
-          </script>
-          <div class="output">
-            <img id="pokeball2" style="height: 160px; margin-bottom: -10px;" src="../img/pokeball.jpg" alt="a pokeball" />
-            <button style="font-size: 18pt; margin-left: 15px; margin-bottom: -25px;"
-              onclick="changeImage2();">Click me!</button>
-            <p class="output-caption">output</p>
-          </div>
+          <h2>Listening to the window "load" event</h2>
+           <p>You can only access document elements after the "load" event has fired.</p>
+           <pre><code>"use strict";
+(function() {
+  window.addEventListener("load", init);
+  // no access to the document here
+
+  function init() {
+    // we now have access to the DOM tree!
+    // set up your initial document event handlers here.
+  }
+})();</code></pre>
+<p class="code-caption">JS</p>
+</section>
+
+        <section>
+          <h3>So once our DOM is ready, how do we get our page elements?</h3>
+          <ol>
+            <li>Ask for them by id: <code>document.getElementyById(...)</code></li>
+            <li class="space-below">Query for them with CSS style selectors:
+              <ul>
+                <li><code>document.querySelector(...)</code></li>
+                <li><code>document.querySelectorAll(...)</code></li>
+              </ul>
+            <li>Make new ones! <code>document.createElement(...)</code> (Wednesday)</li>
+          </ol>
         </section>
-        -->
+
+        <section>
+          <h2>Event Listeners</h2>
+          <p>We have two functions to manage events and response functions for elements</p>
+          <p>Use <code>addEventListener</code> to attach an event listener</p>
+          <p>Use <code>removeEventListener</code> to detach an event listener (must provide a named function reference that has been added for the listened event)</p>
+        </section>
+
+        <section>
+          <h2><samp>addEventListener</samp> with one event</h2>
+          <img src="../img/addEventListener.png" />
+        </section>
+
+        <section>
+          <h2><samp>addEventListener</samp> with multiple events</h2>
+          <img src="../img/addEventListenerMultiple.png" />
+        </section>
+
+        <section>
+          <h2><samp>addEventListener</samp> with the Mystery Box page</h2>
+          <img class="half-width centered-figure" src="../img/event-handling-full.jpg" />
+        </section>
+
+        <section>
+          <h2><samp>removeEventListener</samp></h2>
+          <img src="../img/removeEventListener.jpg" />
+        </section>
+
+        <section>
+          <h2>Removing Event Listeners: Example</h2>
+          <pre><code class="hljs">function init() {
+  let box = document.getElementById("box");
+  box.addEventListener("mouseover", mouseOverResponse);
+  box.addEventListener("dblclick", turnOffBox);
+}
+
+function mouseOverResponse() {
+  console.log("You moved the mouse over a box!");
+}
+
+function turnOffBox() {
+  let box = document.getElementById("box");
+  box.removeEventListener("mouseover", mouseOverResponse);
+  console.log("You turned off the box!");
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Running solution: <a href="code/box-events.html">box-events.html</a></p>
+        </section>
+        <section>
+          <h3>Practice On Your Own</h3>
+          <p>What if we wanted to click the image instead of the button to "open the box"?<p>
+          <p>What if we wanted to add two more buttons to hide/show the box?</p>
+        </section>
+
+        <section>
+          <h2>Events are also Objects!</h2>
+          <p>
+            Recall that the event handler function can be attached to objects (window, DOM
+            elements, etc.)
+          </p>
+          <pre><code class="hijs">sourceEl.addEventListener("click", responseFunction);
+
+function responseFunction(e) {
+  // we can access the click Event object here!
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>
+            When the event occurs, <strong>an Event object is created</strong> and passed to the
+            event listener. You can "catch" this event object as an optional parameter to get
+            more information about the event.
+          </p>
+          <p>Example: <a href="code/event-objects.html" target="_blank">event-objects.html</a></p>
+        </section>
+        <section>
+          <h2>Common Types of JavaScript Events</h2>
+          <table class="code-table font-14pt">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>load</td>
+              <td>Webpage has finished loading the document</td>
+            </tr>
+            <tr>
+              <td>scroll</td>
+              <td>User has scrolled up or down the page</td>
+            <tr>
+            <tr>
+              <td>click</td>
+              <td>A pointing device (e.g. mouse) has been pressed and released on an element</td>
+            </tr>
+            <tr>
+              <td>dblclick</td>
+              <td>A pointing device button is clicked twice on the same element</td>
+            </tr>
+            <tr>
+              <td>keydown</td>
+              <td>Any key is pressed down</td>
+            </tr>
+            <tr>
+              <td>keyup</td>
+              <td>Any key is released</td>
+            </tr>
+            <tr>
+              <td>mouseenter</td>
+              <td>A pointing device is moved onto an element that has the attached listenere</td>
+            </tr>
+            <tr>
+              <td>mouseover</td>
+              <td>A pointing device is moved onto the element that has the listener attached
+              to itself or one of its children</td>
+            </tr>
+            <tr>
+              <td>mousemove</td>
+              <td>A pointing device is moved over an element</td>
+            </tr>
+            <tr>
+              <td>mousedown</td>
+              <td>A pointing device button is pressed on an element</td>
+            </tr>
+            <tr>
+              <td>mouseup</td>
+              <td>A pointing device button is released over an element</td>
+            </tr>
+          </table>
+          <p>We'll cover more later (you can find a full list <a
+            href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank">here</a>),
+          but today we'll demo <code>click</code>!</p>
+        </section>
+        <section>
+          <h3>Event Object Properties</h3>
+          <p>Event objects contain properties about an event that occurred</p>
+          <p>What types of properties do you think an Event object has?</p>
+          <img src="hidden/event-properties.png" class="fragment half-width centered-figure" alt="Event Properties" />
+        </section>
+        <section>
+          <h2>The Optional Event Listener Parameter</h2>
+          <p>JavaScript gives us a really useful way to get more information about an
+          event that fired the <a
+                     href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#The_event_listener_callback">callback
+                     function</a> by accepting an optional parameter to the
+          attached function representing the event object.
+          </p>
+          <p>Conventionally this event object is given the name "e" or "evt"</p>
+          <pre><code class="hijs font-12pt">demoBtn.addEventListener("click", logClickData);
+
+function logClickData(e) {
+  console.log("Button clicked!");
+  console.log(e.type); // "click"
+  console.log(e.currentTarget); // "#add-btn"
+  console.log(e.timestamp); // timestamp the event was created (in milliseconds)
+}</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+          <section>
+            <h2>Hiding/Showing Elements</h2>
+            <p>How can we hide display an HTML element?</p>
+            <div class="fragment">
+            <pre><code>.hidden {
+  display: none;
+}</code></pre>
+            <p class="code-caption">CSS</p>
+            <p>In JS, it's possible to modify the style properties of an element directly.
+            <pre><code>id("box-img").style.display = "none";</code></pre>
+            <p class="code-caption">JS</p>
+            <p>What's wrong with that?</p>
+            <p class="fragment">How can we add/remove CSS classes with JS?</p>
+          </section>
+
+      <section>
+        <h2>Modifying the <code>classList</code></h2>
+        <p>You can manipulate the DOM element's
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList" target="_blank">classList</a>
+          with the following methods:
+        </p>
+        <table class="code-table half-width-columns">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>add(classname)</td>
+            <td>
+              Adds the specified class(es) to the list of classes on this element. Any that are
+              already in the classList are ignored.
+            </td>
+          </tr>
+          <tr>
+            <td>remove(classname)</td>
+            <td>
+              Removes the specified class(es) to the list of classes from this element. Any that are
+              already not in the classList are ignored without an error
+            </td>
+          </tr>
+          <tr>
+            <td>toggle(classname)</td>
+            <td>
+              Removes a class that is in the list, adds a class that is not in the list.
+            </td>
+          </tr>
+          <tr>
+            <td>contains(classname)</td>
+            <td>
+              Returns true if the class is in the DOM element's classList, false if not.
+            </td>
+          </tr>
+          <tr>
+            <td>replace(oldclass, newclass)</td>
+            <td>
+              Replaces the old class with the new class.
+            </td>
+          </tr>
+        </table>
+      </section>
         <section>
         <h2>Resources and Tips</h2>
           <p>
