@@ -1101,7 +1101,6 @@ repeatedStr = repeat("echo...", 3) // "echo...echo...echo..."
         </section>
 
         <section>
-          <section>
           <h2>Handling Events with <a
               href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#addEventListener()_and_removeEventListener()"
               target="_blank"><code>addEventListener</code></a></h2>
@@ -1121,6 +1120,23 @@ element.addEventListener("click", handleFunction);
             and more information on slide below)
           </li>
           </ul>
+        </section>
+        <section>
+          <h2>What's involved in a page event?</h2>
+          <pre><code>source.addEventListener("event", response);
+function response() {
+  // response behavior with possible output/document elements changed
+}</code></pre>
+          <ol>
+            <li>The <strong>source</strong> listening to the event, such as a 
+              button, dropdown, paragraph, etc.). You can
+              also have the window as a source to listen (always for the <code>load</code>
+              event, sometimes for various key events like <code>keypress</code>).
+            </li>
+            <li>The <strong>event</strong> listened to by a source object (e.g. click, load, mouseover,
+              keypress).</li>
+            <li>The <strong>response</strong> for the event (e.g. elements changed)</li>
+          </ol>
         </section>
         <section>
           <h2>Older Alternative: <code>onevent</code> handlers</h2>
@@ -1145,11 +1161,19 @@ element.onclick = handleFunction;
             More information about tradeoffs <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#What_mechanism_should_I_use">here</a>.
           </p>
         </section>
-          <p><code>document.querySelectorAll</code></p>
-          <p><code>document.querySelector</code></p>
-          <p>There are others, but these are the ones we'll be using.</p>
-        </section>
 
+        <section>
+          <h3>So once our DOM is ready, how do we get our page elements?</h3>
+          <ol>
+            <li>Ask for them by id: <code>document.getElementyById(...)</code></li>
+            <li class="space-below">Query for them with CSS style selectors:
+              <ul>
+                <li><code>document.querySelector(...)</code></li>
+                <li><code>document.querySelectorAll(...)</code></li>
+              </ul>
+            <li>Make new ones! <code>document.createElement(...)</code> (Wednesday)</li>
+          </ol>
+        </section>
         <section>
           <h2>Accessing Elements from the Document in JavaScript</h2>
           <p>Methods in document and other DOM objects:</p>
@@ -1218,18 +1242,6 @@ function qs(selector) { // less common, but you may find it helpful
 }</code></pre>
 					<p class="code-caption">JS</p>
           <p>We will start using these in examples!</p>
-        </section>
-        <section>
-          <h2>Accessing an Element by ID</h2>
-          <pre><code class="hijs" data-trim>let name = document.getElementById("id");
-</code></pre>
-          <p class="code-caption">JS</p>
-          <ul>
-            <li>
-              <code>document.getElementById</code> returns the DOM object for an element with a given
-              <code>id</code> (note that you omit the <code>#</code> when giving an id)
-            </li>
-          </ul>
         </section>
 
         <section>
@@ -1318,23 +1330,6 @@ function changeImage() {
         </section>
 
         <section>
-          <h2>What's involved in a page event?</h2>
-          <pre><code>source.addEventListener("event", response);
-function response() {
-  // response behavior with possible output/document elements changed
-}</code></pre>
-          <ol>
-            <li>The <strong>source</strong> listening to the event, such as a 
-              button, dropdown, paragraph, etc.). You can
-              also have the window as a source to listen (always for the <code>load</code>
-              event, sometimes for various key events like <code>keypress</code>).
-            </li>
-            <li>The <strong>event</strong> listened to by a source object (e.g. click, load, mouseover,
-              keypress).</li>
-            <li>The <strong>response</strong> for the event (e.g. elements changed)</li>
-          </ol>
-        </section>
-        <section>
           <h2>So how do I get started with adding interactivity to my page?</h2>
           <ul>
             <li>Add event listener to a source element, and respond
@@ -1400,18 +1395,6 @@ function response() {
 <p class="code-caption">JS</p>
 </section>
 
-        <section>
-          <h3>So once our DOM is ready, how do we get our page elements?</h3>
-          <ol>
-            <li>Ask for them by id: <code>document.getElementyById(...)</code></li>
-            <li class="space-below">Query for them with CSS style selectors:
-              <ul>
-                <li><code>document.querySelector(...)</code></li>
-                <li><code>document.querySelectorAll(...)</code></li>
-              </ul>
-            <li>Make new ones! <code>document.createElement(...)</code> (Wednesday)</li>
-          </ol>
-        </section>
 
         <section>
           <h2>Event Listeners</h2>
@@ -1546,7 +1529,7 @@ function responseFunction(e) {
           <h3>Event Object Properties</h3>
           <p>Event objects contain properties about an event that occurred</p>
           <p>What types of properties do you think an Event object has?</p>
-          <img src="hidden/event-properties.png" class="fragment half-width centered-figure" alt="Event Properties" />
+          <img src="../img/event-properties.png" class="fragment half-width centered-figure" alt="Event Properties" />
         </section>
         <section>
           <h2>The Optional Event Listener Parameter</h2>
