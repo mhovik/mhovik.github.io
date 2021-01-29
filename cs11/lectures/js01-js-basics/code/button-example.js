@@ -19,7 +19,7 @@
     function init() {
         // get button
         // attach a click event to the changeImage callback
-        btn = document.getElementById('demo-btn');
+        let btn = document.getElementById('demo-btn');
         btn.addEventListener('click', changeImage);
         // Could also use:
         // let btn = document.querySelector('#demo-btn');
