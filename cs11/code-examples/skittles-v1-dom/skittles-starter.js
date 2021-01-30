@@ -6,13 +6,14 @@
  * can try to guess how many Skittles of a certain color are in a jar,
  * and can see results of incorrect/correct guesses.
  *
- * 1. Implement view switching functions: gameView() and setupView()
+ * 1. Implement view switching functions
  * 2. Finish getRandomColor()
- *    - Get new randon game color based on the checked radio button value
- *
- * Extra practice (appending/removing from the DOM) on your own:
- *    - Try to finish all of the TODOs for more practice to meet the expected behavior of the
- *      demo video!
+ *    - Get new random game color based on the checked radio button value
+ * 3. Finish fillJar()
+ *    - Add skittles to the jar using random colors
+ * 4. Finish clearJar()
+ *    - When a user guesses correctly, end the game and clear the jar:
+ * 5. When a skittle is double-clicked, remove it.
  */
 (function() {
   "use strict";
@@ -27,13 +28,8 @@
    */
   function initialize() {
     // Start button: Hide setup view, show game view, start a game with a new color
-    id("start-btn").addEventListener("click", startGame);
-
     // Guess button: Calculate whether a user's guess count is correct
-    id("guess-btn").addEventListener("click", makeGuess);
-
-    // Reset button: Stop game, hide game view, show setup view
-    id("reset-btn").addEventListener("click", resetGame);
+    // (Later) Reset button: Stop game, hide game view, show setup view
   }
 
   /* ----------------------- View-Switching Functions --------------------- */
@@ -73,9 +69,6 @@
   function fillJar() {
     // fill the jar with a random number of skittles!
     let skittleCount = Math.ceil(Math.random() * MAX_SKITTLES);
-    for (let i = 0; i < skittleCount; i++) {
-      addSkittle();
-    }
   }
 
   /**
@@ -83,10 +76,7 @@
    * considered in current game) to the #jar.
    */
   function addSkittle() {
-    let skittle = document.createElement("div");
-    skittle.classList.add("skittle");
-    let randomColor = getRandomColor();
-    skittle.classList.add(randomColor);
+    // TODO: Create a skittle div with a random color class
     // TODO: Add to the jar!
   }
 
@@ -94,16 +84,10 @@
    * (Provided): Removes all Skittles from the Jar.
    */
   function clearJar() {
-    // Recall three ways to remove children:
+    // Three ways to remove children:
     // Way 1: parentNode.removeChild(child)
     // Way 2: childNode.remove()
     // Way 3: parentNode.innerHTML = "";
-    let skittles = qsa(".skittle");
-    for (let i = 0; i < skittles.length; i++) {
-      skittles[i].remove();
-      // can alternatively use:
-      // skittles[i].parentNode.removeChild(skittles[i]);
-    }
   }
 
   /* ----------------------- Start/End Game Functions --------------------- */
@@ -116,19 +100,17 @@
     // - updated text with the color
     let gameColor = getRandomColor();
     
-    fillJar();
+    // fillJar
 
     // Switch views when game is started
-    gameView();
+    // gameView();
   }
 
   /**
-   * (Provided): Ends the game, display a result message.
+   * Ends the game, display a result message.
    */
   function endGame() {
-    id("guess").value = "";
-    id("color").textContent = "";
-    id("results").innerText = "You won! Nice work :)";
+    // TODO: What do we neeed to clear? Provide a result message: "You won! Nice work :)"
   }
 
   /**
@@ -136,43 +118,21 @@
    */
   function resetGame() {
     // reset guess count to 0 for later games
-    id("guess-count").innerText = 0;
-
     // clear input box
-    id("guess").value = "";
-
     // clear game color and results text
-    id("color").innerText = "";
-    id("results").innerText = "";
-
+    // Go back to setupView
     setupView();
   }
 
   /* ----------------------- User-Guessing Functions --------------------- */
 
   /**
-   * (Provided): Processes a guessed Skittle count from the user. If input is negative,
+   * Processes a guessed Skittle count from the user. If input is negative,
    * diplays a message saying so. Otherwise if the guess was incorrect, displays a
    * message saying whether the guess was high/low. Otherwise the user wins!
    */
   function makeGuess() {
-    let guessValue = parseInt(id("guess").value);
-    if (guessValue < 0) {
-      id("results").innerText = "You must enter a non-zero guess!";
-    } else if (guessValue >= 0) { // make sure not undefined
-      let correctCount = qsa(".skittle." + id("color").className).length;
-      if (guessValue === correctCount) {
-        endGame();
-      } else {
-        let resultMsg = "Not quite! (hint: your guess is a bit ";
-        if (guessValue <= correctCount) {
-          resultMsg += "low)";
-        } else {
-          resultMsg += "high)";
-        }
-        id("results").innerText = resultMsg;
-      }
-    }
+
   }
 
   /* ------------------------------ Helper Functions ------------------------------ */

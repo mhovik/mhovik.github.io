@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!-- 
+  Author: Melissa Hovik
+  CS 11 - JS
+  HTML for Skittles Game Exercise (V1: DOM Manipulation)
+
+  Objectives:
+  -----------
+  Part 1:
+  - Practice using document.querySelectorAll to select all green skittle divs.
+  Part 2:
+  - Add two "views" to switch between to start/end games using classList and CSS classes.
+    Game Setup View: <article id="setup-view">
+    Game Play View : <article id="game-play">
+  - Factor out all hard-coded divs from #jar HTML and dynamically create green skittle divs to append to jar using JS!
+  Part 3:
+  - Implement getColorCount() to get the number of colors considered in a game. 
+  - Use getColorCount() to randomize the color of skittles added to the jar.
+  - Implement eatSkittle() to remove a skittle child from the jar parent!
+ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Skittles Game</title>
+  <script src="skittles-starter.js"></script>
+  <link rel="stylesheet" href="skittles.css">
+</head>
+<body>
+  <header>
+    <h1>How many <span id="color" class="green">green </span>Skittles are in the jar?</h1>
+  </header>
+
+  <main>
+    <!-- The Skittles jar! -->
+    <div id="jar">
+      <!-- Starter testing skittles until we learn how to add them to the page with JS. -->
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle red"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle red"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle red"></div>
+      <div class="skittle green"></div>
+      <div class="skittle blue"></div>
+      <div class="skittle green"></div>
+      <div class="skittle green"></div>
+    </div>
+    <!-- Starter version:  -->
+    <!-- We will add the "hidden" class to the second view (#menu-view) ,
+         but it's easier to test our JS for now when we can see both buttons. -->
+    <article id="game-view">
+      <button id="start-btn">Start!</button>
+    </article>
+
+    <article id="menu-view">
+      <button id="answer-btn">Give me the answer!</button>
+      <p id="results" class="hidden">There are <span id="count"></span> skittles in the jar!</p>
+    </article>
+
+    <!-- Version with views
+    <article id="game-view">
+      <p>
+        <label>Your Guess: <input type="number" id="guess" /></label>
+        <button id="guess-btn">Guess</button>
+      </p>
+      <p id="results"></p>
+      <p>Guesses so far: <span id="guess-count">0</span></p>
+
+
+      <button id="reset-btn">Reset Game</button>
+    </article>
+    -->
+
+    <!-- Main Menu View -->
+    <!--
+    <article id="menu-view">
+      <p>
+        How many colors do you want in your rainbow?
+        <label><input type="radio" name="color-count" value="2"> 2</label>
+        <label><input type="radio" name="color-count" value="4" checked> 4</label>
+        <label><input type="radio" name="color-count" value="6"> 6</label>
+      </p>
+    -->
+      <!-- Button for starting new game with selected color -->
+    <!--
+      <button id="start-btn">Start!</button>
+    </article>
+    -->
+
+    <!-- Game View -->
+    <!-- <article id="game-view" class="hidden"> -->
+  </main>
+</body>
+</html

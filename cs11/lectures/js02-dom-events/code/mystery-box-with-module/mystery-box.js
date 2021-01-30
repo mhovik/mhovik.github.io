@@ -1,7 +1,7 @@
 /**
- * Melisssa Hovik
- * CSE 154 Summer 2019
- * Mystery Box Solution using Module Pattern shown in Lecture 7
+ * @author: Melisssa Hovik
+ * CS 11 JS
+ * Mystery Box Solution using Module Pattern 
  */
 "use strict";
 (function() {

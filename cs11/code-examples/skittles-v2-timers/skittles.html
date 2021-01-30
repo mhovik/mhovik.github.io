@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<!--
-  CSE 154 Summer 2019
-  Melissa Hovik
-  Starter HTML for Skittles Game Exercise (V1)
-  -->
+<!-- 
+ Author: Melissa Hovik
+ CS 11 - JS
+ HTML for Skittles Game Exercise (V1: DOM Manipulation)
+ -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Skittles Game</title>
-  <script src="skittles.js"></script>
   <link rel="stylesheet" href="skittles.css">
+  <script src="skittles.js"></script>
 </head>
 <body>
   <header>
@@ -18,31 +18,27 @@
 
   <main>
     <!-- The Skittles jar! -->
-    <div id="jar"></div>
-
-    <!-- Main Menu View -->
-    <article id="menu-view">
+    <div id="jar">
+    </div>
+    <article id="game-setup">
       <p>
         How many colors do you want in your rainbow?
         <label><input type="radio" name="color-count" value="2"> 2</label>
         <label><input type="radio" name="color-count" value="4" checked> 4</label>
         <label><input type="radio" name="color-count" value="6"> 6</label>
       </p>
-      <!-- Button for starting new game with selected color -->
       <button id="start-btn">Start!</button>
     </article>
 
-    <!-- Game View -->
-    <article id="game-view" class="hidden">
+    <article id="game-play" class="hidden">
       <p>
         <label>Your Guess: <input type="number" id="guess" /></label>
         <button id="guess-btn">Guess</button>
       </p>
       <p id="results"></p>
       <p>Guesses so far: <span id="guess-count">0</span></p>
-
       <button id="reset-btn">Reset Game</button>
     </article>
   </main>
 </body>
-</html
+</html>

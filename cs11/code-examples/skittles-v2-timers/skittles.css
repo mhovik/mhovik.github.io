@@ -63,6 +63,18 @@ header {
   color: #39eef9;
 }
 
+#color.gray {
+  color: gray;
+}
+
+#color.pikachuyellow {
+  color: #f3d77b;
+}
+
+#color.uwpurple {
+  color: #4b2e83;
+}
+
 .skittle.red {
   background-color: #ff2626;
 }
@@ -73,6 +85,18 @@ header {
 
 .skittle.blue {
   background-color: #39eef9;
+}
+
+.skittle.gray {
+  background-color: gray;
+}
+
+.skittle.pikachuyellow {
+  background-color: #f3d77b;
+}
+
+.skittle.uwpurple {
+  background-color: #4b2e83;
 }
 
 .hidden {
