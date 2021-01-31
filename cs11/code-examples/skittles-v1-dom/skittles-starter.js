@@ -1,7 +1,4 @@
 /**
- * CSE 154 | Spring 2019
- * Melissa Hovik
- *
  * A program to implement the Skittles Game (V1) where a user
  * can try to guess how many Skittles of a certain color are in a jar,
  * and can see results of incorrect/correct guesses.
@@ -114,7 +111,7 @@
   }
 
   /**
-   * (Provided): Stops the game, switching back to menu view.
+   * Stops the game, switching back to menu view.
    */
   function resetGame() {
     // reset guess count to 0 for later games
@@ -162,5 +159,4 @@
   function qsa(query) {
     return document.querySelectorAll(query);
   }
-
 })();

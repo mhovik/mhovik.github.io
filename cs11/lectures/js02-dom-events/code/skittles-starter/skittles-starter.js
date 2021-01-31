@@ -53,7 +53,7 @@
 
   // Part 5: Get a random color for a skittle (we'll add more colors soon!)
   function getRandomColor() {
-    let COLORS = ["red", "green", "blue"];
+    const COLORS = ["red", "green", "blue"];
     // 5.1. Get a random integer number using length of COLORS. Hint: Use Math.random() to get a number between [0, 1).
 
     // 5.2 Return a string at the random index of COLORS

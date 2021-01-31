@@ -1,23 +1,13 @@
 /**
- * Starter Code for Skittles V2 (Lecture 9)
- * Updates:
- *
- * From Pre-Check:
- * Use <input type='number' ...> to implement a guessing feature for the
- * user to input a guess.
- *
- * In Lecture 9:
- * TODO: Implement getColorCount to use <input type='radio' ...> buttons to
- *       know how many colors used in a game.
- * TODO: Use getColorCount() when a new game is started to...
- * - choose a random color for a new game (change from hard-coding green).
- * - fill the jar with 2, 4, or 6 colors.
+ * Solution code for Skittles V2: Timers
  */
 "use strict";
+  let seconds = 0;
 (function() {
   // the Skittle colors available for the game
-  const COLORS = ["red", "green", "blue", "uwpurple", "pikachuyellow", "gray"];
+  const COLORS = ["red", "green", "blue", "purple", "pikachuyellow", "gray"];
   const MAX_SKITTLES = 50;
+  let timer = null;
 
   window.addEventListener("load", init);
 
@@ -46,6 +36,10 @@
 
     fillJar();
     changeViews();
+    timer = setInterval(() => {
+      seconds++;
+    }, 1000);
+
   }
 
   /**
@@ -86,11 +80,6 @@
   }
 
   /**
-   * -------------------------------------------------------------------------------
-   * NEW: Adding guess input element and color count radio buttons
-   * -------------------------------------------------------------------------------
-   */
-  /**
    * Returns a random color string from the COLORS array. For now, we consider all colors, but we will
    * uses the radio buttons to limit the number of colors in a game (2, 4, or 6).
    */
@@ -110,9 +99,12 @@
     if (!id("guess").value) {
       id("results").textContent = "Please enter a number to guess.";
     } else if (checkGuess()) { // correct case
-      id("results").textContent = "You guessed correctly!";
+      id("results").textContent = "You guessed correctly in " + seconds + " seconds!";
       id("guess-btn").disabled = true;
       id("guess").disabled = true;
+      clearInterval(timer);
+      timer = null;
+      seconds = 0;
     } else { // incorrect case
       // How could we provide a better hint?
       id("results").textContent = "Not quite. Try again!";

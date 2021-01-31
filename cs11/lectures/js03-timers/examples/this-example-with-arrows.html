@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>This Keyword with Arrow Functions</title>
+  <link rel="stylesheet" href="example-styles.css">
+  <script src="this-example-with-arrows.js"></script>
+</head>
+<body>
+  <h1><code>this</code> Examples in click event handlers</h1>
+  <p>
+    We can access the clicked button with "this" with named or anonymous functions, but arrow functions keep the scope
+    they were defined in (e.g. the global window)
+  </p>
+  <div class="side-by-side">
+  <pre class="js-code">
+function init() {
+  <span class="example1">id("btn1")</span>.addEventListener("click", namedFunction);
+
+  <span class="example2">id("btn2")</span>.addEventListener("click", function() {
+    console.log("this === " + <span class="example2">this</span>); // this === #btn2
+    <span class="example2">this</span>.disabled = true;
+  });
+
+  <span class="example3">id("btn3")</span>.addEventListener("click", () => {
+    console.log("this === " + this); // this === window
+    this.disabled = true;
+  });
+}
+
+function namedFunction() {
+  console.log("this === " + <span class="example1">this</span>); // this === #btn1
+  <span class="example1">this</span>.disabled = true;
+}</pre>
+    <div>
+      <p>Console output:</p>
+      <div class="console-area">
+        <p id="line1"></p>
+        <p id="line2"></p>
+      </div>
+    </div>
+  </div>
+
+  <p>Test "this" in a named function: <button id="btn1" class="example1">I'm #btn1!</button></p>
+  <p>Test "this" in an anonymous function: <button id="btn2" class="example2">I'm #btn2!</button></p>
+  <p>Test "this" in an arrow function: <button id="btn3" class="example3">I'm #btn3!</button></p>
+</body>
+</html>

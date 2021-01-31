@@ -1,0 +1,62 @@
+body, button {
+  font-family: Verdana, sans-serif;
+  font-size: 12pt;
+}
+
+.side-by-side {
+  display: flex;
+  align-items; flex-end;
+}
+
+.side-by-side > div:nth-child(2) {
+  flex-grow: 1;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-by-side .console-area {
+  flex-grow: 1;
+}
+
+button {
+  font-size: 12pt;
+  background-color: black;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.example1 {
+  color: #00dcff;
+}
+
+.example2 {
+  color: limegreen;
+}
+
+.example3 {
+  color: orange;
+}
+
+pre.js-code {
+  font-size: 12pt;
+  background-color: #000;
+  padding: 5px 20px 5px 5px;
+  color: lightgray;
+  margin: 0
+}
+
+button:disabled {
+  opacity: 0.25;
+}
+
+.console-area {
+  background-color: white;
+  border: 3px solid #7f7f7f;
+  font-family: Consolas, monospace;
+  padding-left: 5px;
+}
+
+table {
+  border: 2px solid black;
+}

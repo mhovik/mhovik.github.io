@@ -1,5 +1,6 @@
 /*
- * CSS for Skittles Pre-Check 
+ * CSE 154 | Summer 2019
+ * CSS for Skittles Game Exercise
  */
 main {
   align-items: center;
@@ -10,7 +11,7 @@ main {
   width: 60%;
 }
 
-/* Remember that button styles aren't inherited from body, so have to 
+/* Remember that button styles aren't inherited from body, so have to
  * set them explicitly */
 body, button {
   font-family: "Trebuchet MS", sans-serif;
@@ -24,6 +25,18 @@ header {
   text-align: center;
 }
 
+#jar {
+  align-content: baseline;
+  border: 2pt solid black;
+  border-radius: 4pt 4pt;
+  display: flex;
+  height: 400px;
+  flex-wrap: wrap-reverse;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+  width: 250px;
+}
+
 /* Styles shared by all Skittles */
 .skittle {
   border-radius: 50%;
@@ -33,23 +46,11 @@ header {
   width: 20px;
 }
 
-#jar {
-  border: 2pt solid black;
-  border-radius: 4pt 4pt;
-  height: 400px;
-  display: flex;
-  margin-bottom: 10px;
-  width: 250px;
-  /* TODO: Make a flex container! */
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-content: baseline;
-}
-
 #color {
   font-weight: bold;
 }
 
+/* These are prettier red, green, blue skittles */
 #color.red {
   color: #ff2626;
 }
@@ -70,8 +71,8 @@ header {
   color: #f3d77b;
 }
 
-#color.purple {
-  color: gray;
+#color.uwpurple {
+  color: #4b2e83;
 }
 
 .skittle.red {
@@ -94,8 +95,8 @@ header {
   background-color: #f3d77b;
 }
 
-.skittle.purple {
-  background-color: purple;
+.skittle.uwpurple {
+  background-color: #4b2e83;
 }
 
 .hidden {

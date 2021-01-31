@@ -1,5 +1,6 @@
 /*
- * CSE 154 | Summer 2019
+ * CS 11 JS
+ * Winter 2021
  * CSS for Skittles Game Exercise
  */
 main {
@@ -71,7 +72,7 @@ header {
   color: #f3d77b;
 }
 
-#color.uwpurple {
+#color.purple {
   color: #4b2e83;
 }
 
@@ -95,7 +96,7 @@ header {
   background-color: #f3d77b;
 }
 
-.skittle.uwpurple {
+.skittle.purple {
   background-color: #4b2e83;
 }
 

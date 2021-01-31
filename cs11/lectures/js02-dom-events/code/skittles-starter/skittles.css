@@ -1,5 +1,6 @@
 /*
  * CS 11 JS
+ * Winter 2021
  * CSS for Skittles Game Exercise
  */
 main {
@@ -63,6 +64,18 @@ header {
   color: #39eef9;
 }
 
+#color.gray {
+  color: gray;
+}
+
+#color.pikachuyellow {
+  color: #f3d77b;
+}
+
+#color.purple {
+  color: #4b2e83;
+}
+
 .skittle.red {
   background-color: #ff2626;
 }
@@ -73,6 +86,18 @@ header {
 
 .skittle.blue {
   background-color: #39eef9;
+}
+
+.skittle.gray {
+  background-color: gray;
+}
+
+.skittle.pikachuyellow {
+  background-color: #f3d77b;
+}
+
+.skittle.purple {
+  background-color: #4b2e83;
 }
 
 .hidden {

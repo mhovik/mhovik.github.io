@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <!--
-  CSE 154 Spring 2019
+  CSE 154 Summer 2019
   Melissa Hovik
-  Starter HTML for Skittles Game Exercise (V1)
+  Starter HTML for Skittles Game Exercise (V1). This is just the a jar with skittles.
+  Monday Lecture: V0
+    - Practice using document.querySelectorAll to select all green skittle divs.
+  Wednesday Lecture:
+    - Add two "views" to switch between to start/end games using classList and CSS classes.
+      Game Setup View: <article id="setup-view">
+      Game Play View : <article id="game-play">
+    - Factor out all hard-coded divs from #jar HTML and dynamically create green skittle divs to append to jar using JS!
+    - Randomize the color of skittles added to the jar.
   -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Skittles Game</title>
-  <script src="skittles.js"></script>
   <link rel="stylesheet" href="skittles.css">
+  <script src="precheck.js"></script>
 </head>
 <body>
   <header>
@@ -19,28 +27,23 @@
   <main>
     <!-- The Skittles jar! -->
     <div id="jar"></div>
-
-    <!-- Main Menu View -->
-    <article id="menu-view">
+    <article id="game-setup">
       <p>
         How many colors do you want in your rainbow?
         <label><input type="radio" name="color-count" value="2"> 2</label>
         <label><input type="radio" name="color-count" value="4" checked> 4</label>
         <label><input type="radio" name="color-count" value="6"> 6</label>
       </p>
-      <!-- Button for starting new game with selected color -->
       <button id="start-btn">Start!</button>
     </article>
 
-    <!-- Game View -->
-    <article id="game-view" class="hidden">
+    <article id="game-play" class="hidden">
       <p>
         <label>Your Guess: <input type="number" id="guess" /></label>
         <button id="guess-btn">Guess</button>
       </p>
       <p id="results"></p>
       <p>Guesses so far: <span id="guess-count">0</span></p>
-
       <button id="reset-btn">Reset Game</button>
     </article>
   </main>

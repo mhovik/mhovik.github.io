@@ -1,5 +1,5 @@
 /*
- * CSE 154 | Spring 2019
+ * CSE 154 | Summer 2019
  * CSS for Skittles Game Exercise
  */
 main {
@@ -11,7 +11,7 @@ main {
   width: 60%;
 }
 
-/* Remember that button styles aren't inherited from body, so have to 
+/* Remember that button styles aren't inherited from body, so have to
  * set them explicitly */
 body, button {
   font-family: "Trebuchet MS", sans-serif;
@@ -23,15 +23,6 @@ button, input {
 
 header {
   text-align: center;
-}
-
-/* Styles shared by all Skittles */
-.skittle {
-  border-radius: 50%;
-  box-shadow: inset -1px -1px 2px 0px #2c2c2c;
-  height: 20px;
-  margin: 1px;
-  width: 20px;
 }
 
 #jar {
@@ -46,10 +37,20 @@ header {
   width: 250px;
 }
 
+/* Styles shared by all Skittles */
+.skittle {
+  border-radius: 50%;
+  box-shadow: inset -1px -1px 2px 0px #2c2c2c;
+  height: 20px;
+  margin: 1px;
+  width: 20px;
+}
+
 #color {
   font-weight: bold;
 }
 
+/* These are prettier red, green, blue skittles */
 #color.red {
   color: #ff2626;
 }
@@ -70,8 +71,8 @@ header {
   color: #f3d77b;
 }
 
-#color.purple {
-  color: gray;
+#color.uwpurple {
+  color: #4b2e83;
 }
 
 .skittle.red {
@@ -94,8 +95,8 @@ header {
   background-color: #f3d77b;
 }
 
-.skittle.purple {
-  background-color: purple;
+.skittle.uwpurple {
+  background-color: #4b2e83;
 }
 
 .hidden {

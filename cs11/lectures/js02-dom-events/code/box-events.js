@@ -1,6 +1,6 @@
 /*
  * Author: Melissa Hovik
- * CSE 154 Summer 2019
+ * CS 11 JS Winter 2021
  * DOM and Event Listener Example
  * Example of adding different types of event listeners and removing an event listener.
  * Note that this program isn't completely documented with JSDoc!

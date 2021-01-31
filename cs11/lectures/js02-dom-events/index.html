@@ -66,7 +66,7 @@
           <p>Example: Counting Skittles Game</p>
           <img src="hidden/skittles-v1-starter-view.png" />
           <p>What is the CSS selector to select all skittle elements with the "skittle" class?</p>
-          <p>(<a href="../../code-examples/skittles-v1-dom/skittles-starter.html" target="_blank">Starter code</a>)</p>
+          <p>(<a href="../code/skittles-starter.zip" target="_blank">Starter code (zip)</a>)</p>
         </section>
 
         <section>
@@ -348,12 +348,11 @@ function logClickData(e) {
             </p>
             <div class="side-by-side">
               <div width="80%">
-                <img src="hidden/skittlesv1.gif" class="centered-figure" alt="Skittles demo" />
+                <img src="hidden/skittles-solution.gif" class="centered-figure" alt="Skittles demo" />
               </div>
             <div class="font-18pt">
             <p>First, we'll just focus on some basics to practice with the DOM, querySelectorAll, and events.</p>
-            <p>You can find the simplified starter code <a href="code/skittles-v0.zip">here</a>, which we used to practice <code>querySelectorAll</code> and <code>classList</code>. We'll build off of this
-            more on Wednesday.</p>
+            <p>You can find the simplified starter code <a href="code/skittles-starter.zip">here</a>.</p>
         </section>
 
         <section>
@@ -384,7 +383,7 @@ function logClickData(e) {
           </p>
         </section>
         <section>
-          <h2>DOM and Selectors: <a href="code/boxes.html" target="_blank">Q2</a></h2>
+          <h2>DOM and Selectors: <a href="code/boxes.html" target="_blank">Demo</a></h2>
           <img src="../img/boxes-dom-b.jpg" alt="DOM Tree representation" class="centered-figure half-width"/>
           <p>How to select the colored elements in CSS?</p>
           <div class="fragment">
@@ -396,7 +395,7 @@ function logClickData(e) {
       <p class="fragment"><code>qsa("#container &gt; div")</code></p>
     </section>
         <section>
-          <h2>Examples in our <a href="code/skittles-starter/skittles-jar.html" target="_blank">Current Skittles Page</a></h2>
+          <h2>Examples in our <a href="code/skittles-starter/skittles.html" target="_blank">Current Skittles Page</a></h2>
           <pre><code class="hljs">let gameColor = document.getElementById("color");
 let skittles = document.querySelectorAll(".skittle");
 let greenSkittles = document.querySelectorAll(".green.skittle");
@@ -408,81 +407,6 @@ let firstSkittle = document.querySelector(".skittle");
 <p>Try these commands in the Chrome Console on the linked HTML page!</p>
         </section>
 
-        <section>
-          <h2>Common <code>querySelectorAll</code> issues</h2>
-          <p>
-            Many students forget to write <code>.</code> or <code>#</code> in front of a class or
-            id
-          </p>
-          <pre><code class="hljs" data-trim data-noescape>// get all elements with class of ".skittle"
-<del class="bad">let skittles = document.querySelectorAll("skittle");</del>
-let skittles = document.querySelectorAll(".skittle");
-</code></pre>
-          <p class="code-caption space">JS</p>
-          <p class="space-above-25">
-            <code>querySelectorAll</code> returns an array, not just a single element; <br>
-            you must loop over the results
-          </p>
-
-          <pre><code class="hljs" data-trim data-noescape>// hide all skittles
-<del class="bad">qsa(".skittle").classList.add("hidden");</del>
-let skittles = document.querySelectorAll(".skittle");
-for (let i = 0; i &lt; skittles.length; i++) {
-  skittle.addEventListener("click", eatSkittle);
-}</code></pre>
-          <p class="code-caption">JS</p>
-          <p>
-            Q: Can I still select a group of elements using <code>querySelectorAll</code> even if
-            my CSS file doesn't have any style rule for that same group?
-            <span class="fragment">(A: Yes!)</span>
-          </p>
-        </section>
-
-      <section>
-        <h2>Modifying the <code>classList</code></h2>
-        <p>You can manipulate the DOM element's
-          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList" target="_blank">classList</a>
-          with the following methods:
-        </p>
-        <table class="code-table half-width-columns">
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-          </tr>
-          <tr>
-            <td>add(classname)</td>
-            <td>
-              Adds the specified class(es) to the list of classes on this element. Any that are
-              already in the classList are ignored.
-            </td>
-          </tr>
-          <tr>
-            <td>remove(classname)</td>
-            <td>
-              Removes the specified class(es) to the list of classes from this element. Any that are
-              already not in the classList are ignored without an error
-            </td>
-          </tr>
-          <tr>
-            <td>toggle(classname)</td>
-            <td>
-              Removes a class that is in the list, adds a class that is not in the list.
-            </td>
-          </tr>
-          <tr>
-            <td>contains(classname)</td>
-            <td>
-              Returns true if the class is in the DOM element's classList, false if not.
-            </td>
-          </tr>
-          <tr>
-            <td>replace(oldclass, newclass)</td>
-            <td>
-              Replaces the old class with the new class.
-            </td>
-          </tr>
-        </table>
-      </section>
       <section>
         <h2>Hiding/Showing Elements</h2>
         <p>How can we hide display an HTML element?</p>
@@ -551,6 +475,30 @@ function showAnswer() {
       <p>When the Start Button is clicked, how would we hide/show views?</p>
       <p>How would we fill the jar with a "test skittle"?</p>
     </section>
+        <section>
+				  <h3>Aside: Scoping and JS Code Quality</h3>
+          <p>What's wrong with the following code? How many global variables/functions are introduced?</p>
+          <pre><code class="hljs font-12pt">let greenSkittles = 0;
+let jar = null;
+window.addEventListener("load", init);
+
+function init() {
+  let j = document.getElementById("jar");
+  let startBtn = document.getElementById("start-btn");
+
+  startBtn.addEventListener("click", function() {
+    toggleViews();
+    let skittleString = "";
+    for (let i = 0; i <= 50; i++) {
+      skittleString += "&lt;div class='skittle green'&gt;&lt;/div&gt;";
+    }
+    j.innerHTML = skittleString;
+    greenSkittles = 50;
+  });
+}</code></pre>
+<p class="code-caption">JS</p>
+<p>Running version: <a href="code/precheck/skittles.html" target="_blank">precheck/skittles.html</a></code><p>
+        </section>
     <section>
       <h2>DOM Manipulation</h2>
       <p>How do we create new DOM elements?</p>
