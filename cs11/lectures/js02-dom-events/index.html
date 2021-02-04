@@ -58,60 +58,6 @@
         </section>
 
         <section>
-          <h2>Selectors</h2>
-          <p>
-            When using <code>document.querySelector</code> and <code>document.querySelectorAll</code>,
-            we can pass a CSS selector
-          </p>
-          <p>Example: Counting Skittles Game</p>
-          <img src="hidden/skittles-v1-starter-view.png" />
-          <p>What is the CSS selector to select all skittle elements with the "skittle" class?</p>
-          <p>(<a href="../code/skittles-starter.zip" target="_blank">Starter code (zip)</a>)</p>
-        </section>
-
-        <section>
-          <h2>More Examples of Query Selectors</h2>
-          <pre><code class="hljs">let gameColorElement = document.getElementById("color");
-let skittles = document.querySelectorAll(".skittle");
-let greenSkittles = document.querySelectorAll(".green.skittle");
-let greenSkittleCount = greenSkittles.length;
-
-let firstSkittle = document.querySelector(".skittle");
-// same as skittles[0];</code></pre>
-<p class="code-caption">JS</p>
-        </section>
-
-        <section>
-          <h2>Common <code>querySelectorAll</code> issues</h2>
-          <p>
-            Many students forget to write <code>.</code> or <code>#</code> in front of a class or
-            id
-          </p>
-          <pre><code class="hljs" data-trim data-noescape>// get all elements with class of ".skittle"
-<del class="bad">let skittles = document.querySelectorAll("skittle");</del>
-let skittles = document.querySelectorAll(".skittle");
-</code></pre>
-          <p class="code-caption space">JS</p>
-          <p class="space-above-25">
-            <code>querySelectorAll</code> returns an array, not just a single element; <br>
-            you must loop over the results
-          </p>
-
-          <pre><code class="hljs" data-trim data-noescape>// hide all skittles
-<del class="bad">qsa(".skittle").classList.add("hidden");</del>
-let skittles = document.querySelectorAll(".skittle");
-for (let i = 0; i &lt; skittles.length; i++) {
-  skittle.addEventListener("click", eatSkittle);
-}</code></pre>
-          <p class="code-caption">JS</p>
-          <p>
-            Q: Can I still select a group of elements using <code>querySelectorAll</code> even if
-            my CSS file doesn't have any style rule for that same group?
-            <span class="fragment">(A: Yes!)</span>
-          </p>
-        </section>
-
-        <section>
           <h2>Review: Event Handling</h2>
           <p>We can use JavaScript to attach functions to elements when an event (e.g. "click") occurs.</p>
           <div class="side-by-side">
@@ -279,6 +225,60 @@ function logClickData(e) {
           <p class="code-caption">JS</p>
         </section>
 
+        <section>
+          <h2>Selectors</h2>
+          <p>
+            When using <code>document.querySelector</code> and <code>document.querySelectorAll</code>,
+            we can pass a CSS selector
+          </p>
+          <p>Example: Counting Skittles Game</p>
+          <img src="hidden/skittles-v1-starter-view.png" />
+          <p>What is the CSS selector to select all skittle elements with the "skittle" class?</p>
+          <p>Starter code (<a href="../code/skittles-starter.zip" target="_blank">zip</a>) and <a href="../code-examples/skittles-v2-timers/skittles.html" target="_blank">running solution</a></p>
+        </section>
+
+        <section>
+          <h2>More Examples of Query Selectors</h2>
+          <pre><code class="hljs">let gameColorElement = document.getElementById("color");
+let skittles = document.querySelectorAll(".skittle");
+let greenSkittles = document.querySelectorAll(".green.skittle");
+let greenSkittleCount = greenSkittles.length;
+
+let firstSkittle = document.querySelector(".skittle");
+// same as skittles[0];</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>Common <code>querySelectorAll</code> issues</h2>
+          <p>
+            Many students forget to write <code>.</code> or <code>#</code> in front of a class or
+            id
+          </p>
+          <pre><code class="hljs" data-trim data-noescape>// get all elements with class of ".skittle"
+<del class="bad">let skittles = document.querySelectorAll("skittle");</del>
+let skittles = document.querySelectorAll(".skittle");
+</code></pre>
+          <p class="code-caption space">JS</p>
+          <p class="space-above-25">
+            <code>querySelectorAll</code> returns an array, not just a single element; <br>
+            you must loop over the results
+          </p>
+
+          <pre><code class="hljs" data-trim data-noescape>// hide all skittles
+<del class="bad">qsa(".skittle").classList.add("hidden");</del>
+let skittles = document.querySelectorAll(".skittle");
+for (let i = 0; i &lt; skittles.length; i++) {
+  skittle.addEventListener("click", eatSkittle);
+}</code></pre>
+          <p class="code-caption">JS</p>
+          <p>
+            Q: Can I still select a group of elements using <code>querySelectorAll</code> even if
+            my CSS file doesn't have any style rule for that same group?
+            <span class="fragment">(A: Yes!)</span>
+          </p>
+        </section>
+
           <section>
             <h2>Hiding/Showing Elements</h2>
             <p>How can we hide display an HTML element?</p>
@@ -352,20 +352,7 @@ function logClickData(e) {
               </div>
             <div class="font-18pt">
             <p>First, we'll just focus on some basics to practice with the DOM, querySelectorAll, and events.</p>
-            <p>You can find the simplified starter code <a href="code/skittles-starter.zip">here</a>.</p>
-        </section>
-
-        <section>
-          <h2>Recall: Accessing DOM objects</h2>
-          <ol>
-            <li>Ask for them by id: <code>document.getElementyById(...)</code></li>
-            <li class="space-below">Query for them with CSS style selectors:
-              <ul>
-                <li><code>document.querySelector(...)</code></li>
-                <li><code>document.querySelectorAll(...)</code></li>
-              </ul>
-          </ol>
-          <p>We will use the <code>id</code>, <code>qs</code>, and <code>qsa</code> shorthand functions often</p>
+            <!-- <p>You can find the simplified starter code <a href="code/skittles-starter.zip">here</a>.</p> -->
         </section>
 
         <section>
@@ -407,27 +394,12 @@ let firstSkittle = document.querySelector(".skittle");
 <p>Try these commands in the Chrome Console on the linked HTML page!</p>
         </section>
 
-      <section>
-        <h2>Hiding/Showing Elements</h2>
-        <p>How can we hide display an HTML element?</p>
-        <div class="fragment">
-          <pre><code>.hidden {
-  display: none;
-}</code></pre>
-         <p class="code-caption">CSS</p>
-         <p>In JS, it's possible to modify the style properties of an element directly.
-         <pre><code>id("box-img").style.display = "none";</code></pre>
-         <p class="code-caption">JS</p>
-         <p>What's wrong with that?</p>
-         <p class="fragment">How can we add/remove CSS classes with JS?</p>
-       </section>
-
         <section>
           <h2>Skittles V1</h2>
           <p>Today, we'll review how to access DOM elements and introduce how to add new ones with V1 of the Skittles page</p>
           <img src="hidden/skittles-solution-v0.gif" class="half-width centered-figure" alt="running version of lec08 skittles" />
           <p>Starter JS: <a href="code/skittles-starter/skittles-starter.js" target="_blank">skittles-starter.js</a> (<a href="code/skittles-lec08-starter.zip">skittles-lec08-starter.zip</a>)</p>
-          <p>You can find the running solution we left off with <a href="code/skittles-solution/skittles-jar.html">here</a>, which is also the solution to the Pre-Check questions.</p>
+          <p>You can find the running solution we left off with <a href="code/skittles-solution/skittles.html">here</a>, which is also the solution to the Pre-Check questions.</p>
         </section>
 
        <section>
@@ -457,7 +429,35 @@ let firstSkittle = document.querySelector(".skittle");
     There are &lt;span id="count"&gt;&lt;/span&gt; skittles in the jar!
   &lt;/p&gt;
 &lt;/article&gt;</code></pre>
-         <p class="code-caption">skittles-jar.html</p>
+         <p class="code-caption">skittles.html</p>
+       </div>
+    </section>
+      <section>
+        <h2>Hiding/Showing Elements</h2>
+        <p>How can we hide display an HTML element?</p>
+        <div class="fragment">
+          <pre><code>.hidden {
+  display: none;
+}</code></pre>
+         <p class="code-caption">CSS</p>
+         <p>In JS, it's possible to modify the style properties of an element directly.
+         <pre><code>id("box-img").style.display = "none";</code></pre>
+         <p class="code-caption">JS</p>
+         <p>What's wrong with that?</p>
+         <p class="fragment">How can we add/remove CSS classes with JS?</p>
+       </section>
+    <section>
+      <h2>Part 3: Showing the Answer</h2>
+      <p>When the <code>#answer-btn</code> is clicked, we want to populate the <code>#count</code> span with the number
+        of green skittles currently in the jar.</p>
+        <div>
+        <pre><code class="no-syntax-highlight">&lt;article id="game-play"&gt;
+  &lt;button id="answer-btn"&gt;Give me the answer!&lt;/button&gt;
+  &lt;p class="hidden"&gt;
+    There are &lt;span id="count"&gt;&lt;/span&gt; skittles in the jar!
+  &lt;/p&gt;
+&lt;/article&gt;</code></pre>
+         <p class="code-caption">skittles.html</p>
        </div>
        <div>
           <pre><code class="hljs">...
@@ -470,6 +470,7 @@ function showAnswer() {
 }</code></pre>
       <p class="code-caption">skittles.js</code>
     </section>
+
     <section>
       <h2>Part 4: Getting closer to "Starting" a Game</h2>
       <p>When the Start Button is clicked, how would we hide/show views?</p>
