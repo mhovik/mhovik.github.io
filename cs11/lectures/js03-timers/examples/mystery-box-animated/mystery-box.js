@@ -1,17 +1,17 @@
 /*
- * CSE 154 Spring 2019
+ * CS 11
  * Lecture 10
  * Mystery Box Exercise: Animated!
  *
  * Implements the functionality of the Mystery Box webpage to randomly
  * display a powerup icon whenever the mystery box image is clicked.
- * NEW FEATURE COMING SOON: Animations!
  */
 (function() {
   "use strict";
   const IMG_PATH = "img/";
   const POWER_UPS = ["bee-mushroom.png", "fire-flower.png", "ice-flower.png",
                      "star.png", "super-mushroom.png"];
+  let timerId = null;
 
   window.addEventListener("load", init);
 
@@ -21,15 +21,19 @@
    */
   function init() {
     let box = document.getElementById("mystery-box");
-    box.addEventListener("click", showRandomPowerup); 
+    box.addEventListener("click", function() {
+      if (timerId === null) {
+        timerId = setInterval(showRandomPowerup, 500);
+      } else {
+        clearInterval(timerId);
+      }
+    });
 
     // TODO #1: How would you change the program to animate the powerup box when the box is clicked so
     // that showRandomPowerup is called every 0.5 seconds?
     
     // TODO #2: What if you wanted to implement a "toggle" feature such that clicking
     // the box turns on/off the animation?
-
-
 
   }
 

@@ -1,12 +1,11 @@
 /*
- * CSE 154 Spring 2019
+ * CS 11
  * Lecture 10
  * Mystery Box Exercise: Animated!
  *
  * Implements the functionality of the Mystery Box webpage to randomly
  * display powerup icons whenever the mystery box image is clicked, toggling
  * the animation whenever the button is clicked again.
- * NEW FEATURE: Animations!
  */
 (function() {
   "use strict";
