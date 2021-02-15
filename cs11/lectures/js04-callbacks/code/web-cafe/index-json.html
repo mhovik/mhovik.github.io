@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+  Melissa Hovik
+  A little cafe website to demonstrate layout methods.
+-->
+<html lang="en">
+  <head>
+     <title>The #C0FFEE Cafe</title>
+     <link href="styles.css" rel="stylesheet" />
+     <!-- <script src="menu-populator-local-json.js"></script> -->
+     <script src="menu-populator-fetch.js"></script>
+  </head>
+  <body>
+    <header id="top-bar">
+      <h1>#C0FFEE Cafe</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="item-wip.html">Cart</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <h2>Our Menu:</h2>
+
+        <div id="menu-container">
+          <!-- Dynamically generated with JS! -->
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>A Flex-cellent Creation &copy; 2021</p>
+      <p id="citation">
+        Icons made by <a href="https://www.flaticon.com/authors/smashicons">Smashicon</a>
+        from <a href="www.flaticon.com">flaticon.com</a>
+      </p>
+    </footer>
+  </body>
+</html>
