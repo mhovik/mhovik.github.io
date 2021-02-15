@@ -1,0 +1,30 @@
+/*
+    Kyle Thayer
+    Autum 2017
+    Example code for using JS to modify the DOM
+*/
+
+.gray-square, .white-square, .gray-circle {
+  display: inline-block;
+  height: 18pt;
+  margin-left: 10px !important;
+  vertical-align: middle !important;
+  width: 18pt;
+}
+
+.gray-square, .gray-circle {
+  background-color: gray;
+}
+
+.white-square {
+  background-color: white;
+  border-radius: 2px;
+}
+
+.gray-circle {
+  border-radius: 50%;
+}
+
+.space-above-25 {
+  margin-top: 25px !important;
+}

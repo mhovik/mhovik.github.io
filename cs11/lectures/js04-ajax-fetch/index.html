@@ -1,0 +1,1404 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Lecture 4: Callbacks</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../site/reveal/css/print/pdf.css' :
+      '../../site/reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+        <section>
+          <h2>Lecture 4</h2>
+          <h3>Asynchronous Programming with AJAX</h3>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <p>Callbacks: What are JS functions really?</p>
+          <p>Promises: Capturing uncertainty in a nice little package</p>
+          <p>JSON: Structured data (common response from APIs)</p>
+          <p>fetch and APIs: Using Promises to fetch JSON data from the web!</p>
+        </section>
+
+        <section>
+          <h2>JS: Adding Interacitvity to Webpages</h2>
+          <p>Your browsers runs JS to communicate with:</p>
+          <ul>
+            <li>Users: Interactions between events and the DOM</li>
+            <pre><code>btn.addEventListener("click", sayHello);</code></pre>
+            <li>Servers: Requesting and recieving data</li>
+            <pre><code>fetch("https://api.nasa.gov").then(...)</code></pre>
+          </ul>
+          <p>
+            Whereas in a language like Java, programs often have a well-defind specification (behavior), JS has to
+            deal with uncertainty (weird users, unavailable servers, no internet connection, etc.)
+          </p>
+        </section>
+
+        <section>
+          <h2>Asynchronous Programming</h2>
+          <p>The JS programs we've been writing are naturally asynchronous</p>
+          <p>We <em>pass</em> functions as arguments to other functions so that we can “call back later” once we know something we expect occurred.
+          </p>
+        </section>
+
+        <section>
+          <h3>We've already been writing asynchronously!</h3>
+          <p>Our first example of handling "uncertain" behavior was <code>addEventListener("click", openBox)</code></p>
+          <ul><li>Only when the click event occurs does the function execute.</li></ul>
+          <p>Previously, we introduced <code>setTimeout</code> and <code>setInterval</code>.</p>
+          <ul>
+            <li>Only when the delay has passed, does the function execute.</li>
+          </ul>
+          <p>Shortly, we will introduce <code>fetch</code> and Promises.</p>
+          <ul>
+            <li>Only after we receive a response after making a request to an API like NASA, does the function execute.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Looking More Closely at JS Functions</h2>
+          <p>First-class function: Treated just like any other variable type</p>
+          <p>Can store as variables, pass as arguments to functions, return as values from functions</p>
+        </section>
+
+        <section>
+          <h2>Defining functions as variables</h2>
+          <pre><code>function callbackFn(params) {
+  ...
+}
+
+let callbackFn = function(params) {
+  ...
+};
+
+let callbackFn = (params) => {
+  ...
+};</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Regardless of how we create these, we use them the same way.</p>
+          <pre><code>let result = callbackFn(params);</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+        <section>
+          <h2>Passing functions as arguments</h2>
+          <pre><code>btn.addEventListener("click", callbackFn);
+btn.addEventListener("click", function() {
+  ...
+});
+btn.addEventListener("click", () => {
+  ...
+});
+</code></pre>
+<p class="code-caption">JS</p>
+
+<pre><code>setTimeout(callbackFn, 2000);
+setTimeout(function() {
+  ...
+}, 2000);
+setTimeout(() => {
+  ...
+}, 2000);</code></pre>
+<p class="code-caption">JS</p>
+          <p>A function that takes another function as an argument (e.g. a callback) or returns a function is called a <strong>higher-order function</strong></p>
+        </section>
+
+        <section>
+          <h2>An Example</h2>
+          <p>Is this a higher-order function?</p>
+          <pre><code>function askQ(qText) {
+  let answer = prompt(qText);
+  if (answer === "yes") {
+    console.log("You answered yes!");
+  } else if (answer === "no") {
+    console.log("You answered no!");
+  } else {
+    console.log("I have no idea what " + qText + " means.");
+  }
+}</code></pre>
+        <p class="code-caption">JS</p>
+        <p><a href="code/callback-demo.html" target="_blank">(demo)</a></p>
+        </section>
+
+        <section>
+          <h2>Another Example</h2>
+          <p>Is this a higher-order function?</p>
+          <div class="side-by-side">
+            <div>
+          <pre><code class="font-12pt">function askQ(qText, yesFn, noFn, handleError) {
+  let answer = prompt(qText);
+  if (answer === "yes") {
+    yesFn();
+  } else if (answer === "no") {
+    noFn();
+  } else {
+    handleError(answer);
+  }
+}</code></pre>
+<p class="code-caption">JS</p>
+</div>
+<div>
+<pre><code class="font-12pt">function yesFn() {
+  console.log("You answered yes!");
+}
+
+function noFn() {
+  console.log("You answered no!");
+}
+
+function handleError(answer) {
+  console.log("I have no idea what " +
+              answer + " means.");
+}</code></pre>
+<p class="code-caption">JS</p>
+</div>
+</div>
+        </section>
+        <section>
+          <h2>Passing different functions</h2>
+          <div class="side-by-side">
+            <div>
+          <pre><code class="font-12pt">function askQ(qText, yesFn, noFn, handleError) {
+  let answer = prompt(qText);
+  if (answer === "yes") {
+    // yesFn();
+    yesFn2();
+  } else if (answer === "no") {
+    // noFn();
+    noFn2();
+  } else {
+    handleError(answer);
+  }
+}</code></pre>
+<p class="code-caption">JS</p>
+</div>
+<div>
+<pre><code class="font-12pt">function yesFn2() {
+  id("output").textContent = "You answered yes!";
+}
+
+function noFn() {
+  id("output").textContent = "You answered no!";
+}
+
+function handleError(answer) {
+  console.log("I have no idea what " + answer + " means. Try again");
+  processQuestion();
+}</code></pre>
+<p class="code-caption">JS</p>
+</div>
+</div>
+        </section>
+        <section>
+          <h2>Check Your Understanding</h2>
+          <p>
+            Callbacks are a very powerful feature in event-driven programming.
+          </p>
+          <p>
+            Why do you think it's useful to have the ability in the JavaScript language to pass callback
+            functions as arguments to other functions like <code>addEventListener</code> and <code>setTimeout</code> in JS?<p>
+          </p>
+        </section>
+
+        <section>
+          <h2>Check Your Understanding #1</h2>
+          <p>The following is an example program using callback functions and timers.</p>
+          <p>What do you think is the final output?</p>
+          <pre><code>(function() {
+  console.log("Foo 1");
+  window.addEventListener("load", init);
+
+  function init() {
+    setTimeout(testFunction, 1000);
+    console.log("Foo 2");
+  }
+
+  function testFunction() {
+    console.log("Foo 3");
+  }
+
+  console.log("Foo 4");
+})();</code></pre>
+<p class="code-caption">cyu-q4.js</p>
+<p>What is the output to the console?</p>
+<p><a href="code/cyu-1.html" target="_blank">Running demo</a></p>
+        </section>
+
+        <section>
+          <h2>Check Your Understanding #2</h2>
+          <p><a href="code/callback-cookies.html">Callback Cookies</a></p>
+          <p>This example is a bit more interesting... What do you think is the final output of each call?</p>
+        </section>
+
+        <section>
+          <h2>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>: 
+            JavaScript Object Notation
+          </h2>
+          <p>
+            A data format that represents data as a set of JavaScript objects
+            invented by JS guru Douglas Crockford of Yahoo!
+            natively supported by all modern browsers (and libraries to support it in old ones)
+          </p>
+          <p>As we start to use AJAX with APIs, we'll first need to learn about one more JavaScript type: JSON objects</p>
+          <p>
+            Similar to the strategy you'll want to use when writing your first AJAX program,
+            we'll:
+          </p>
+          <ul>
+            <li>Practice using JSON in the console</li>
+            <li>Use (local) JSON data to generate webpages dynamically</li>
+            <li>Request JSON data from APIs using fetch</li>
+          </ul>
+        </section>
+
+        </section>
+
+      <section>
+          <h2>But first... JavaScript objects</h2>
+          <pre><code class="hljs" data-trim>let myobj = {
+  fieldName1: value1,
+  ...
+  fieldName: value
+};</code></pre>
+          <p class="code-caption">JS (example)</p>
+          <p>
+              In JavaScript, you can create a new object without creating a
+              "class" like you would need to do in Java. These are similar to
+              dictionaries in Python.
+          </p>
+
+<pre><code>let student = {
+  name : "Lorem Hovik",
+  major : "CS",
+  qtr : "21wi",
+  classes : ["CS11JS", "CS121", "Math3", "Doggo101"]
+};</code></pre>
+
+          <p>You can add properties to any object even after it is created:</p>
+
+          <pre><code class="hljs"  data-trim>student.bestFriend = "Oppa Hovik";</code></pre>
+          <p class="code-caption">JS (example)</p>
+
+      </section>
+
+      <section>
+        <h2>Example of JS Object</h2>
+        <pre><code class="hljs"  data-trim>let doggo = {
+  name: "Oppa",                              // string
+  breedName: "Mastiff Mix",                  // string
+  bark: function() {
+    console.log(this.name + " says woof!");   // function
+  },
+  age: 2,                                     // number
+  toys: ["hedgehog", "kong", "giggly wiggly"] // array
+};
+console.log(doggo.toys[1]);      // kong
+doggo.bark();                    // Oppa says woof!
+console.log(doggo["breedName"]); // Mastiff Mix
+console.log(doggo.breedName]);   // Mastiff Mix</code></pre>
+          <p class="code-caption">JS (example)</p>
+          <p class="font-16pt">
+              An object can have methods (function properties) that refer to itself as this <br>
+              can refer to the fields with <code>.fieldName</code> or 
+              <code>["fieldName"]</code> syntax<br>
+          </p>
+          <p>We won't create JS Objects this class, but you can find more info <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics">here</a>.</p>
+          <p class="font-16pt">JSON Practice:
+            <a href="https://www.codestepbystep.com/problem/view/javascript/objects/jsonMystery0">here</a>,
+            <a href="https://www.codestepbystep.com/problem/view/javascript/objects/jsonMystery1">here</a>, and
+            <a href="https://www.codestepbystep.com/problem/view/javascript/objects/jsonMystery2">here</a>.
+          </p>
+      </section>
+      <section>
+          <h2>Examples of JS objects we've seen so far</h2>
+          <ul>
+            <li>DOM elements</li>
+            <li><code>document</code>, <code>window</code></li>
+          </ul>
+      </section>
+
+      <section>
+          <h2>JavaScript Objects vs. JSON</h2>
+          <p>
+              JSON is a way of representing objects, or structured data.
+          </p>
+          <p class="space-left space-right medium-small-font">
+              (The
+              technical term is "serializing" which is just a fancy
+              word for turning an object into a savable string of characters)
+          </p>
+
+          <p>
+              Browser JSON methods:
+          </p>
+
+          <ul>
+              <li><a href="https://www.impressivewebs.com/what-is-json-introduction-guide-for-beginners/#using-jsonparse">
+                <code>JSON.parse( /* JSON string */ )</code></a>
+                -- converts JSON string into Javascript object
+              </li>
+              <li><a href="https://www.impressivewebs.com/what-is-json-introduction-guide-for-beginners/#using-stringify">
+                <code>JSON.stringify( /* Javascript Object */ )</code></a>
+                -- converts a Javascript object into JSON text
+              </li>
+          </ul>
+      </section>
+      <section>
+        <h3>Demo converting JS Object to String and JSON</h3>
+        <img src="hidden/json-console-demo.png" alt="Example of using JSON methods" />
+      </section>
+      <section>
+        <h2>JSON limitations</h2>
+        <p>
+            JSON can't handle certain data types, so these things just fall out of the object if you try to make JSON
+            strings out of them:
+        </p>
+        <ul>
+          <li>Function</li>
+          <li>Date</li>
+          <li>RegExp</li>
+          <li>Error</li>
+        </ul>
+
+        <p>
+          Since JSON is ideal for communicating across different types of systems, you can't put Javascript functions
+          in JSON. Other languages wouldn't be able to read JSON effectively if it had Javascript code in it.
+        </p>
+
+        <p>
+          (This is also why Dates and RegExps can't go into the JSON object -- other languages wouldn't know how to interpret
+          them for what they are.)
+        </p>
+        <p>There are a few other JSON rules which you can get more details in the reading.</p>
+        <p>
+            Numerous validators/formatters available, eg <a href="https://jsonlint.com/">JSONLint</a>
+        </p>
+        </section>
+
+
+    <section id="json-exercise">
+        <h2>JSON Exercise</h2>
+
+        <div class="side-by-side">
+            <div class="space-right">
+                <p>
+                    Consider the JSON data at the right. Write each statement to get:
+                </p>
+                <ul>
+                    <li>The name of the customer</li>
+                    <li>The number of meals returned</li>
+                    <li>The status of the fish</li>
+                    <li>The last meal object in the array</li>
+                </ul>
+            </div>
+            <div>
+<pre><code class="hljs font-12pt"  data-trim>let data = {
+   "name": "Jo Smith",
+   "items": [
+      { "fish": "fishy-smelling" },
+      { "cheesecake": "a bit burnt" },
+      { "chips": "These are computer chips." }
+   ],
+   "gift": "hamburger",
+   "table-number": 20
+};</code></pre>
+<p class="code-caption">JSON</p>
+            </div>
+        </div>
+    </section>
+
+  <section>
+      <h2>Answers</h2>
+  <pre><code class="hljs" data-trim >let name = data.name;
+// name === "Jo Smith"
+let mealCount = data["meal-status"].length;
+// mealCount === 4
+let fishStatus = data["meal-status"][0]["fish"];
+// fishStatus === "fishy"
+let lastItem = data.items[data.items.length];
+// lastItem = { "chips" : "These are computer chips." }
+</code></pre>
+      <p class="code-caption">JS</p>
+    </section>
+    <section>
+      <h2>A Few Other Notes</h2>
+      <p>What if you want to loop through all categories in the following object?</p>
+      <p>Sometimes, you'll want to loop through a collection of keys.</p>
+      <pre><code>let menu = {
+  "categories" : {
+    "Drinks" : ["Coffee", "Tea", "Espresso"],
+    "Foods" : ["Cereal", "Toast"]
+  }
+}</code></pre>
+<p class="code-caption">JSON</p>
+      <p>You can use <code>Object.keys(obj)</code> to get an array of keys (strings)</p>
+      <p>
+         You can also use <code>for (let key of obj) { ... }</code> to loop through a collection.
+      </p>
+      <pre><code>let categories = Object.keys(menu.categories); // ["Drinks", "Foods"]
+for (let category of categories) {
+  console.log(category); // e.g. "Drinks"
+  console.log(menu.categories[category]); // e.g. ["Coffee", "Tea", "Espresso"]
+}</code></pre>
+<p class="code-caption">JS</p>
+</section>
+
+
+      <section>
+        <h2>So what is JSON used for?</h2>
+        <p>On your own website, it can be used to represent data to generate webpages dynamically</p>
+        <p>JSON data also comes from many sources on the web:</p>
+        <ul>
+            <li>web services use JSON to communicate</li>
+            <li>web servers store data as JSON files</li>
+            <li>databases sometimes use JSON to store, query, and return data</li>
+        </ul>
+        <p>JSON is the de facto universal format for exchange of data</p>
+       </section>
+
+    <section>
+      <h2>Using JSON for Dynamic Webpages</h2>
+      <p>Implementing a #C0FFEE Cafe Website</p>
+      <img class="centered-figure one-third-width" src="hidden/cafe-starter.png" />
+    </section>
+
+    <section>
+      <h2>Initial Page</h2>
+      <div class="side-by-side">
+      <p>
+        What are the limitations of having everything in the HTML for a website
+        with items/products like a cafe?
+      </p>
+      <a href="code/web-cafe/index.html" target="_blank"><img src="hidden/cafe-html.png" alt="HTML of Cafe Page" /></a>
+    </section>
+
+    <section>
+      <h3>Part 1: Using JSON as a variable in <code>menu-populator.js</code></h3>
+      <p>Example <a href="code/web-cafe/menu.json" target="_blank">menu.json</a></p>
+      <pre class="font-12pt h400px"><code>"use strict";
+(function() {
+  let menu = {
+    "categories" : {
+      "Drinks" : [
+        { "name" : "Classic Coffee", "description" : "The Classic.",
+          "image" : "img/coffee-4.png", "in-stock" : true },
+        { other drinks... }
+      ],
+      "Foods" : [ { other foods... } ]
+    },
+  };
+
+  window.addEventListener("load", populateMenu);
+
+  function populateMenu() {
+    let categories = Object.keys(menu);
+    for (let category of categories) {
+      let categorySection = genCategorySection(category);
+      let div = gen("div");
+      div.classList.add("item-container");
+      for (let i = 0; i &lt; categories[category].length; i++) {
+        let itemData = categories[category][i];
+        if (itemData["in-stock"]) {
+          div.appendChild(genItemArticle(itemData));
+        }
+      }
+    }
+    categorySection.appendChild(div);
+    id("menu-container").appendChild(categorySection);
+  }
+
+  // rest of program ...
+})();</code></pre>
+      <p class="code-caption">JS (partial)</p>
+    </section>
+
+    <section>
+      <h2>But what's wrong with putting the JSON as a module-global in our JS?</h2>
+      <p>What if we want to feature different menus?</p>
+      <p>What if other websites want to use the menu data?</p>
+    </section>
+
+    <section>
+      <h2>Motivating AJAX</h2>
+      <p>The #C0FFEE Cafe Website</p>
+      <p><a href="code/web-cafe/index-original.html" target="_blank">Version 1</a> (HTML): Menu in HTML</p>
+      <p><a href="code/web-cafe/menu-populator-local-json.js" target="_blank">Version 2</a> (JS): Menu in JSON as local variable in JS</p>
+      <p><a href="code/web-cafe/index-with-fetch.html" target="_blank">Version 3</a>: Using AJAX to <code>fetch</code> from an API</p>
+    </section>
+
+    <section>
+      <h2>Part 2: Fetching JSON from the web</h2>
+      <ul>
+        <li>What kind of data can we get from the internet?</li>
+        <li>How do we request data from the internet?</li>
+        <li>What happens when something goes wrong on the internet?</li>
+        <li>Can you trust everything you find on the internet?</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>LET's FETCH ALL THE DATA!!!!!</h2>
+      <p>A <em>ton</em> of <a href="https://github.com/public-apis/public-apis">examples</a></p>
+    </section>
+
+    <section>
+      <h2>Hold your horses</h2>
+      <p>While we are still using JS with JSON, these are new questions that we have to consider.</p>
+      <p>Data is fun. It's powerful. It drives the modern society. But with great power, comes great responsibility.</p>
+      <p>Asynchronous programs can be short, but will take some time to conceptualize.</p>
+    </section>
+
+
+   <section>
+     <h2>Synchronous vs. Asynchronous Requests</h2>
+     <img src="https://qph.fs.quoracdn.net/main-qimg-e464153a46ebfc0bbe9401ca39c31f68" alt="visualization of Synchronous/Asynchronous fetch calls ">
+   </section>
+
+    <section>
+      <h2>Synchronous Requests</h2>
+      <img class="centered-figure half-width" src="hidden/images/sync-diagram.png" alt="synchronous request diagram">
+
+      <p>Why are synchronized requests are problematic?</h2>
+      <p class="fragment">
+        Your code waits for the request to completely finish before proceeding.
+      </p>
+      <p class="fragment">
+        It may be easier to program for synchronous behavior,
+        but if our requests were all synchronous, the user's entire browser will lock up
+        until each request finishes. This is really not what we want, especially for pages
+        with many, potentially large or slow requests.
+      </p>
+    </section>
+
+    <section>
+      <h2>Asynchronous Programs</h2>
+      <img class="centered-figure half-width" src="hidden/images/async-diagram.png" alt="asynchronous request diagram">
+      <p>We've seen asynchronous requests with <code>setTimeout</code> and <code>setInterval</code></p>
+      <p>Timer callback functions are called after a fixed <code>delayMs</code> and don't have uncertain behavior</p>
+      <p><samp>fetch</samp> (AJAX) callback functions are <em>not</em> guaranteed to execute after a certain number of seconds, and have two possible states:</p>
+      <ol>
+        <li>Success ("resolved")</li>
+        <li>Failure ("rejected")</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Back to the Cafe Demo...</h2>
+      <p>Suppose we knew how to get this JSON from a server instead of storing it in a variable in our client-side JS</p>
+      <p>What are new potential issues?</p>
+      <ul>
+        <li class="fragment">There is no way to now how long the server will take the respond</li>
+        <li class="fragment">Will it even respond?</li>
+      </ul>
+      <p>We need some way to <em>wait</em> for a server to respond and do something with the data afterwards (<em>and handle uncertainty</em>).</p>
+    </section>
+    <section>
+      <h2>Naive Approach: While Loop</h2>
+      <pre><code>makeRequestToServer(url);
+while (serverHasNotResponded()) {
+  // do nothing here, page is frozen
+}
+let jsonData = getServerResponse().json();</code></pre>
+      <p class="code-caption">JS (psuedocode)</code>
+      <p>What is the issue with this?</p>
+      <ul>
+        <li>It stops execution of the JS</li>
+        <li>It will freeze the page - other events like clicking will not be called since this will never finish.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Callbacks to the Rescue!</h2>
+      <pre><code>makeRequestToServer(url, function(response) {
+    // function to callback when server is done processing/responding
+    let jsonData = response.json();
+});</code></pre>
+      <p class="code-caption">JS (psuedocode)</code>
+      <p>This does not stop execution!</p>
+      <p>
+        The callback is run only when the server (from url) is done responding, so there is no halting
+        execution of other parts of your JS (just like setInterval/setTimeout!)
+      </p>
+    </section>
+    <section>
+      <h2>What if we wanted to make multiple requests?</h2>
+      <pre><code class="font-12pt">makeRequestToServer(firstUrl, dataToServer, function(response1) {
+    // function to call when server is done responding
+    let jsonData = JSON.parse(response1);
+    processResponse1(jsonData, function(processedData1) {
+        getUserInput(processedData1, function(userReponse) {
+            makeRequestToServer(secondUrl, userReponse, function(response2) {
+                processResponse2(response2, function(processedData2) {
+                    // Do something with processedData2.
+                });
+            });
+        });
+    });
+}</code></pre>
+         <p class="code-caption">JS (psuedocode)</p>
+
+       <p>Code is very confusing and hard to follow the logical flow of execution and data</p>
+       <p>What if we could attach callback functions for each step like a pipeline to be easier to follow?</p>
+     </section>
+     <section>
+       <h2>Example with a Cafe API</h2>
+       <p>To ask for data, we will need URL's to request from.</p>
+       <p>
+         Suppose we had an API we could request JSON from for our Cafe.
+       </p>
+       <p>
+         To get categories, we would use <code><a href="https://fathomless-badlands-58662.herokuapp.com/categories">/categories</a></code> appended to the URL, which
+         returns an array of strings.
+       </p>
+       <p>
+         To get items for a category, we would use <code><a href="https://fathomless-badlands-58662.herokuapp.com/category/drinks">/category/&lt;categoryName&gt;</a></code>
+         to get an array of objects for each item.
+       </p>
+       <p>
+         This is pretty similar to the <code>menu</code> variable we used
+         in our JS! But in this API, the second request (to get item data) depends on the first (category names).
+       </p>
+     </section>
+     <section>
+       <h3>Using Callbacks to Handle Asynchronous Dependencies</h3>
+       <pre><code class="font-12pt">function fetchAndPopulateMenu() {
+  const URL = “https://path-to-cafe-api”;
+  fetchCallback(url + "/getCategories", function(categories) {
+    for (let i = 0; i &lt; categories.length; i++) {
+      let categorySection = genCategorySection(categories[i]);
+      fetchCallback(url + "/getItems/" + categories[i], function(itemList) {
+        filterInStockItems(itemList, function(inStockItems) {
+          for (let i = 0; i &lt; inStockItems.length; i++) {
+            categorySection.append(genItemData(inStockItems[i]));
+          }
+        });
+      });
+    }
+  });
+}</code></pre>
+       <p class="code-caption">JS (pseudo-code)</p>
+       <p>... Callbacks help ensure we have the data before using it, but this isn't easy to read.</p>
+       <p>What if we were to modify our code? What about handling request errors? It will only get more nested.</p>
+     </section>
+
+        <section>
+          <h2>The Challenge with Callbacks</h2>
+          <p>Asynchronous programs are great to start tasks immediately without blocking other functions.
+            But when there are dependencies for asynchronous functions, we run into "callback hell".
+          </p>
+          <pre><code class="font-12pt">function order() {
+  setTimeout(function() {
+    makeRequest("Requesting menu...");
+    setTimeout(function() {
+      makeRequest("Ordering pizza...");
+      setTimeout(function() {
+        makeRequest("Checking pizza...");
+        setTimeout(function() {
+          makeRequest("Eating pizza...");
+          setTimeout(function() {
+            makeRequest("Paying for pizza...");
+            setTimeout(function() {
+              let response = makeRequest("Done! Heading home.");
+              console.log(response);
+            });
+          });
+        });
+      });
+    });
+  });
+}</code></pre>
+<p class="code-caption">JS</p>
+</section>
+    <section>
+      <h2>Server Requests</h2>
+      <pre><code class="font-12pt">makeRequestToServer(firstUrl, dataToServer, function(response1) {
+    // function to call when server is done responding
+    let jsonData = JSON.parse(response1);
+    processResponse1(jsonData, function(processedData1) {
+        getUserInput(processedData1, function(userReponse) {
+            makeRequestToServer(secondUrl, userReponse, function(response2) {
+                processResponse2(response2, function(processedData2) {
+                    // Do something with processedData2.
+                });
+            });
+        });
+    });
+}</code></pre>
+         <p class="code-caption">JS (psuedocode)</p>
+
+       <p>Code is very confusing and hard to follow the logical flow of execution and data</p>
+       <p>What if we could attach callback functions for each step like a pipeline to be easier to follow?</p>
+     </section>
+
+
+   
+   <section>
+     <h2>Aside: AJAX the "old way" (XML over HTTP)</h2>
+
+     <p>
+       Using Javascript to pull in more content from the server without
+       navigating the page to a new url
+     </p>
+     <p>
+       Although we are showing you this, it is for context only, we will
+       not be using the "XML over HTTP" method of AJAX calls.
+     </p>
+        <pre><code class="hljs" data-trim>let xhr = new XMLHttpRequest();
+xhr.open(method, url, [async/sync]);
+xhr.onload = function() { /* handle success */ };
+xhr.onerror = function() { /* handle failure */ };
+xhr.send(); </code></pre>
+          <p class="code-caption" data-trim>JS (template)</p>
+          <pre><code class="hljs">let xhr = new XMLHttpRequest();
+xhr.open("GET", "https://thecoffeeshop.com/api/menu");
+xhr.onload = function() { alert(this.responseText); };
+xhr.onerror = function() { alert("ERROR!"); };
+xhr.send();</code></pre>
+            <p class="code-caption">JS (example)</p>
+        </section>
+        <section>
+          <h2>AJAX with the Fetch API</h2>
+          <pre><code class="hljs" data-trim>(function(){
+  ...
+  function doWebRequest() {
+    const url = ... // put url string here
+    fetch(url); // returns a Promise!
+  }
+...</pre></code>
+          <p class="code-caption">JS (template)</p>
+        </section>
+
+        <section>
+          <h2>AJAX with the <samp>fetch</samp> API</h2>
+          <p>
+            The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" target="_blank">Fetch API</a> was created in 2014 and incorporated into the global <code>window</code>.
+          </p>
+          <p>
+            <code>fetch</code> takes a URL string as a parameter to request
+            data (e.g. menu category JSON) that we can work with in our JS file.
+          </p>
+          <pre><code class="hljs" data-trim>function populateMenu() {
+  const URL = "<a href="https://fathomless-badlands-58662.herokuapp.com/menu" target="_blank">https://fathomless-badlands-58662.herokuapp.com/</a>";
+  fetch(URL + "/menu") // returns a Promise!
+    .then(...)
+    .then(...)
+    .catch(...)
+ }</pre></code>
+          <p class="code-caption">JS (example)</p>
+        <p>
+            We need to do something with the data that
+            comes back from the server.
+          </p>
+          <p>
+            But we don't know how long that will take or if it even will
+            come back correctly!
+          </p>
+          <p>
+            The <code>fetch</code> call returns a <code>Promise</code> object which will help
+            us with this uncertainty.
+          </p>
+
+        </section>
+        <section>
+          <h1>Promises</h1>
+          <p>
+            Turn asynchronous code into re-usable synchronous "objects" that can be (eventually) resolved or rejected
+            while letting the program continue working.
+          </p>
+          <p>Much easier to manage asynchronous and synchronous tasks without "callback hell"</p>
+        </section>
+
+        <section>
+          <h2>States of a Promise</h2>
+          <div class="side-by-side">
+          <img src="../img/promise-states.jpg" alt="Three states of a Promise: pending, resolved, rejected" />
+        <div>
+            <p>
+              Promises have three states:
+            </p>
+            <ul>
+                <li>Pending: When initially constructed</li>
+                <li>Fulfilled: When resolved</li>
+                <li>Rejected: When rejected</li>
+            </ul>
+          </div>
+          </div>
+            <p>Can only go from Pending to Fullfilled or Rejected (no takebacks)</p>
+
+            <p>
+                Example: “I promise to return to your table"
+            </p>
+            <ul>
+                <li>Pending: Waiter hasn't yet returned</li>
+                <li>Fulfilled: Waiter has returned your order</li>
+                <li>Rejected: Kitchen ran out of ingredients</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Constructing a JavaScript Promise</h3>
+
+            <pre><code class="hljs" data-trim>let promise = new Promise(executorFn); // syntax
+
+let customPromise = new Promise(function(resolve, reject) {
+  // do something asynchronous (like make an ajax call, set a timeout)
+  if (success) {
+    resolve(result); // Set to fulfilled
+  } else {
+    reject(reason);  // Set to rejected
+  }
+});</code></pre>
+            <p class="code-caption" data-trim>JS (template)</p>
+          </section>
+ <section>
+   <h2>Examples of Two Executor Functions</h2>
+   <pre><code class="font-12pt">// Always fulfills the promise, calling resolve in 1 second.
+function alwaysYesIn1Second(resolve, reject) {
+  // this function is always certain, don't need to handle reject
+  setTimeout(() => resolve("Yes"), 1000);
+}
+
+function maybeNoIn1Second(resolve, reject) {
+ setTimeout(() => {
+   if (Math.random() < 0.5) {
+     resolve("Success! You get a duck.");
+   } else {
+     reject(Error("You lost, no duck."));
+   }
+  }, 1000);
+}
+
+// a Promise constructor
+function maybePromise() {
+  return new Promise(maybeNoIn1Second);
+}</code></pre>
+<p class="code-caption">JS</p>
+              </section>
+            <section class="font-14pt-slide">
+              <h3>The Executor: Resolve and Reject</h3>
+              <p>When a Promise is constructed, its executor function is ran immediately (usually performing some asynchronous code)</p>
+              <div class="side-by-side" style="align-items: center;">
+              <img src="../img/promise-states.jpg" style="width: 45%;" alt="Three states of a Promise: pending, resolved, rejected" />
+              <div style="width: 53%">
+              <p>When the executor calls <code>resolve</code>:</p>
+                <ol>
+                  <li>The Promise's value is updated to the <code>resolve</code> argument (e.g. "Promise fulfilled! ...")</li>
+                  <li>The Promise's state is updated to "resolved"</li>
+                </ol>
+
+              <p>When the executor calls <code>reject</code>:</p>
+              <ol>
+                <li>The Promise's value is updated to the <code>resolve</code> argument (often an Error called a "reason")</li>
+                <li>The Promise's state is updated to "rejected"</li>
+              </ol>
+            </div>
+          </div>
+<pre><code class="font-12pt">function someExecutor(resolve, reject) {
+ setTimeout(() =&gt; { // some asynchronous (delayed and uncertain) code
+   if (Math.random() &lt; 0.5) {
+     resolve("Promise fulfilled! I now hold this String.");
+   } else {
+     reject(Error("Promise not fulfilled :("));
+   }
+}, 1000);
+
+let p = new Promise(someExecutor); // we now have "packaged" uncertain behavior!
+</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h3>Simulating a "Fake Server" Request with a Promise</h3>
+              <p>
+                When we are using a constructed Promise, we can get its resolved value using <code>.then</code>.
+              </p>
+<pre><code class="font-12pt">function fakeServer(resolve, reject) {
+ setTimeout(() =&gt; {
+   if (Math.random() &lt; 0.5) {
+     resolve("Success! Here's a fancy String.");
+   } else {
+     reject(new Error("I couldn't fulfill your request :("));
+   }
+  }, 1000);
+}
+
+let p = new Promise(fakeServer);
+
+p.then(function(result) {
+  console.log("Promise resolved: " + result);
+}).catch(function(result) {
+  console.log("Promise rejected: " + err);
+});</code></pre>
+<p class="code-caption">JS</p>
+<p>Try copy/pasting the above in the Chrome console! What happens which you change the timeout delay?</p>
+            </section>
+
+              <section>
+              <h2>Using Promises with <code>fetch</code></h2>
+              <p>
+                We won't be constructing Promises, but will be using them when we <code>fetch</code> information from a
+                server, which is an uncertain task
+              </p>
+              <p>
+                The returned <code>Promise</code> contains a value that is a <code>Response</code> from the requested resource,
+                which we can get <code>then.</code> after the fetch call.
+              </p>
+              <pre><code class="hljs">fetch(url).then((resp) =&gt; {
+    // resp is a Response object!
+});</code></pre>
+              <p class="code-caption">JS</p>
+              <p>
+                What's in a <code>Response</code>?
+              </p>
+            </section>
+            <section class="font-16pt-slide">
+              <h2>The <code>Response</code> object</h2>
+            <table class="code-table med-font-table">
+              <tr>
+                <th>Property</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>response.status</td>
+                <td>Status code (e.g. 200, 400, etc.)</td>
+              </tr>
+              <tr>
+                <td>response.ok</td>
+                <td>Whether the response has a success (2XX) status code, short for:<br>
+                  <samp>response.status &gt; 200 &amp;&amp; response.status &lt;= 300</samp>)</td>
+              </tr>
+              <tr>
+                <td>response.statusText</td>
+                <td>Status text returned in the response (e.g. "200 OK", "400 Bad Request", "503 Service Unavailable")</td>
+              </tr>
+              <tr>
+                <td>response.json(), response.text()</td>
+                <td>Methods to extract the response body depending on the data format</p>
+              </tr>
+            </table>
+              <p>We will use the Response returned (in a Promise) from <code>fetch</code> to:</p>
+              <ol>
+                <li>Check <code>response.ok</code></li>
+                <li>If not, throw an Error which will jump immediately to a <code>catch</code> statement. It's good
+                to construct the Error with details about the <code>response.statusText</code></li>
+                <li>Otherwise, extract the data we want with <code>response.text()</code> or <code>response.json()</code></li>
+              </ol>
+            </section>
+      <section>
+        <h2>Status Codes</h2>
+        <p>Set by the server</p>
+        <p>A 2XX status code (e.g. 200, 201, etc.) will indicate a successful request</p>
+        <p>Other status codes indicate a failure in the request</p>
+        <ul>
+          <li>3XX: Redirects</li>
+          <li>4XX: Client errors (400: Bad Request, 403: Forbidden, etc.)</li>
+          <li>5XX: Server errors</li>
+        </ul>
+        <p>Full list <a href="https://www.restapitutorial.com/httpstatuscodes.html" target="_blank">here</a></p>
+        <p>We can access the status code and status text with the Response object</p>
+        <p>This is a useful service to test different error codes: <a href="https://httpstat.us/" target="_blank">https://httpstat.us/</a></p>
+        <p>Demo: <a href="code/status-tester.html" target="_blank">status-tester.html</a></p>
+      </section>
+<section>
+  <h3>The Client-Server Model</h3>
+  <img src="https://clevertechie.com/img/main/REST-representational-state-transfer.png" style='width: 80%' class='centered-figure' alt="REST diagram" />
+</section>
+<section>
+  <h3>The Request/Response Transaction with Web APIs</h3>
+  <img src="https://i.ytimg.com/vi/LooL6_chvN4/maxresdefault.jpg" class="centered-figure" style='width: 80%' alt="REST API diagram" />
+</section>
+            <section>
+                <h3>AJAX <code>fetch</code> Code Skeleton: V1</h3>
+
+                <pre><code class="hljs font-12pt" data-trim>function fetchTheData() {
+  let url = URL + possibleParameters;
+  fetch(url)
+    .then(function(response) {
+      if (!response.ok) { // response.status < 200 || response.status >= 300
+        throw Error("Error in request: " + response.statusText);
+      }
+      return response; // only reach here if no Error thrown
+    })
+    .then(function(response) {
+       return response.json();   // for JSON responses
+       // return response.text(); // for text responses
+    })
+    .then(function(data) {
+       // success: do something with the data (JSON or text)
+    })
+    .catch(function(err) {
+       // error: handle request error (e.g. display message
+       // on the page)
+    });
+}</code></pre>
+          <p class="code-caption">JS (template)</p>
+        </section>
+
+        <section class="font-14pt-slide" id="ajax-fetch-skeleton">
+        <h3>
+            AJAX <code>fetch</code> Code Skeleton (better version)
+        </h3>
+        <p>
+          The following is much easier to read, and factors out
+          larger callback functions into named functions. Remember that the return of each callback
+          function passed to a <code>then</code> is exactly the argument passed into the callback of the next <code>then</code>.
+        </p>
+        <p>For short callbacks, we also see the motivation with arrow function syntax!</p>
+        <pre class="h400px font-12pt"><code class="hljs" data-trim>function fetchTheData() {
+  fetch(url + possibleParameters)
+    .then(checkStatus)
+    .then(response => response.json())    // if json
+    // .then(response => response.text()) // if text
+    .then(processResponse)
+    .catch(handleError);
+  }
+}
+
+function processResponse(data) { // success: do something with the response data }
+
+function handleError(err) { // e.g. display helpful error message on the page }
+
+// You should use this always after fetch and before processing the data
+function checkStatus(response) {
+  if (!response.ok) {
+    throw Error("Error in request: " + response.statusText);
+  }
+  return response; // a Response object
+}</code></pre>
+          <p class="code-caption">JS (template)</p>
+        </section>
+
+    <section>
+    <h2>More on APIs</h2>
+    <p>We'll see various ways to use <code>fetch</code> to request data
+    from public APIs. But what is an API really?</p>
+    <p>
+      An application programming interface (API) is a communication protocols that
+      allows two pieces of software to communicate.
+    </p>
+    <div class="side-by-side">
+    <p>
+      A Web API is a set of pre-defined URLs with parameters that allow a user to get
+      information from a web server. Can be used by many types of clients.
+    </p>
+    <div>
+    <img src="https://happycoding.io/tutorials/java-server/images/rest-api-1.png" class="centered-figure" alt="API diagram" />
+    <p class="citation">Source: <a href="https://happycoding.io/tutorials/java-server/rest-api">https://happycoding.io/tutorials/java-server/rest-api</a></p>
+  </div>
+  </div>
+</section>
+<section>
+  <h2>Examples of APIs</h2>
+  <ul>
+    <li><a href="http://numbersapi.com/" target="_blank">Numbers API</a></li>
+    <li><a href="https://api.nasa.gov/api.html#apod" target="_blank">NASA APOD API</a></li>
+    <li><a href="https://github.com/reddit-archive/reddit/wiki/JSON" target="_blank">Reddit</a></li>
+    <li><a href="https://www.ncdc.noaa.gov/cdo-web/" target="_blank">NOAA Climate Data</a></li>
+    <li><a href="https://xkcd.com/json.html" target="_blank">XKCD</a></li>
+    <li><a href="https://elephant-api.herokuapp.com/" target="_blank">Elephants... API?</a></li>
+  </ul>
+</section>
+<section>
+<h2>Fetching data from a web service</h2>
+<p>To make a request to a web service (API), we need to know:</p>
+<ol class="font-18pt">
+ <li>Who to ask (the url)
+   <ul class="fragment">
+     <li>Example:
+       <a href="https://fathomless-badlands-58662.herokuapp.com/menu" target="_blank">https://fathomless-badlands-58662.herokuapp.com/</a></li>
+     <li>Example: <a href="http://numbersapi.com">http://numbersapi.com</a></li>
+   </ul>
+ </li>
+ <li>Do we have permission to ask (any API keys/tokens)
+   <ul class="fragment">
+     <li>Not in the Numbers API or Melissa's #C0FFEE Cafe API, but NASA/TMDB/OpenWeather require them; add as additional query parameter</li>
+   </ul>
+ <li>What to ask (any query parameters)
+   <ul class="fragment">
+     <li>Differ per API, some have specific order of parameter values,
+       separated by /, others have explicit key/value pairs started with ? and
+       combined with &amp;
+     </li>
+     <li>Example: The OpenWeather API (Assignment 3) uses ? query parameters
+     <br>
+     <samp>
+     http://api.openweathermap.org/data/2.5/weather?APPID=XYZ&units=imperial&q=Seattle,Washington,US</samp>
+     </li>
+     <li>Example:
+        <a href="https://fathomless-badlands-58662.herokuapp.com/menu/drinks" target="_blank">https://fathomless-badlands-58662.herokuapp.com/menu/Drinks</a></li>
+     <li>Example: Numbers API: <a
+   href="http://numbersapi.com/404/math" target="_blank">http://numbersapi.com/404/math</a>)
+     </li>
+   </ul>
+ </li>
+ <li>What format we get answers in (the response data format, preferrably txt or JSON)</li>
+</ol>
+</section>
+
+     <section id="apod">
+       <h3>Example: NASA APOD (Astronomy Photo of the Day) API</h3>
+       <ol>
+         <li>What kind of format is the response data? <strong
+class="fragment">JSON</strong></li>
+         <li>Do you need an API key? <strong class="fragment">Yes*</strong> <span
+                                             class="fragment">*(but you can
+                                             make 50 calls per day with "DEMO_KEY" as your api key parameter!</span>
+         <li>What is the base url? <strong class="fragment">https://api.nasa.gov/planetary/apod</strong>
+         </li>
+       </ol>
+     </section>
+ <section>
+   <h3>NASA APOD (Astronomy Photo of the Day) API</h3>
+   <p>Examples:</p>
+   <ul>
+     <li>Photo of the day data (for current day):
+       <a href="https://api.nasa.gov/nasa/planetary/apod?api_key=DEMO_KEY">https://api.nasa.gov/nasa/planetary/apod?api_key=DEMO_KEY</a>
+     </li>
+     <li>Photo of the day data (for a given date):
+       <a href="https://api.nasa.gov/nasa/planetary/apod?api_key=DEMO_KEY&date=2018-09-30">https://api.nasa.gov/nasa/planetary/apod?api_key=DEMO_KEY&date=2018-09-30</a>
+     </li>
+   </ul>
+ </section>
+   <section>
+     <h2>Example Using the NASA API!</h2>
+     <p>Solution working with NASA API : <a href="code/apod/apod.html" target="_blank">apod.html</a></p>
+   </section>
+  <section>
+    <h2>Check your Understanding</h2>
+    <p>
+      Consider the following request we might make with <code>fetch</code>:
+    </p>
+    <pre><code class="hljs">const NASA_BASE_URL = "https://api.nasa.gov/planetary/apod?";
+function makeRequest() {
+  let url = NASA_BASE_URL + "api_key=DEMO_KEY&amp;date=2018-09-30";
+  fetch(url)
+    .then(checkStatus)           // 1
+    .then(resp => resp.json())   // 2
+    .then(processData)           // 3
+    .catch(handleError);         // 4
+}</code></pre>
+    <p class="code-caption">JS</p>
+    <ol>
+      <li>Who are we asking for data from (the base url)?</li>
+      <li>What query parameters are we using? What are the values of the parameters?</li>
+      <li>What is the purpose of each step (1 through 4)?</li>
+    </ol>
+  </section>
+  <section>
+    <h2>To Summarize: JSON and AJAX</h2>
+    <ul>
+      <li>JSON introduced as object type to package/process structured data</li>
+      <li>AJAX introduced with Promises and <code>fetch</code> to fetch data from a server</li>
+      <li>A <code>fetch</code> request returns a <code>Promise</code> result</li>
+    <li>Promises are good because...
+    <ul>
+        <li>They help deal with code that has an uncertain outcome</li>
+        <li>They separate the completion of the fetch request from the page logic
+          <ul>
+            <li>
+              Lets us reuse the same logic and handle completion in different
+              ways (AJAX logic vs page insertion, for example)
+            </li>
+          </ul>
+        </li>
+        <li>Chaining of Promises gives us a nice data flow, like down a pipe!</li>
+    </ul>
+  </li>
+      <li>Use the <code>fetch(URL).then(...).then(...).catch(...)</code> pipeline
+        to handle requests</li>
+    </ul>
+  </section>
+
+<section>
+ <h2>More Example API Requests</h2>
+</section>
+<section>
+ <section id="reddit">
+ <h3>API 1: Reddit</h3>
+ <p>Note: Go "down" slides for more</p>
+ <ol>
+   <li>What kind of format is the response data? <strong class="fragment">JSON</strong></li>
+   <li>Do you need an API key? <strong class="fragment">Not always</strong>
+     <ul class="fragment">
+     <li>Note: You need a key if you are wanting to access/update user-specific
+     information on reddit (see documentation). To simply fetch JSON about subreddit posts though, you can just
+     append <samp>/.json</samp> to the end of a subreddit url.
+     </li>
+     </ul>
+   </li>
+   <li>
+     What kind of query parameters can you pass?
+     <ul class="fragment">
+       <li>limit=<em>postcount</em> (optional): limits the number of JSON objects
+       returned in array of subreddit post data
+       </li>
+       <li>q=<em>query</em> (optional): filters posts based on search query term</li>
+     </ul>
+   </li>
+ </ol>
+</section>
+<section>
+ <h2>API 1: Reddit Example</h2>
+ <pre><code class='hljs font-12pt' data-no-escape>https://www.reddit.com/r/<em>subreddit</em>/.json?limit=<em>postcount</em></code></pre>
+ <p class="code-caption">Template</p>
+ <pre><code class='hljs font-12pt'
+    data-no-escape>https://www.reddit.com/r/<em>subreddit</em>/search/.json?limit=<em>postcount</em>&q=<em>searchquery</em></code></pre>
+ <p class="code-caption">Template</p>
+ <p>Examples:</p>
+ <ul>
+   <li>
+     <a href="https://www.reddit.com/r/ProgrammerHumor/.json?limit=1">https://www.reddit.com/r/ProgrammerHumor/.json?limit=1</a>
+   </li>
+   <li>
+     <a href="https://www.reddit.com/r/caltech/.json?limit=5">https://www.reddit.com/r/caltech/.json?limit=1</a>
+   </li>
+   <li>
+     <a href="https://www.reddit.com/r/aww/.json?limit=1">https://www.reddit.com/r/aww/.json?limit=1</a>
+   </li>
+   <li>
+     <a href="https://www.reddit.com/r/webdev/.json?limit=5">https://www.reddit.com/r/webdev/.json?limit=5</a>
+   </li>
+   <li>
+     <a href="https://www.reddit.com/r/ProgrammerHumor/.json?limit=1&q=css">https://www.reddit.com/r/ProgrammerHumor/search/.json?limit=1&q=css</a>
+   </li>
+ </ul>
+</section>
+<section>
+ <h2>API 1: Another Reddit Example</h2>
+ <p>
+   To get JSON response about best and trending posts on Reddit:
+ </p>
+ <pre><code class='hljs' data-no-escape>https://www.reddit.com/r/best/.json?limit=<em>postcount</em></code></pre>
+ <pre><code class='hljs' data-no-escape>https://www.reddit.com/r/trending/.json?limit=<em>postcount</em></code></pre>
+ <p class="code-caption">Template</p>
+ <p>Examples:</p>
+ <ul>
+   <li>
+     <a href="https://www.reddit.com/r/best/.json?limit=5">https://www.reddit.com/r/best/.json?limit=5</a>
+   </li>
+   <li>
+     <a href="https://www.reddit.com/r/trending/.json?limit=5">https://www.reddit.com/r/trending/.json?limit=5</a>
+   </li>
+ </ul>
+ <p>More information about JSON data returned: <a href="https://github.com/reddit-archive/reddit/wiki/JSON">Reddit Wiki</a></p>
+</section>
+</section>
+<section>
+  <section id="datamuse">
+    <h3>API 2: Datamuse API</h3>
+   <p>Note: Go "down" slides for more</p>
+    <p>An word-querying API: <a href="https://www.datamuse.com/api/">https://www.datamuse.com/api/</a></p>
+    <ol>
+      <li>What kind of format is the response data? <strong
+class="fragment">JSON</strong></li>
+      <li>Do you need an API key? <strong class="fragment">No</strong></li>
+      <li>What is the base url? <strong
+                                          class="fragment">https://www.api.datamuse.com</strong>
+    </ol>
+  </section>
+  <section>
+    <h3>API 2: Datamuse API</h3>
+    <p>Examples:</p>
+    <ul>
+      <li>Words with similar meaning to dog: <a href="https://api.datamuse.com/words?ml=dog">https://api.datamuse.com/words?ml=dog</a></li>
+      <li>Words with similar meaning to dog (include definitions as metadata):
+        <a href="https://api.datamuse.com/words?ml=dog&md=d">https://api.datamuse.com/words?ml=dog&md=d</a>
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section id="xkcd">
+    <h3>API 3: XKCD</h3>
+    <p>Note: Go "down" slides for more</p>
+    <p>"Documentation": <a href="https://xkcd.com/json.html">https://xkcd.com/json.html</a></p>
+    <ol>
+      <li>What kind of format is the response data? <strong class="fragment">JSON</strong></li>
+      <li>Do you need an API key? <strong class="fragment">No</strong></li>
+      <li>What is the base url? <strong class="fragment">https://xkcd.com/</strong>
+    </ol>
+  </section>
+  <section>
+    <p>Examples:</p>
+    <p>Comic of the Day: <a href="https://xkcd.com/info.0.json">https://xkcd.com/info.0.json</a></p>
+  </section>
+  </section>
+			</div>
+		</div>
+  <script src="../../site/reveal/lib/js/head.min.js"></script>
+  <script src="../../site/reveal/js/reveal.js"></script>
+  <script src="timer-slides.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [{
+          src: '../../site/reveal/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/marked.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/markdown/markdown.js',
+          condition: function() {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: '../../site/reveal/plugin/highlight/highlight.pack.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+        { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+        { src: '../../site/reveal/plugin/search/search.js', async: true },
+        { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+      ]
+    });
+  </script>
+</body>
+</html>
