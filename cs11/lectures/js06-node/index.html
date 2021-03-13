@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lecture 6 - Intro to Node.js</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../site/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../../site/reveal/css/theme/white.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../site/reveal/lib/css/color-brewer.css">
+    <link rel="stylesheet" href="../../site/reveal/css/154-override.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal/css/print/pdf.css' :
+'../../reveal/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <!--
+        <section>
+          <iframe src="https://embed.polleverywhere.com/free_text_polls/T9cyvCSBPsB8ZQgiNMXaJ?controls=none&short_poll=true" width="800" height="600" frameBorder="0"></iframe>
+        </section>
+        -->
+
+        <section>
+          <h1>CS11 - JavaScript</h1>
+          <h3>Intro to Node.js, More Asynchronous Programming</h3>
+          <p><a href="https://xkcd.com/869/">
+            <img class="simpleimg" src="hidden/servers.png" alt="servers">
+            </a>
+          </p>
+          <cite class="small-font">XKCD 869</cite>
+        </section>
+      <section>
+        <h2>Review: Web Services</h2>
+        <p>
+          <strong>Web service</strong>: software functionality that can be invoked through the
+          internet using common protocols</p>
+        <p>It's like a remote function(s) you can call. Done by contacting a program on a web server</p>
+        <ul>
+          <li>Web services can be written in a variety of languages</li>
+          <li>Many web services accept parameters and produce results</li>
+          <li>Clients contact the server through the browser using XML over HTTP and/or AJAX Fetch code</li>
+          <li>The service's output might be HTML but could be text, XML, JSON, or other content</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>So How Does a Web Service Respond to Requests?</h3>
+          <img src="hidden/fullstackimage.png" alt="full stack analogy" class="no-border
+          two-thirds-width centered-figure">
+          <p class="font-16pt space-above">
+            <a href="https://blog.codeanalogies.com/2018/04/07/front-end-v-back-end-explained-by-waiting-tables-at-a-restaurant/">Image source</a>
+          </p>
+      </section>
+      </section>
+        <section>
+          <h2>URLs and Web Servers</h2>
+          <pre><code class="hljs" data-trim>https://server/path/file</code></pre>
+          <p>Usually when you type a URL in your browser:</p>
+          <ol>
+            <li>Your computer looks up the server's IP address using
+              <a href="https://en.wikipedia.org/wiki/Domain_Name_System">DNS</a>
+            </li>
+            <li>Your browser connects to that IP address and requests the given file</li>
+            <li>
+              The web server software (e.g. Apache) grabs that file from the server's local file
+              system and then send back its contents to you
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h3>Why Do We Need a Server to Handle Web Service Requests?</h3>
+          <img src="hidden/server-analogy.png" class='no-border rightfigure' width="40%" alt="server analogy"/>
+          <p>
+            Servers are dedicated computers for processing data efficiently and delegating requests
+            sent from many clients (often at once).
+          </p>
+          <p>
+            These tasks are not possible (or appropriate) in the client's browser.
+          </p>
+        </section>
+
+        <section>
+          <h2>Languages for Server-Side Programming</h2>
+          <p><img class="centered-figure" src="hidden/serversidelanguages2.png" alt="server side languages" style="width:50%"/></p>
+          <p>Server-side programs are written using programming
+          languages/frameworks such as
+              <a href="http://php.net/docs.php" target="_blank">PHP</a>,
+              <a href="https://www.tutorialspoint.com/jsp/" target="_blank">Java/JSP</a>,
+              <a href="http://rubyonrails.org/" target="_blank">Ruby on Rails</a>,
+              <a href="https://www.asp.net/" target="_blank">ASP.NET</a>,
+              <a href="https://www.python.org/" target="_blank">Python</a>,
+              <a href="https://www.perl.org/about.html" target="_blank">Perl</a>,
+              and <a href="https://nodejs.org/en/" target="_blank">JS (Node.js)</a>
+          </p>
+          <p>Web servers contain software to run those programs and send back their output.</p>
+        </section>
+        <section>
+          <h3>Server-Side JavaScript: Node.js</h3>
+          <div>
+            <img class="one-third-width" style="float: left;" src="hidden/nodejs.png" alt="NodeJS logo" />
+            <ul class="two-thirds-width" style="float: left">
+              <li>Open-source with an active developer community</li>
+              <li>Flourishing package ecosystem</li>
+              <li>Designed for efficient, asynchronous server-side programming</li>
+            </ul>
+          </div>
+        </section>
+
+
+        <section>
+          <h2>What is Client-Side JS?</h2>
+          <p>So far, we have used JS on the browser (client) to add interactivity to our web pages</p>
+          <p>
+            "Under the hood", your browser requests the JS (and other files) from a URL resource, loads the text file of the JS, and interprets it realtime in order to define how the web page behaves.</p>
+          </p>
+          <p>
+            In Chrome, it does this using the V8 JavaScript engine, which is an open-source JS interpreter made by Google. Other browsers have different JS engines (e.g. Firefox uses SpiderMonkey).
+          </p>
+          <p>Besides the standard JS language features, you also have access to the DOM when running JS on the browser - this includes the <code>window</code> and <code>document</code></p>
+        </section>
+
+        <section>
+         <h2>Client vs. Server-side JS</h2>
+         <img class="centered-figure" src="hidden/js-client-server.png" alt="client vs. server-side js" />
+        </section>
+
+        <section>
+          <h2>Node.js: Server-side JS</h2>
+          <p>Node.js uses the same open-source V8 JavaScript engine as Chrome</p>
+          <p>
+            Node.js is a runtime environment for running JS programs using the same core language features, but outside of the browser.
+          </p>
+          <p>When using Node, <strong>you do not have access to the browser objects/functions (e.g. document, window, addEventListener)</strong>.</p>
+          <p>Instead, you have access to functionality for managing HTTP requests, file i/o, and database interaction.</p>
+          <p>This functionality is key to building REST APIs!</p>
+        </section>
+
+        <section>
+          <h2>Getting started with Node.js</h2>
+          <p>
+            When you have Node installed (last week's section), you can run it immediately in the command line.
+          </p>
+          <ol>
+            <li>Start an interactive REPL with <code>node</code> (no arguments). This REPL is much like the Chrome browser's JS console tab.</li>
+            <li>Execute a JS program in the current directory with <code>node file.js</code></li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Starting a Node.js Project</h2>
+          <p>There are a few steps to starting a Node.js application, but luckily most projects will follow the same structure.</p>
+          <p>When using Node.js, you will mostly be using the command line (e.g. from a terminal you may have installed on VisualStudio for Python from CS 1).</p>
+          <ol>
+            <li>Start a new project directory (e.g. <code>node-practice</code>)</li>
+            <li>Inside the directory, run <code>npm init</code> to initialize a <code>package.json</code> configuration file (you can keep pressing Enter to use defaults)</li>
+            <li>Install any modules with <code>npm install &lt;package-name&gt;</code></li>
+            <li>Write your Node.js file! (e.g. <code>app.js</code>)</li>
+            <li>Include any front-end files in a <code>public</code> directory within the project.</li>
+          </ol>
+          <p>Along the way, a tool called <code>npm</code> will help install and manage packages that are useful in your Node app.</p>
+        </section>
+
+        <section>
+          <h2>Starting a Node.js Project</h2>
+          <p>Running <code>npm init</code> to create <code>package.json</code></p>
+          <img class="centered-figure two-thirds-width" src="hidden/empty-project.png" alt="Starting an empty project" />
+        </section>
+        <section>
+          <h2>Starting a Node.js Project</h2>
+          <p>Running <code>npm init</code> to create <code>package.json</code></p>
+          <img class="centered-figure two-thirds-width" src="hidden/after-npm-init.png" alt="Running npm init" />
+        </section>
+        <section>
+          <h2>Starting <code>app.js</code></h2>
+          <p>You can write and execute JS using Node in the command line</p>
+          <img class="centered-figure two-thirds-width" src="hidden/hello-world-console.png" alt="Running node program on the command line" />
+        </section>
+        <section>
+          <h2>Node.js Modules</h2>
+          <p>
+            When you run a <code>.js</code> file using Node.js, you have access to default functions in JS (e.g. <code>console.log</code>)</p>
+          </p>
+          <p>
+            In order to get functionality like file i/o or handling network requests, you
+            need to import that functionality from modules - this is similar to the <code>import</code> keyword you have used in Java or Python.
+          </p>
+          <p>
+            In Node.js, you do this by using the <code>require()</code> function, passing the string name of the module you want to import.
+          </p>
+
+          <p>
+            For example, the built-in module to provide HTTP request/response functionality in Node.js is called <code>http</code>. You can import it like this:
+          </p>
+<pre><code>const http = require("http");</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+        <section>
+          <h3>Quick Note on <samp>const</samp> Keyword</h3>
+          <p>Using <code>const</code> to declare a variable inside of JS just means that you can never change what that variable references. We've used this to represent "program constants" indicated by ALL_UPPERCASE naming conventions</p>
+          <p>For example, the following code would not work:</p>
+          <pre><code class="hljs">const specialNumber = 1;
+specialNumber = 2; // TypeError: Assignment to constant variable.</code></pre>
+        <p class="code-caption">JS</p>
+
+          <p>
+            When we store modules in Node programs, it is conventional to use <code>const</code> instead of <code>let</code> to avoid accidentally overwriting the module.</p>
+          <p>Unlike the program constants we define with <code>const</code> (e.g. <code>BASE_URL</code>), we use camelCase naming instead of ALL_CAPS.</p>
+        </section>
+
+        <!--
+        <section>
+          <h2>Our first Node server</h2>
+          <p>The <code>http</code> core module provides functionality for handling HTTP requests.</p>
+          <p>To get started with a simple server, we can write the following Node.js program:</p>
+          <pre><code class="hljs font-12pt">"use strict";
+const http = require("http");
+
+let server = http.createServer((request, response) =&gt; {
+  console.log("I got your request!");
+  response.write("Hello from a Node Server!");
+  response.end();
+});
+
+const PORT = process.env.PORT || 8000;
+server.listen(PORT);</code></pre>
+          <p class="code-caption">JS</p>
+          <p>Try it! Save <code><a href="code/http-server-example.js" target="_blank">http-server-example.js</a></code> and then run <code>node http-server-example.js</code> in the command line when your current
+          <p>What do you see in the browser? What do you see in the command line console?</p>
+        </section>
+        <section>
+          <h2>APIs in Practice</h2>
+          <p>As we add endpoints and different types of requests to our APIs, the <code>http</code> module can become very complicated. We will
+            instead use the most popular web service module to implement our Node.js APIs, which is built using the same <code>http</code> module but with functionality that is much easier to use.</p>
+          <p>But unlike <code>http</code>, Express is not a core module - it has been developed by a community of developers consistently updating it.</p>
+          <p>But how can we use modules like Express in our own code?</p>
+        </section>
+      -->
+        <section>
+          <h3><a href="https://nodejs.dev/an-introduction-to-the-npm-package-manager" target="_blank">npm</a>: Node Package Manager</h3>
+          <img src="hidden/npm-node.png" alt="npm is the Node Package Manager" />
+          <p>Node comes with built-in "core modules" you can require in your project without extra installation (http, fs, path, etc.)</p>
+          <p>But one of the appealing features of Node as a server-side technology is the extensive ecosystem of modules like Express to accomplish different tasks</p>
+          <p>
+            npm (Node Package Manager), gives us an easy way to download, manage, and update all of these packages.
+          </p>
+        </section>
+        <section>
+          <h2>Installing Packages</h2>
+          <p>Node packages can be installed in two different ways, globally or locally.</p>
+          <p>Global packages are installed by adding a <code>-g</code> flag in the npm install command and are accessible anywhere on your computer.</p>
+          <pre><code>npm install -g &lt;package_name&gt;</code></pre>
+          <p class="code-caption">command line</p>
+          <p>This is useful if a package contains terminal commands that you want to be used at any time, such as the programs you installed last week (<code>nodemon</code> and <code>ndb</code>).</p>
+        </section>
+        <section>
+          <h2>Local Packages</h2>
+          <p>It's best practice to use local installation for project-specific packages.</p>
+          <p>For example, if you want to build a RESTful APIs in Node, Express is a common module web developers will use.</p>
+          <p>Each time we would create a project to use the Express module, we would run the following within the project directory:
+          </p>
+          <pre><code>npm install express</code></pre>
+          <p>npm will automatically add a dependency to the project's <code>package.json</code></p>
+        </section>
+        <section>
+          <h2>Package Management</h2>
+          <p>In addition to installing modules, npm will also automatically manage packages in your Node projects.</p>
+          <p>Whenever you install a package, npm will add it to <code>package.json</code> and a <code>node_modules</code> folder</p>
+          <p>These files should not be distributed with the rest of your project code (e.g. front-end files and <code>app.js</code> - <code>node_modules</code> can get very large</p>
+          <p>Instead of sending this <code>node_modules</code> folder containing modules that already exist online, you send them an information file called <code>package.json</code> that NPM uses to keep track of all of these packages.</p>
+          <p>
+            When a user downloads your project and its <code>package.json</code> file, they just run <code>npm install</code> within the project directory, and npm will install all of those packages required to run the project.
+          </p>
+        </section>
+        <section>
+          <h2>npm's <samp>package.json</samp></h2>
+          <p>
+            The <code>package.json</code> file is created by running <code>npm init</code> which will prompt the user to answer a few questions about the project like the name and version.
+          </p>
+          <p>
+            Any future <code>npm install &lt;package_name&gt;</code> commands that are run <em><strong>in the same project</strong></em> will be automatically added to this <code>package.json</code> file.
+          </p>
+          <p>
+            A <code>package-lock.json</code> file will also be created, containing a more detailed version of all of the packages used in a project and their dependencies.</p>
+        </section>
+
+        <section>
+          <h2>Summary: Starting a Node.js Project</h2>
+          <p>There are a few steps to starting a Node.js application, but luckily most projects will follow the same structure.</p>
+          <p>When using Node.js, you will mostly be using the command line.</p>
+          <ol>
+            <li>Start a new project directory (e.g. <code>node-practice</code>)</li>
+            <li>Inside the directory, run <code>npm init</code> to initialize a <code>package.json</code> configuration file (you can keep pressing Enter to use defaults)</li>
+            <li>Install any modules with <code>npm install &lt;package-name&gt;</code></li>
+            <li>Write your Node.js file! (e.g. <code>app.js</code>)</li>
+          </ol>
+          <p>Along the way, a tool called <code>npm</code> will help install and manage packages that are useful in your Node app.</p>
+        </section>
+        <section>
+          <h2>Package Management</h2>
+          <p>We use <code>npm</code> (Node Package Manager) to install and manage packages (many of which are modules)</p>
+          <p>A package is any project with a <code>package.json</code> file</p>
+          <ul>
+            <li>To create your own package, use <code>npm init</code></li>
+            <li>To install module dependencies in an existing project containing a <code>package.json</code>, use <code>npm install</code></li>
+            <li>Each time you run <code>npm install &lt;module-name&gt;</code>, npm will automatically add the module as a dependency to the current <code>package.json</code> and add the module to <code>node_modules</code></li>
+          </ul>
+          <p>When sharing your project, you provide <code>package.json</code> but <strong>not</strong> <code>node_modules</code></li>
+        </section>
+
+        <section>
+          <h2>File I/O in Node.js</h2>
+          <p>Unlike the browser, we have access to the file system when running Node.js</p>
+          <p>We can read all kinds of files, as well as write new files</p>
+          <p>Next week, we will learn how to process directories as well</p>
+        </section>
+
+        <section>
+          <h2>The <code>fs</code> Core Module</h2>
+          <p>A useful Core Module we get in Node is <code>fs</code> (file system)</p>
+          <p>There are many functions in the <code>fs</code> module (with <a href="https://nodejs.org/dist/latest-v10.x/docs/api/fs.html#fs_file_system">excellent documentation</a>)</p>
+          <p>By default, all functions are asynchronous</p>
+          <p>There are synchronous versions for many, but you should not use them, as they block the main thread</p>
+          <p>Most functions rely on the Node.js idiom of error-first callbacks</p>
+          <p>You <strong>do not</strong> need to install core modules like <samp>fs</samp> using <samp>npm</samp></p>
+        </section>
+        <section>
+          <h2>Reading Files</h2>
+          <p><code>fs.readFile(fileName, encodingType, callback)</code></p>
+          <ul>
+            <li><code>fileName</code> (string) file name</li>
+            <li><code>encodingType</code> file encoding (usually "utf8")</li>
+            <li><code>callback</code> "error-first" function that takes two arguments: an Error object (undefined if no error) and the result file contents (e.g. string text)</li>
+          </ul>
+          <pre><code>fs.readFile("example.txt", "utf8", (err, result) =&gt; {
+  if (err) {
+    console.error("Something went wrong when reading the file...");
+  } else {
+    let lines = result.split("\n");
+    console.log("First line contents: " + lines[0]);
+  }
+});</code></pre>
+<p class="code-caption">JS</p>
+          <p>Example code: <a href="code/file-io/file-reading.js" target="_blank">file-reading.js</a></p>
+        </section>
+
+        <section>
+          <h2>Reading and Parsing JSON</h2>
+          <p>You can read any file, including JSON. To parse JSON file contents and use as a JS object, use <code>JSON.parse</code> (works similarly to <code>.json()</code> you've used in <code>fetch</code>).</p>
+          <pre><code>// Example reading/parsing JSON
+fs.readFile("package.json", "utf8", (err, result) => {
+  if (err) {
+    console.error(err);
+  } else {
+    let data = JSON.parse(result);
+    console.log(data);
+  }
+});</code></pre>
+<p class='code-caption'>JS</p>
+        </section>
+        <section>
+          <h2>Writing Files</h2>
+          <p>To write a file, use the <code>fs.writeFile(fileName, data, callback)</code> function.</p>
+          <p>This function's <code>callback</code> is also error-first, but only takes an <code>error</code> argument</p>
+          <pre><code>fs.writeFile("new-file.txt", "Hello!", (err) =&gt; {
+  if (err) {
+    console.error("Something went wrong when writing the file...");
+  } else {
+    console.log("new-file.txt written to successfully!");
+  }
+});</code></pre>
+<p class="code-caption">JS</p>
+          <p>Example code: <a href="code/file-io/file-writing.js" target="_blank">file-writing.js</a></p>
+        </section>
+
+
+        <section>
+          <h2>Appending to Files</h2>
+          <p><code>fs.writeFile</code> will always overwrite an existing file</p>
+          <p>If you want to append to a file, you can use <code>fs.appendFile</code></p>
+          <pre><code>fs.appendFile("example.txt", "Another line\n", (err) =&gt; {
+  if (err) {
+    console.error("Something went wrong when writing the file...");
+  } else {
+    console.log("example.txt appended to successfully!");
+  }
+});</code></pre>
+<p class="code-caption">JS</p>
+  <p>Example code: <a href="code/file-io/file-appending.js" target="_blank">file-appending.js</a></p>
+        </section>
+
+        <section>
+          <h2>Reading Directories</h2>
+          <p><code>fs.readdir</code> returns an array of files (including directory names) within a given directory path</p>
+          <p>We will learn about another way to process directories (<code>glob</code>) on Wednesday</p>
+          <pre><code>fs.readdir("data", (err, contents) =&gt; {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log("data directory contents: ");
+    console.log(contents);
+  }
+});</code></pre>
+  <p class="code-caption">JS</p>
+  <p>Example code: <a href="code/file-io/directory-reading.js" target="_blank">directory-reading.js</a></p>
+        </section>
+
+        <section>
+          <h2>Asynchronous Programming</h2>
+          <p>One of the advantages of Node.js is its efficiency to handle asynchronous code with a single thread</p>
+          <p>Common asynchronous functions:</p>
+          <ul>
+            <li>setTimeout and setInterval</li>
+            <li>Network requests</li>
+            <li>File I/O</li>
+            <li>Database connections</li>
+          </ul>
+
+          <p>However, this can make it difficult to write code with asynchronous functions that are dependent on another asynchronous function</p>
+        </section>
+
+        <section>
+          <h2>Handling Asynchronous Code in <code>fs</code></h2>
+          <p>Most <code>fs</code> functions are asynchronous, including <code>readFile</code> and <code>writeFile</code></p>
+          <p>This means that we have to be careful when relying on file i/o functions finishing before moving on to subsequent statements in a program</p>
+          <p>We've <a href="../lec12-ajax-fetch/code/callback-cookies.html" target="_blank">seen asynchronous programming already</a> with <code>setTimeout</code>/<code>setInterval</code></p>
+        </section>
+
+        <section>
+          <h3>From Callbacks to Promises to <code>async</code>/<code>await</code></h3>
+          <p>We've seen callbacks and Promises as ways to package uncertain (asynchronous) behavior</p>
+          <p>More recently (2017), <code>async</code>/<code>await</code> keywords have been added to JS to make asynchronous code feel synchronous, while still getting the efficiency benefits</p>
+        </section>
+
+        <section>
+          <h2>Using <code>async</code> and <code>await</code></h2>
+          <p>The <code>async</code> keyword will label a function as having asynchronous code</p>
+          <p>To use, simply use the <code>async</code> keyword before the function declaration</p>
+          <pre><code class='hljs'>// In named functions:
+async function fnName() { ... }
+
+// Arrow functions:
+async () =&gt; { ... }
+
+// Anonymous functions
+async function() { ... }</code></pre>
+<p class="code-caption">JS</p>
+          <p>The <code>async</code> function’s return value will be wrapped in a Promise</p>
+        </section>
+
+        <section>
+           <h2>A Simple Example</h2>
+           <pre><code>function sayHello(name) {
+  return "Hello " + name;
+}
+
+console.log(sayHello("dubs")); // Hello dubs
+
+async function sayHelloAsync(name) {
+   return "Hello " + name;
+}
+
+sayHelloAsync("dubs"); // Promise &lt;pending&gt;
+sayHelloAsync("dubs").then(console.log); // Hello dubs</code></pre>
+           <p class="code-caption">JS</p>
+           <p>In this example, we can see how <code>async</code> wraps a function into one that returns a Promise that resolves to the returned value</p>
+           <p>Just like other Promises, we can use <code>.then</code> to extract the resolved value</p>
+        </section>
+
+        <section>
+          <h2><code>await</code> with <code>async</code></h2>
+          <p>Within an <code>async</code> function, we can now use <code>await</code> on asynchronous function calls</p>
+          <p>On each line with <code>await</code>, the JS engine will wait for the function to finish until continuing</p>
+          <p>The result of the awaited function call will be the resolved value</p>
+        </section>
+
+        <section>
+          <h3>Chaining Delayed Promises with <code>.then</code> vs. <code>await</code></h3>
+          <pre class="h450px font-14pt"><code>function doubleAfter1s(n) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => { resolve(n * 2); }, 1000);
+  });
+}
+
+// standard .then solution
+doubleAfter1s(2) // 4
+  .then(doubleAfter1s) // 8
+  .then(doubleAfter1s) // 16
+  .then(result => console.log(result)); // 16 (after seconds)
+
+// equivalent async/await solution (as anonymous function call)
+(async () => {
+  let a = await doubleAfter1s(2); // 4
+  let b = await doubleAfter1s(a); // 8
+  let c = await doubleAfter1s(b); // 16
+  console.log(c); // 16 (after 3 seconds)
+})();</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h3>Error-handling with <code>async</code>/<code>await</code></h3>
+          <p>For error-handling with <code>async</code>/<code>await</code>, use <code>try</code>/<code>catch</code> instead of <code>.then</code>/<code>.catch</code></p>
+          <p>The catch statement will catch any errors that occur in the then block (whether it’s in a Promise or a syntax error in the function), similar to the <code>.catch</code> in a fetch promise chain</p>
+          <p>If you don’t have <code>try</code>/<code>catch</code> in the async function but an error occurs, the generated Promise will be rejected</p>
+        </section>
+        <section>
+          <h3><code>async</code>/<code>await</code> Example with <code>try</code>/<code>catch</code></h3>
+          <pre class="h450px font-12pt"><code>function doubleAfter1sUnless4(n) {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      if (n === 4) {
+        reject("Rejected!");
+      } else {
+        resolve(n * 2);
+      }
+    }, 1000);
+  });
+}
+
+async function delayDoubles() {
+  try {
+    let a = await doubleAfter1sUnless4(2); // 4
+    let b = await doubleAfter1sUnless4(a); // error!
+    let c = await doubleAfter1sUnless4(b); // unreached
+  } catch (err) {
+    console.error(err); //  "Rejected!"
+  }
+}
+delayDoubles(); // Rejected! (after 2 seconds)</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h3>So are Callbacks and Promises "Bad"?</h3>
+          <p>The challenge is managing asynchronous code with dependencies, leading to the nested callback pyramid structure</p>
+          <p>We've seen Promises as a way to capture asynchronous code, and remove the callback nesting cleanly with a <code>.then</code>/<code>.catch</code> pipeline</p>
+          <p>
+            The challenge with Promises is having to create "promisifying" functions to capture asynchronous code. This isn't bad, but it is challenging to learn at first,
+            and there’s a lot of shared code between creating a Promise-returning function
+          </p>
+          <p><code>async</code> is just "syntactic sugar" to working with Promises</p>
+        </section>
+
+        <section>
+          <h3>What else do we know that returns a Promise?</h3>
+          <p class="fragment">
+            <code>fetch</code> also returns a Promise! So yes, this means we can use <code>async</code>
+            to handle <code>fetch</code> requests in client-side JS</p>
+
+
+          <div class="fragment">
+          <pre><code class="hljs">async function makeRequest() {
+  let response = await fetch(url);
+  if (!response.ok) {
+    throw Error("Request error: " + response.statusText);
+  }
+  let data = await response.json();
+  // let data = await response.text();
+  // etc.
+}</code></pre>
+        <p class="code-caption">JS</p>
+      </div>
+      </section>
+      <section>
+        <h2>Using <code>async</code>/<code>await</code> in our APOD Example</h2>
+        <p><a href="code/apod/apod.html" target="_blank">Running demo</a> (see console and Network tab through example functions)</p>
+        <p><a href="code/apod/apod.js" target="_blank">apod.js</a> source code with all 5 examples</p>
+        <div class="side-by-side">
+          <div>
+            <pre><code class="font-12pt">function requestAPOD(date) {
+  let url = URL + "&date=" + date;
+  fetch(url)
+    .then(checkStatus)
+    .then(resp => resp.json())
+    .then(processApodJson)
+    .catch(handleRequestError);
+}
+
+
+
+</code></pre>
+  <p class="code-caption">JS (normal fetch Promise chain version)</p>
+          </div>
+          <div>
+        <pre><code class="font-12pt">async function requestAPODAsync(date) {
+  let url = URL + "&date=" + date;
+  try {
+    let resp = await fetch(url);
+    resp = checkStatus(resp);
+    let data = await resp.json();
+    processApodJson(data);
+  } catch (err) {
+    handleRequestError(err);
+  }
+}</code></pre>
+<p class="code-caption">JS (new async/await version)</p>
+</div>
+</div>
+      <p>The <code>async</code>/<code>await</code> solution on the right looks longer, but what if we have dependent fetch calls? What if we want to fetch 5 days in a row?
+      </section>
+
+      </section>
+      <section>
+        <h3>Making Multiple Requests with <code>.then</code>/<code>.catch</code></h3>
+        <p>
+          Suppose we had a function <code>fetchOneDay</code> that takes a date string and fetches from the APOD
+          service, returning a Promise that resolves to the result JSON (see <a href="code/apod/apod.js" target="_blank">source code</a>).
+        </p>
+        <p>We want to log the results for 5 days in a row. The following example uses <code>.then</code>/<code>.catch</code> to make 5 simultaneous requests, but we don't guarantee the order of the <code>console.log</code> statements</p>
+        <pre><code class="hljs">function multiFetchRequest() {
+  let date = "2019-08-0";
+  let results = [];
+  for (let i = 1; i &lt;= 5; i++) {
+    fetchOneDay(date + i)
+      .then(console.log)
+      .catch(handleRequestError);
+   }
+}</code></pre>
+ <p class="code-caption">JS (then/catch version)</p>
+</section>
+<section>
+   <h3>Making Multiple Requests with <code>async</code>/<code>await</code></h3>
+   <p>This next example uses <code>await</code> in an <code>async</code> function to wait for each fetch call to finish, allowing us
+     to guarantee the order of the logged results.</p>
+   <p>However, we lose the asynchronous efficiency, as each fetch request isn't started until the previous is resolved.</p>
+<pre><code class="hljs">async function multiAsyncRequest() {
+  let date = "2019-08-0";
+  for (let i = 1; i &lt;= 5; i++) {
+    try {
+      let data = await fetchOneDay(date + i);
+      console.log("async/await request returned for " + data["date"]);
+    } catch (err) {
+      handleRequestError(err);
+    }
+  }
+}</code></pre>
+<p class="code-caption">JS (async/await version)</p>
+        <p>We can improve this with <code>Promise.all</code>, which returns a Promise resolving to an array of Promise results</p>
+      </section>
+      <section>
+        <h2>Parallelizing Requests</h2>
+        <p>This final version uses <code>Promise.all</code> to make 5 simultaneous fetch calls, collect them in order, and output them
+          only when all have finished executing</p>
+<pre><code>async function multiRequestParallel() {
+  let promises = [];
+  let date = "2019-08-0";
+  for (let i = 1; i &lt;= 5; i++) {
+    let apodPromise = fetchOneDay(date + i);
+    promises.push(apodPromise);
+  }
+  let results = await Promise.all(promises);
+  for (let i = 0; i &lt; results.length; i++) {
+    let data = results[i];
+    console.log("Promise.all requests returned for " + data["date"]);
+  }
+}</code></pre>
+  <p class="code-caption">JS</p>
+  <p>We could also use <code>Promise.all</code> without <code>await</code> (it just takes an array of Promises), but this example motivates a solution that is much cleaner with <code>async</code>/<code>await</code></p>
+</section>
+        <section>
+          <h2>Common Pitfalls when using <code>async</code>/<code>await</code></h2>
+          <p>1. Using <code>await</code> outside of an <code>async</code> function</p>
+          <ul>
+            <li>This will cause a Syntax Error - <code>await</code> is a keyword that is only allowed in a function labeled as <code>async</code></li>
+          </ul>
+          <p>2. Not using <code>await</code> on an <code>async</code> function</p>
+          <ul>
+            <li>
+              Remember that any function labeled as <code>async</code> now returns a Promise - in order to get a resolved value, you need to use <code>await</code>
+              (or <code>.then</code>)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Using <code>async</code>/<code>await</code> with File I/O</h2>
+          <p>There are a few ways we can use <code>async</code>/<code>await</code> with <code>fs</code>, but the key thing is we need to use <code>await</code> on functions that return Promises</p>
+          <p>As mentioned earlier, <code>fs</code> functions like <code>readFile</code> and <code>writeFile</code> are asynchronous by default but do not return Promises</p>
+          <p>We could make our own Promise-returning functions, but that can be tedious.</p>
+          <p>Instead, we'll need to "promisify" these functions so we can use <code>async</code> and <code>await</code></p>
+          <p>We'll learn how with a useful <code>utils</code> function in tomorrow's section!</p>
+        </section>
+
+        <section>
+          <h2>Summary</h2>
+          <p><code>async</code>/<code>await</code> is just "syntactic sugar" to make asynchronous programming feel synchronous</p>
+          <p>Many Node.js functions are asynchronous, and we can use <code>async</code>/<code>await</code> to simplify callback pyramids</p>
+          <p>Be careful about the common pitfalls with <code>await</code>!</p>
+
+        <!-- end of slides (last section tag) -->
+      </div>
+    </div>
+   <script src="../../site/reveal/lib/js/head.min.js"></script>
+      <script src="../../site/reveal/js/reveal.js"></script>
+
+
+        <!--
+        <section>
+          <h2>Express.js</h2>
+          <p>Express.js is one of the most popular Node frameworks used to implement APIs</p>
+          <p>Serves as an easy-to-use wrapper around Node's more complex core networking modules.</p>
+          <p>Provides simple functionality through "middleware" to listen and respond to HTTP requests from clients at different endpoints.</p>
+        </section>
+
+        <section>
+          <h2>Middleware</h2>
+          <p>Middleware is a term you'll see when working with Express - it refers to any function that works "in the middle" of communication
+            between the client and Node.js.</p>
+          <p>For example, we will use the <code>express.static</code> middleware function to specify the default directory of "static" client-facing files (HTML, CSS, client-side JS, images, etc.)</p>
+          <p>Every middleware function has access to the request and response objects, and usually modifies the response to send.</p>
+          <p>You can add multiple middleware functions used in a single request-response cycle with <code>app.use</code>, but the last (usually <code>app.get</code>) must close the connection (e.g. with <code>res.send</code>) to prevent the
+            connection to be left hanging.</p>
+
+        </section>
+
+        <section>
+          <h2>Express as a Routing Mechanism for Node.js</h2>
+          <img class="centered-figure full-width" src="hidden/request-flow-in-express.png" alt="Request flow with express and node.js" />
+          <p class="citation right-align"><a href="https://github.com/rohit120582sharma/Documentation/wiki/Express-JS" target="_blank">Image source</a></p>
+        </section>
+
+        <section>
+          <h2>Installing <code>express</code> module locally</h2>
+          <p>To use Express, you must install it in the project directory with <code>npm install express</code>. This will automatically update <code>package.json</code> to include the dependency, and
+          also create a <code>node_modules</code> directory (other modules you might install will also be added to <code>package.json</code> and <code>node_modules</code>).</p>
+          <img class="centered-figure half-width" src="hidden/local-express-install.png" alt="Running node program on the command line" />
+        </section>
+
+        <section>
+          <h3>Starting <code>app.js</code> as an Express REST API</h3>
+          <p>You can write and execute JS using Node in the command line</p>
+          <img class="centered-figure two-thirds-width" src="hidden/running-express-app.png" alt="Running express app with nodemon" />
+        </section>
+
+        <section>
+          <h2>app.listen()</h2>
+          <p>To start the localhost server to run your Express app, you need to specify a port to listen to.</p>
+          <p>The express app object has a function <code>app.listen</code> which takes a port number and optional callback function</p>
+          <p>At the bottom of your <code>app.js</code>, add the following code - (<code>process.env.PORT</code> is needed to use the default port when hosted on an actual server)</p>
+          <pre><code>const PORT = process.env.PORT || 8000; // Allows us to change the port easily by setting an environment variable, so your app works with our grading software
+app.listen(PORT);</code></pre>
+</section>
+
+        <section>
+          <h2>Basic Routing in Express</h2>
+          <p>Routes are used to define endpoints in your web service</p>
+          <p>Express supports different HTTP requests - we will learn GET and POST</p>
+          <p>Express will try to match routes in the order they are defined in your code</p>
+        </section>
+
+        <section class="font-16pt-slide">
+          <h2>Adding Routes in Express.js</h2>
+          <pre><code>app.get(path, (req, res) =&gt; {
+  ...
+});</code></pre>
+          <p class="code-caption">JS</p>
+          <ul>
+            <li>
+              <code>app.get</code> allows us to create a GET endpoint. It takes two
+              arguments: The endpoint URL path, and a callback function for modifying/sending the response.
+            </li>
+            <li><code>req</code> is the request object, and holds items like the request parameters.</li>
+            <li><code>res</code> is the response object, and has methods to send data to the client.</li>
+            <li><code>res.set(...)</code> sets header data, like "content-type". Always set either "text/plain" or "application/json" with your response.</li>
+            <li><code>res.send(<em>response</em>)</code> returns the response as HTML text to the client.</li>
+            <li><code>res.json(<em>response</em>)</code> Does the same, but with a JSON object.</li>
+          </ul>
+          <p>
+            When adding a route to the path, you will retrieve information from the request,
+            and send back a response using res (e.g. setting the status code, content-type, etc.)
+          </p>
+          <p>If the visited endpoint has no matching route in your Express app, the response will be a 404 (resource not found)</p>
+        </section>
+
+        <section>
+          <h2>Useful Request Properties/Methods</h2>
+          <table class="code-table small-font">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#req.params">req.params</a></td>
+              <td>Endpoint "path" parameters from the request</td>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#req.query">req.query</a></td>
+              <td>query parameters from the request</td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
+          <h2>Useful Response Properties/Methods</h2>
+          <table class="code-table small-font">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#res.write">res.write(data)</a></td>
+              <td>Writes data in the response without ending the communication</td>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#res.end">res.end()</a></td>
+              <td>Ends the process</td>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#res.send">res.send()</a></td>
+              <td>Sends information back (default text with HTML content type)</td>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#res.json">res.json()</a></td>
+              <td>Sends information back as JSON content type</td>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#res.set">res.set()</a></td>
+              <td>Sets header information, such as "Content-type"</td>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#res.type">res.type()</a></td>
+              <td>A convenience function to set content type (use "text" for "text/plain", use "json" for "application/json")</td>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#res.status">res.status()</a></td>
+              <td>Sets the response status code</td>
+            </tr>
+            <tr>
+              <td><a href="https://expressjs.com/en/4x/api.html#res.sendStatus">res.sendStatus()</a></td>
+              <td>Sets the response status code with the default status text</td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h3>Setting the Content Type</h3>
+          <p>By default, the content type of a response is HTML - we will only be sending plain text or JSON responses though in our web services</p>
+          <p>To change the content type, you can use the <code>res.set</code> function, which is used to set response header information (e.g. content type).</p>
+          <p>You can alternatively uses <code>res.type("text")</code> and <code>res.type("json")</code> which are equivalent to setting <code>text/plain</code> and <code>application/json</code> Content-Type headers, respectively.</p>
+          <pre><code class="hljs">app.get('/hello', function (req, res) {
+  // res.set("Content-Type", "text/plain");
+  res.type("text"); // same as above
+  res.send('Hello World!');
+});</code></pre>
+          <p class="code-caption">Setting plain text response</p>
+          <pre><code class="hljs">app.get('/hello', function (req, res) {
+  // res.set("Content-Type", "application/json");
+  rese.type("json");
+  res.send({ "msg" : "Hello world!" });
+  // can also do res.json({ "msg" : "Hello world!"});
+  // which also sets the content type to application/json
+});</code></pre>
+          <p class="code-caption">Setting JSON response content type</p>
+        </section>
+
+        <section>
+          <h3>Adding our first "root" route</h3>
+          <p>When you add a route in your Express app (here, we use '/' for the most basic "root" route), you can use <code>res.send</code> to send a response to the client (browser) and view using the port (here, 8000 on localhost)</p>
+          <img class="centered-figure two-thirds-width" src="hidden/viewing-localhost.png" alt="Viewing app output on localhost" />
+        </section>
+
+        <section>
+          <h3>Adding another route</h3>
+          <p>You can add more routes in your file, and Express will use the first one matching the request path</p>
+          <img class="centered-figure two-thirds-width" style="width: 80%" src="hidden/hello-route.png" alt="Viewing app output on localhost" />
+        </section>
+
+        <section>
+          <h2>Request Parameters: Path Parameters</h2>
+          <p>Act as wildcards in routes, letting a user pass in "variables" to an endpoint</p>
+          <p>Define a route parameter with :param</p>
+          <pre><code class="no-syntax-highlight">Route path: /states/:state/cities/:city
+Request URL: http://localhost:8000/states/wa/cities/Seattle
+req.params: { "state": "wa", "city": "Seattle" }</code></pre>
+
+          <p>
+            These are attached to the request object and can be accessed with req.params
+          </p>
+          <pre><code>app.get("/states/:state/cities/:city", function (req, res) {
+  res.type("text");
+  res.send("You sent a request for " + req.params.city + ", " + req.params.state);
+});</code></pre>
+          <p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h3>Adding route parameters: Example</h3>
+          <img class="centered-figure two-thirds-width" style="width: 80%" src="hidden/route-parameter-example.png" alt="Viewing app output on localhost" />
+        </section>
+
+        <section>
+          <h2>Request Parameters: Query Parameters</h2>
+          <p>You can also use query parameters in Express using the <code>req.query</code> object, though they are more useful for optional parameters.</p>
+          <pre><code>Route path: /cityInfo
+Request URL: http://localhost:8000/cityInfo?state=wa&city=Seattle
+req.query: { "state": "wa", "city": "Seattle" }</code></pre>
+          <pre><code>app.get("/cityInfo", function (req, res) {
+  let state = req.query.state; // wa
+  let city = req.query.city;   // Seattle
+  // do something with variables in the response
+});</code></pre>
+          <p class="code-caption">JS</p>
+          <p>
+            Unlike path parameters, these are not included in the path string (which are matched using Express routes) and we can't be certain that the accessed query key exists.
+          </p>
+          <p>
+            If the route requires the parameter but is missing, you should send an error to the client in the response.
+          </p>
+        </section>
+        <section>
+          <h2>Setting Errors</h2>
+          <p>The Response object has a <code>status</code> function which takes a status code as an argument.</p>
+          <p>The 400 status code is what we'll use to send back an error indicating to the client that they made an invalid request.</p>
+          <p>A helpful message should always be sent with the error.</p>
+          <pre><code class="hljs">app.get("/cityInfo", function (req, res) {
+  let state = req.query.state;
+  let city = req.query.city;
+  if (!(state && city)) {
+    res.status(400).send("Error: Missing required city and state query parameters.");
+  } else {
+    res.send("You sent a request for " + city + ", " + state);
+  }
+});</code></pre>
+<p class="code-caption">JS</p>
+        </section>
+
+        <section>
+          <h2>Summary of Building an Express App</h2>
+          <ol>
+            <li>Create a file (e.g. <code>app.js</code>)</li>
+            <li>Add required modules at the top (at minimum, <code>require(“express”)</code>)</li>
+            <li>Create an app instance: <code>const app = express();</code></li>
+            <li>At the end of the file, listen to a port (e.g. 8000)</li>
+            <li>Add routes! Remember that “/” stands for the basic root route, which can be visited in your browser at localhost:8000/ when your app is running.</li>
+          </ol>
+        </section>
+      -->
+
+
+        <!-- end of slides (last section tag) -->
+      </div>
+    </div>
+   <script src="../../site/reveal/lib/js/head.min.js"></script>
+      <script src="../../site/reveal/js/reveal.js"></script>
+
+      <script>
+
+        Reveal.initialize({
+          controls: true,
+          progress: true,
+          history: true,
+          center: true,
+
+          transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+          // More info https://github.com/hakimel/reveal.js#dependencies
+          dependencies: [
+            { src: '../../site/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '../../site/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../site/reveal/plugin/highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: '../../site/reveal/plugin/zoom-js/zoom.js', async: true },
+            { src: '../../site/reveal/plugin/notes/notes.js', async: true },
+            { src: '../../site/reveal/plugin/search/search.js', async: true },
+            { src: '../../site/reveal/plugin/print-pdf/printpdfbtn.js', async: true }
+          ]
+        });
+
+      </script>
+
+    </body>
+  </html>
